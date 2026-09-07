@@ -14,6 +14,7 @@ if BACKEND_DIR not in sys.path:
     sys.path.insert(0, BACKEND_DIR)
 
 from services.feature_service import build_features
+from services.iot_service import get_iot_sensor_data
 
 MODEL_PATH = os.path.abspath(os.path.join(BACKEND_DIR, "../ml/models/flood_susceptibility_model.pkl"))
 
@@ -46,7 +47,7 @@ def load_model():
     return joblib.load(MODEL_PATH)
 
 
-def predict_flood_risk(state_name, district_name):
+def predict_flood_risk(state_name, district_name, village_name=None):
     data = build_features(state_name, district_name)
     weather = data["weather"]
     terrain = data["terrain"]
@@ -163,6 +164,21 @@ def predict_flood_risk(state_name, district_name):
             "displaced": displaced,
             "max_severity": float(max_severity) if max_severity is not None else None,
             "max_impact": float(max_impact) if max_impact is not None else None,
+        },
+        "iot": get_iot_sensor_data(state_name, district_name, village_name) if village_name else {
+            "status": "UNAVAILABLE",
+            "soil_moisture_percent": None,
+            "localized_rainfall_mm_hr": None,
+            "slope_tilt_mm": None,
+            "last_updated": "N/A"
+        },
+        "landslide": {
+            "risk_score": float(risk_score) * 0.8 if hilly_region else 0.0,
+            "risk_level": risk_level if hilly_region else "LOW"
+        },
+        "evacuation": {
+            "lead_time_hours": 24.0 if risk_level in ["CRITICAL", "HIGH"] else None,
+            "status": "PREPARE" if risk_level == "CRITICAL" else "MONITORING"
         },
         "prediction": {
             "susceptibility_percent": round(float(susceptibility), 2),
