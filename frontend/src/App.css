@@ -537,3 +537,211 @@ select:disabled {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   GloFAS v4 Seamless River Discharge Chart Styles
+   ========================================================================== */
+.glofas-panel {
+  grid-column: 1 / -1;
+  padding: 24px !important;
+}
+
+.glofas-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.glofas-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.glofas-badge-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.glofas-tag {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.glofas-res {
+  background: rgba(148, 163, 184, 0.1);
+  color: #94a3b8;
+  font-size: 0.68rem;
+  padding: 3px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--panel-border);
+}
+
+.glofas-header h4 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.glofas-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.glofas-range-btns {
+  display: flex;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.6);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--panel-border);
+}
+
+.range-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.range-btn.active {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+}
+
+.glofas-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.legend-item.inactive {
+  opacity: 0.38;
+  text-decoration: line-through;
+}
+
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.glofas-svg-wrap {
+  position: relative;
+  width: 100%;
+  background: rgba(2, 6, 23, 0.55);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 12px 14px 16px;
+  overflow: hidden;
+}
+
+.glofas-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.glofas-tooltip {
+  position: absolute;
+  top: 18px;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 10px 14px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  z-index: 10;
+  min-width: 160px;
+}
+
+.tooltip-date {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #f8fafc;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  padding-bottom: 5px;
+  margin-bottom: 6px;
+}
+
+.tooltip-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 0.75rem;
+}
+
+.tt-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.glofas-stat-ribbon {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.ribbon-item {
+  background: rgba(148, 163, 184, 0.05);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ribbon-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.ribbon-val {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .glofas-stat-ribbon {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

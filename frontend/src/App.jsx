@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
 import MapComponent from './components/MapComponent';
+import GloFASChart from './components/GloFASChart';
 import './App.css';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
@@ -336,18 +337,30 @@ function App() {
 
                 <div className="panel">
                   <div className="panel-header">
-                    <h3>Hydrology</h3>
+                    <h3>Hydrology (GloFAS v4)</h3>
                     <span className={`status-badge ${statusClassMap[prediction.hydrology.status?.toLowerCase()] || 'unavailable'}`}>
                       {prediction.hydrology.status || 'Unavailable'}
                     </span>
                   </div>
                   <div className="stats-grid">
-                    <div><span>Discharge</span><strong>{prediction.hydrology.river_discharge ?? 'N/A'} m³/s</strong></div>
-                    <div><span>Water level</span><strong>{prediction.hydrology.water_level ?? 'N/A'} m</strong></div>
-                    <div><span>Station</span><strong>{prediction.hydrology.station || 'N/A'}</strong></div>
-                    <div><span>Distance</span><strong>{prediction.hydrology.distance_km ?? 'N/A'} km</strong></div>
+                    <div><span>Discharge (Current)</span><strong>{prediction.hydrology.river_discharge ?? 'N/A'} m³/s</strong></div>
+                    <div><span>Ensemble Mean</span><strong>{prediction.hydrology.discharge_mean ?? prediction.hydrology.river_discharge ?? 'N/A'} m³/s</strong></div>
+                    <div><span>75th Percentile</span><strong>{prediction.hydrology.discharge_p75 ?? 'N/A'} m³/s</strong></div>
+                    <div><span>25th Percentile</span><strong>{prediction.hydrology.discharge_p25 ?? 'N/A'} m³/s</strong></div>
+                    <div><span>Water Level</span><strong>{prediction.hydrology.water_level ?? 'N/A'} m</strong></div>
+                    <div><span>Water Level Status</span><strong>{prediction.hydrology.water_level_status || 'N/A'}</strong></div>
                   </div>
                 </div>
+
+                {prediction.hydrology?.time_series && (
+                  <div className="panel glofas-panel">
+                    <GloFASChart
+                      timeSeries={prediction.hydrology.time_series}
+                      stationName={prediction.hydrology.station}
+                      modelName={prediction.hydrology.model_name || 'GloFAS v4 Seamless'}
+                    />
+                  </div>
+                )}
 
                 <div className="panel">
                   <div className="panel-header">
