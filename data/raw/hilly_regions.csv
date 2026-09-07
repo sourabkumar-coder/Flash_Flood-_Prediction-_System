@@ -1,0 +1,734 @@
+state_name,district,latitude,longitude,elevation_m,status
+Manipur,Kamjong,24.796875,94.392713,1403.0,success
+Madhya Pradesh,Anuppur,23.035743,81.390492,781.0,success
+Madhya Pradesh,Ashoknagar,24.618374,77.878765,460.0,success
+Madhya Pradesh,Balaghat,21.861079,80.323596,462.0,success
+Madhya Pradesh,Harda,22.242797,77.117917,305.0,success
+Madhya Pradesh,Narmadapuram,22.600282,77.926984,340.0,success
+Madhya Pradesh,Indore,22.710812,75.807693,559.0,success
+Madhya Pradesh,Jabalpur,23.223166,79.982607,391.0,success
+Madhya Pradesh,Jhabua,22.88692,74.724386,390.0,success
+Madhya Pradesh,Katni,23.717649,80.261021,410.0,success
+Madhya Pradesh,Khargone,21.954473,75.752125,208.0,success
+Madhya Pradesh,Mandla,22.687176,80.583176,490.0,success
+Puducherry,Pondicherry,11.921836,79.794853,7.0,success
+Puducherry,Yanam,16.73321,82.205175,4.0,success
+Rajasthan,Jaipur,27.150559,75.746774,488.0,success
+Rajasthan,Jaisalmer,27.027373,70.777652,162.0,success
+Rajasthan,Jalore,25.210003,72.319279,116.0,success
+Rajasthan,Jhalawar,24.312933,76.52299,324.0,success
+Rajasthan,Jhunjhunu,28.079953,75.541611,348.0,success
+Rajasthan,Jodhpur,26.736771,72.873695,322.0,success
+Rajasthan,Karauli,26.516121,77.057687,317.0,success
+Rajasthan,Kota,25.194782,75.999636,258.0,success
+Rajasthan,Nagaur,27.05898,74.175805,322.0,success
+Rajasthan,Pali,25.605202,73.416043,248.0,success
+Rajasthan,Rajsamand,25.289278,73.82296,686.0,success
+Rajasthan,Sawai Madhopur,26.229548,76.30371,245.0,success
+Uttar Pradesh,Siddharth Nagar,27.251256,82.871457,86.0,success
+Uttar Pradesh,Sitapur,27.502672,80.833568,133.0,success
+Uttar Pradesh,Sonbhadra,24.415127,83.063218,272.0,success
+Uttar Pradesh,Sultanpur,26.260453,82.238104,94.0,success
+Uttar Pradesh,Unnao,26.567325,80.619864,122.0,success
+Uttar Pradesh,Varanasi,25.372151,82.941737,79.0,success
+Uttar Pradesh,Kasganj,27.788846,78.822967,176.0,success
+Uttar Pradesh,Amethi,26.346261,81.625244,110.0,success
+Uttar Pradesh,Sambhal,28.42723,78.556456,192.0,success
+Uttar Pradesh,Shamli,29.477224,77.287074,244.0,success
+Uttar Pradesh,Hapur,28.716716,77.890408,212.0,success
+West Bengal,24 Paraganas North,22.687777,88.660602,12.0,success
+West Bengal,24 Paraganas South,22.091132,88.631053,0.0,success
+West Bengal,Bankura,23.133384,87.208101,75.0,success
+West Bengal,Purba Bardhaman,23.389576,87.906445,30.0,success
+West Bengal,Birbhum,24.063678,87.697955,49.0,success
+West Bengal,Coochbehar,26.252012,89.419444,41.0,success
+West Bengal,Darjeeling,26.839211,88.308289,492.0,success
+West Bengal,Dinajpur Dakshin,25.386878,88.505436,28.0,success
+Andaman & Nicobar Island,South Andamans,10.704663,92.488856,113.0,success
+Andaman & Nicobar Island,Nicobars,7.000402,93.810291,121.0,success
+Andaman & Nicobar Island,North And Middle Andaman,12.611585,92.831538,99.0,success
+Andhra Pradesh,Anantapur,14.459022,77.501397,428.0,success
+Andhra Pradesh,Chittoor,13.309409,78.975506,417.0,success
+Andhra Pradesh,Y.S.R.,14.476819,78.665296,157.0,success
+Andhra Pradesh,East Godavari,17.161476,82.044391,30.0,success
+Andhra Pradesh,Guntur,16.266894,80.181816,45.0,success
+Andhra Pradesh,Krishna,16.431761,81.036913,5.0,success
+Andhra Pradesh,Kurnool,15.524792,77.9034,356.0,success
+Andhra Pradesh,Spsr Nellore,14.293407,79.77947,27.0,success
+Andhra Pradesh,Prakasam,15.634589,79.51104,133.0,success
+Andhra Pradesh,Srikakulam,18.622074,83.973235,37.0,success
+Andhra Pradesh,Visakhapatanam,17.899462,82.564071,1199.0,success
+Andhra Pradesh,Vizianagaram,18.5012,83.319456,126.0,success
+Andhra Pradesh,West Godavari,16.979197,81.340664,123.0,success
+Arunanchal Pradesh,Changlang,27.269464,96.059419,556.0,success
+Arunanchal Pradesh,Dibang Valley,28.878366,95.92481,2835.0,success
+Arunanchal Pradesh,East Kameng,27.55575,92.973731,474.0,success
+Arunanchal Pradesh,Lohit,27.964058,96.273539,733.0,success
+Arunanchal Pradesh,Lower Dibang Valley,28.228521,95.887507,1640.0,success
+Arunanchal Pradesh,Lower Subansiri,27.542303,93.789731,1753.0,success
+Arunanchal Pradesh,East Siang,28.069064,95.392603,144.0,success
+Arunanchal Pradesh,Kurung Kumey,27.982685,93.161421,2096.0,success
+Arunanchal Pradesh,Papum Pare,27.284704,93.616501,1313.0,success
+Arunanchal Pradesh,Tawang,27.661099,91.907038,3965.0,success
+Arunanchal Pradesh,Tirap,27.035919,95.507777,673.0,success
+Arunanchal Pradesh,Upper Siang,28.74735,95.025005,2119.0,success
+Arunanchal Pradesh,Upper Subansiri,28.232839,94.103972,618.0,success
+Arunanchal Pradesh,West Kameng,27.317855,92.445382,1680.0,success
+Arunanchal Pradesh,West Siang,28.196509,94.483026,2256.0,success
+Arunanchal Pradesh,Anjaw,28.035419,96.853275,3333.0,success
+Arunanchal Pradesh,Longding,26.879063,95.287775,613.0,success
+Arunanchal Pradesh,Kra Daadi,27.942655,93.771025,1374.0,success
+Arunanchal Pradesh,Namsai,27.710383,96.01294,207.0,success
+Arunanchal Pradesh,Siang,28.476869,94.81827,1044.0,success
+Bihar,Araria,26.264828,87.371782,55.0,success
+Bihar,Aurangabad,24.802722,84.410966,103.0,success
+Arunanchal Pradesh,Kamle,27.737138,94.110428,978.0,success
+Arunanchal Pradesh,Lower Siang,27.803531,94.56848,729.0,success
+Bihar,Banka,24.833282,86.816,115.0,success
+Bihar,Begusarai,25.513015,86.08868,41.0,success
+Bihar,Bhagalpur,25.283884,87.132333,33.0,success
+Bihar,Bhojpur,25.46112,84.566145,63.0,success
+Bihar,Buxar,25.504203,84.109275,67.0,success
+Bihar,Darbhanga,26.082602,86.032877,44.0,success
+Bihar,Gaya,24.679524,85.011406,120.0,success
+Bihar,Gopalganj,26.42129,84.373947,66.0,success
+Arunanchal Pradesh,Pakke Kessang,27.156486,93.151057,1436.0,success
+Bihar,Jamui,24.755728,86.300689,122.0,success
+Bihar,Jehanabad,25.15318,85.006554,72.0,success
+Arunanchal Pradesh,Leparada,27.917339,94.707408,675.0,success
+Bihar,Kaimur (Bhabua),24.975338,83.576387,98.0,success
+Bihar,Katihar,25.547833,87.647614,35.0,success
+Arunanchal Pradesh,Shi Yomi,28.68507,94.238426,2722.0,success
+Assam,Barpeta,26.376306,91.049468,40.0,success
+Assam,Bongaigaon,26.339917,90.628451,39.0,success
+Assam,Cachar,24.75841,92.881356,26.0,success
+Assam,Darrang,26.438395,92.005064,55.0,success
+Assam,Dhemaji,27.577704,94.695287,110.0,success
+Assam,Dhubri,26.132295,90.129865,28.0,success
+Assam,Dibrugarh,27.398014,94.996351,105.0,success
+Assam,Goalpara,26.061127,90.581017,49.0,success
+Assam,Golaghat,26.318346,93.998703,105.0,success
+Assam,Hailakandi,24.507957,92.630415,51.0,success
+Assam,Jorhat,26.650268,94.269665,110.0,success
+Assam,Kamrup,26.124433,91.29921,45.0,success
+Assam,Karbi Anglong,26.071343,93.451405,857.0,success
+Assam,Karimganj,24.582981,92.371324,60.0,success
+Assam,Kokrajhar,26.49328,90.121263,50.0,success
+Assam,Lakhimpur,27.171225,94.188407,88.0,success
+Assam,Marigaon,26.289928,92.291859,55.0,success
+Assam,Nagaon,26.331023,92.758212,62.0,success
+Assam,Nalbari,26.355102,91.399785,44.0,success
+Assam,Dima Hasao,25.398471,93.076869,271.0,success
+Assam,Sivasagar,26.993864,94.621813,94.0,success
+Assam,Sonitpur,26.763877,92.703411,79.0,success
+Assam,Tinsukia,27.597178,95.566896,129.0,success
+Assam,Chirang,26.645248,90.629425,93.0,success
+Assam,Baksa,26.633,91.455052,75.0,success
+Assam,Udalguri,26.70767,92.038879,92.0,success
+Assam,Kamrup Metro,26.126069,91.862585,185.0,success
+Assam,Biswanath,26.793083,93.361125,77.0,success
+Assam,Majuli,26.970921,94.278549,87.0,success
+Assam,South Salmara Mancachar,25.760507,89.893939,26.0,success
+Assam,Charaideo,27.070207,95.06496,108.0,success
+Assam,Hojai,25.963203,92.9793,79.0,success
+Assam,West Karbi Anglong,25.852531,92.587243,408.0,success
+Bihar,Khagaria,25.492787,86.698328,35.0,success
+Bihar,Kishanganj,26.304286,87.948677,58.0,success
+Bihar,Lakhisarai,25.156322,86.175638,45.0,success
+Bihar,Madhepura,25.780047,86.93618,46.0,success
+Bihar,Madhubani,26.350265,86.22968,54.0,success
+Bihar,Munger,25.220764,86.516423,324.0,success
+Bihar,Muzaffarpur,26.148751,85.340321,53.0,success
+Bihar,Nalanda,25.209913,85.447539,54.0,success
+Bihar,Nawada,24.817142,85.51796,99.0,success
+Bihar,Pashchim Champaran,27.052278,84.334708,84.0,success
+Bihar,Patna,25.467363,85.19618,50.0,success
+Bihar,Purbi Champaran,26.638942,84.899306,64.0,success
+Bihar,Purnia,25.774872,87.409736,38.0,success
+Bihar,Rohtas,24.939508,84.020582,110.0,success
+Bihar,Saharsa,25.832113,86.617877,42.0,success
+Bihar,Samastipur,25.77449,85.866873,43.0,success
+Bihar,Saran,25.910005,84.781223,55.0,success
+Bihar,Sheikhpura,25.125545,85.815257,48.0,success
+Bihar,Sheohar,26.493754,85.271935,64.0,success
+Bihar,Sitamarhi,26.571264,85.599721,59.0,success
+Bihar,Siwan,26.131378,84.390116,65.0,success
+Bihar,Supaul,26.27655,86.79018,59.0,success
+Bihar,Vaishali,25.754303,85.397609,50.0,success
+Bihar,Arwal,25.181214,84.65995,76.0,success
+Chhattisgarh,Bastar,19.124376,81.830075,578.0,success
+Chhattisgarh,Bilaspur,22.169534,82.136391,283.0,success
+Chhattisgarh,Dantewada,18.785351,81.480871,497.0,success
+Chhattisgarh,Dhamtari,20.535082,81.715765,443.0,success
+Chhattisgarh,Durg,21.19674,81.400492,307.0,success
+Chhattisgarh,Janjgir-Champa,21.972449,82.661891,244.0,success
+Chhattisgarh,Jashpur,22.770256,83.970968,509.0,success
+Chhattisgarh,Kanker,20.132414,80.985946,351.0,success
+Chhattisgarh,Kabirdham,22.114981,81.24718,367.0,success
+Chhattisgarh,Korba,22.519838,82.6352,290.0,success
+Chhattisgarh,Korea,23.43175,82.317689,808.0,success
+Chhattisgarh,Mahasamund,21.191387,82.488668,304.0,success
+Chhattisgarh,Raigarh,22.066965,83.310042,283.0,success
+Chhattisgarh,Raipur,21.283023,81.817586,283.0,success
+Chhattisgarh,Rajnandgaon,20.976771,80.691611,362.0,success
+Chhattisgarh,Surguja,22.94631,83.165859,590.0,success
+Chhattisgarh,Bijapur,18.770597,80.740603,205.0,success
+Chhattisgarh,Narayanpur,19.524878,81.168094,619.0,success
+Chhattisgarh,Sukma,18.26662,81.292194,360.0,success
+Chhattisgarh,Kondagaon,19.709025,81.742211,593.0,success
+Chhattisgarh,Baloda Bazar,21.573178,82.438886,275.0,success
+Chhattisgarh,Gariyaband,20.429566,82.253018,426.0,success
+Chhattisgarh,Balod,20.727911,81.144049,338.0,success
+Chhattisgarh,Mungeli,22.243972,81.654072,315.0,success
+Chhattisgarh,Surajpur,23.358201,82.975669,552.0,success
+Chhattisgarh,Balrampur,23.628494,83.480986,747.0,success
+Chhattisgarh,Bemetara,21.678209,81.441411,268.0,success
+Chhattisgarh,Gaurella Pendra Marwahi,22.831123,81.958756,579.0,success
+Chandigarh,Chandigarh,30.730988,76.784176,346.0,success
+Dadra & Nagar Havelli and Daman & Diu,Daman,20.418435,72.843079,11.0,success
+Delhi,New Delhi,28.564714,77.121865,236.0,success
+Delhi,North,28.783929,77.099297,212.0,success
+Delhi,North East,28.726534,77.261513,212.0,success
+Delhi,North West,28.737232,77.012092,214.0,success
+Delhi,South,28.493457,77.197901,265.0,success
+Delhi,South West,28.585501,76.978557,214.0,success
+Delhi,West,28.649047,77.090072,220.0,success
+Delhi,South East,28.54477,77.274132,233.0,success
+Delhi,Shahdara,28.676982,77.295972,211.0,success
+Dadra & Nagar Havelli and Daman & Diu,Diu,20.721669,70.932773,11.0,success
+Delhi,Central,28.700658,77.2211,216.0,success
+Dadra & Nagar Havelli and Daman & Diu,Dadra And Nagar Haveli,20.20403,73.00653,47.0,success
+Goa,North Goa,15.53455,74.019597,17.0,success
+Goa,South Goa,15.196196,74.12255,45.0,success
+Gujarat,Ahmadabad,22.695622,72.314232,15.0,success
+Gujarat,Amreli,21.418126,71.280395,109.0,success
+Delhi,East,28.614514,77.298329,205.0,success
+Gujarat,Anand,22.432362,72.719501,26.0,success
+Gujarat,Banas Kantha,24.269663,72.162832,123.0,success
+Gujarat,Bharuch,21.812184,72.947441,15.0,success
+Gujarat,Bhavnagar,21.55773,71.904753,76.0,success
+Gujarat,Dang,20.788026,73.709403,517.0,success
+Gujarat,Dohad,22.919382,74.134398,314.0,success
+Gujarat,Gandhinagar,23.281988,72.653628,81.0,success
+Gujarat,Jamnagar,22.332524,70.098167,44.0,success
+Gujarat,Junagadh,21.340327,70.419692,72.0,success
+Gujarat,Kachchh,23.70826,69.80596,6.0,success
+Gujarat,Kheda,22.852854,72.99483,55.0,success
+Gujarat,Mahesana,23.570552,72.441694,96.0,success
+Gujarat,Narmada,21.739088,73.626406,351.0,success
+Gujarat,Navsari,20.829626,73.032462,20.0,success
+Gujarat,Panch Mahals,22.697806,73.597957,125.0,success
+Gujarat,Patan,23.773757,71.679603,31.0,success
+Gujarat,Porbandar,21.603179,69.853064,10.0,success
+Gujarat,Rajkot,22.069868,71.028451,193.0,success
+Gujarat,Sabar Kantha,23.868835,73.013862,220.0,success
+Gujarat,Surat,21.191725,72.952797,18.0,success
+Gujarat,Surendranagar,22.825462,71.62139,73.0,success
+Gujarat,Vadodara,22.317956,73.304845,44.0,success
+Gujarat,Valsad,20.43527,73.14595,89.0,success
+Gujarat,Tapi,21.188671,73.555485,103.0,success
+Gujarat,Chhotaudepur,22.222774,73.777916,95.0,success
+Gujarat,Mahisagar,23.191634,73.657304,101.0,success
+Gujarat,Arvalli,23.484486,73.39868,167.0,success
+Gujarat,Morbi,22.802514,70.884662,61.0,success
+Gujarat,Devbhumi Dwarka,22.14747,69.425681,36.0,success
+Gujarat,Gir Somnath,20.995172,70.682064,104.0,success
+Gujarat,Botad,22.046786,71.675633,67.0,success
+Himachal Pradesh,Bilaspur,31.402383,76.640379,623.0,success
+Himachal Pradesh,Chamba,32.693095,76.165078,2300.0,success
+Himachal Pradesh,Hamirpur,31.653989,76.540373,755.0,success
+Himachal Pradesh,Kangra,32.075971,76.300054,809.0,success
+Himachal Pradesh,Kinnaur,31.591916,78.332833,2803.0,success
+Himachal Pradesh,Kullu,31.877796,77.450549,3692.0,success
+Himachal Pradesh,Lahul And Spiti,32.501624,77.578993,4489.0,success
+Himachal Pradesh,Mandi,31.651535,77.009086,1496.0,success
+Himachal Pradesh,Shimla,31.239696,77.712694,1923.0,success
+Himachal Pradesh,Sirmaur,30.699347,77.44934,1531.0,success
+Himachal Pradesh,Solan,31.056641,76.849896,928.0,success
+Himachal Pradesh,Una,31.583109,76.235688,480.0,success
+Haryana,Ambala,30.343491,76.950246,281.0,success
+Haryana,Bhiwani,28.732235,75.893368,221.0,success
+Haryana,Faridabad,28.356718,77.326396,202.0,success
+Haryana,Fatehabad,29.53536,75.575095,214.0,success
+Haryana,Gurugram,28.37021,76.941873,242.0,success
+Haryana,Hisar,29.239554,75.817576,216.0,success
+Haryana,Jhajjar,28.597664,76.650942,214.0,success
+Haryana,Jind,29.450225,76.235041,225.0,success
+Haryana,Kaithal,29.853611,76.468939,238.0,success
+Haryana,Karnal,29.704674,76.915945,247.0,success
+Haryana,Kurukshetra,30.060721,76.76308,253.0,success
+Haryana,Mahendragarh,28.133108,76.168054,291.0,success
+Haryana,Panchkula,30.699647,76.987661,598.0,success
+Haryana,Panipat,29.347831,76.887045,234.0,success
+Haryana,Rewari,28.218388,76.581406,241.0,success
+Haryana,Rohtak,28.890426,76.587099,224.0,success
+Haryana,Sirsa,29.607688,74.902191,198.0,success
+Haryana,Sonipat,29.041419,76.9227,225.0,success
+Haryana,Yamunanagar,30.212838,77.287524,285.0,success
+Haryana,Nuh,27.993493,77.040841,189.0,success
+Haryana,Palwal,28.059649,77.322736,193.0,success
+Haryana,Charki Dadri,28.600137,76.112524,226.0,success
+Jharkhand,Bokaro,23.69908,85.990717,271.0,success
+Jharkhand,Chatra,24.096834,84.867588,473.0,success
+Jharkhand,Deoghar,24.330059,86.719575,241.0,success
+Jharkhand,Dhanbad,23.84473,86.461645,231.0,success
+Jharkhand,Dumka,24.317326,87.275155,162.0,success
+Jharkhand,East Singhbum,22.613899,86.382505,192.0,success
+Jharkhand,Garhwa,24.053084,83.653081,334.0,success
+Jharkhand,Giridih,24.331812,86.160541,360.0,success
+Jharkhand,Godda,24.864342,87.298523,99.0,success
+Jharkhand,Gumla,23.158824,84.45994,669.0,success
+Jharkhand,Hazaribagh,24.088202,85.470583,582.0,success
+Jharkhand,Jamtara,23.981072,86.923719,185.0,success
+Jharkhand,Koderma,24.542058,85.693667,360.0,success
+Jharkhand,Latehar,23.687152,84.498109,403.0,success
+Jharkhand,Lohardaga,23.477119,84.699208,640.0,success
+Jharkhand,Pakur,24.532852,87.594399,103.0,success
+Jharkhand,Palamu,24.218802,84.174196,273.0,success
+Jharkhand,Ranchi,23.300599,85.375409,643.0,success
+Jharkhand,Sahebganj,25.031975,87.69411,199.0,success
+Jharkhand,Saraikela Kharsawan,22.823027,85.919264,336.0,success
+Jharkhand,Simdega,22.589989,84.546481,508.0,success
+Jharkhand,West Singhbhum,22.427733,85.533614,426.0,success
+Jharkhand,Khunti,22.928995,85.281667,588.0,success
+Jharkhand,Ramgarh,23.692713,85.521281,375.0,success
+Jammu & Kashmir,Anantnag,33.809383,75.254123,1708.0,success
+Jammu & Kashmir,Budgam,33.90543,74.623683,2306.0,success
+Jammu & Kashmir,Baramulla,34.170177,74.311758,1599.0,success
+Jammu & Kashmir,Doda,33.135722,75.602105,849.0,success
+Jammu & Kashmir,Jammu,32.769719,74.92207,324.0,success
+Jammu & Kashmir,Kathua,32.583164,75.611836,717.0,success
+Jammu & Kashmir,Kupwara,34.519461,74.221769,1634.0,success
+Jammu & Kashmir,Poonch,33.768776,74.014548,1129.0,success
+Jammu & Kashmir,Pulwama,33.940584,75.03431,2172.0,success
+Jammu & Kashmir,Rajouri,33.267118,74.351474,1128.0,success
+Jammu & Kashmir,Srinagar,34.116891,74.790205,1581.0,success
+Jammu & Kashmir,Udhampur,32.907941,75.333379,1822.0,success
+Jammu & Kashmir,Kishtwar,33.61654,75.879884,4547.0,success
+Jammu & Kashmir,Ramban,33.316457,75.192927,1111.0,success
+Jammu & Kashmir,Kulgam,33.620252,74.820857,2404.0,success
+Jammu & Kashmir,Bandipora,34.448546,74.690014,2396.0,success
+Jammu & Kashmir,Samba,32.575483,75.121279,350.0,success
+Jammu & Kashmir,Shopian,33.724249,74.778268,2218.0,success
+Jammu & Kashmir,Ganderbal,34.253916,74.962523,2651.0,success
+Jammu & Kashmir,Reasi,33.206017,74.856749,859.0,success
+Karnataka,Bagalkote,16.2904,75.591577,550.0,success
+Karnataka,Bengaluru Urban,12.945312,77.552189,884.0,success
+Karnataka,Bengaluru Rural,13.182599,77.339441,901.0,success
+Karnataka,Belagavi,16.157843,74.888677,554.0,success
+Karnataka,Ballari,15.198955,76.709084,493.0,success
+Karnataka,Bidar,18.017065,77.248509,587.0,success
+Karnataka,Vijayapura,16.814492,75.893275,557.0,success
+Karnataka,Chamarajanagara,11.954363,77.106275,732.0,success
+Karnataka,Chikkamagaluru,13.405911,75.6387,954.0,success
+Karnataka,Chitradurga,14.306334,76.528669,645.0,success
+Karnataka,Dakshina Kannada,12.822725,75.226428,82.0,success
+Karnataka,Davangere,14.369361,75.888397,571.0,success
+Karnataka,Dharwad,15.370745,75.133239,661.0,success
+Karnataka,Gadag,15.416033,75.681495,656.0,success
+Karnataka,Kalaburagi,17.240627,76.770173,431.0,success
+Karnataka,Hassan,13.030246,76.17443,978.0,success
+Karnataka,Haveri,14.718019,75.387126,596.0,success
+Karnataka,Kodagu,12.382854,75.664212,915.0,success
+Karnataka,Kolar,13.17992,78.266664,794.0,success
+Karnataka,Koppal,15.57517,76.311826,554.0,success
+Karnataka,Mandya,12.636909,76.727479,791.0,success
+Karnataka,Mysuru,12.19707,76.612022,716.0,success
+Karnataka,Raichur,16.054871,76.900686,402.0,success
+Karnataka,Shivamogga,14.055689,75.238001,628.0,success
+Karnataka,Tumakuru,13.419261,76.880937,833.0,success
+Karnataka,Udupi,13.527058,74.8731,34.0,success
+Karnataka,Uttara Kannada,14.725044,74.640217,560.0,success
+Karnataka,Chikkaballapura,13.589635,77.782235,864.0,success
+Karnataka,Ramanagara,12.720113,77.317775,714.0,success
+Karnataka,Yadgir,16.573869,76.925077,363.0,success
+Kerala,Alappuzha,9.500614,76.410605,0.0,success
+Kerala,Ernakulam,10.04571,76.497432,21.0,success
+Kerala,Idukki,9.815972,76.998049,725.0,success
+Kerala,Kannur,11.985666,75.547572,7.0,success
+Kerala,Kasaragod,12.420039,75.190562,91.0,success
+Kerala,Kollam,8.967736,76.857852,104.0,success
+Kerala,Kottayam,9.628555,76.645233,51.0,success
+Kerala,Kozhikode,11.464151,75.891919,49.0,success
+Kerala,Malappuram,11.106349,76.109914,39.0,success
+Kerala,Palakkad,10.786764,76.473462,88.0,success
+Kerala,Pathanamthitta,9.277372,76.977781,502.0,success
+Kerala,Thiruvananthapuram,8.577346,77.04979,75.0,success
+Kerala,Thrissur,10.477657,76.273504,9.0,success
+Kerala,Wayanad,11.714751,76.125475,738.0,success
+Lakshadweep,Lakshadweep District,11.278161,74.042694,0.0,success
+Ladakh,Kargil,33.807076,76.438331,3991.0,success
+Ladakh,Leh Ladakh,34.712102,78.247944,5855.0,success
+Maharashtra,Ahmednagar,19.162156,74.85749,866.0,success
+Maharashtra,Akola,20.76141,77.192084,279.0,success
+Maharashtra,Amravati,21.154037,77.644342,353.0,success
+Maharashtra,Aurangabad,20.023137,75.150311,585.0,success
+Maharashtra,Beed,18.992537,75.910545,523.0,success
+Maharashtra,Bhandara,21.122799,79.791891,291.0,success
+Maharashtra,Buldhana,20.563248,76.408453,548.0,success
+Maharashtra,Chandrapur,20.097001,79.503304,239.0,success
+Maharashtra,Dhule,21.130882,74.479154,340.0,success
+Maharashtra,Gadchiroli,19.756947,80.163277,237.0,success
+Maharashtra,Gondia,21.145309,80.268299,327.0,success
+Maharashtra,Hingoli,19.623174,77.191156,431.0,success
+Maharashtra,Jalgaon,20.842545,75.526434,233.0,success
+Maharashtra,Jalna,19.917634,75.867839,530.0,success
+Maharashtra,Kolhapur,16.461912,74.089343,668.0,success
+Maharashtra,Latur,18.354038,76.754874,630.0,success
+Maharashtra,Mumbai Suburban,19.129703,72.8932,35.0,success
+Maharashtra,Nagpur,21.152818,79.014829,353.0,success
+Maharashtra,Nanded,19.09355,77.482529,388.0,success
+Maharashtra,Nandurbar,21.516845,74.541276,158.0,success
+Maharashtra,Nashik,20.224182,74.106384,644.0,success
+Maharashtra,Osmanabad,18.169545,76.117983,655.0,success
+Maharashtra,Parbhani,19.286927,76.62087,441.0,success
+Maharashtra,Pune,18.645146,73.92303,565.0,success
+Maharashtra,Raigad,18.493681,73.143104,336.0,success
+Maharashtra,Ratnagiri,17.282428,73.472308,246.0,success
+Maharashtra,Sangli,17.172061,74.586054,641.0,success
+Maharashtra,Satara,17.636333,74.297653,857.0,success
+Maharashtra,Sindhudurg,16.135637,73.651491,188.0,success
+Maharashtra,Solapur,17.849768,75.2762,486.0,success
+Maharashtra,Thane,19.359503,73.370809,102.0,success
+Maharashtra,Wardha,20.826282,78.612716,258.0,success
+Maharashtra,Washim,20.287143,77.236281,490.0,success
+Maharashtra,Yavatmal,20.06379,78.358149,291.0,success
+Maharashtra,Palghar,19.757484,73.086686,54.0,success
+Meghalaya,East Garo Hills,25.632189,90.643835,333.0,success
+Meghalaya,East Khasi Hills,25.399069,91.822745,1168.0,success
+Meghalaya,West Jaintia Hills,25.436173,92.182571,1303.0,success
+Meghalaya,Ri Bhoi,25.860731,91.829776,718.0,success
+Meghalaya,South Garo Hills,25.346125,90.569898,102.0,success
+Meghalaya,West Garo Hills,25.606346,90.20372,353.0,success
+Meghalaya,West Khasi Hills,25.577437,91.275972,1355.0,success
+Meghalaya,North Garo Hills,25.870553,90.718956,230.0,success
+Meghalaya,East Jaintia Hills,25.249911,92.482897,870.0,success
+Meghalaya,South West Khasi Hills,25.33363,91.320905,1179.0,success
+Meghalaya,South West Garo Hills,25.442245,89.98148,79.0,success
+Manipur,Imphal East,24.874395,94.024701,787.0,success
+Manipur,Imphal West,24.759059,93.861934,774.0,success
+Mizoram,Saiha,22.286998,93.013158,903.0,success
+Mizoram,Serchhip,23.292383,92.84458,1117.0,success
+Nagaland,Dimapur,25.810633,93.89935,346.0,success
+Nagaland,Kohima,25.770003,94.124019,1214.0,success
+Nagaland,Mokokchung,26.478574,94.507568,318.0,success
+Nagaland,Mon,26.660365,94.999855,871.0,success
+Nagaland,Phek,25.653109,94.380044,1454.0,success
+Manipur,Bishnupur,24.528467,93.79168,767.0,success
+Manipur,Chandel,24.160649,94.00211,1101.0,success
+Manipur,Churachandpur,24.276286,93.677942,837.0,success
+Manipur,Senapati,25.393454,94.162959,1234.0,success
+Manipur,Tamenglong,25.060212,93.549145,1025.0,success
+Manipur,Noney,24.664775,93.489005,680.0,success
+Manipur,Pherzawl,24.364419,93.253744,527.0,success
+Nagaland,Tuensang,26.155986,94.909136,1485.0,success
+Manipur,Thoubal,24.62875,94.003086,774.0,success
+Manipur,Ukhrul,25.310005,94.471272,1725.0,success
+Madhya Pradesh,Rajgarh,23.870824,76.774447,412.0,success
+Madhya Pradesh,Ratlam,23.502929,74.954615,543.0,success
+Madhya Pradesh,Rewa,24.756063,81.654453,326.0,success
+Madhya Pradesh,Sagar,23.808313,78.758258,543.0,success
+Madhya Pradesh,Satna,24.577611,80.808965,317.0,success
+Madhya Pradesh,Sehore,23.115072,77.066538,561.0,success
+Madhya Pradesh,Seoni,22.274811,79.720252,496.0,success
+Madhya Pradesh,Shahdol,23.653072,81.430319,443.0,success
+Madhya Pradesh,Shajapur,23.417227,76.607514,460.0,success
+Manipur,Kakching,24.393216,93.886482,767.0,success
+Manipur,Kangpokpi,24.991801,94.092281,1061.0,success
+Manipur,Jiribam,24.708992,93.117288,80.0,success
+Madhya Pradesh,Sheopur,25.749628,76.92042,353.0,success
+Madhya Pradesh,Shivpuri,25.374153,77.827922,414.0,success
+Madhya Pradesh,Sidhi,24.211269,81.700042,372.0,success
+Madhya Pradesh,Tikamgarh,24.855216,79.047255,285.0,success
+Madhya Pradesh,Ujjain,23.293507,75.625763,477.0,success
+Madhya Pradesh,Umaria,23.643184,80.941908,482.0,success
+Madhya Pradesh,Vidisha,23.846303,77.837021,406.0,success
+Madhya Pradesh,Singrauli,24.243331,82.382723,354.0,success
+Madhya Pradesh,Alirajpur,22.285952,74.35456,299.0,success
+Madhya Pradesh,Agar Malwa,23.935057,76.145115,420.0,success
+Madhya Pradesh,Niwari,25.306313,78.663122,229.0,success
+Mizoram,Aizawl,23.865843,92.982065,804.0,success
+Mizoram,Champhai,23.543562,93.227198,1144.0,success
+Mizoram,Kolasib,24.183775,92.711904,349.0,success
+Mizoram,Lawngtlai,22.368687,92.731139,486.0,success
+Mizoram,Lunglei,22.952465,92.758853,710.0,success
+Mizoram,Mamit,23.755661,92.450691,255.0,success
+Manipur,Tengnoupal,24.380922,94.263302,726.0,success
+Madhya Pradesh,Barwani,21.75126,74.891549,496.0,success
+Madhya Pradesh,Betul,21.879747,77.875365,635.0,success
+Madhya Pradesh,Bhind,26.351337,78.686262,152.0,success
+Madhya Pradesh,Bhopal,23.483976,77.392851,493.0,success
+Madhya Pradesh,Burhanpur,21.334536,76.36994,271.0,success
+Madhya Pradesh,Chhatarpur,24.760609,79.678163,289.0,success
+Madhya Pradesh,Chhindwara,22.139636,78.809623,756.0,success
+Madhya Pradesh,Damoh,23.798138,79.542004,344.0,success
+Madhya Pradesh,Datia,25.8638,78.633511,182.0,success
+Madhya Pradesh,Dewas,22.80565,76.294058,503.0,success
+Madhya Pradesh,Dhar,22.578657,75.225864,560.0,success
+Madhya Pradesh,Dindori,22.907087,80.888853,679.0,success
+Madhya Pradesh,East Nimar,21.976987,76.567531,283.0,success
+Madhya Pradesh,Guna,24.500208,77.260107,442.0,success
+Madhya Pradesh,Gwalior,26.028749,78.157065,252.0,success
+Madhya Pradesh,Mandsaur,24.262874,75.385754,386.0,success
+Madhya Pradesh,Morena,26.384517,77.861202,186.0,success
+Madhya Pradesh,Narsinghpur,22.934805,79.086638,357.0,success
+Madhya Pradesh,Neemuch,24.629765,75.182746,484.0,success
+Madhya Pradesh,Panna,24.449893,80.146272,321.0,success
+Madhya Pradesh,Raisen,23.267591,78.172714,540.0,success
+Nagaland,Wokha,26.254738,94.203681,298.0,success
+Nagaland,Zunheboto,26.012753,94.511916,1574.0,success
+Nagaland,Peren,25.454998,93.599138,1130.0,success
+Nagaland,Kiphire,25.811629,94.847963,1455.0,success
+Nagaland,Longleng,26.584109,94.804711,1105.0,success
+Odisha,Anugul,21.103706,84.954677,138.0,success
+Odisha,Balangir,20.609313,83.167596,275.0,success
+Odisha,Baleshwar,21.519837,86.883753,19.0,success
+Odisha,Bargarh,21.232178,83.567324,180.0,success
+Odisha,Bhadrak,20.984019,86.59477,5.0,success
+Odisha,Boudh,20.639812,83.997729,211.0,success
+Odisha,Cuttack,20.370132,85.467902,33.0,success
+Odisha,Deogarh,21.447282,84.717553,152.0,success
+Odisha,Dhenkanal,20.835406,85.601435,57.0,success
+Odisha,Gajapati,19.197901,84.190418,910.0,success
+Odisha,Ganjam,19.60969,84.70702,53.0,success
+Odisha,Jagatsinghapur,20.179096,86.342175,3.0,success
+Odisha,Jajapur,20.873986,86.123763,24.0,success
+Odisha,Jharsuguda,21.801123,84.016825,198.0,success
+Odisha,Kalahandi,19.826425,83.040934,253.0,success
+Odisha,Kandhamal,20.13159,84.079112,560.0,success
+Odisha,Kendrapara,20.546626,86.52807,3.0,success
+Odisha,Kendujhar,21.58954,85.668318,492.0,success
+Odisha,Khordha,20.05412,85.502032,18.0,success
+Odisha,Koraput,18.724322,82.607102,998.0,success
+Odisha,Malkangiri,18.275577,81.95248,159.0,success
+Odisha,Mayurbhanj,21.915318,86.39762,803.0,success
+Odisha,Nabarangpur,19.609651,82.299133,609.0,success
+Odisha,Nayagarh,20.23898,85.051146,147.0,success
+Odisha,Nuapada,20.538972,82.529299,595.0,success
+Odisha,Puri,19.835276,85.687865,2.0,success
+Odisha,Rayagada,19.442479,83.587745,534.0,success
+Odisha,Sambalpur,21.555867,84.153894,200.0,success
+Odisha,Sonepur,20.852893,83.852304,146.0,success
+Odisha,Sundargarh,22.060669,83.936436,230.0,success
+Punjab,Amritsar,31.773046,74.831819,233.0,success
+Punjab,Bathinda,30.17903,75.047053,209.0,success
+Punjab,Faridkot,30.60144,74.795038,209.0,success
+Punjab,Fatehgarh Sahib,30.660952,76.383575,268.0,success
+Punjab,Ferozepur,30.950201,74.76015,201.0,success
+Punjab,Gurdaspur,31.903794,75.227542,254.0,success
+Punjab,Hoshiarpur,31.609498,75.843911,306.0,success
+Punjab,Jalandhar,31.292203,75.567966,237.0,success
+Punjab,Kapurthala,31.385602,75.304983,222.0,success
+Punjab,Ludhiana,30.789426,75.827198,249.0,success
+Punjab,Mansa,29.876276,75.488944,218.0,success
+Punjab,Moga,30.788247,75.160063,220.0,success
+Punjab,Sri Muktsar Sahib,30.28673,74.526198,197.0,success
+Punjab,Shahid Bhagat Singh Nagar,31.126858,76.159931,258.0,success
+Punjab,Patiala,30.209387,76.338762,243.0,success
+Punjab,Rupnagar,31.091386,76.528876,296.0,success
+Punjab,Sangrur,30.209697,75.819192,235.0,success
+Punjab,Barnala,30.371727,75.503965,225.0,success
+Punjab,S.A.S Nagar,30.649944,76.739836,302.0,success
+Punjab,Tarn Taran,31.321298,74.841609,221.0,success
+Punjab,Fazilka,30.376043,74.107422,181.0,success
+Punjab,Pathankot,32.302806,75.659351,345.0,success
+Puducherry,Karaikal,10.915569,79.807048,3.0,success
+Puducherry,Mahe,11.700876,75.535987,13.0,success
+Rajasthan,Ajmer,26.331985,74.7164,449.0,success
+Rajasthan,Alwar,27.63789,76.613801,270.0,success
+Rajasthan,Banswara,23.493242,74.349965,193.0,success
+Rajasthan,Baran,24.917788,76.697125,275.0,success
+Rajasthan,Barmer,25.584237,71.619873,135.0,success
+Rajasthan,Bharatpur,27.265544,77.368512,180.0,success
+Rajasthan,Bhilwara,25.488421,74.699136,424.0,success
+Rajasthan,Bikaner,28.116573,73.110417,195.0,success
+Rajasthan,Bundi,25.437776,75.737376,237.0,success
+Rajasthan,Chittorgarh,24.717229,74.471367,427.0,success
+Rajasthan,Churu,28.205042,74.69085,303.0,success
+Rajasthan,Dausa,26.805604,76.444767,337.0,success
+Rajasthan,Dholpur,26.65332,77.62356,205.0,success
+Rajasthan,Dungarpur,23.672579,73.816471,276.0,success
+Rajasthan,Ganganagar,29.461907,73.540964,168.0,success
+Rajasthan,Hanumangarh,29.36436,74.211235,180.0,success
+Rajasthan,Sikar,27.662843,75.027324,397.0,success
+Rajasthan,Sirohi,24.811056,72.82989,325.0,success
+Rajasthan,Tonk,26.122467,75.663488,276.0,success
+Rajasthan,Udaipur,24.453834,73.651523,512.0,success
+Rajasthan,Pratapgarh,24.022775,74.626967,411.0,success
+Sikkim,Gangtok,27.278681,88.675281,2418.0,success
+Sikkim,Mangan,27.75364,88.516714,3574.0,success
+Sikkim,Namchi,27.303811,88.379892,1560.0,success
+Sikkim,Gyalshing,27.363836,88.187317,1827.0,success
+Tamil Nadu,Pudukkottai,10.291651,78.817045,89.0,success
+Tamil Nadu,Ramanathapuram,9.518559,78.652662,32.0,success
+Tamil Nadu,Salem,11.647346,78.210734,368.0,success
+Tamil Nadu,Sivaganga,9.965005,78.720845,61.0,success
+Tamil Nadu,Thanjavur,10.659645,79.197937,38.0,success
+Tamil Nadu,The Nilgiris,11.445508,76.697645,2212.0,success
+Tamil Nadu,Theni,9.868892,77.422463,388.0,success
+Tamil Nadu,Thiruvallur,13.254709,80.062284,24.0,success
+Tamil Nadu,Thiruvarur,10.647875,79.50237,11.0,success
+Tamil Nadu,Chennai,13.055368,80.235511,13.0,success
+Tamil Nadu,Coimbatore,10.812725,77.081606,329.0,success
+Tamil Nadu,Cuddalore,11.520657,79.339851,54.0,success
+Tamil Nadu,Dharmapuri,12.144845,78.113206,467.0,success
+Tamil Nadu,Dindigul,10.42694,77.81625,301.0,success
+Tamil Nadu,Erode,11.488925,77.349814,216.0,success
+Tamil Nadu,Kanchipuram,12.794215,79.774512,67.0,success
+Tamil Nadu,Kanniyakumari,8.328087,77.35411,256.0,success
+Tamil Nadu,Karur,10.821975,78.383931,124.0,success
+Tamil Nadu,Krishnagiri,12.515051,78.009924,705.0,success
+Tamil Nadu,Madurai,9.936291,78.007498,166.0,success
+Tamil Nadu,Nagapattinam,11.191282,79.696367,7.0,success
+Tamil Nadu,Namakkal,11.305297,78.118536,195.0,success
+Tamil Nadu,Perambalur,11.289708,78.929828,115.0,success
+Tamil Nadu,Tiruchirappalli,10.851019,78.726704,66.0,success
+Tamil Nadu,Tirunelveli,8.54944,77.579769,112.0,success
+Tamil Nadu,Tiruvannamalai,12.429321,78.999758,347.0,success
+Tamil Nadu,Tuticorin,8.846457,77.993494,30.0,success
+Tamil Nadu,Vellore,12.902077,79.061143,233.0,success
+Tamil Nadu,Villupuram,12.12507,79.600647,50.0,success
+Tamil Nadu,Virudhunagar,9.494113,77.863499,86.0,success
+Tamil Nadu,Ariyalur,11.152859,79.258881,75.0,success
+Tamil Nadu,Tiruppur,10.791533,77.53428,237.0,success
+Tamil Nadu,Kallakurichi,11.79805,79.054152,122.0,success
+Tamil Nadu,Chengalpattu,12.628889,80.036613,48.0,success
+Tamil Nadu,Ranipet,12.919363,79.408063,174.0,success
+Tamil Nadu,Tirupathur,12.584825,78.625053,1031.0,success
+Tamil Nadu,Tenkasi,9.093121,77.47558,161.0,success
+Tripura,Dhalai,23.827709,91.98144,94.0,success
+Tripura,North Tripura,24.091844,92.241829,96.0,success
+Tripura,South Tripura,23.181356,91.614844,35.0,success
+Tripura,West Tripura,23.91862507031634,91.38745873633485,,failed
+Tripura,Khowai,23.954463106040784,91.64123425262862,,failed
+Tripura,Sepahijala,23.531917062116563,91.30086223504884,,failed
+Tripura,Gomati,23.426337737448748,91.62206875989226,,failed
+Tripura,Unakoti,24.201913786189706,92.04631904121655,,failed
+Telangana,Adilabad,19.54085010362641,78.63803265411033,,failed
+Telangana,Hyderabad,17.399417665235212,78.46043044479089,,failed
+Telangana,Karimnagar,18.405717253742992,79.277765078362,,failed
+Telangana,Khammam,17.174686088752793,80.40315102722829,,failed
+Telangana,Mahabubnagar,16.69188516908462,77.95659150431472,,failed
+Telangana,Medak,17.945250000354577,78.1687891640452,,failed
+Telangana,Nalgonda,16.85839822522908,79.21725386857591,,failed
+Telangana,Nizamabad,18.72246918438259,78.21998850951934,,failed
+Telangana,Ranga Reddy,17.130491474529556,78.3988728048196,,failed
+Telangana,Warangal,17.948574999893086,79.78823230912525,,failed
+Telangana,Nirmal,19.092894260245004,78.39628524712825,,failed
+Telangana,Jagitial,18.822495000171507,78.91376706433523,,failed
+Telangana,Peddapalli,18.62375883664402,79.49462228122368,,failed
+Telangana,Rajanna Sircilla,18.4221291346974,78.76640851479007,,failed
+Telangana,Mancherial,18.97813449869358,79.52277372838985,,failed
+Telangana,Kamareddy,18.31228875915098,78.0555665624176,,failed
+Telangana,Hanumakonda,18.071770000465015,79.4461772571317,,failed
+Telangana,Jayashankar Bhupalapally,18.50959609537277,79.96127503441954,,failed
+Telangana,Mahabubabad,17.7040259999389,80.03322005085359,,failed
+Telangana,Jangoan,17.7475700006646,79.24131857928944,,failed
+Telangana,Bhadradri Kothagudem,17.716944662147654,80.5681018374253,,failed
+Telangana,Sangareddy,17.8556647678349,77.72035298361712,,failed
+Telangana,Siddipet,18.046675000425154,78.90670094814425,,failed
+Telangana,Wanaparthy,16.288821690806333,77.98425536718136,,failed
+Telangana,Nagarkurnool,16.42027980842601,78.65662766320676,,failed
+Telangana,Jogulamba Gadwal,16.096648128643956,77.73464549192302,,failed
+Telangana,Suryapet,17.080359591262294,79.7924717268082,,failed
+Telangana,Yadadri Bhuvanagiri,17.431525001199915,79.085975475395,,failed
+Telangana,Vikarabad,17.25115412742968,77.73928527477476,,failed
+Telangana,Kumuram Bheem Asifabad,19.324966487701907,79.42850159064992,,failed
+Telangana,Medchal Malkajgiri,17.53405000024964,78.53230795989174,,failed
+Telangana,Mulugu,18.313258634282477,80.34424102757099,,failed
+Telangana,Narayanpet,16.687871181577634,77.61751996677006,,failed
+Uttarakhand,Almora,29.70264374771609,79.4326232567407,,failed
+Uttarakhand,Bageshwar,30.008838904622877,79.9280311918487,,failed
+Uttarakhand,Chamoli,30.50033155787555,79.61952067704064,,failed
+Uttarakhand,Champawat,29.235074908159852,80.10222705173607,,failed
+Uttarakhand,Dehradun,30.49756060813852,77.86293191687517,,failed
+Uttarakhand,Haridwar,29.911283430221925,78.0086520396884,,failed
+Uttarakhand,Nainital,29.295038336032754,79.4162594394372,,failed
+Uttarakhand,Pauri Garhwal,29.847357500783623,78.7070147143955,,failed
+Uttarakhand,Pithoragarh,30.124812409728833,80.47772490329876,,failed
+Uttarakhand,Rudra Prayag,30.491103864445073,79.03611829362461,,failed
+Uttarakhand,Tehri Garhwal,30.465629653611515,78.48394960148289,,failed
+Uttarakhand,Udam Singh Nagar,29.045758556089925,79.43388335411915,,failed
+Uttarakhand,Uttar Kashi,30.965148725470307,78.6342315703518,,failed
+Uttar Pradesh,Agra,27.07550431517351,77.89109193240543,,failed
+Uttar Pradesh,Aligarh,27.87556670797523,78.1357490744855,,failed
+Uttar Pradesh,Prayagraj,25.27930905363276,81.90356070399068,,failed
+Uttar Pradesh,Ambedkar Nagar,26.40457629889788,82.60657315629338,,failed
+Uttar Pradesh,Auraiya,26.655827891363202,79.51607225067536,,failed
+Uttar Pradesh,Azamgarh,26.02361760870231,83.02936002911619,,failed
+Uttar Pradesh,Baghpat,29.03751796150414,77.30626185131042,,failed
+Uttar Pradesh,Bahraich,27.731414409099507,81.49427945487821,,failed
+Uttar Pradesh,Ballia,25.874497213580582,84.12087187965025,,failed
+Uttar Pradesh,Balrampur,27.44768331230472,82.39568358257726,,failed
+Uttar Pradesh,Banda,25.443860602231197,80.55956696584724,,failed
+Uttar Pradesh,Barabanki,26.942132403292753,81.38567361722129,,failed
+Uttar Pradesh,Bareilly,28.45830136564176,79.40471915847962,,failed
+Uttar Pradesh,Basti,26.83872497444947,82.53511113130764,,failed
+Uttar Pradesh,Bijnor,29.40695770696666,78.48240772066686,,failed
+Uttar Pradesh,Budaun,28.064970932222923,79.04384096144315,,failed
+Uttar Pradesh,Bulandshahr,28.387444484359293,77.97437550126219,,failed
+Uttar Pradesh,Chandauli,25.12579941401688,83.24986192779629,,failed
+Uttar Pradesh,Chitrakoot,25.217220052875412,81.08760109861652,,failed
+Uttar Pradesh,Deoria,26.42393203521394,83.76422673408919,,failed
+Uttar Pradesh,Etah,27.555019502064468,78.59922872988683,,failed
+Uttar Pradesh,Etawah,26.715550593336616,79.09168713942415,,failed
+Uttar Pradesh,Ayodhya,26.63860148055892,82.05814036926479,,failed
+Uttar Pradesh,Farrukhabad,27.436210962164587,79.48948380451634,,failed
+Uttar Pradesh,Fatehpur,25.83479623721236,80.91549422042696,,failed
+Uttar Pradesh,Firozabad,27.19418805160479,78.46051349831369,,failed
+Uttar Pradesh,Gautam Buddha Nagar,28.369705955292456,77.56394695114217,,failed
+Uttar Pradesh,Ghaziabad,28.767927453582924,77.46038775678466,,failed
+Uttar Pradesh,Ghazipur,25.603460537492566,83.50763663180416,,failed
+Uttar Pradesh,Gonda,27.110336464124345,81.92390786813169,,failed
+Uttar Pradesh,Gorakhpur,26.667359974172264,83.36422385674115,,failed
+Uttar Pradesh,Hamirpur,25.81981680503323,79.86637748085448,,failed
+Uttar Pradesh,Hardoi,27.337002353309902,80.09985284682546,,failed
+Uttar Pradesh,Jalaun,26.1044653162573,79.39352085208569,,failed
+Uttar Pradesh,Jaunpur,25.79666699712517,82.48893926166707,,failed
+Uttar Pradesh,Jhansi,25.530163998345735,78.6527458271076,,failed
+Uttar Pradesh,Amroha,28.758217750616303,78.28358039765304,,failed
+Uttar Pradesh,Kannauj,26.998773440704934,79.69276316683592,,failed
+Uttar Pradesh,Kanpur Dehat,26.458565894611304,79.85482736235873,,failed
+Uttar Pradesh,Kanpur Nagar,26.44159054910463,80.26485389151989,,failed
+Uttar Pradesh,Kaushambi,25.534422612597815,81.44944455365246,,failed
+Uttar Pradesh,Kheri,28.183457851531458,80.71314551778426,,failed
+Uttar Pradesh,Kushi Nagar,26.924239019431766,83.8320348978958,,failed
+Uttar Pradesh,Lalitpur,24.700311190898343,78.51859920770217,,failed
+Uttar Pradesh,Lucknow,26.831236404786136,80.91744434717515,,failed
+Uttar Pradesh,Hathras,27.572455230080198,78.11162503711301,,failed
+Uttar Pradesh,Maharajganj,27.183728401961204,83.49179618192923,,failed
+Uttar Pradesh,Mahoba,25.359745444745727,79.70451053197725,,failed
+Uttar Pradesh,Mainpuri,27.20931787475651,79.06253994592986,,failed
+Uttar Pradesh,Mathura,27.600241103110854,77.58838044141501,,failed
+Uttar Pradesh,Mau,26.039009926878755,83.4986307334739,,failed
+Uttar Pradesh,Meerut,29.014129877739922,77.76530682774955,,failed
+Uttar Pradesh,Mirzapur,24.931672683235156,82.62806229468295,,failed
+Uttar Pradesh,Moradabad,28.879727967870227,78.78439863782489,,failed
+Uttar Pradesh,Muzaffarnagar,29.44974225871912,77.74292853169634,,failed
+Uttar Pradesh,Pilibhit,28.4942638299873,80.10782628179233,,failed
+Uttar Pradesh,Pratapgarh,25.876672218670848,81.83180261088658,,failed
+Uttar Pradesh,Rae Bareli,26.20862426963012,81.21866454608254,,failed
+Uttar Pradesh,Rampur,28.79351246370353,79.18458712720457,,failed
+Uttar Pradesh,Saharanpur,29.985448327165848,77.50554572045829,,failed
+Uttar Pradesh,Sant Kabeer Nagar,26.7550416881505,83.03988830258768,,failed
+Uttar Pradesh,Bhadohi,25.357344174113585,82.50034322560958,,failed
+Uttar Pradesh,Shahjahanpur,27.91288448307091,79.7476579519969,,failed
+Uttar Pradesh,Shravasti,27.678619891799244,81.8929720316789,,failed
+West Bengal,Dinajpur Uttar,25.871239903304925,87.96334810274564,,failed
+West Bengal,Hooghly,22.90869080587081,88.01097455433043,,failed
+West Bengal,Howrah,22.49989852575684,88.03694274831486,,failed
+West Bengal,Jalpaiguri,26.626519749702744,88.73084186792494,,failed
+West Bengal,Kolkata,22.542077940188143,88.35135425855606,,failed
+West Bengal,Maldah,25.096663579714495,88.11272679844473,,failed
+West Bengal,Medinipur East,22.10255532446467,87.90915123997507,,failed
+West Bengal,Medinipur West,22.35957089590417,87.41053208066228,,failed
+West Bengal,Murshidabad,24.29147692178723,88.37295062680874,,failed
+West Bengal,Nadia,23.485204171322376,88.55721840771179,,failed
+West Bengal,Purulia,23.20185821762064,86.32248660231207,,failed
+West Bengal,Alipurduar,26.62959844968537,89.4478295680746,,failed
+West Bengal,Kalimpong,27.026137798611337,88.6447116710479,,failed
+West Bengal,Jhargram,22.331574733403322,86.99354275772322,,failed
+West Bengal,Paschim Bardhaman,23.643096942482423,87.16375558835648,,failed
+Jammu & Kashmir,Mirpur,33.2320761965823,73.82131579962783,,failed
+Jammu & Kashmir,Muzaffarabad,34.54157019283275,73.68395449703658,,failed
+Maharashtra,Mumbai,18.971178453125646,72.8266485109371,,failed
