@@ -38,6 +38,10 @@ def get_district_polygon_wkt(
     Get the actual district polygon from the
     government district GeoJSON and convert it
     to WGS84 WKT.
+    
+    Note: GeoJSON file has been removed. This function
+    now returns None as polygon data is not available
+    via the current geocoding API.
     """
 
     feature = get_district_by_name(
@@ -46,17 +50,13 @@ def get_district_polygon_wkt(
     )
 
     if feature is None:
-        raise ValueError(
-            f"District not found: "
-            f"{district_name}, {state_name}"
-        )
+        # GeoJSON is no longer available
+        return None
 
     geometry = feature.get("geometry")
 
     if not geometry:
-        raise ValueError(
-            "District geometry not available"
-        )
+        return None
 
     district_shape = shape(geometry)
 
@@ -76,6 +76,10 @@ def get_lulc_aoi_statistics(
     """
     Get actual LULC 250K statistics for a
     district AOI from Bhuvan.
+    
+    Note: GeoJSON file has been removed, so polygon
+    data is not available. This function now returns
+    None as the Bhuvan API requires polygon boundaries.
     """
 
     if not BHUVAN_LULC_TOKEN:
@@ -87,6 +91,10 @@ def get_lulc_aoi_statistics(
         state_name,
         district_name
     )
+
+    if polygon is None:
+        # GeoJSON is no longer available, cannot get polygon
+        return None
 
     params = {
         "polygon": polygon,

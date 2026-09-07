@@ -29,12 +29,34 @@ class WeatherModel(BaseModel):
     rainfall_6h_mm: Optional[float]
     rainfall_24h_mm: Optional[float]
 
+class HydrologyTimeSeriesModel(BaseModel):
+    dates: List[str] = []
+    discharge: List[Optional[float]] = []
+    mean: List[Optional[float]] = []
+    max: List[Optional[float]] = []
+    min: List[Optional[float]] = []
+    p25: List[Optional[float]] = []
+    p75: List[Optional[float]] = []
+
 class HydrologyModel(BaseModel):
-    river_discharge: Optional[float]
-    water_level: Optional[float]
-    status: Optional[str]
-    station: Optional[str]
-    distance_km: Optional[float]
+    river_discharge: Optional[float] = None
+    discharge_mean: Optional[float] = None
+    discharge_max: Optional[float] = None
+    discharge_min: Optional[float] = None
+    discharge_p25: Optional[float] = None
+    discharge_p75: Optional[float] = None
+    discharge_max_7d: Optional[float] = None
+    discharge_avg_7d: Optional[float] = None
+    discharge_forecast_7d: Optional[List[Optional[float]]] = None
+    water_level: Optional[float] = None
+    water_level_status: Optional[str] = None
+    status: Optional[str] = None
+    station: Optional[str] = None
+    discharge_source: Optional[str] = None
+    model_name: Optional[str] = None
+    distance_km: Optional[float] = None
+    reason: Optional[str] = None
+    time_series: Optional[HydrologyTimeSeriesModel] = None
 
 class SoilModel(BaseModel):
     clay_percent: Optional[float]

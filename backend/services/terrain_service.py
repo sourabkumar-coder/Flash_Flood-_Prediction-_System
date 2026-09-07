@@ -1,117 +1,44 @@
-from services.district_service import get_district_by_name
-from services.elevation_service import get_elevations
-
-from shapely.geometry import shape, Point
-from pyproj import Transformer
-
 import math
 
-
-# District GeoJSON → WGS84
-TRANSFORMER = Transformer.from_crs(
-    "EPSG:7755",
-    "EPSG:4326",
-    always_xy=True
-)
+from services.elevation_service import get_elevations
 
 
-def get_district_geometry(state_name, district_name):
-    """
-    Get actual district geometry from GeoJSON.
-    """
-
-    feature = get_district_by_name(
-        state_name,
-        district_name
-    )
-
-    if feature is None:
-        raise ValueError(
-            f"District not found: "
-            f"{district_name}, {state_name}"
-        )
-
-    geometry = feature.get("geometry")
-
-    if not geometry:
-        raise ValueError(
-            "District geometry not available"
-        )
-
-    return shape(geometry)
-
-
-def generate_sample_points(
-    state_name,
-    district_name,
-    grid_size=5
+def generate_sample_points_from_centroid(
+    latitude,
+    longitude,
+    grid_size=5,
+    radius_deg=0.25,
 ):
     """
-    Generate sample points inside the actual
-    district polygon.
+    Generate a grid of sample points around a centre coordinate.
+
+    Used when no district GeoJSON polygon is available.
+    A grid_size x grid_size grid spanning ±radius_deg
+    (~25 km at Indian latitudes) gives good elevation coverage.
+
+    Parameters
+    ----------
+    latitude   : float  – district centroid latitude
+    longitude  : float  – district centroid longitude
+    grid_size  : int    – number of points per axis (default 5 → 25 pts)
+    radius_deg : float  – half-span in degrees (default 0.25° ≈ 28 km)
     """
 
-    district_shape = get_district_geometry(
-        state_name,
-        district_name
-    )
-
-    from shapely.ops import transform
-
-    district_wgs84 = transform(
-        TRANSFORMER.transform,
-        district_shape
-    )
-
-    min_lon, min_lat, max_lon, max_lat = (
-        district_wgs84.bounds
-    )
+    if grid_size < 2:
+        grid_size = 2
 
     points = []
 
-    if grid_size < 2:
-        raise ValueError(
-            "grid_size must be at least 2"
-        )
+    min_lat = latitude  - radius_deg
+    max_lat = latitude  + radius_deg
+    min_lon = longitude - radius_deg
+    max_lon = longitude + radius_deg
 
     for row in range(grid_size):
-
-        lat = (
-            min_lat
-            + row
-            * (max_lat - min_lat)
-            / (grid_size - 1)
-        )
-
+        lat = min_lat + row * (max_lat - min_lat) / (grid_size - 1)
         for col in range(grid_size):
-
-            lon = (
-                min_lon
-                + col
-                * (max_lon - min_lon)
-                / (grid_size - 1)
-            )
-
-            point = Point(
-                lon,
-                lat
-            )
-
-            if district_wgs84.contains(point):
-                points.append(
-                    (lat, lon)
-                )
-
-    if not points:
-
-        centroid = district_wgs84.centroid
-
-        points.append(
-            (
-                centroid.y,
-                centroid.x
-            )
-        )
+            lon = min_lon + col * (max_lon - min_lon) / (grid_size - 1)
+            points.append((lat, lon))
 
     return points
 
@@ -222,18 +149,30 @@ def calculate_local_slope(
 def get_terrain_features(
     state_name,
     district_name,
-    grid_size=5
+    grid_size=5,
+    latitude=None,
+    longitude=None,
 ):
     """
-    Calculate elevation and slope statistics
-    for the selected district.
+    Calculate elevation and slope statistics for the selected district.
+
+    Uses a coordinate-based sample grid (no GeoJSON polygon required).
+    Provide latitude + longitude (district centroid) for best results.
+    Falls back to [0, 0] if neither is given (avoid this).
     """
 
-    points = generate_sample_points(
-        state_name,
-        district_name,
-        grid_size
+    if latitude is None or longitude is None:
+        raise ValueError(
+            f"latitude and longitude are required for terrain analysis "
+            f"({district_name}, {state_name})"
+        )
+
+    points = generate_sample_points_from_centroid(
+        latitude,
+        longitude,
+        grid_size=grid_size,
     )
+
 
     latitudes = [
         point[0]

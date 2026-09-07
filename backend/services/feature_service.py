@@ -225,7 +225,9 @@ def build_features(state_name, district_name):
 
     terrain = get_terrain_features(
         state_name,
-        district_name
+        district_name,
+        latitude=latitude,
+        longitude=longitude,
     )
 
     mean_elevation = first_value(
@@ -351,7 +353,9 @@ def build_features(state_name, district_name):
 
     soil = get_district_soil(
         state_name,
-        district_name
+        district_name,
+        latitude=latitude,
+        longitude=longitude,
     )
 
     properties = soil.get(

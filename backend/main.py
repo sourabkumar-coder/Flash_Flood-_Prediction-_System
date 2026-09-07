@@ -117,8 +117,6 @@ def predict_risk(request: LocationRequest):
         # Save to cache
         PREDICTION_CACHE[cache_key] = (result, now)
         return result
-    except ValueError as ve:
-        raise HTTPException(status_code=404, detail=str(ve))
     except Exception as e:
         logger.error(f"Prediction failed: {str(e)}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")

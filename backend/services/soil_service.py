@@ -149,107 +149,78 @@ def get_district_feature(
 def generate_sample_points(
     state_name,
     district_name,
-    max_points=MAX_POINTS
+    max_points=MAX_POINTS,
+    latitude=None,
+    longitude=None,
 ):
     """
-    Generate sample points inside the actual
-    district polygon.
+    Generate sample points for soil queries.
 
-    No location is hardcoded.
+    If latitude/longitude are provided (preferred), generates a 3×3
+    grid around the district centroid at ±0.20° (~22 km).
+    Falls back to attempting GeoJSON load if coordinates are missing.
     """
 
-    feature = get_district_feature(
-        state_name,
-        district_name
-    )
+    # --------------------------------------------------------
+    # Coordinate-based grid (no GeoJSON required)
+    # --------------------------------------------------------
+    if latitude is not None and longitude is not None:
+        radius = 0.20
+        steps = 3
+        points = []
+        for i in range(steps):
+            lat = latitude - radius + i * (2 * radius / (steps - 1))
+            for j in range(steps):
+                lon = longitude - radius + j * (2 * radius / (steps - 1))
+                points.append((round(lat, 7), round(lon, 7)))
+                if len(points) >= max_points:
+                    return points
+        return points
 
-    if feature is None:
+    # --------------------------------------------------------
+    # Fallback: try GeoJSON if available
+    # --------------------------------------------------------
+    try:
+        feature = get_district_feature(state_name, district_name)
+    except FileNotFoundError:
         raise ValueError(
-            f"District not found: "
+            f"No coordinates provided and GeoJSON not available for "
             f"{district_name}, {state_name}"
         )
 
-    geometry = feature.get("geometry")
-
-    if not geometry:
+    if feature is None:
         raise ValueError(
-            "District geometry not available."
+            f"District not found: {district_name}, {state_name}"
         )
+
+    geometry = feature.get("geometry")
+    if not geometry:
+        raise ValueError("District geometry not available.")
 
     district_shape = shape(geometry)
 
-    # --------------------------------------------------------
-    # District GeoJSON CRS:
-    # EPSG:7755
-    #
-    # SoilGrids requires WGS84:
-    # EPSG:4326
-    # --------------------------------------------------------
-
     transformer = Transformer.from_crs(
-        "EPSG:7755",
-        "EPSG:4326",
-        always_xy=True
+        "EPSG:7755", "EPSG:4326", always_xy=True
     )
 
-    # Representative point is guaranteed
-    # to lie inside the polygon.
-    representative = (
-        district_shape.representative_point()
-    )
-
+    representative = district_shape.representative_point()
     rep_lon, rep_lat = transformer.transform(
-        representative.x,
-        representative.y
+        representative.x, representative.y
     )
+    points = [(rep_lat, rep_lon)]
 
-    points = [
-        (rep_lat, rep_lon)
-    ]
-
-    # --------------------------------------------------------
-    # Generate additional points from
-    # district bounding box.
-    # --------------------------------------------------------
-
-    minx, miny, maxx, maxy = (
-        district_shape.bounds
-    )
-
-    xs = np.linspace(
-        minx,
-        maxx,
-        5
-    )
-
-    ys = np.linspace(
-        miny,
-        maxy,
-        5
-    )
+    minx, miny, maxx, maxy = district_shape.bounds
+    xs = np.linspace(minx, maxx, 5)
+    ys = np.linspace(miny, maxy, 5)
 
     for x in xs:
-
         for y in ys:
-
             point = Point(x, y)
-
             if district_shape.contains(point):
-
-                lon, lat = transformer.transform(
-                    x,
-                    y
-                )
-
-                candidate = (
-                    round(lat, 7),
-                    round(lon, 7)
-                )
-
+                lon, lat = transformer.transform(x, y)
+                candidate = (round(lat, 7), round(lon, 7))
                 if candidate not in points:
-
                     points.append(candidate)
-
                 if len(points) >= max_points:
                     return points
 
@@ -472,7 +443,9 @@ def get_soil_for_location(
 
 def get_district_soil(
     state_name,
-    district_name
+    district_name,
+    latitude=None,
+    longitude=None,
 ):
     """
     Calculate district-level soil statistics
@@ -480,13 +453,14 @@ def get_district_soil(
     """
 
     # --------------------------------------------------------
-    # Generate points dynamically from
-    # actual district geometry.
+    # Generate sample points (coordinate-based if lat/lon given)
     # --------------------------------------------------------
 
     points = generate_sample_points(
         state_name,
-        district_name
+        district_name,
+        latitude=latitude,
+        longitude=longitude,
     )
 
     collected = {
