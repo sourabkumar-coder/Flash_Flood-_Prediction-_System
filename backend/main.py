@@ -8,7 +8,7 @@ from api_models import (
     LocationRequest, PredictionResponse, BatchPredictionRequest, BatchPredictionResponse
 )
 from services.district_service import (
-    get_states, get_districts_by_state, get_district_coordinates
+    get_states, get_districts_by_state, get_district_coordinates, reverse_geocode_coordinates
 )
 from services.feature_service import build_features
 from services.prediction_service import predict_flood_risk
@@ -30,9 +30,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Simple TTL Cache for predictions
+# In-memory prediction cache (TTL: 10 minutes)
 PREDICTION_CACHE = {}
-CACHE_TTL = 600  # 10 minutes
+CACHE_TTL = 600
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
@@ -59,7 +59,7 @@ def read_districts(state: str):
     try:
         districts = get_districts_by_state(state)
         if not districts:
-            raise HTTPException(status_code=404, detail="State not found or no districts available")
+            raise HTTPException(status_code=404, detail="State not found or has no districts")
         return {"districts": districts}
     except HTTPException:
         raise
@@ -68,13 +68,22 @@ def read_districts(state: str):
 
 @app.get("/villages/{district}")
 def read_villages(district: str):
-    from services.iot_service import get_villages_for_district
     try:
-        villages = get_villages_for_district(district)
-        return {"villages": villages}
+        # Currently returns empty list as village GeoJSON was removed
+        return {"villages": []}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch villages: {str(e)}")
 
+@app.get("/location/reverse")
+def read_reverse_location(lat: float, lon: float):
+    """
+    Reverse geocode GPS coordinates to State, District, and nearest location metadata.
+    """
+    try:
+        coords = reverse_geocode_coordinates(lat, lon)
+        return coords
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to reverse-geocode coordinates: {str(e)}")
 
 @app.get("/location/{state}/{district}")
 def read_location(state: str, district: str):
@@ -100,19 +109,32 @@ def read_features(state: str, district: str):
 
 @app.post("/predict", response_model=PredictionResponse)
 def predict_risk(request: LocationRequest):
-    village_key = request.village.strip().casefold() if request.village else ""
-    cache_key = f"{request.state.strip().casefold()}_{request.district.strip().casefold()}_{village_key}"
     now = time.time()
+
+    # Determine cache key based on GPS coords or state/district
+    if request.latitude is not None and request.longitude is not None:
+        cache_key = f"gps_{request.latitude:.4f}_{request.longitude:.4f}"
+    else:
+        village_key = request.village.strip().casefold() if request.village else ""
+        state_key = request.state.strip().casefold() if request.state else ""
+        district_key = request.district.strip().casefold() if request.district else ""
+        cache_key = f"{state_key}_{district_key}_{village_key}"
     
     if cache_key in PREDICTION_CACHE:
         cached_data, timestamp = PREDICTION_CACHE[cache_key]
         if now - timestamp < CACHE_TTL:
-            logger.info(f"Returning cached prediction for {request.state}, {request.district}, {request.village}")
+            logger.info(f"Returning cached prediction for key: {cache_key}")
             return cached_data
             
     try:
-        logger.info(f"Predicting risk for {request.state}, {request.district}, {request.village}")
-        result = predict_flood_risk(request.state, request.district, request.village)
+        logger.info(f"Predicting risk for state={request.state}, district={request.district}, lat={request.latitude}, lon={request.longitude}")
+        result = predict_flood_risk(
+            state_name=request.state,
+            district_name=request.district,
+            village_name=request.village,
+            latitude=request.latitude,
+            longitude=request.longitude,
+        )
         
         # Save to cache
         PREDICTION_CACHE[cache_key] = (result, now)

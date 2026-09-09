@@ -30,9 +30,11 @@ function App() {
   const [selectedVillage, setSelectedVillage] = useState('');
 
   const [loading, setLoading] = useState(false);
+  const [gpsLoading, setGpsLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState('');
   const [error, setError] = useState(null);
   const [prediction, setPrediction] = useState(null);
+  const [gpsCoords, setGpsCoords] = useState(null);
 
   useEffect(() => {
     fetchStates();
@@ -83,9 +85,8 @@ function App() {
     }
   };
 
-  const handleAnalyze = async () => {
-    if (!selectedState || !selectedDistrict) return;
-
+  // Run prediction pipeline given payload
+  const runPrediction = async (payload) => {
     setLoading(true);
     setError(null);
     setPrediction(null);
@@ -94,19 +95,22 @@ function App() {
     try {
       for (let i = 0; i < loadingSteps.length; i += 1) {
         setLoadingMessage(loadingSteps[i]);
-        await new Promise((resolve) => setTimeout(resolve, 180));
-      }
-
-      const payload = {
-        state: selectedState,
-        district: selectedDistrict
-      };
-      if (selectedVillage) {
-        payload.village = selectedVillage;
+        await new Promise((resolve) => setTimeout(resolve, 160));
       }
 
       const response = await axios.post(`${API_BASE_URL}/predict`, payload);
       setPrediction(response.data);
+
+      // If location was reverse-resolved from GPS, sync dropdowns
+      if (payload.latitude && payload.longitude && response.data?.location) {
+        const { state, district } = response.data.location;
+        if (state && state !== 'Unknown' && state !== 'India') {
+          setSelectedState(state);
+          if (district && district !== 'Unknown' && !district.startsWith('GPS')) {
+            setSelectedDistrict(district);
+          }
+        }
+      }
     } catch (err) {
       setError(err.response?.data?.detail || 'Failed to analyze risk for the selected region.');
     } finally {
@@ -114,6 +118,75 @@ function App() {
       setLoadingMessage('');
     }
   };
+
+  const handleAnalyze = async () => {
+    if (gpsCoords) {
+      await runPrediction({
+        latitude: gpsCoords.latitude,
+        longitude: gpsCoords.longitude,
+      });
+      return;
+    }
+
+    if (!selectedState || !selectedDistrict) return;
+
+    const payload = {
+      state: selectedState,
+      district: selectedDistrict,
+    };
+    if (selectedVillage) {
+      payload.village = selectedVillage;
+    }
+
+    await runPrediction(payload);
+  };
+
+  const handleDetectLocation = () => {
+    if (!navigator.geolocation) {
+      setError('Geolocation is not supported by your browser.');
+      return;
+    }
+
+    setGpsLoading(true);
+    setError(null);
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        setGpsCoords({ latitude: lat, longitude: lon });
+        setGpsLoading(false);
+
+        // Immediately analyze flood risk for detected GPS position
+        await runPrediction({
+          latitude: lat,
+          longitude: lon,
+        });
+      },
+      (err) => {
+        setGpsLoading(false);
+        let msg = 'Failed to acquire GPS location.';
+        if (err.code === err.PERMISSION_DENIED) {
+          msg = 'Location permission denied. Please allow location access in your browser.';
+        } else if (err.code === err.POSITION_UNAVAILABLE) {
+          msg = 'Location information is currently unavailable.';
+        } else if (err.code === err.TIMEOUT) {
+          msg = 'Location request timed out. Please try again.';
+        }
+        setError(msg);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: 60000,
+      }
+    );
+  };
+
+  const handleClearGps = () => {
+    setGpsCoords(null);
+  };
+
 
   const getRiskColor = (level) => {
     switch (level) {
@@ -157,9 +230,59 @@ function App() {
             <h2>Target region</h2>
           </div>
 
+          {/* GPS Auto-Detect Option */}
+          <div className="gps-section">
+            <button
+              type="button"
+              className={`gps-btn ${gpsCoords ? 'gps-active' : ''}`}
+              onClick={handleDetectLocation}
+              disabled={loading || gpsLoading}
+            >
+              {gpsLoading ? (
+                <>
+                  <div className="spinner mini-spinner" />
+                  <span>Acquiring GPS Signal...</span>
+                </>
+              ) : (
+                <>
+                  <span className="gps-icon">📍</span>
+                  <span>{gpsCoords ? 'Re-detect GPS Location' : 'Use Current Location (GPS)'}</span>
+                </>
+              )}
+            </button>
+
+            {gpsCoords && (
+              <div className="gps-badge">
+                <div className="gps-badge-info">
+                  <span className="gps-dot" />
+                  <span>{gpsCoords.latitude.toFixed(4)}°N, {gpsCoords.longitude.toFixed(4)}°E</span>
+                </div>
+                <button
+                  type="button"
+                  className="gps-clear-btn"
+                  onClick={handleClearGps}
+                  title="Switch to manual selection"
+                >
+                  ✕ Manual
+                </button>
+              </div>
+            )}
+          </div>
+
+          <div className="section-divider">
+            <span>OR SELECT MANUALLY</span>
+          </div>
+
           <div className="control-group">
             <label htmlFor="state">State</label>
-            <select id="state" value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
+            <select
+              id="state"
+              value={selectedState}
+              onChange={(e) => {
+                setSelectedState(e.target.value);
+                if (gpsCoords) setGpsCoords(null);
+              }}
+            >
               <option value="">Select state</option>
               {states.map((state) => (
                 <option key={state} value={state}>{state}</option>
@@ -169,7 +292,15 @@ function App() {
 
           <div className="control-group">
             <label htmlFor="district">District</label>
-            <select id="district" value={selectedDistrict} onChange={(e) => setSelectedDistrict(e.target.value)} disabled={!selectedState}>
+            <select
+              id="district"
+              value={selectedDistrict}
+              onChange={(e) => {
+                setSelectedDistrict(e.target.value);
+                if (gpsCoords) setGpsCoords(null);
+              }}
+              disabled={!selectedState}
+            >
               <option value="">Select district</option>
               {districts.map((district) => (
                 <option key={district} value={district}>{district}</option>
@@ -179,7 +310,12 @@ function App() {
 
           <div className="control-group">
             <label htmlFor="village">Village / ward</label>
-            <select id="village" value={selectedVillage} onChange={(e) => setSelectedVillage(e.target.value)} disabled={!selectedDistrict || villages.length === 0}>
+            <select
+              id="village"
+              value={selectedVillage}
+              onChange={(e) => setSelectedVillage(e.target.value)}
+              disabled={!selectedDistrict || villages.length === 0}
+            >
               <option value="">District-level analysis</option>
               {villages.map((village) => (
                 <option key={village} value={village}>{village}</option>
@@ -187,9 +323,14 @@ function App() {
             </select>
           </div>
 
-          <button className="primary-btn" onClick={handleAnalyze} disabled={loading || !selectedState || !selectedDistrict}>
-            {loading ? 'Processing...' : 'Analyze risk'}
+          <button
+            className="primary-btn"
+            onClick={handleAnalyze}
+            disabled={loading || gpsLoading || (!gpsCoords && (!selectedState || !selectedDistrict))}
+          >
+            {loading ? 'Processing...' : gpsCoords ? 'Analyze GPS Risk' : 'Analyze risk'}
           </button>
+
 
           {error && <div className="error-box">{error}</div>}
 
@@ -239,6 +380,9 @@ function App() {
                   <span>{prediction.location.state}</span>
                   <span>{prediction.location.district}</span>
                   <span>{prediction.location.village || 'District-level analysis'}</span>
+                  {prediction.location.latitude && (
+                    <span>📍 {prediction.location.latitude.toFixed(4)}°N, {prediction.location.longitude.toFixed(4)}°E</span>
+                  )}
                   <span>Historical susceptibility: {prediction.prediction.susceptibility_percent}%</span>
                   <span>Hilly region: {prediction.prediction.hilly_region ? 'Yes' : 'No'}</span>
                 </div>

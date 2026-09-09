@@ -113,14 +113,24 @@ def load_model():
 # ---------------------------------------------------------------------------
 # Main prediction
 # ---------------------------------------------------------------------------
-def predict_flood_risk(state_name, district_name, village_name=None):
-    data = build_features(state_name, district_name)
+def predict_flood_risk(state_name=None, district_name=None, village_name=None, latitude=None, longitude=None):
+    data = build_features(
+        state_name=state_name,
+        district_name=district_name,
+        latitude=latitude,
+        longitude=longitude,
+    )
 
     coordinates = data["coordinates"]
+    resolved_state = coordinates.get("state") or state_name or "Unknown"
+    resolved_district = coordinates.get("district") or district_name or "Unknown"
+    resolved_village = village_name or coordinates.get("village")
+
     weather     = data["weather"]
     terrain     = data["terrain"]
     hydrology   = data["hydrology"]
     historical  = data["historical"]
+
 
     # ------------------------------------------------------------------
     # Extract individual signals
@@ -223,8 +233,9 @@ def predict_flood_risk(state_name, district_name, village_name=None):
 
     return {
         "location": {
-            "state":     state_name,
-            "district":  district_name,
+            "state":     resolved_state,
+            "district":  resolved_district,
+            "village":   resolved_village,
             "latitude":  latitude,
             "longitude": longitude,
         },
