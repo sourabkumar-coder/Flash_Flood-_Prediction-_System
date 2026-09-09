@@ -158,3 +158,165 @@ def predict_batch(request: BatchPredictionRequest):
             errors.append({"state": loc.state, "district": loc.district, "error": str(e)})
             
     return BatchPredictionResponse(predictions=predictions, errors=errors)
+
+# ==============================================================================
+# Regional Hilly Basins & Macro GIS Overview Endpoints
+# ==============================================================================
+import json
+from pathlib import Path
+
+REGIONAL_DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "regional_hilly_basins.json"
+REGIONAL_DATA = {"basins": [], "monitored_valleys": []}
+if REGIONAL_DATA_FILE.exists():
+    try:
+        with open(REGIONAL_DATA_FILE, "r", encoding="utf-8") as f:
+            REGIONAL_DATA = json.load(f)
+    except Exception as e:
+        logger.error(f"Failed to load regional basin data: {e}")
+
+REGIONAL_CACHE = {
+    "lastSync": None,
+    "isSimulated": False,
+    "simulationScenario": None,
+    "criticalAlert": None,
+    "valleys": [],
+    "summary": {
+        "totalMonitored": 0,
+        "criticalCount": 0,
+        "highCount": 0,
+        "moderateCount": 0,
+        "lowCount": 0,
+        "minLeadTimeHours": 12.0,
+        "status": "NORMAL_BASELINE"
+    }
+}
+
+def get_threat_overview_data():
+    if REGIONAL_CACHE["valleys"]:
+        return REGIONAL_CACHE
+    
+    valleys = REGIONAL_DATA.get("monitored_valleys", [])
+    computed = []
+    for v in valleys:
+        threat_score = v.get("base_risk", 20.0)
+        risk_level = "LOW"
+        if threat_score >= 75:
+            risk_level = "CRITICAL"
+        elif threat_score >= 55:
+            risk_level = "HIGH"
+        elif threat_score >= 30:
+            risk_level = "MODERATE"
+        else:
+            risk_level = "LOW"
+        
+        computed.append({
+            **v,
+            "risk_score": threat_score,
+            "risk_level": risk_level,
+            "lead_time_hours": 12.0,
+            "current_rainfall_mm": 0.0,
+            "rainfall_24h_mm": 0.0,
+            "current_river_stage_m": v.get("danger_stage_m", 5.0) * 0.45,
+            "is_above_danger": False
+        })
+    
+    REGIONAL_CACHE["valleys"] = computed
+    REGIONAL_CACHE["lastSync"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    REGIONAL_CACHE["summary"]["totalMonitored"] = len(computed)
+    return REGIONAL_CACHE
+
+@app.get("/api/overview/threats")
+@app.get("/overview/threats")
+def read_threats():
+    return get_threat_overview_data()
+
+@app.get("/api/overview/rivers")
+@app.get("/overview/rivers")
+def read_rivers():
+    basins = REGIONAL_DATA.get("basins", [])
+    updated = []
+    for b in basins:
+        gauges = []
+        for g in b.get("gauge_nodes", []):
+            gauges.append({
+                **g,
+                "current_stage_m": g.get("base_level", 2.0),
+                "is_danger": False
+            })
+        updated.append({**b, "gauge_nodes": gauges})
+    return {"basins": updated}
+
+@app.post("/api/overview/simulate")
+@app.post("/overview/simulate")
+async def simulate_overview(request: Request):
+    body = await request.json()
+    scenario = body.get("scenario", "CLOUDBURST_SAINJ")
+    if scenario == "RESET":
+        REGIONAL_CACHE["isSimulated"] = False
+        REGIONAL_CACHE["simulationScenario"] = None
+        REGIONAL_CACHE["criticalAlert"] = None
+        REGIONAL_CACHE["valleys"] = []
+        get_threat_overview_data()
+        return {"message": "Simulation reset.", "threatCache": REGIONAL_CACHE}
+    
+    REGIONAL_CACHE["isSimulated"] = True
+    REGIONAL_CACHE["simulationScenario"] = scenario
+    valleys = REGIONAL_DATA.get("monitored_valleys", [])
+    computed = []
+    for v in valleys:
+        if v.get("id") == "val_sainj":
+            computed.append({
+                **v,
+                "risk_score": 77.7,
+                "risk_level": "CRITICAL",
+                "lead_time_hours": 3.2,
+                "current_rainfall_mm": 88.5,
+                "rainfall_24h_mm": 194.2,
+                "current_river_stage_m": 7.8,
+                "is_above_danger": True
+            })
+        elif v.get("id") in ["val_aut", "val_larji"]:
+            computed.append({
+                **v,
+                "risk_score": 64.2,
+                "risk_level": "HIGH",
+                "lead_time_hours": 5.5,
+                "current_rainfall_mm": 42.0,
+                "rainfall_24h_mm": 112.0,
+                "current_river_stage_m": 6.8,
+                "is_above_danger": False
+            })
+        else:
+            computed.append({
+                **v,
+                "risk_score": v.get("base_risk", 20.0),
+                "risk_level": "LOW",
+                "lead_time_hours": 12.0,
+                "current_rainfall_mm": 0.0,
+                "rainfall_24h_mm": 2.0,
+                "current_river_stage_m": 2.2,
+                "is_above_danger": False
+            })
+    computed.sort(key=lambda x: x["risk_score"], reverse=True)
+    REGIONAL_CACHE["valleys"] = computed
+    REGIONAL_CACHE["criticalAlert"] = {
+        "title": "FLASH FLOOD WARNING: Sainj Valley (Neuli) has reached CRITICAL risk (77.7/100)",
+        "target": "Sainj Valley (Neuli) · Kullu Dist. · Lead Time: 3.2h",
+        "leadTime": "3.2 hrs",
+        "action": "Evacuate low-lying riverbanks immediately."
+    }
+    REGIONAL_CACHE["summary"] = {
+        "totalMonitored": len(computed),
+        "criticalCount": 1,
+        "highCount": 2,
+        "moderateCount": 0,
+        "lowCount": len(computed) - 3,
+        "minLeadTimeHours": 3.2,
+        "status": "CRITICAL_SIMULATION"
+    }
+    return {"message": "Simulation active.", "threatCache": REGIONAL_CACHE}
+
+@app.post("/api/overview/sync")
+@app.post("/overview/sync")
+def sync_overview():
+    return {"message": "Synced.", "threatCache": get_threat_overview_data()}
