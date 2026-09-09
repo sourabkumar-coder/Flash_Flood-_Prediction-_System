@@ -544,17 +544,18 @@ def build_features(state_name=None, district_name=None, latitude=None, longitude
     # ========================================================
 
     return {
-
         "state": state_name,
-
         "district": district_name,
-
+        "village": village_name if 'village_name' in locals() else None,
         "coordinates": {
             "latitude": latitude,
-            "longitude": longitude
+            "longitude": longitude,
+            "state": state_name,
+            "district": district_name,
+            "village": village_name if 'village_name' in locals() else None,
         },
-
         "features": features,
+
 
         "weather": weather,
 
