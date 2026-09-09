@@ -1,7 +1,11 @@
 import os
 import pandas as pd
 
-from services.district_service import get_district_coordinates
+from services.district_service import (
+    get_district_coordinates,
+    reverse_geocode_coordinates
+)
+
 from services.weather_service import get_weather
 from services.terrain_service import get_terrain_features
 from services.unified_hydrology_service import get_hydrology_features
@@ -51,104 +55,74 @@ def normalize_python_value(value):
     return value
 
 
-# ============================================================
-# HISTORICAL FLOOD FEATURES
-# ============================================================
-
 def get_historical_features(state_name, district_name):
     """
-    Get historical flood information for a district.
-
-    Source:
-    - DFO historical flood events aggregated at district level.
-
-    IMPORTANT:
-    Missing historical record does NOT mean that no flood occurred.
+    Retrieve historical flood risk indicators for a district.
     """
-
     if not os.path.exists(HISTORICAL_FEATURES_FILE):
-        raise FileNotFoundError(
-            f"Historical flood feature file not found: "
-            f"{HISTORICAL_FEATURES_FILE}"
-        )
+        return {
+            "historical_data_available": 0,
+            "historical_flood_events": 0,
+            "historical_flood_years": 0,
+            "historical_fatalities": 0,
+            "historical_displaced": 0,
+            "historical_max_severity": 0.0,
+            "historical_max_impact": 0.0,
+        }
 
-    df = pd.read_csv(HISTORICAL_FEATURES_FILE)
+    try:
+        df = pd.read_csv(HISTORICAL_FEATURES_FILE)
 
-    # Normalize names
-    df["state_name"] = (
-        df["state_name"]
-        .astype(str)
-        .str.strip()
-    )
+        req_state = state_name.strip().casefold() if state_name else ""
+        req_district = district_name.strip().casefold() if district_name else ""
 
-    df["district"] = (
-        df["district"]
-        .astype(str)
-        .str.strip()
-    )
+        match = df[
+            (df["state_name"].astype(str).str.strip().str.casefold() == req_state)
+            & (
+                (df["district"].astype(str).str.strip().str.casefold() == req_district)
+                | (df.get("district_name", df["district"]).astype(str).str.strip().str.casefold() == req_district)
+            )
+        ]
 
-    state_name_clean = str(state_name).strip()
-    district_name_clean = str(district_name).strip()
-
-    match = df[
-        (df["state_name"] == state_name_clean)
-        &
-        (df["district"] == district_name_clean)
-    ]
-
-    # No historical record available
-    if match.empty:
+        if not match.empty:
+            row = match.iloc[0]
+            return {
+                "historical_data_available": 1,
+                "historical_flood_events": int(row.get("total_events", row.get("historical_flood_events", 0)) or 0),
+                "historical_flood_years": int(row.get("flood_years_count", row.get("historical_flood_years", 0)) or 0),
+                "historical_fatalities": int(row.get("total_fatalities", row.get("historical_fatalities", 0)) or 0),
+                "historical_displaced": int(row.get("total_displaced", row.get("historical_displaced", 0)) or 0),
+                "historical_max_severity": float(row.get("max_severity", row.get("historical_max_severity", 0)) or 0.0),
+                "historical_max_impact": float(row.get("max_impact_score", row.get("historical_max_impact", 0)) or 0.0),
+            }
 
         return {
             "historical_data_available": 0,
-            "historical_flood_events": None,
-            "historical_flood_years": None,
-            "historical_fatalities": None,
-            "historical_displaced": None,
-            "historical_max_severity": None,
-            "historical_max_impact": None
+            "historical_flood_events": 0,
+            "historical_flood_years": 0,
+            "historical_fatalities": 0,
+            "historical_displaced": 0,
+            "historical_max_severity": 0.0,
+            "historical_max_impact": 0.0,
         }
 
-    row = match.iloc[0]
-
-    return {
-        "historical_data_available": 1,
-        "historical_flood_events": normalize_python_value(
-            row.get("historical_flood_events")
-        ),
-        "historical_flood_years": normalize_python_value(
-            row.get("historical_flood_years")
-        ),
-        "historical_fatalities": normalize_python_value(
-            row.get("historical_fatalities")
-        ),
-        "historical_displaced": normalize_python_value(
-            row.get("historical_displaced")
-        ),
-        "historical_max_severity": normalize_python_value(
-            row.get("historical_max_severity")
-        ),
-        "historical_max_impact": normalize_python_value(
-            row.get("historical_max_impact")
-        )
-    }
+    except Exception:
+        return {
+            "historical_data_available": 0,
+            "historical_flood_events": 0,
+            "historical_flood_years": 0,
+            "historical_fatalities": 0,
+            "historical_displaced": 0,
+            "historical_max_severity": 0.0,
+            "historical_max_impact": 0.0,
+        }
 
 
-# ============================================================
-# MAIN FEATURE BUILDER
-# ============================================================
 
-def build_features(state_name, district_name):
+def build_features(state_name=None, district_name=None, latitude=None, longitude=None):
     """
     Build a unified multi-source feature vector.
-
-    Sources:
-    - District GeoJSON
-    - Open-Meteo weather
-    - Terrain/elevation service
-    - NWIC/CWC hydrology telemetry
-    - ISRIC SoilGrids
-    - DFO historical flood records
+    Accepts either (state_name, district_name) OR direct (latitude, longitude).
     """
 
     print("=" * 70)
@@ -156,27 +130,53 @@ def build_features(state_name, district_name):
     print("=" * 70)
 
     # ========================================================
-    # 1. DISTRICT COORDINATES
+    # 1. RESOLVE LOCATION & COORDINATES
     # ========================================================
 
-    print("\n[1/6] Getting district coordinates...")
+    print("\n[1/6] Resolving coordinates & location metadata...")
 
-    coordinates = get_district_coordinates(
-        state_name,
-        district_name
-    )
+    if latitude is not None and longitude is not None:
+        # Direct GPS coordinates provided
+        latitude = float(latitude)
+        longitude = float(longitude)
+        
+        # If state or district missing, reverse geocode to get name & historical match
+        if not state_name or not district_name:
+            resolved = reverse_geocode_coordinates(latitude, longitude)
+            state_name = state_name or resolved.get("state")
+            district_name = district_name or resolved.get("district")
+            village_name = resolved.get("village")
+        else:
+            village_name = None
 
-    if coordinates is None:
-        raise ValueError(
-            f"District not found: "
-            f"{district_name}, {state_name}"
+        coordinates = {
+            "state": state_name,
+            "district": district_name,
+            "village": village_name,
+            "latitude": latitude,
+            "longitude": longitude,
+        }
+    else:
+        # State and district provided -> resolve centroid coordinates
+        coordinates = get_district_coordinates(
+            state_name,
+            district_name
         )
 
-    latitude = coordinates["latitude"]
-    longitude = coordinates["longitude"]
+        if coordinates is None:
+            raise ValueError(
+                f"District not found: "
+                f"{district_name}, {state_name}"
+            )
 
+        latitude = coordinates["latitude"]
+        longitude = coordinates["longitude"]
+
+    print(f"State    : {state_name}")
+    print(f"District : {district_name}")
     print(f"Latitude : {latitude}")
     print(f"Longitude: {longitude}")
+
 
     # ========================================================
     # 2. WEATHER

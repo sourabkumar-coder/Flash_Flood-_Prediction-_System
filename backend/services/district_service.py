@@ -891,6 +891,110 @@ def get_district_coordinates(state_name, district_name):
     return None
 
 
+def find_nearest_district(latitude, longitude):
+    """
+    Find the closest known Indian district by calculating distance to district centroids.
+    Used for instant offline reverse-geocoding.
+    """
+    best_dist = float("inf")
+    best_match = None
+
+    for key, (lat, lon) in _DISTRICT_COORDS.items():
+        # Euclidean approximation squared
+        d = (latitude - lat) ** 2 + (longitude - lon) ** 2
+        if d < best_dist:
+            best_dist = d
+            best_match = key
+
+    if best_match:
+        state_part, dist_part = best_match.split("|")
+        return {
+            "state": state_part.title(),
+            "district": dist_part.title(),
+            "latitude": latitude,
+            "longitude": longitude,
+        }
+
+    return None
+
+
+def reverse_geocode_coordinates(latitude, longitude):
+    """
+    Resolve (latitude, longitude) coordinates to State and District.
+    1. First tries Nominatim reverse geocoding (live place name).
+    2. Falls back to nearest centroid in local district database (instant, offline).
+    """
+    try:
+        response = requests.get(
+            "https://nominatim.openstreetmap.org/reverse",
+            params={
+                "lat": latitude,
+                "lon": longitude,
+                "format": "json",
+                "zoom": 10,
+            },
+            headers=_NOMINATIM_HEADERS,
+            timeout=5,
+        )
+        if response.status_code == 200:
+            data = response.json()
+            addr = data.get("address", {})
+            state = addr.get("state")
+            district = (
+                addr.get("state_district")
+                or addr.get("county")
+                or addr.get("district")
+                or addr.get("city")
+            )
+            village = (
+                addr.get("village")
+                or addr.get("suburb")
+                or addr.get("town")
+                or addr.get("neighbourhood")
+            )
+
+            # Match state against standard state names if possible
+            if state:
+                state_clean = state.replace("State of ", "").replace("State", "").strip()
+                for known_state in get_states():
+                    if known_state.casefold() == state_clean.casefold():
+                        state = known_state
+                        break
+
+            # Match district against known districts if possible
+            if state and district:
+                districts_in_state = get_districts_by_state(state)
+                for known_dist in districts_in_state:
+                    if known_dist.casefold() in district.casefold() or district.casefold() in known_dist.casefold():
+                        district = known_dist
+                        break
+
+                return {
+                    "state": state,
+                    "district": district,
+                    "village": village,
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "display_name": data.get("display_name"),
+                }
+    except Exception:
+        pass
+
+    # Offline fallback to nearest district
+    nearest = find_nearest_district(latitude, longitude)
+    if nearest:
+        return nearest
+
+    return {
+        "state": "India",
+        "district": f"GPS ({latitude:.4f}, {longitude:.4f})",
+        "village": None,
+        "latitude": latitude,
+        "longitude": longitude,
+    }
+
+
 def get_district_by_name(state_name, district_name):
     """Kept for compatibility with terrain_service. Returns None (no GeoJSON)."""
     return None
+

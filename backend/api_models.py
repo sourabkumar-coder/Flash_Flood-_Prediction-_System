@@ -2,9 +2,12 @@ from pydantic import BaseModel
 from typing import Optional, List, Dict, Any
 
 class LocationRequest(BaseModel):
-    state: str
-    district: str
+    state: Optional[str] = None
+    district: Optional[str] = None
     village: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
+
 
 class LocationModel(BaseModel):
     state: str
