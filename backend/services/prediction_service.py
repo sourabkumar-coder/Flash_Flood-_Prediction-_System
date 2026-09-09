@@ -34,6 +34,12 @@ MODEL_PATH = os.path.abspath(
     os.path.join(BACKEND_DIR, "../ml/models/xgboost_flood_model.pkl")
 )
 
+HILLY_STATES = {
+    "Himachal Pradesh", "Uttarakhand", "Jammu and Kashmir", "Ladakh",
+    "Sikkim", "Arunachal Pradesh", "Assam", "Meghalaya", "Manipur",
+    "Mizoram", "Nagaland", "Tripura"
+}
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -126,18 +132,16 @@ def predict_flood_risk(state_name=None, district_name=None, village_name=None, l
     resolved_district = data.get("district") or coordinates.get("district") or district_name or f"GPS ({latitude:.4f}, {longitude:.4f})"
     resolved_village = village_name or data.get("village") or coordinates.get("village")
 
-
     weather     = data["weather"]
     terrain     = data["terrain"]
     hydrology   = data["hydrology"]
     historical  = data["historical"]
 
-
     # ------------------------------------------------------------------
     # Extract individual signals
     # ------------------------------------------------------------------
-    latitude   = _f(coordinates["latitude"])
-    longitude  = _f(coordinates["longitude"])
+    latitude   = _f(coordinates.get("latitude", latitude))
+    longitude  = _f(coordinates.get("longitude", longitude))
 
     elevation  = _f(terrain.get("mean_elevation_m"), 0.0)
     slope      = _f(terrain.get("mean_slope_percent"), 0.0)
@@ -205,7 +209,7 @@ def predict_flood_risk(state_name=None, district_name=None, village_name=None, l
     # ------------------------------------------------------------------
     # Risk scoring (weighted formula in risk_engine.py)
     # ------------------------------------------------------------------
-    hilly_region = bool(elevation >= 1000 or slope >= 10)
+    hilly_region = bool(resolved_state in HILLY_STATES or elevation >= 500 or slope >= 5.0)
 
     risk_score = calculate_risk_score(
         rainfall_1h=rainfall_1h,

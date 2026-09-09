@@ -1,0 +1,18 @@
+{
+  "name": "flash-flood-gateway",
+  "version": "1.0.0",
+  "description": "Express.js API Gateway & Regional Threat Aggregator for Flash Flood Early Warning System",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "node-cron": "^3.0.3"
+  }
+}

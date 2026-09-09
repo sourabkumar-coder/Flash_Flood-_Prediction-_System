@@ -890,3 +890,904 @@ select:disabled {
   to { opacity: 1; transform: translateY(0); }
 }
 
+
+/* ==========================================================================
+   Global Navigation Tabs (Command Center vs District Analytics)
+   ========================================================================== */
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid var(--panel-border);
+  padding: 5px;
+  border-radius: 14px;
+}
+
+.nav-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-tab-btn:hover {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.nav-tab-btn.active {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(14, 165, 233, 0.12));
+  border-color: rgba(56, 189, 248, 0.45);
+  color: #38bdf8;
+  box-shadow: 0 4px 15px rgba(56, 189, 248, 0.2);
+}
+
+.tab-badge {
+  background: rgba(56, 189, 248, 0.2);
+  color: #7dd3fc;
+  font-size: 0.68rem;
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.tab-active-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 6px #34d399;
+  display: inline-block;
+}
+
+.empty-cta-btn {
+  margin-top: 18px;
+  padding: 10px 20px;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.empty-cta-btn:hover {
+  background: rgba(56, 189, 248, 0.25);
+  transform: translateY(-1px);
+}
+
+.system-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+  animation: pulseDot 2s infinite;
+}
+
+/* ==========================================================================
+   Regional GIS Command Center Styles
+   ========================================================================== */
+.command-center {
+  max-width: 1540px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Critical Alert Marquee Banner */
+.alert-marquee-banner {
+  background: linear-gradient(90deg, #7f1d1d 0%, #991b1b 50%, #7f1d1d 100%);
+  border: 1.5px solid #ef4444;
+  border-radius: 14px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  color: #fee2e2;
+  box-shadow: 0 0 24px rgba(239, 68, 68, 0.4);
+  animation: bannerPulse 2.5s ease infinite alternate;
+}
+
+.alert-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 800;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  background: #dc2626;
+  padding: 4px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+
+.alert-text {
+  font-size: 0.88rem;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.alert-action-btn {
+  background: #fee2e2;
+  color: #991b1b;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.alert-action-btn:hover {
+  background: #ffffff;
+  transform: scale(1.03);
+}
+
+@keyframes bannerPulse {
+  0% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); }
+  100% { box-shadow: 0 0 30px rgba(239, 68, 68, 0.65); }
+}
+
+/* Command Center Header */
+.cc-header {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 16px;
+  padding: 14px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  backdrop-filter: blur(12px);
+}
+
+.cc-title-area {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cc-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: #38bdf8;
+  text-transform: uppercase;
+}
+
+.cc-header h2 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.cc-subtitle {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.cc-controls-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.basin-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 4px 12px;
+}
+
+.basin-filter label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.cc-select {
+  background: transparent;
+  border: none;
+  color: #f8fafc;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 4px 6px;
+  outline: none;
+  cursor: pointer;
+}
+
+.cc-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.cc-btn-sync {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.35);
+  color: #38bdf8;
+}
+
+.cc-btn-sync:hover:not(:disabled) {
+  background: rgba(56, 189, 248, 0.22);
+  border-color: #38bdf8;
+}
+
+.cc-btn-sim {
+  background: rgba(234, 179, 8, 0.12);
+  border-color: rgba(234, 179, 8, 0.4);
+  color: #facc15;
+}
+
+.cc-btn-sim:hover:not(:disabled) {
+  background: rgba(234, 179, 8, 0.24);
+  box-shadow: 0 0 14px rgba(234, 179, 8, 0.3);
+}
+
+.cc-btn-sim-active {
+  background: #dc2626;
+  border-color: #ef4444;
+  color: #ffffff;
+  animation: pulseSim 1.5s infinite;
+}
+
+@keyframes pulseSim {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { transform: scale(1.02); box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.cc-btn-switch {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(14, 165, 233, 0.2));
+  border-color: rgba(56, 189, 248, 0.5);
+  color: #e0f2fe;
+}
+
+.cc-btn-switch:hover {
+  background: rgba(56, 189, 248, 0.35);
+  border-color: #38bdf8;
+}
+
+/* Command Center Body Grid */
+.cc-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  gap: 16px;
+  min-height: 680px;
+}
+
+@media (max-width: 1100px) {
+  .cc-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Left: GIS Map */
+.cc-map-container {
+  position: relative;
+  background: #090d16;
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  min-height: 600px;
+}
+
+.map-legend {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  background: rgba(15, 23, 42, 0.92);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  pointer-events: auto;
+}
+
+.map-legend h4 {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.legend-items {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 8px 16px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.76rem;
+  color: #e2e8f0;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-critical { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
+.dot-high { background: #f97316; }
+.dot-moderate { background: #eab308; }
+.dot-low { background: #10b981; }
+
+.pill-gauge {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1.5px solid #06b6d4;
+  border-radius: 8px;
+  padding: 1px 5px;
+  font-size: 0.68rem;
+  font-family: monospace;
+  font-weight: 700;
+  color: #38bdf8;
+}
+
+.river-line {
+  width: 16px;
+  height: 3px;
+  background: #38bdf8;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+/* Tooltip & Popups in Leaflet */
+.map-tooltip {
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #f8fafc;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+}
+
+.cc-popup .leaflet-popup-content-wrapper {
+  background: rgba(15, 23, 42, 0.96) !important;
+  border: 1px solid rgba(148, 163, 184, 0.25) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8) !important;
+  color: #f8fafc !important;
+  padding: 0 !important;
+  backdrop-filter: blur(14px);
+}
+
+.cc-popup .leaflet-popup-content {
+  margin: 14px 16px !important;
+  line-height: 1.4 !important;
+}
+
+.cc-popup .leaflet-popup-tip {
+  background: rgba(15, 23, 42, 0.96) !important;
+}
+
+/* Valley Popup Card */
+.valley-popup-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 250px;
+}
+
+.popup-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.popup-threat-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: #ffffff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+}
+
+.popup-lead-time {
+  font-size: 0.74rem;
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+.valley-popup-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.popup-sub {
+  font-size: 0.74rem;
+  color: var(--muted);
+  margin: -6px 0 4px 0;
+}
+
+.popup-metrics-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 8px 10px;
+  border-radius: 8px;
+}
+
+.metric-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-cell .label {
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.metric-cell .val {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #e2e8f0;
+}
+
+.popup-action-row {
+  margin-top: 4px;
+}
+
+.popup-drill-btn {
+  width: 100%;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #03111f;
+  font-weight: 700;
+  font-size: 0.78rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.popup-drill-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* Gauge Station Popup */
+.gauge-popup-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 220px;
+}
+
+.gauge-popup-card h4 {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.popup-river {
+  font-size: 0.74rem;
+  color: #38bdf8;
+  margin-top: -6px;
+}
+
+.popup-badge {
+  align-self: flex-start;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #ffffff;
+  padding: 2px 7px;
+  border-radius: 5px;
+}
+
+.popup-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+}
+
+.popup-stats-grid div {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-stats-grid span {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+
+/* Right: Live Wards Threat Monitor Sidebar */
+.cc-sidebar {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 18px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  max-height: 820px;
+}
+
+.sidebar-header {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--panel-border);
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-title-row h3 {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #f8fafc;
+}
+
+.pulse-indicator {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #ef4444;
+  animation: pulseDot 1.4s infinite;
+}
+
+.sidebar-desc {
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.severity-tabs {
+  display: flex;
+  gap: 4px;
+  background: rgba(15, 23, 42, 0.8);
+  padding: 3px;
+  border-radius: 8px;
+  border: 1px solid var(--panel-border);
+  overflow-x: auto;
+}
+
+.sev-tab {
+  flex: 1;
+  padding: 5px 8px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.sev-tab:hover {
+  color: #ffffff;
+}
+
+.sev-tab.active {
+  background: rgba(56, 189, 248, 0.25);
+  color: #38bdf8;
+}
+
+.sidebar-search input {
+  width: 100%;
+  padding: 8px 12px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  color: #f8fafc;
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.sidebar-search input:focus {
+  border-color: #38bdf8;
+}
+
+/* Scrollable Threat Cards List */
+.threat-cards-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sidebar-loading, .sidebar-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 30px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.threat-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.22s ease;
+}
+
+.threat-card:hover {
+  background: rgba(30, 41, 59, 0.85);
+  border-color: rgba(56, 189, 248, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+}
+
+.threat-card.selected {
+  border-color: #38bdf8;
+  background: rgba(56, 189, 248, 0.1);
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.25);
+}
+
+.threat-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-rank {
+  font-family: monospace;
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--muted);
+  min-width: 24px;
+}
+
+.card-title-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.card-valley-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.card-district-state {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.card-threat-badge {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #ffffff;
+  padding: 2px 7px;
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+}
+
+.threat-bar-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.threat-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+.threat-progress-track {
+  width: 100%;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.threat-progress-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.4s ease;
+}
+
+.card-meta-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+
+.chip-time { color: #fde047; }
+.chip-rain { color: #7dd3fc; }
+.chip-basin { color: #c084fc; }
+
+.card-action-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.btn-locate {
+  flex: 1;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--panel-border);
+  border-radius: 6px;
+  color: #cbd5e1;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-locate:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+}
+
+.btn-analyze {
+  flex: 1.3;
+  padding: 6px 10px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(14, 165, 233, 0.2));
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: 6px;
+  color: #38bdf8;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-analyze:hover {
+  background: rgba(56, 189, 248, 0.35);
+  border-color: #38bdf8;
+}
+
+/* Command Center Footer */
+.cc-footer {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 14px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  backdrop-filter: blur(10px);
+}
+
+.telemetry-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.78rem;
+}
+
+.t-label {
+  color: var(--muted);
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.6); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 0.3; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
+
+/* Clean Dark GIS Filter for OpenStreetMap Tiles */
+.dark-gis-tiles {
+  filter: invert(100%) hue-rotate(180deg) brightness(85%) contrast(90%) !important;
+}
+
+.legend-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.legend-header-row h4 {
+  margin-bottom: 0 !important;
+}
+
+.basemap-selector {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid var(--panel-border);
+  color: #38bdf8;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  padding: 2px 6px;
+  outline: none;
+  cursor: pointer;
+}
+
+.btn-sync-retry {
+  margin-top: 10px;
+  padding: 8px 14px;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #38bdf8;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-sync-retry:hover {
+  background: rgba(56, 189, 248, 0.25);
+}

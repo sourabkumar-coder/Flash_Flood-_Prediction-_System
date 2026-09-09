@@ -62,10 +62,11 @@ SCALE_FACTOR = 10.0
 # SETTINGS
 # ============================================================
 
-MAX_POINTS = 8
+MAX_POINTS = 2
 
 # Approximately 0.03 degree area around each point
 POINT_BUFFER = 0.03
+_SOIL_CACHE = {}
 
 
 # ============================================================
@@ -298,7 +299,7 @@ def get_soil_raster(
     response = requests.get(
         wcs_url,
         params=params,
-        timeout=60
+        timeout=6
     )
 
     response.raise_for_status()
@@ -451,6 +452,9 @@ def get_district_soil(
     Calculate district-level soil statistics
     from actual SoilGrids data.
     """
+    cache_key = f"{state_name}_{district_name}_{round(latitude, 2) if latitude else ''}_{round(longitude, 2) if longitude else ''}"
+    if cache_key in _SOIL_CACHE:
+        return _SOIL_CACHE[cache_key]
 
     # --------------------------------------------------------
     # Generate sample points (coordinate-based if lat/lon given)
@@ -581,7 +585,7 @@ def get_district_soil(
     # Final result
     # --------------------------------------------------------
 
-    return {
+    res = {
 
         "state": state_name,
 
@@ -595,3 +599,5 @@ def get_district_soil(
 
         "properties": summary
     }
+    _SOIL_CACHE[cache_key] = res
+    return res
