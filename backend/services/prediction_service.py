@@ -121,10 +121,11 @@ def predict_flood_risk(state_name=None, district_name=None, village_name=None, l
         longitude=longitude,
     )
 
-    coordinates = data["coordinates"]
-    resolved_state = coordinates.get("state") or state_name or "Unknown"
-    resolved_district = coordinates.get("district") or district_name or "Unknown"
-    resolved_village = village_name or coordinates.get("village")
+    coordinates = data.get("coordinates", {})
+    resolved_state = data.get("state") or coordinates.get("state") or state_name or "India"
+    resolved_district = data.get("district") or coordinates.get("district") or district_name or f"GPS ({latitude:.4f}, {longitude:.4f})"
+    resolved_village = village_name or data.get("village") or coordinates.get("village")
+
 
     weather     = data["weather"]
     terrain     = data["terrain"]

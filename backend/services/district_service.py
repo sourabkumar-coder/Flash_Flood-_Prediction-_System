@@ -924,6 +924,11 @@ def reverse_geocode_coordinates(latitude, longitude):
     1. First tries Nominatim reverse geocoding (live place name).
     2. Falls back to nearest centroid in local district database (instant, offline).
     """
+    state = None
+    district = None
+    village = None
+    display_name = None
+
     try:
         response = requests.get(
             "https://nominatim.openstreetmap.org/reverse",
@@ -931,7 +936,7 @@ def reverse_geocode_coordinates(latitude, longitude):
                 "lat": latitude,
                 "lon": longitude,
                 "format": "json",
-                "zoom": 10,
+                "zoom": 12,
             },
             headers=_NOMINATIM_HEADERS,
             timeout=5,
@@ -939,59 +944,62 @@ def reverse_geocode_coordinates(latitude, longitude):
         if response.status_code == 200:
             data = response.json()
             addr = data.get("address", {})
-            state = addr.get("state")
-            district = (
+            raw_state = addr.get("state") or addr.get("province") or addr.get("region")
+            raw_district = (
                 addr.get("state_district")
                 or addr.get("county")
                 or addr.get("district")
                 or addr.get("city")
+                or addr.get("municipality")
             )
             village = (
-                addr.get("village")
-                or addr.get("suburb")
-                or addr.get("town")
+                addr.get("suburb")
                 or addr.get("neighbourhood")
+                or addr.get("village")
+                or addr.get("town")
+                or addr.get("city_district")
             )
+            display_name = data.get("display_name")
 
-            # Match state against standard state names if possible
-            if state:
-                state_clean = state.replace("State of ", "").replace("State", "").strip()
+            if raw_state:
+                state_clean = raw_state.replace("State of ", "").replace("State", "").strip()
                 for known_state in get_states():
                     if known_state.casefold() == state_clean.casefold():
                         state = known_state
                         break
+                if not state:
+                    state = state_clean
 
-            # Match district against known districts if possible
-            if state and district:
-                districts_in_state = get_districts_by_state(state)
-                for known_dist in districts_in_state:
-                    if known_dist.casefold() in district.casefold() or district.casefold() in known_dist.casefold():
-                        district = known_dist
-                        break
+            if raw_district:
+                district_clean = raw_district.replace(" District", "").replace(" district", "").strip()
+                if state:
+                    districts_in_state = get_districts_by_state(state)
+                    for known_dist in districts_in_state:
+                        if known_dist.casefold() == district_clean.casefold() or known_dist.casefold() in district_clean.casefold() or district_clean.casefold() in known_dist.casefold():
+                            district = known_dist
+                            break
+                if not district:
+                    district = district_clean
 
-                return {
-                    "state": state,
-                    "district": district,
-                    "village": village,
-                    "latitude": latitude,
-                    "longitude": longitude,
-                    "display_name": data.get("display_name"),
-                }
     except Exception:
         pass
 
-    # Offline fallback to nearest district
-    nearest = find_nearest_district(latitude, longitude)
-    if nearest:
-        return nearest
+    # If state or district still missing, use nearest known district centroid
+    if not state or not district:
+        nearest = find_nearest_district(latitude, longitude)
+        if nearest:
+            state = state or nearest.get("state")
+            district = district or nearest.get("district")
 
     return {
-        "state": "India",
-        "district": f"GPS ({latitude:.4f}, {longitude:.4f})",
-        "village": None,
+        "state": state or "India",
+        "district": district or f"GPS ({latitude:.4f}, {longitude:.4f})",
+        "village": village,
         "latitude": latitude,
         "longitude": longitude,
+        "display_name": display_name,
     }
+
 
 
 def get_district_by_name(state_name, district_name):
