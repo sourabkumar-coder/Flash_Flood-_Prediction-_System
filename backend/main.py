@@ -336,26 +336,26 @@ def sync_overview():
 # ==============================================================================
 # Safest Route for Evacuation Endpoint (OSRM + OSM Overpass + SRTM)
 # ==============================================================================
-from services.routing_service import get_evacuation_routes
-from api_models import EvacuationRouteRequest, EvacuationRouteResponse
+# from services.routing_service import get_evacuation_routes
+# from api_models import EvacuationRouteRequest, EvacuationRouteResponse
 
-@app.post("/api/evacuation/route", response_model=EvacuationRouteResponse)
-@app.post("/evacuation/route", response_model=EvacuationRouteResponse)
-def calculate_evacuation_route(req: EvacuationRouteRequest):
-    try:
-        route_data = get_evacuation_routes(
-            start_lat=req.latitude,
-            start_lon=req.longitude,
-            state=req.state or "",
-            district=req.district or "",
-            mode=req.mode or "driving",
-            target_shelter_index=req.target_shelter_index or 0
-        )
-        if not route_data:
-            raise HTTPException(status_code=404, detail="No viable evacuation routes found for coordinates")
-        return route_data
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Evacuation routing failed: {e}", exc_info=True)
-        raise HTTPException(status_code=500, detail=f"Failed to generate evacuation route: {str(e)}")
+# @app.post("/api/evacuation/route", response_model=EvacuationRouteResponse)
+# @app.post("/evacuation/route", response_model=EvacuationRouteResponse)
+# def calculate_evacuation_route(req: EvacuationRouteRequest):
+#     try:
+#         route_data = get_evacuation_routes(
+#             start_lat=req.latitude,
+#             start_lon=req.longitude,
+#             state=req.state or "",
+#             district=req.district or "",
+#             mode=req.mode or "driving",
+#             target_shelter_index=req.target_shelter_index or 0
+#         )
+#         if not route_data:
+#             raise HTTPException(status_code=404, detail="No viable evacuation routes found for coordinates")
+#         return route_data
+#     except HTTPException:
+#         raise
+#     except Exception as e:
+#         logger.error(f"Evacuation routing failed: {e}", exc_info=True)
+#         raise HTTPException(status_code=500, detail=f"Failed to generate evacuation route: {str(e)}")
