@@ -26,6 +26,8 @@ function App() {
   // Navigation View: 'command_center' | 'district_analytics'
   const [activeTab, setActiveTab] = useState('command_center');
 
+  const [isNdrfModalOpen, setIsNdrfModalOpen] = useState(false);
+
   const [states, setStates] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [districts, setDistricts] = useState([]);
@@ -38,6 +40,7 @@ function App() {
   const [loadingMessage, setLoadingMessage] = useState('');
   const [error, setError] = useState(null);
   const [prediction, setPrediction] = useState(null);
+  const [evacuationPlan, setEvacuationPlan] = useState(null);
   const [gpsCoords, setGpsCoords] = useState(null);
 
   useEffect(() => {
@@ -96,6 +99,18 @@ function App() {
     }
   };
 
+  const fetchEvacuationPlan = async (lat, lon) => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/evacuation/plan`, {
+        params: { lat, lon }
+      });
+      setEvacuationPlan(response.data);
+    } catch (err) {
+      console.error('Failed to fetch evacuation plan:', err);
+      setEvacuationPlan(null);
+    }
+  };
+
   // Run prediction pipeline given payload
   const runPrediction = async (payload) => {
     setLoading(true);
@@ -113,6 +128,14 @@ function App() {
         return await axios.post(`http://localhost:8000/predict`, payload);
       });
       setPrediction(response.data);
+
+      if (response.data?.location?.latitude && response.data?.location?.longitude) {
+        if (['HIGH', 'CRITICAL'].includes(response.data.overall_risk)) {
+          await fetchEvacuationPlan(response.data.location.latitude, response.data.location.longitude);
+        } else {
+          setEvacuationPlan(null);
+        }
+      }
 
       // If location was reverse-resolved from GPS or Valley, sync dropdowns
       if (response.data?.location) {
@@ -271,6 +294,10 @@ function App() {
         </nav>
 
         <div className="topbar-meta">
+          <div className="ndrf-pill" onClick={() => setIsNdrfModalOpen(true)} style={{ cursor: 'pointer' }}>
+            <span className="live-dot" style={{ background: '#ef4444' }} />
+            <span>NDRF: 112 / 1078</span>
+          </div>
           <div className="system-pill">
             <span className="live-dot" />
             <span>Multi-Source Live</span>
@@ -496,6 +523,7 @@ function App() {
                         longitude={prediction.location.longitude}
                         riskLevel={prediction.prediction.risk_level}
                         districtName={prediction.location.village || prediction.location.district}
+                        evacuationPlan={evacuationPlan}
                       />
                     </div>
                   </div>
@@ -506,6 +534,39 @@ function App() {
                     </div>
                     <p className="insight-text">{prediction.hydrology.reason || 'Risk assessment is being evaluated with live environmental indicators.'}</p>
                   </div>
+
+                  {evacuationPlan && (
+                    <div className="panel" style={{ gridColumn: '1 / -1', borderLeft: '4px solid #ef4444' }}>
+                      <div className="panel-header">
+                        <h3 style={{ color: '#ef4444' }}>🚨 Evacuation Plan & Safe Routes</h3>
+                      </div>
+                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '10px' }}>
+                        <div>
+                          <h4 style={{ color: '#fca5a5', marginBottom: '8px' }}>Disrupted Route</h4>
+                          <p style={{ fontSize: '0.9rem', marginBottom: '8px' }}>
+                            <strong style={{ color: '#ef4444' }}>Avoid: </strong> 
+                            {evacuationPlan.disrupted_route.reason}
+                          </p>
+                          <p style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>
+                            Original Distance: {evacuationPlan.disrupted_route.distance_km} km
+                          </p>
+                        </div>
+                        <div style={{ background: 'rgba(34, 197, 94, 0.1)', padding: '16px', borderRadius: '12px', border: '1px solid rgba(34, 197, 94, 0.3)' }}>
+                          <h4 style={{ color: '#4ade80', marginBottom: '12px' }}>✅ Safe Route to {evacuationPlan.shelter.name}</h4>
+                          <ul style={{ listStyle: 'none', margin: 0, padding: 0, fontSize: '0.9rem', color: '#e2e8f0', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                            {evacuationPlan.safe_route.steps.map((step, idx) => (
+                              <li key={idx} style={{ display: 'flex', gap: '10px' }}>
+                                <span style={{ color: '#4ade80', fontWeight: 'bold' }}>{idx + 1}.</span> {step}
+                              </li>
+                            ))}
+                          </ul>
+                          <div style={{ marginTop: '12px', fontSize: '0.85rem', color: '#4ade80' }}>
+                            Est. Distance: {evacuationPlan.safe_route.distance_km} km | Time: {evacuationPlan.safe_route.duration_min} min
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="panel">
                     <div className="panel-header">
@@ -604,10 +665,47 @@ function App() {
                       <div><span>Impact Index</span><strong>{prediction.historical.max_impact ?? 0}</strong></div>
                     </div>
                   </div>
+
+                  <div className="panel emergency-panel">
+                    <div className="panel-header">
+                      <h3>🚨 National Disaster Response Force (NDRF)</h3>
+                      <span className={`status-badge live`}>16 Battalions Active</span>
+                    </div>
+                    <p style={{ color: '#fca5a5', fontSize: '0.85rem', marginBottom: '14px', lineHeight: '1.5' }}>
+                      If you need immediate help or disaster support, you can use these official numbers for the NDRF. The force currently consists of 16 active battalions deployed across the nation.
+                    </p>
+                    <div className="stats-grid">
+                      <div><span>Main Helpline</span><strong>+91-9711077372</strong></div>
+                      <div><span>HQ Control Room</span><strong>011-23438091</strong></div>
+                      <div><span>HQ Control Room (Alt)</span><strong>011-23438136</strong></div>
+                      <div><span>General Disaster Helpline</span><strong>011-24363260</strong></div>
+                    </div>
+                  </div>
                 </section>
               </>
             )}
           </main>
+        </div>
+      )}
+
+      {/* NDRF Modal */}
+      {isNdrfModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsNdrfModalOpen(false)}>
+          <div className="modal-content panel" onClick={(e) => e.stopPropagation()}>
+            <div className="panel-header">
+              <h2>🚨 National Disaster Response Force (NDRF)</h2>
+              <button className="modal-close" onClick={() => setIsNdrfModalOpen(false)}>×</button>
+            </div>
+            <p style={{ color: '#fca5a5', fontSize: '0.95rem', marginBottom: '20px', lineHeight: '1.6' }}>
+              If you need immediate help or disaster support, you can use these official numbers for the NDRF. The force currently consists of 16 active battalions deployed across the nation.
+            </p>
+            <div className="stats-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div style={{ background: 'rgba(0,0,0,0.2)' }}><span>Main Helpline</span><strong style={{ fontSize: '1.2rem', color: '#ef4444' }}>+91-9711077372</strong></div>
+              <div style={{ background: 'rgba(0,0,0,0.2)' }}><span>General Disaster Helpline</span><strong style={{ fontSize: '1.1rem' }}>011-24363260</strong></div>
+              <div style={{ background: 'rgba(0,0,0,0.2)' }}><span>HQ Control Room</span><strong style={{ fontSize: '1.1rem' }}>011-23438091</strong></div>
+              <div style={{ background: 'rgba(0,0,0,0.2)' }}><span>HQ Control Room (Alt)</span><strong style={{ fontSize: '1.1rem' }}>011-23438136</strong></div>
+            </div>
+          </div>
         </div>
       )}
     </div>

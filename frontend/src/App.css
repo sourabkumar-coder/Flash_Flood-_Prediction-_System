@@ -87,6 +87,81 @@ button, select {
   padding: 8px 12px;
 }
 
+.ndrf-pill, .system-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid var(--panel-border);
+  border-radius: 999px;
+  padding: 8px 12px;
+}
+
+.ndrf-pill {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #fca5a5;
+  transition: all 0.2s ease;
+}
+
+.ndrf-pill:hover {
+  background: rgba(239, 68, 68, 0.15);
+  transform: translateY(-1px);
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(2, 8, 23, 0.7);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 600px;
+  padding: 32px;
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: var(--text);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ndrf-pill span, .system-pill span {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
 .layout {
   max-width: 1440px;
   margin: 0 auto;
@@ -1790,4 +1865,30 @@ select:disabled {
 
 .btn-sync-retry:hover {
   background: rgba(56, 189, 248, 0.25);
+}
+
+/* ==========================================================================
+   Emergency Panel
+   ========================================================================== */
+.emergency-panel {
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  background: linear-gradient(180deg, rgba(248, 113, 113, 0.05), rgba(15, 23, 42, 0.9));
+}
+
+.emergency-panel .panel-header h3 {
+  color: #fca5a5;
+}
+
+.emergency-panel .stats-grid div {
+  background: rgba(248, 113, 113, 0.1);
+  border-color: rgba(248, 113, 113, 0.2);
+}
+
+.emergency-panel .stats-grid span {
+  color: #fecaca;
+}
+
+.emergency-panel .stats-grid strong {
+  color: #fff;
+  font-size: 1.15rem;
 }
