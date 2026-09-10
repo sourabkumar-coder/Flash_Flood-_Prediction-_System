@@ -117,53 +117,54 @@ class BatchPredictionResponse(BaseModel):
 # Dynamic Safest Evacuation Route Models (OSRM + OSM + SRTM)
 # ==============================================================================
 
-# class EvacuationRouteRequest(BaseModel):
-#     latitude: float
-#     longitude: float
-#     state: Optional[str] = ""
-#     district: Optional[str] = ""
-#     mode: Optional[str] = "driving"
-#     target_shelter_index: Optional[int] = 0
+class EvacuationRouteRequest(BaseModel):
+    latitude: float
+    longitude: float
+    state: Optional[str] = ""
+    district: Optional[str] = ""
+    mode: Optional[str] = "driving"
+    target_shelter_index: Optional[int] = 0
 
-# class ShelterModel(BaseModel):
-#     name: str
-#     type: str
-#     latitude: float
-#     longitude: float
-#     distance_km: float
-#     capacity: Optional[str] = None
-#     elevation_gain_m: Optional[float] = None
+class ShelterModel(BaseModel):
+    name: str
+    type: str
+    latitude: float
+    longitude: float
+    distance_km: float
+    capacity: Optional[str] = None
+    elevation_gain_m: Optional[float] = None
 
-# class RouteStepModel(BaseModel):
-#     step: int
-#     instruction: str
-#     street_name: str
-#     distance_m: int
-#     duration_s: int
-#     is_safe: bool = True
+class RouteStepModel(BaseModel):
+    step: int
+    instruction: str
+    street_name: str
+    distance_m: int
+    duration_s: int
+    is_safe: bool = True
 
-# class SafeRouteDetails(BaseModel):
-#     distance_km: float
-#     duration_min: int
-#     elevation_gain_m: float
-#     geometry: Dict[str, Any]
-#     hazard_level: str
-#     steps: List[RouteStepModel]
+class SafeRouteDetails(BaseModel):
+    distance_km: float
+    duration_min: int
+    elevation_gain_m: float
+    geometry: Dict[str, Any]
+    hazard_level: str
+    steps: List[RouteStepModel]
 
-# class DisruptedRouteDetails(BaseModel):
-#     distance_km: float
-#     duration_min: int
-#     geometry: Dict[str, Any]
-#     hazard_type: str
-#     hazard_reason: str
-#     block_point: Optional[Dict[str, Any]] = None
+class DisruptedRouteDetails(BaseModel):
+    distance_km: float
+    duration_min: int
+    geometry: Dict[str, Any]
+    hazard_type: str
+    hazard_reason: str
+    block_point: Optional[Dict[str, Any]] = None
 
-# class EvacuationRouteResponse(BaseModel):
-#     origin: Dict[str, Any]
-#     shelter: ShelterModel
-#     alternative_shelters: List[ShelterModel] = []
-#     mode: str
-#     elevation_gain_m: float
-#     safe_route: SafeRouteDetails
-#     disrupted_route: Optional[DisruptedRouteDetails] = None
-#     emergency_helpline: Dict[str, str]
+class EvacuationRouteResponse(BaseModel):
+    origin: Dict[str, Any]
+    shelter: ShelterModel
+    alternative_shelters: List[ShelterModel] = []
+    mode: str
+    elevation_gain_m: float
+    safe_route: SafeRouteDetails
+    disrupted_route: Optional[DisruptedRouteDetails] = None
+    emergency_helpline: Dict[str, str]
+

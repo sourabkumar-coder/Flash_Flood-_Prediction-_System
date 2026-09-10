@@ -1,119 +1,624 @@
-import React, { useEffect, useState } from 'react';
-import { villageApi } from '../api/client';
-import { Search, Filter, Home, ArrowUpDown } from 'lucide-react';
+import React, { useEffect, useState, useMemo } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { riskApi, villageApi, evacuationApi } from '../api/client';
+import MapComponent from '../components/MapComponent';
+import GloFASChart from '../components/GloFASChart';
+import { 
+  Search, Filter, Home, ArrowUpDown, MapPin, AlertTriangle, 
+  CloudRain, Droplets, Mountain, Layers, History, ShieldAlert,
+  Navigation, RefreshCw, Compass
+} from 'lucide-react';
 import './Villages.css';
 
+const loadingSteps = [
+  'Fetching region metadata...',
+  'Connecting to live weather feeds...',
+  'Assessing terrain and slope...',
+  'Checking upstream hydrology...',
+  'Reviewing historical flood patterns...',
+  'Calculating XGBoost flood risk index...'
+];
+
 export default function Villages() {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+
+  const [states, setStates] = useState([]);
+  const [selectedState, setSelectedState] = useState(searchParams.get('state') || '');
+  const [districts, setDistricts] = useState([]);
+  const [selectedDistrict, setSelectedDistrict] = useState(searchParams.get('district') || '');
   const [villages, setVillages] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
+  const [selectedVillage, setSelectedVillage] = useState(searchParams.get('village') || '');
+
+  const [gpsCoords, setGpsCoords] = useState(null);
+  const [gpsLoading, setGpsLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState('');
+  const [error, setError] = useState(null);
+  const [prediction, setPrediction] = useState(null);
+  const [evacuationPlan, setEvacuationPlan] = useState(null);
+
+  // Valleys table list
+  const [valleyList, setValleyList] = useState([]);
+  const [tableSearch, setTableSearch] = useState('');
   const [sortField, setSortField] = useState('risk_score');
   const [sortOrder, setSortOrder] = useState('desc');
 
   useEffect(() => {
-    fetchVillages();
+    fetchStates();
+    fetchValleyTable();
   }, []);
 
-  const fetchVillages = async () => {
+  useEffect(() => {
+    if (selectedState) {
+      fetchDistricts(selectedState);
+    } else {
+      setDistricts([]);
+      setSelectedDistrict('');
+    }
+  }, [selectedState]);
+
+  useEffect(() => {
+    if (selectedDistrict) {
+      fetchVillagesList(selectedDistrict);
+    } else {
+      setVillages([]);
+      setSelectedVillage('');
+    }
+  }, [selectedDistrict]);
+
+  // Initial load from URL parameters if provided
+  useEffect(() => {
+    const s = searchParams.get('state');
+    const d = searchParams.get('district');
+    const v = searchParams.get('village');
+    const lat = searchParams.get('lat');
+    const lon = searchParams.get('lon');
+
+    if (lat && lon) {
+      setGpsCoords({ latitude: parseFloat(lat), longitude: parseFloat(lon) });
+      runPrediction({ latitude: parseFloat(lat), longitude: parseFloat(lon) });
+    } else if (s && d) {
+      setSelectedState(s);
+      setSelectedDistrict(d);
+      if (v) setSelectedVillage(v);
+      runPrediction({ state: s, district: d, village: v || undefined });
+    }
+  }, [searchParams]);
+
+  const fetchStates = async () => {
     try {
-      const response = await villageApi.getVillages();
-      setVillages(response.data.villages || []);
+      const res = await riskApi.getStates();
+      setStates(res.data.states || []);
+    } catch (err) {
+      console.error('Failed to fetch states:', err);
+    }
+  };
+
+  const fetchDistricts = async (state) => {
+    try {
+      const res = await riskApi.getDistricts(state);
+      setDistricts(res.data.districts || []);
+    } catch (err) {
+      console.error('Failed to fetch districts:', err);
+    }
+  };
+
+  const fetchVillagesList = async (district) => {
+    try {
+      const res = await riskApi.getVillages(district);
+      setVillages(res.data.villages || []);
     } catch (err) {
       console.error('Failed to fetch villages:', err);
+    }
+  };
+
+  const fetchValleyTable = async () => {
+    try {
+      const res = await villageApi.getVillages();
+      setValleyList(res.data.villages || []);
+    } catch (err) {
+      console.error('Failed to fetch village table:', err);
+    }
+  };
+
+  const runPrediction = async (payload) => {
+    setLoading(true);
+    setError(null);
+    setPrediction(null);
+    setEvacuationPlan(null);
+    setLoadingMessage(loadingSteps[0]);
+
+    try {
+      for (let i = 0; i < loadingSteps.length; i += 1) {
+        setLoadingMessage(loadingSteps[i]);
+        await new Promise((resolve) => setTimeout(resolve, 120));
+      }
+
+      const res = await riskApi.predict(payload);
+      const data = res.data;
+      setPrediction(data);
+
+      if (data?.location) {
+        const { state, district } = data.location;
+        if (state && state !== 'Unknown' && state !== 'India') {
+          setSelectedState(state);
+          if (district && district !== 'Unknown' && !district.startsWith('GPS')) {
+            setSelectedDistrict(district);
+          }
+        }
+      }
+
+      // Pre-fetch evacuation route automatically
+      if (data?.location?.latitude && data?.location?.longitude) {
+        evacuationApi.getRoute({
+          latitude: data.location.latitude,
+          longitude: data.location.longitude,
+          state: data.location.state || '',
+          district: data.location.district || '',
+          mode: 'driving'
+        }).then(r => {
+          if (r.data) setEvacuationPlan(r.data);
+        }).catch(() => null);
+      }
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Failed to analyze risk for the selected location.');
     } finally {
       setLoading(false);
+      setLoadingMessage('');
     }
   };
 
-  const handleSort = (field) => {
-    if (sortField === field) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortField(field);
-      setSortOrder('desc'); // Default new sort to desc (useful for risk score)
+  const handleAnalyze = async () => {
+    if (gpsCoords) {
+      await runPrediction({ latitude: gpsCoords.latitude, longitude: gpsCoords.longitude });
+      return;
     }
+    if (!selectedState || !selectedDistrict) return;
+    const payload = { state: selectedState, district: selectedDistrict };
+    if (selectedVillage) payload.village = selectedVillage;
+    await runPrediction(payload);
   };
 
-  const filteredAndSortedVillages = villages
-    .filter(v => v.name.toLowerCase().includes(search.toLowerCase()) || v.district.toLowerCase().includes(search.toLowerCase()))
-    .sort((a, b) => {
-      let valA = a[sortField];
-      let valB = b[sortField];
-      
-      // Handle missing values
-      if (valA === undefined) valA = 0;
-      if (valB === undefined) valB = 0;
+  const handleDetectLocation = () => {
+    if (!navigator.geolocation) {
+      setError('Geolocation is not supported by your browser.');
+      return;
+    }
+    setGpsLoading(true);
+    setError(null);
 
-      if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
-      if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
-      return 0;
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const lat = position.coords.latitude;
+        const lon = position.coords.longitude;
+        setGpsCoords({ latitude: lat, longitude: lon });
+        setGpsLoading(false);
+        await runPrediction({ latitude: lat, longitude: lon });
+      },
+      (err) => {
+        setGpsLoading(false);
+        setError('Failed to acquire GPS location. Please allow browser location access.');
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 }
+    );
+  };
+
+  const handleSelectFromTable = (v) => {
+    setSelectedState(v.state || 'Himachal Pradesh');
+    setSelectedDistrict(v.district);
+    setSelectedVillage(v.name || '');
+    setGpsCoords(null);
+    runPrediction({
+      state: v.state || 'Himachal Pradesh',
+      district: v.district,
+      village: v.name,
+      latitude: v.lat,
+      longitude: v.lon
     });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-  if (loading) return <div className="loading-state">Loading villages data...</div>;
+  const getRiskColor = (level) => {
+    switch (level?.toUpperCase()) {
+      case 'CRITICAL': return '#ef4444';
+      case 'HIGH': return '#f97316';
+      case 'MODERATE': return '#eab308';
+      case 'LOW': return '#10b981';
+      default: return '#3b82f6';
+    }
+  };
+
+  const rainfallChartData = useMemo(() => {
+    if (!prediction?.weather) return [];
+    return [
+      { label: '1h', value: Number(prediction.weather.rainfall_1h_mm ?? 0) },
+      { label: '3h', value: Number(prediction.weather.rainfall_3h_mm ?? 0) },
+      { label: '6h', value: Number(prediction.weather.rainfall_6h_mm ?? 0) },
+      { label: '24h', value: Number(prediction.weather.rainfall_24h_mm ?? 0) }
+    ];
+  }, [prediction]);
+
+  const maxRainfall = Math.max(...rainfallChartData.map((item) => item.value), 1);
+
+  const filteredAndSortedVillages = useMemo(() => {
+    return valleyList
+      .filter(v => v.name?.toLowerCase().includes(tableSearch.toLowerCase()) || v.district?.toLowerCase().includes(tableSearch.toLowerCase()))
+      .sort((a, b) => {
+        let valA = a[sortField] ?? 0;
+        let valB = b[sortField] ?? 0;
+        if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
+        if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
+        return 0;
+      });
+  }, [valleyList, tableSearch, sortField, sortOrder]);
 
   return (
-    <div className="villages-container">
-      <div className="page-header">
-        <h1>Village Risk Profiles</h1>
-        <p>Detailed analysis of localized threats, hydrology, and IoT telemetry.</p>
-      </div>
-
-      <div className="toolbar panel">
-        <div className="search-box">
-          <Search size={18} color="var(--text-muted)" />
-          <input 
-            type="text" 
-            placeholder="Search by village or district name..." 
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+    <div className="analytics-page-container">
+      {/* Target Location Controls Panel */}
+      <div className="location-control-panel panel">
+        <div className="panel-title-row">
+          <div className="title-group">
+            <Compass size={20} className="icon-blue" />
+            <h2>Target Region & ML Risk Analyzer</h2>
+          </div>
+          <button
+            type="button"
+            className={`gps-btn ${gpsCoords ? 'gps-active' : ''}`}
+            onClick={handleDetectLocation}
+            disabled={loading || gpsLoading}
+          >
+            <MapPin size={15} />
+            <span>{gpsLoading ? 'Detecting GPS...' : gpsCoords ? 'GPS Location Active' : 'Use Current Location'}</span>
+          </button>
         </div>
-        <button className="btn-outline"><Filter size={16} /> Filter by Risk</button>
+
+        <div className="selectors-grid">
+          <div className="input-group">
+            <label>State</label>
+            <select
+              value={selectedState}
+              onChange={(e) => {
+                setSelectedState(e.target.value);
+                if (gpsCoords) setGpsCoords(null);
+              }}
+            >
+              <option value="">Select State</option>
+              {states.map(s => <option key={s} value={s}>{s}</option>)}
+            </select>
+          </div>
+
+          <div className="input-group">
+            <label>District</label>
+            <select
+              value={selectedDistrict}
+              onChange={(e) => {
+                setSelectedDistrict(e.target.value);
+                if (gpsCoords) setGpsCoords(null);
+              }}
+              disabled={!selectedState}
+            >
+              <option value="">Select District</option>
+              {districts.map(d => <option key={d} value={d}>{d}</option>)}
+            </select>
+          </div>
+
+          <div className="input-group">
+            <label>Village / Ward</label>
+            <select
+              value={selectedVillage}
+              onChange={(e) => setSelectedVillage(e.target.value)}
+              disabled={!selectedDistrict || villages.length === 0}
+            >
+              <option value="">District-Level Analysis</option>
+              {villages.map(v => <option key={v} value={v}>{v}</option>)}
+            </select>
+          </div>
+
+          <div className="input-group action-group">
+            <label>&nbsp;</label>
+            <button
+              type="button"
+              className="btn-primary analyze-btn"
+              onClick={handleAnalyze}
+              disabled={loading || gpsLoading || (!gpsCoords && (!selectedState || !selectedDistrict))}
+            >
+              {loading ? (
+                <>
+                  <RefreshCw size={15} className="spinning" />
+                  <span>Processing...</span>
+                </>
+              ) : (
+                'Run Risk Analysis'
+              )}
+            </button>
+          </div>
+        </div>
+
+        {error && <div className="error-banner"><AlertTriangle size={16} /><span>{error}</span></div>}
+
+        {loading && (
+          <div className="loading-stepper">
+            <div className="spinner mini-spinner" />
+            <span>{loadingMessage}</span>
+          </div>
+        )}
       </div>
 
-      <div className="table-container panel">
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th onClick={() => handleSort('name')}>Village / Ward <ArrowUpDown size={14} /></th>
-              <th onClick={() => handleSort('district')}>District <ArrowUpDown size={14} /></th>
-              <th onClick={() => handleSort('risk_level')}>Status <ArrowUpDown size={14} /></th>
-              <th onClick={() => handleSort('risk_score')}>Risk Score <ArrowUpDown size={14} /></th>
-              <th onClick={() => handleSort('rainfall_24h_mm')}>24h Rain <ArrowUpDown size={14} /></th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredAndSortedVillages.length === 0 ? (
-              <tr>
-                <td colSpan="6" className="text-center">No villages match the criteria.</td>
-              </tr>
-            ) : (
-              filteredAndSortedVillages.map((v, i) => (
-                <tr key={v.id || i}>
-                  <td>
-                    <div className="flex-align-center">
-                      <Home size={16} className="text-muted mr-2" />
-                      {v.name}
+      {/* Main Prediction Telemetry Section */}
+      {prediction ? (
+        <div className="analytics-results">
+          {/* Dynamic Risk Banner */}
+          <div
+            className="risk-hero-banner"
+            style={{
+              background: `linear-gradient(135deg, ${getRiskColor(prediction.prediction.risk_level)}dd, rgba(15, 23, 42, 0.95))`
+            }}
+          >
+            <div className="rh-left">
+              <span className="rh-eyebrow">Assessed Flood Hazard Level</span>
+              <h1>{prediction.prediction.risk_level} RISK</h1>
+              <p className="rh-location">
+                📍 {prediction.location.village ? `${prediction.location.village}, ` : ''}{prediction.location.district}, {prediction.location.state}
+                {prediction.location.latitude && ` (${prediction.location.latitude.toFixed(3)}°N, ${prediction.location.longitude.toFixed(3)}°E)`}
+              </p>
+            </div>
+
+            <div className="rh-right">
+              <div className="rh-score-card">
+                <span className="sc-label">ML Risk Score</span>
+                <span className="sc-value">{prediction.prediction.risk_score} / 100</span>
+              </div>
+              <div className="rh-meta">
+                <span>Susceptibility: {prediction.prediction.susceptibility_percent}%</span>
+                <span>Terrain: {prediction.terrain.hilly_region ? 'Hilly Region' : 'Plain'}</span>
+                {prediction.evacuation?.lead_time_hours !== null && (
+                  <span>Lead Time: {prediction.evacuation.lead_time_hours} hrs</span>
+                )}
+              </div>
+              <button
+                className="rh-evac-btn"
+                onClick={() => navigate(`/evacuation?lat=${prediction.location.latitude}&lon=${prediction.location.longitude}&name=${encodeURIComponent(prediction.location.village || prediction.location.district)}&state=${encodeURIComponent(prediction.location.state)}&district=${encodeURIComponent(prediction.location.district)}`)}
+              >
+                🚨 View Safest Escape Corridor &rarr;
+              </button>
+            </div>
+          </div>
+
+          {/* Deep Telemetry Cards Grid */}
+          <div className="telemetry-grid">
+            {/* 1. Map & Route Visualizer */}
+            <div className="telemetry-card panel map-card">
+              <div className="card-header">
+                <h3><MapPin size={18} className="icon-blue" /> Geospatial & Escape Map</h3>
+                {evacuationPlan?.shelter && (
+                  <span className="badge-shelter">
+                    🛡️ Nearest Safe Shelter: {evacuationPlan.shelter.name?.split(' ')[0]} ({evacuationPlan.safe_route?.distance_km}km)
+                  </span>
+                )}
+              </div>
+              <div className="card-map-wrap">
+                <MapComponent
+                  latitude={prediction.location.latitude}
+                  longitude={prediction.location.longitude}
+                  riskLevel={prediction.prediction.risk_level}
+                  districtName={prediction.location.village || prediction.location.district}
+                  evacuationPlan={evacuationPlan}
+                  height="340px"
+                />
+              </div>
+            </div>
+
+            {/* 2. Weather & Accumulation Chart */}
+            <div className="telemetry-card panel">
+              <div className="card-header">
+                <h3><CloudRain size={18} className="icon-blue" /> Live Weather & Rainfall</h3>
+                <span className="live-tag">Open-Meteo Synoptic</span>
+              </div>
+              <div className="stats-row-grid">
+                <div><span>Temperature</span><strong>{prediction.weather.temperature_c ?? 0}°C</strong></div>
+                <div><span>Humidity</span><strong>{prediction.weather.humidity_percent ?? 0}%</strong></div>
+                <div><span>Current Rain</span><strong>{prediction.weather.rainfall_mm ?? 0} mm</strong></div>
+                <div><span>24h Accumulation</span><strong>{prediction.weather.rainfall_24h_mm ?? 0} mm</strong></div>
+              </div>
+
+              <div className="rainfall-bars-box">
+                <span className="chart-label">Precipitation Accumulation (1h / 3h / 6h / 24h)</span>
+                <div className="bar-chart-flex">
+                  {rainfallChartData.map((item) => (
+                    <div key={item.label} className="bar-col">
+                      <div className="bar-track">
+                        <div
+                          className="bar-fill"
+                          style={{ height: `${Math.max(8, (item.value / maxRainfall) * 100)}%` }}
+                        />
+                      </div>
+                      <span className="bar-val">{item.value}mm</span>
+                      <span className="bar-lbl">{item.label}</span>
                     </div>
-                  </td>
-                  <td>{v.district}</td>
-                  <td>
-                    <span className={`badge ${v.risk_level?.toLowerCase() || 'low'}`}>
-                      {v.risk_level || 'LOW'}
-                    </span>
-                  </td>
-                  <td><strong>{v.risk_score || '0.0'}</strong></td>
-                  <td>{v.rainfall_24h_mm || '0.0'} mm</td>
-                  <td>
-                    <button className="btn-link">View Profile</button>
-                  </td>
-                </tr>
-              ))
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Terrain & Slope (SRTM) */}
+            <div className="telemetry-card panel">
+              <div className="card-header">
+                <h3><Mountain size={18} className="icon-blue" /> Topography & SRTM Relief</h3>
+                <span className="live-tag">SRTM 90m</span>
+              </div>
+              <div className="stats-row-grid">
+                <div><span>Elevation</span><strong>{prediction.terrain.elevation_m ?? 0} m</strong></div>
+                <div><span>Relative Relief</span><strong>{prediction.terrain.relief_m ?? 0} m</strong></div>
+                <div><span>Mean Slope</span><strong>{prediction.terrain.slope_percent ?? 0}%</strong></div>
+                <div><span>Max Slope</span><strong>{prediction.terrain.max_slope_percent ?? 0}%</strong></div>
+              </div>
+              <div className="insight-snippet">
+                <p>
+                  High steep slope gradients accelerate surface runoff velocity into valley floors, causing rapid cresting during high-intensity cloudbursts.
+                </p>
+              </div>
+            </div>
+
+            {/* 4. Hydrology & River Discharge */}
+            <div className="telemetry-card panel">
+              <div className="card-header">
+                <h3><Droplets size={18} className="icon-blue" /> Hydrological Telemetry</h3>
+                <span className="live-tag">{prediction.hydrology.model_name || 'GloFAS v4'}</span>
+              </div>
+              <div className="stats-row-grid">
+                <div><span>Discharge (Current)</span><strong>{prediction.hydrology.river_discharge ?? 0} m³/s</strong></div>
+                <div><span>Ensemble Mean</span><strong>{prediction.hydrology.discharge_mean ?? prediction.hydrology.river_discharge ?? 0} m³/s</strong></div>
+                <div><span>75th Percentile</span><strong>{prediction.hydrology.discharge_p75 ?? 0} m³/s</strong></div>
+                <div><span>Water Stage</span><strong>{prediction.hydrology.water_level ?? 0} m</strong></div>
+              </div>
+              <div className="insight-snippet">
+                <strong>Model Reasoning:</strong>
+                <p>{prediction.hydrology.reason || 'Telemetry integrated from live hydrological gauge stations.'}</p>
+              </div>
+            </div>
+
+            {/* 5. GloFAS 30-Day Discharge Chart */}
+            {prediction.hydrology?.time_series && (
+              <div className="telemetry-card panel full-width-card">
+                <div className="card-header">
+                  <h3><Droplets size={18} className="icon-blue" /> GloFAS 30-Day Ensemble Forecast</h3>
+                  <span className="live-tag">Station: {prediction.hydrology.station || 'Regional Station'}</span>
+                </div>
+                <GloFASChart
+                  timeSeries={prediction.hydrology.time_series}
+                  stationName={prediction.hydrology.station}
+                  modelName={prediction.hydrology.model_name || 'GloFAS v4 Seamless'}
+                />
+              </div>
             )}
-          </tbody>
-        </table>
+
+            {/* 6. Soil Composition */}
+            <div className="telemetry-card panel">
+              <div className="card-header">
+                <h3><Layers size={18} className="icon-blue" /> Soil Texture & Infiltration</h3>
+                <span className="live-tag">ISRIC SoilGrids</span>
+              </div>
+              <div className="stats-row-grid">
+                <div><span>Clay Content</span><strong>{prediction.soil.clay_percent ?? 0}%</strong></div>
+                <div><span>Sand Content</span><strong>{prediction.soil.sand_percent ?? 0}%</strong></div>
+                <div><span>Silt Content</span><strong>{prediction.soil.silt_percent ?? 0}%</strong></div>
+              </div>
+            </div>
+
+            {/* 7. Historical Baseline (1950-2024) */}
+            <div className="telemetry-card panel">
+              <div className="card-header">
+                <h3><History size={18} className="icon-blue" /> Historical Flood Exposure (1950-2024)</h3>
+                <span className="live-tag">Disaster Catalog</span>
+              </div>
+              <div className="stats-row-grid">
+                <div><span>Past Flood Events</span><strong>{prediction.historical.flood_events ?? 0}</strong></div>
+                <div><span>Fatalities</span><strong>{prediction.historical.fatalities ?? 0}</strong></div>
+                <div><span>Displaced</span><strong>{prediction.historical.displaced ?? 0}</strong></div>
+                <div><span>Max Severity</span><strong>{prediction.historical.max_severity ?? 0}</strong></div>
+              </div>
+            </div>
+
+            {/* 8. NDRF Control & Emergency Hotline */}
+            <div className="telemetry-card panel full-width-card ndrf-telemetry-card">
+              <div className="card-header">
+                <h3><ShieldAlert size={18} color="#ef4444" /> NDRF Emergency Rescue Hotline</h3>
+                <span className="badge critical">16 Battalions Active</span>
+              </div>
+              <p className="ndrf-text">
+                For prompt disaster rescue in flooded or landlocked sectors, contact the 24/7 NDRF Command control room or local State Emergency Operation Centre (SEOC).
+              </p>
+              <div className="ndrf-hotlines-row">
+                <div><span>National Toll-Free</span><strong>📞 1078 / 112</strong></div>
+                <div><span>NDRF 24/7 Helpline</span><strong>📞 +91-9711077372</strong></div>
+                <div><span>State SEOC Hotline</span><strong>📞 1070</strong></div>
+                <div><span>HQ Control Room</span><strong>011-23438091</strong></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="empty-analytics panel">
+          <MapPin size={42} className="icon-blue" />
+          <h3>Select a State & District or Click "Use Current Location"</h3>
+          <p>
+            Evaluate high-resolution Open-Meteo telemetry, SRTM 90m slope relief, GloFAS v4 hydrological discharge, and historical baseline data with our XGBoost prediction pipeline.
+          </p>
+        </div>
+      )}
+
+      {/* Monitored Valleys & Checkpoints Table */}
+      <div className="table-section">
+        <div className="section-header">
+          <h2>Monitored Valleys & Regional Checkpoints</h2>
+          <p>Click any checkpoint to immediately run deep risk telemetry.</p>
+        </div>
+
+        <div className="toolbar panel">
+          <div className="search-box">
+            <Search size={18} color="var(--text-muted)" />
+            <input
+              type="text"
+              placeholder="Search valley or district..."
+              value={tableSearch}
+              onChange={(e) => setTableSearch(e.target.value)}
+            />
+          </div>
+          <span className="count-tag">{filteredAndSortedVillages.length} Valleys Monitored</span>
+        </div>
+
+        <div className="table-container panel">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th onClick={() => setSortField('name')}>Valley / Ward <ArrowUpDown size={14} /></th>
+                <th onClick={() => setSortField('district')}>District <ArrowUpDown size={14} /></th>
+                <th onClick={() => setSortField('risk_level')}>Status <ArrowUpDown size={14} /></th>
+                <th onClick={() => setSortField('risk_score')}>Risk Score <ArrowUpDown size={14} /></th>
+                <th onClick={() => setSortField('rainfall_24h_mm')}>24h Rain <ArrowUpDown size={14} /></th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredAndSortedVillages.length === 0 ? (
+                <tr>
+                  <td colSpan="6" className="text-center">No valleys match your search.</td>
+                </tr>
+              ) : (
+                filteredAndSortedVillages.map((v, i) => (
+                  <tr key={v.id || i}>
+                    <td>
+                      <div className="flex-align-center">
+                        <Home size={16} className="text-muted mr-2" />
+                        <strong>{v.name}</strong>
+                      </div>
+                    </td>
+                    <td>{v.district}</td>
+                    <td>
+                      <span className={`badge ${v.risk_level?.toLowerCase() || 'low'}`}>
+                        {v.risk_level || 'LOW'}
+                      </span>
+                    </td>
+                    <td><strong style={{ color: getRiskColor(v.risk_level) }}>{v.risk_score || '0.0'}</strong></td>
+                    <td>{v.rainfall_24h_mm || '0.0'} mm</td>
+                    <td>
+                      <button
+                        type="button"
+                        className="btn-primary table-action-btn"
+                        onClick={() => handleSelectFromTable(v)}
+                      >
+                        Analyze Risk &rarr;
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
 }
+

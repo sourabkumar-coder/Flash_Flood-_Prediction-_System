@@ -1,50 +1,105 @@
-import React from 'react';
-import { Activity, Menu, Moon, ShieldAlert, Sun } from 'lucide-react';
+import React, { useState } from 'react';
+import { Activity, Menu, Moon, PhoneCall, ShieldAlert, Sun, X } from 'lucide-react';
 import { useTheme } from '../../context/ThemeContext';
 import './Layout.css';
 
 export default function Header({ onMenuClick }) {
   const status = 'ONLINE';
-  const demoMode = false;
   const { theme, toggleTheme } = useTheme();
+  const [isNdrfModalOpen, setIsNdrfModalOpen] = useState(false);
 
   return (
-    <header className="top-header">
-      <button
-        type="button"
-        className="menu-toggle"
-        onClick={onMenuClick}
-        aria-label="Open navigation menu"
-        title="Open navigation menu"
-      >
-        <Menu size={21} />
-      </button>
-      <div className="header-left">
-        <h2 className="page-title">JALDRISHTI</h2>
-        <span className="subtitle-text">Hyperlocal Flash-Flood & Landslide Early Warning System</span>
-      </div>
-      
-      <div className="header-right">
-        {demoMode && (
-          <div className="demo-badge">
-            <ShieldAlert size={16} />
-            <span>DEMO MODE</span>
-          </div>
-        )}
-        <div className="system-status">
-          <Activity size={16} className={status === 'ONLINE' ? 'status-icon online' : 'status-icon offline'} />
-          <span>SYSTEM ONLINE</span>
-        </div>
+    <>
+      <header className="top-header">
         <button
           type="button"
-          className="theme-toggle"
-          onClick={toggleTheme}
-          aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          className="menu-toggle"
+          onClick={onMenuClick}
+          aria-label="Open navigation menu"
+          title="Open navigation menu"
         >
-          {theme === 'light' ? <Moon size={17} /> : <Sun size={17} />}
+          <Menu size={21} />
         </button>
-      </div>
-    </header>
+        <div className="header-left">
+          <h2 className="page-title">JALDRISHTI</h2>
+          <span className="subtitle-text">Hyperlocal Flash-Flood & Landslide Early Warning System</span>
+        </div>
+        
+        <div className="header-right">
+          {/* NDRF Emergency Hotline Pill */}
+          <button
+            type="button"
+            className="ndrf-header-btn"
+            onClick={() => setIsNdrfModalOpen(true)}
+            title="Click to view NDRF Control Room & Emergency Rescue Numbers"
+          >
+            <PhoneCall size={14} className="pulse-icon" />
+            <span>NDRF: 1078 / 112</span>
+          </button>
+
+          <div className="system-status">
+            <Activity size={16} className={status === 'ONLINE' ? 'status-icon online' : 'status-icon offline'} />
+            <span>SYSTEM ONLINE</span>
+          </div>
+
+          <button
+            type="button"
+            className="theme-toggle"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            {theme === 'light' ? <Moon size={17} /> : <Sun size={17} />}
+          </button>
+        </div>
+      </header>
+
+      {/* NDRF Emergency Details Modal */}
+      {isNdrfModalOpen && (
+        <div className="ndrf-modal-overlay" onClick={() => setIsNdrfModalOpen(false)}>
+          <div className="ndrf-modal-card" onClick={(e) => e.stopPropagation()}>
+            <div className="ndrf-modal-header">
+              <div className="ndrf-title-group">
+                <ShieldAlert size={24} color="#ef4444" />
+                <h3>National Disaster Response Force (NDRF)</h3>
+              </div>
+              <button className="ndrf-close-btn" onClick={() => setIsNdrfModalOpen(false)}>
+                <X size={20} />
+              </button>
+            </div>
+            <p className="ndrf-modal-desc">
+              If you require immediate flood rescue, boat evacuation, or emergency disaster support, reach out directly to the active NDRF battalions and state disaster command rooms.
+            </p>
+            <div className="ndrf-numbers-grid">
+              <div className="ndrf-card highlight">
+                <span className="ndrf-card-label">National Toll-Free Emergency</span>
+                <a href="tel:1078" className="ndrf-card-value">📞 1078 / 112</a>
+              </div>
+              <div className="ndrf-card highlight">
+                <span className="ndrf-card-label">NDRF 24/7 Helpline</span>
+                <a href="tel:9711077372" className="ndrf-card-value">📞 +91-9711077372</a>
+              </div>
+              <div className="ndrf-card">
+                <span className="ndrf-card-label">NDRF HQ Control Room</span>
+                <a href="tel:01123438091" className="ndrf-card-value">011-23438091</a>
+              </div>
+              <div className="ndrf-card">
+                <span className="ndrf-card-label">NDRF HQ Control Room (Alt)</span>
+                <a href="tel:01123438136" className="ndrf-card-value">011-23438136</a>
+              </div>
+              <div className="ndrf-card">
+                <span className="ndrf-card-label">State SEOC Control Room</span>
+                <a href="tel:1070" className="ndrf-card-value">📞 1070</a>
+              </div>
+              <div className="ndrf-card">
+                <span className="ndrf-card-label">Disaster Ministry Helpline</span>
+                <a href="tel:01124363260" className="ndrf-card-value">011-24363260</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
+

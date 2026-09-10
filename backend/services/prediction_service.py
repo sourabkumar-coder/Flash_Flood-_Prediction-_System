@@ -17,6 +17,10 @@ import sys
 import joblib
 import pandas as pd
 
+import warnings
+from sklearn.exceptions import InconsistentVersionWarning
+warnings.filterwarnings("ignore", category=InconsistentVersionWarning)
+
 from services.risk_engine import (
     calculate_risk_score,
     classify_risk,

@@ -332,3 +332,146 @@
     overflow: hidden;
   }
 }
+
+/* NDRF Hotline Button & Modal */
+.ndrf-header-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #ef444418;
+  color: #ef4444;
+  border: 1px solid #ef444440;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.ndrf-header-btn:hover {
+  background: #ef444428;
+  border-color: #ef444480;
+  transform: translateY(-1px);
+}
+
+.pulse-icon {
+  animation: pulse-ring 1.8s infinite;
+}
+
+.ndrf-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.ndrf-modal-card {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 580px;
+  padding: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  animation: modal-appear 0.2s ease;
+}
+
+@keyframes modal-appear {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.ndrf-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.ndrf-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ndrf-title-group h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--text-main);
+}
+
+.ndrf-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+}
+
+.ndrf-close-btn:hover {
+  background: var(--bg-panel-soft);
+  color: var(--text-main);
+}
+
+.ndrf-modal-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+}
+
+.ndrf-numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 540px) {
+  .ndrf-numbers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ndrf-card {
+  background: var(--bg-panel-soft);
+  border: 1px solid var(--border-color);
+  padding: 10px 14px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ndrf-card.highlight {
+  background: #ef444410;
+  border-color: #ef444430;
+}
+
+.ndrf-card-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 600;
+}
+
+.ndrf-card-value {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.ndrf-card.highlight .ndrf-card-value {
+  color: #ef4444;
+}
+

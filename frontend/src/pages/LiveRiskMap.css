@@ -1,13 +1,156 @@
+.map-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: calc(100vh - 100px);
+  width: 100%;
+}
+
+.map-controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  padding: 8px 14px;
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+
+.bar-group-left, .bar-group-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input-wrap input {
+  padding: 6px 10px 6px 32px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel-soft);
+  color: var(--text-main);
+  font-size: 0.85rem;
+  width: 190px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 10px;
+  color: var(--text-muted);
+}
+
+.basin-select, .basemap-select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-panel-soft);
+  color: var(--text-main);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.btn-sim {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #f9731618;
+  color: #f97316;
+  border: 1px solid #f9731650;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-sim.sim-active {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+}
+
+.btn-sync {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-panel-soft);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-sync:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.map-critical-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 10px;
+  animation: pulse-border 2s infinite;
+}
+
+.map-critical-banner .mcb-icon {
+  display: flex;
+  align-items: center;
+}
+
+.map-critical-banner .mcb-text {
+  flex: 1;
+  font-size: 0.88rem;
+}
+
+.map-critical-banner .mcb-btn {
+  background: #ffffff;
+  color: #ef4444;
+  border: none;
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 .map-page-container {
   position: relative;
   width: 100%;
-  height: calc(100vh - 110px); /* Fill space minus header and padding */
+  flex: 1;
   display: flex;
   overflow: hidden;
   border-radius: 12px;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-color);
 }
+
 
 .map-wrapper {
   flex: 1;

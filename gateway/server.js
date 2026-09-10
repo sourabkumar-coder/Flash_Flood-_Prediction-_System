@@ -343,6 +343,35 @@ app.get('/api/districts/:state', async (req, res) => {
   }
 });
 
+app.post('/api/evacuation/route', async (req, res) => {
+  try {
+    const response = await axios.post(`${FASTAPI_URL}/api/evacuation/route`, req.body, { timeout: 30000 });
+    res.json(response.data);
+  } catch (err) {
+    const status = err.response?.status || 500;
+    const detail = err.response?.data?.detail || err.message;
+    res.status(status).json({ detail });
+  }
+});
+
+app.get('/api/villages/:district', async (req, res) => {
+  try {
+    const response = await axios.get(`${FASTAPI_URL}/villages/${encodeURIComponent(req.params.district)}`, { timeout: 10000 });
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ detail: err.message });
+  }
+});
+
+app.get('/api/features/:state/:district', async (req, res) => {
+  try {
+    const response = await axios.get(`${FASTAPI_URL}/features/${encodeURIComponent(req.params.state)}/${encodeURIComponent(req.params.district)}`, { timeout: 10000 });
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ detail: err.message });
+  }
+});
+
 app.get('/api/location/reverse', async (req, res) => {
   try {
     const response = await axios.get(`${FASTAPI_URL}/location/reverse`, { params: req.query, timeout: 10000 });
@@ -351,6 +380,7 @@ app.get('/api/location/reverse', async (req, res) => {
     res.status(500).json({ detail: err.message });
   }
 });
+
 
 // ==============================================================================
 // NEW JALDRISHTI MOCK ENDPOINTS (Until backend is fully integrated)
