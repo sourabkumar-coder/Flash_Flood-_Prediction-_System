@@ -47,6 +47,9 @@ function App() {
   const [isEvacModalOpen, setIsEvacModalOpen] = useState(false);
   const [evacMode, setEvacMode] = useState('driving'); // 'driving' | 'walking'
 
+  // NDRF Emergency Modal State
+  const [isNdrfModalOpen, setIsNdrfModalOpen] = useState(false);
+
   useEffect(() => {
     fetchStates();
   }, []);
@@ -133,7 +136,6 @@ function App() {
     }
   };
 
-  // Open Evacuation Modal and trigger route calculation
   const handleOpenEvacuation = async () => {
     setIsEvacModalOpen(true);
     if (!evacuationPlan) {
@@ -141,13 +143,11 @@ function App() {
     }
   };
 
-  // Change driving/walking transport mode
   const handleModeChange = async (newMode) => {
     setEvacMode(newMode);
     await handleFetchEvacuationRoute(newMode, 0);
   };
 
-  // Switch destination to an alternative shelter
   const handleSelectAlternativeShelter = async (shelterIdx) => {
     await handleFetchEvacuationRoute(evacMode, shelterIdx);
   };
@@ -182,7 +182,7 @@ function App() {
         }
       }
 
-      // Pre-fetch evacuation route automatically if risk is Elevated or Critical
+      // Pre-fetch evacuation route automatically
       if (data?.location?.latitude && data?.location?.longitude) {
         const lat = data.location.latitude;
         const lon = data.location.longitude;
@@ -352,6 +352,17 @@ function App() {
         </nav>
 
         <div className="topbar-meta">
+          {/* NDRF Emergency Hotline Pill */}
+          <div
+            className="ndrf-pill"
+            onClick={() => setIsNdrfModalOpen(true)}
+            style={{ cursor: 'pointer' }}
+            title="Click to view NDRF Control Room & Emergency Rescue Numbers"
+          >
+            <span className="live-dot" style={{ background: '#ef4444' }} />
+            <span>NDRF: 112 / 1078</span>
+          </div>
+
           <div className="system-pill">
             <span className="live-dot" />
             <span>Multi-Source Live</span>
@@ -500,13 +511,13 @@ function App() {
             )}
 
             <div className="utility-box">
-              <h3>Data Feeds & Engines</h3>
+              <h3>Data Feeds & Response</h3>
               <ul>
                 <li>Weather: live (Open-Meteo)</li>
                 <li>Terrain: available (SRTM 90m)</li>
                 <li>Hydrology: GloFAS v4 Seamless</li>
                 <li>Routing: OSRM + OSM Overpass</li>
-                <li>Historical: 1950-2024 EM-DAT Baseline</li>
+                <li>Rescue: 16 NDRF Battalions Active</li>
               </ul>
             </div>
           </aside>
@@ -739,6 +750,25 @@ function App() {
                       <div><span>Impact Index</span><strong>{prediction.historical.max_impact ?? 0}</strong></div>
                     </div>
                   </div>
+
+                  {/* NDRF Emergency Response Panel */}
+                  <div className="panel emergency-panel">
+                    <div className="panel-header">
+                      <h3>🚨 National Disaster Response Force (NDRF)</h3>
+                      <span className="status-badge live">16 Battalions Active</span>
+                    </div>
+                    <p style={{ color: '#fca5a5', fontSize: '0.85rem', marginBottom: '14px', lineHeight: '1.5' }}>
+                      For rapid flood rescue and emergency disaster response, the NDRF operates 16 active battalions deployed nationwide with 24/7 dedicated control rooms.
+                    </p>
+                    <div className="stats-grid">
+                      <div><span>Main Toll-Free</span><strong style={{ color: '#ef4444' }}>1078 / 112</strong></div>
+                      <div><span>NDRF 24/7 Helpline</span><strong style={{ color: '#38bdf8' }}>+91-9711077372</strong></div>
+                      <div><span>HQ Control Room</span><strong>011-23438091</strong></div>
+                      <div><span>HQ Control Room (Alt)</span><strong>011-23438136</strong></div>
+                      <div><span>State SEOC Hotline</span><strong style={{ color: '#34d399' }}>1070</strong></div>
+                      <div><span>Ministry Helpline</span><strong>011-24363260</strong></div>
+                    </div>
+                  </div>
                 </section>
               </>
             )}
@@ -757,6 +787,47 @@ function App() {
         onSelectShelter={handleSelectAlternativeShelter}
         originLabel={prediction?.location?.village || prediction?.location?.district || 'Selected Location'}
       />
+
+      {/* NDRF Emergency Details Modal */}
+      {isNdrfModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsNdrfModalOpen(false)}>
+          <div className="modal-content panel" onClick={(e) => e.stopPropagation()}>
+            <div className="panel-header">
+              <h2>🚨 National Disaster Response Force (NDRF)</h2>
+              <button className="modal-close" onClick={() => setIsNdrfModalOpen(false)}>×</button>
+            </div>
+            <p style={{ color: '#fca5a5', fontSize: '0.92rem', marginBottom: '18px', lineHeight: '1.6' }}>
+              If you need immediate flood rescue or emergency disaster support, use these official emergency numbers for the NDRF. 16 active battalions are deployed across the nation equipped with inflatable rescue boats and deep-divers.
+            </p>
+            <div className="stats-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>National Disaster Toll-Free</span>
+                <a href="tel:1078" style={{ fontSize: '1.25rem', color: '#ef4444', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>📞 1078 / 112</a>
+              </div>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>Main NDRF Helpline</span>
+                <a href="tel:9711077372" style={{ fontSize: '1.15rem', color: '#38bdf8', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>📞 +91-9711077372</a>
+              </div>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>HQ Control Room</span>
+                <a href="tel:01123438091" style={{ fontSize: '1.05rem', color: '#f8fafc', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>011-23438091</a>
+              </div>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>HQ Control Room (Alt)</span>
+                <a href="tel:01123438136" style={{ fontSize: '1.05rem', color: '#f8fafc', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>011-23438136</a>
+              </div>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>State Disaster Control (SEOC)</span>
+                <a href="tel:1070" style={{ fontSize: '1.1rem', color: '#34d399', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>1070</a>
+              </div>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>Disaster Management Ministry</span>
+                <a href="tel:01124363260" style={{ fontSize: '1.05rem', color: '#cbd5e1', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>011-24363260</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
