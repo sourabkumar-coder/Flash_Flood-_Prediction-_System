@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import GloFASChart from '../components/GloFASChart';
 import { riskApi } from '../api/client';
 import { CloudRain, Droplets, ArrowRight, MapPin, Compass, RefreshCw } from 'lucide-react';
@@ -14,6 +15,7 @@ const PRESET_LOCATIONS = [
 ];
 
 export default function Forecast() {
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [states, setStates] = useState([]);
@@ -92,13 +94,13 @@ export default function Forecast() {
   return (
     <div className="forecast-container">
       <div className="page-header">
-        <h1>Hydrological & River Forecast</h1>
-        <p>Short-term and 30-day ensemble predictions powered by ECMWF GloFAS v4 and Open-Meteo.</p>
+        <h1>{t('forecast_page.title')}</h1>
+        <p>{t('forecast_page.subtitle')}</p>
       </div>
 
       {/* Preset Quick Location Chips */}
       <div className="presets-bar">
-        <span className="presets-label">Popular Basins:</span>
+        <span className="presets-label">{t('forecast_page.popular_basins')}</span>
         <div className="chips-list">
           {PRESET_LOCATIONS.map((p) => (
             <button
@@ -116,17 +118,17 @@ export default function Forecast() {
       {/* Custom Selector Bar */}
       <div className="forecast-selector-bar panel">
         <div className="fsb-group">
-          <label>State</label>
+          <label>{t('villages_page.state')}</label>
           <select value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
-            <option value="">Select State</option>
+            <option value="">{t('villages_page.select_state')}</option>
             {states.map(s => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
 
         <div className="fsb-group">
-          <label>District</label>
+          <label>{t('villages_page.district')}</label>
           <select value={selectedDistrict} onChange={(e) => setSelectedDistrict(e.target.value)} disabled={!selectedState}>
-            <option value="">Select District</option>
+            <option value="">{t('villages_page.select_district')}</option>
             {districts.map(d => <option key={d} value={d}>{d}</option>)}
           </select>
         </div>
@@ -138,14 +140,14 @@ export default function Forecast() {
           disabled={loading || !selectedState || !selectedDistrict}
         >
           {loading ? <RefreshCw size={14} className="spinning" /> : <Compass size={14} />}
-          <span>Query Hydrology</span>
+          <span>{t('forecast_page.query_btn')}</span>
         </button>
       </div>
 
       {loading ? (
         <div className="loading-state panel">
           <RefreshCw size={24} className="spinning icon-blue" />
-          <p>Generating 30-day ensemble forecast and runoff routing models...</p>
+          <p>{t('forecast_page.generating')}</p>
         </div>
       ) : error ? (
         <div className="error-banner panel">{error}</div>
@@ -154,9 +156,9 @@ export default function Forecast() {
           <div className="forecast-main-panel panel">
             <div className="forecast-chart-header">
               <div>
-                <h2><Droplets size={20} className="icon-blue" /> River Discharge Forecast (GloFAS v4)</h2>
+                <h2><Droplets size={20} className="icon-blue" /> {t('forecast_page.discharge_header')}</h2>
                 <p className="subtitle-text">
-                  Ensemble mean, maximum, and 25th/75th percentiles for {villageData?.location?.village || villageData?.location?.district || 'Selected Region'}.
+                  {t('forecast_page.discharge_desc')} ({villageData?.location?.village || villageData?.location?.district || 'Selected Region'}).
                 </p>
               </div>
               <span className="forecast-station-pill">
@@ -179,13 +181,13 @@ export default function Forecast() {
 
           <div className="forecast-side-panel">
             <div className="panel risk-summary">
-              <h3>Predicted Risk Evolution</h3>
+              <h3>{t('forecast_page.risk_evolution')}</h3>
               <div className="current-risk">
-                <span className="label">Current ML Risk Score</span>
+                <span className="label">{t('forecast_page.current_ml_score')}</span>
                 <span className={`value ${villageData?.prediction?.risk_level?.toLowerCase()}`}>
                   {villageData?.prediction?.risk_score} / 100
                 </span>
-                <span className="risk-level-badge">{villageData?.prediction?.risk_level} RISK</span>
+                <span className="risk-level-badge">{villageData?.prediction?.risk_level} {t('villages_page.risk_suffix')}</span>
               </div>
               <div className="forecast-insight">
                 <p><strong>Hydrological Analysis:</strong> {villageData?.hydrology?.reason || villageData?.prediction?.reason || 'Conditions remain within seasonal flow ranges.'}</p>
@@ -193,26 +195,26 @@ export default function Forecast() {
             </div>
 
             <div className="panel weather-summary">
-              <h3><CloudRain size={18} className="icon-blue" /> 24h Synoptic Outlook</h3>
+              <h3><CloudRain size={18} className="icon-blue" /> {t('forecast_page.synoptic_outlook')}</h3>
               <ul className="weather-list">
                 <li>
-                  <span>Precipitation (24h)</span>
+                  <span>{t('metrics.rain_24h')}</span>
                   <strong>{villageData?.weather?.rainfall_24h_mm || 0} mm</strong>
                 </li>
                 <li>
-                  <span>Hourly Rain Rate</span>
+                  <span>{t('metrics.current_rain')}</span>
                   <strong>{villageData?.weather?.rainfall_1h_mm || 0} mm/h</strong>
                 </li>
                 <li>
-                  <span>Temperature</span>
+                  <span>{t('metrics.temperature')}</span>
                   <strong>{villageData?.weather?.temperature_c || 0} °C</strong>
                 </li>
                 <li>
-                  <span>Relative Humidity</span>
+                  <span>{t('metrics.humidity')}</span>
                   <strong>{villageData?.weather?.humidity_percent || 0} %</strong>
                 </li>
                 <li>
-                  <span>SRTM Mean Elevation</span>
+                  <span>{t('metrics.elevation')}</span>
                   <strong>{villageData?.terrain?.elevation_m || 0} m</strong>
                 </li>
               </ul>

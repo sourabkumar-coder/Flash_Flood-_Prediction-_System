@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { riskApi, villageApi, evacuationApi } from '../api/client';
 import MapComponent from '../components/MapComponent';
 import GloFASChart from '../components/GloFASChart';
@@ -10,16 +11,8 @@ import {
 } from 'lucide-react';
 import './Villages.css';
 
-const loadingSteps = [
-  'Fetching region metadata...',
-  'Connecting to live weather feeds...',
-  'Assessing terrain and slope...',
-  'Checking upstream hydrology...',
-  'Reviewing historical flood patterns...',
-  'Calculating XGBoost flood risk index...'
-];
-
 export default function Villages() {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
@@ -260,7 +253,7 @@ export default function Villages() {
         <div className="panel-title-row">
           <div className="title-group">
             <Compass size={20} className="icon-blue" />
-            <h2>Target Region & ML Risk Analyzer</h2>
+            <h2>{t('villages_page.title')}</h2>
           </div>
           <button
             type="button"
@@ -269,13 +262,13 @@ export default function Villages() {
             disabled={loading || gpsLoading}
           >
             <MapPin size={15} />
-            <span>{gpsLoading ? 'Detecting GPS...' : gpsCoords ? 'GPS Location Active' : 'Use Current Location'}</span>
+            <span>{gpsLoading ? t('villages_page.detecting_gps') : gpsCoords ? t('villages_page.gps_active') : t('villages_page.use_gps')}</span>
           </button>
         </div>
 
         <div className="selectors-grid">
           <div className="input-group">
-            <label>State</label>
+            <label>{t('villages_page.state')}</label>
             <select
               value={selectedState}
               onChange={(e) => {
@@ -283,13 +276,13 @@ export default function Villages() {
                 if (gpsCoords) setGpsCoords(null);
               }}
             >
-              <option value="">Select State</option>
+              <option value="">{t('villages_page.select_state')}</option>
               {states.map(s => <option key={s} value={s}>{s}</option>)}
             </select>
           </div>
 
           <div className="input-group">
-            <label>District</label>
+            <label>{t('villages_page.district')}</label>
             <select
               value={selectedDistrict}
               onChange={(e) => {
@@ -298,19 +291,19 @@ export default function Villages() {
               }}
               disabled={!selectedState}
             >
-              <option value="">Select District</option>
+              <option value="">{t('villages_page.select_district')}</option>
               {districts.map(d => <option key={d} value={d}>{d}</option>)}
             </select>
           </div>
 
           <div className="input-group">
-            <label>Village / Ward</label>
+            <label>{t('villages_page.village')}</label>
             <select
               value={selectedVillage}
               onChange={(e) => setSelectedVillage(e.target.value)}
               disabled={!selectedDistrict || villages.length === 0}
             >
-              <option value="">District-Level Analysis</option>
+              <option value="">{t('villages_page.select_village')}</option>
               {villages.map(v => <option key={v} value={v}>{v}</option>)}
             </select>
           </div>
@@ -326,10 +319,10 @@ export default function Villages() {
               {loading ? (
                 <>
                   <RefreshCw size={15} className="spinning" />
-                  <span>Processing...</span>
+                  <span>{t('villages_page.processing')}</span>
                 </>
               ) : (
-                'Run Risk Analysis'
+                t('villages_page.run_analysis')
               )}
             </button>
           </div>
@@ -356,8 +349,8 @@ export default function Villages() {
             }}
           >
             <div className="rh-left">
-              <span className="rh-eyebrow">Assessed Flood Hazard Level</span>
-              <h1>{prediction.prediction.risk_level} RISK</h1>
+              <span className="rh-eyebrow">{t('villages_page.assessed_level')}</span>
+              <h1>{prediction.prediction.risk_level} {t('villages_page.risk_suffix')}</h1>
               <p className="rh-location">
                 📍 {prediction.location.village ? `${prediction.location.village}, ` : ''}{prediction.location.district}, {prediction.location.state}
                 {prediction.location.latitude && ` (${prediction.location.latitude.toFixed(3)}°N, ${prediction.location.longitude.toFixed(3)}°E)`}
@@ -366,21 +359,21 @@ export default function Villages() {
 
             <div className="rh-right">
               <div className="rh-score-card">
-                <span className="sc-label">ML Risk Score</span>
+                <span className="sc-label">{t('metrics.risk_score')}</span>
                 <span className="sc-value">{prediction.prediction.risk_score} / 100</span>
               </div>
               <div className="rh-meta">
-                <span>Susceptibility: {prediction.prediction.susceptibility_percent}%</span>
-                <span>Terrain: {prediction.terrain.hilly_region ? 'Hilly Region' : 'Plain'}</span>
+                <span>{t('metrics.susceptibility')}: {prediction.prediction.susceptibility_percent}%</span>
+                <span>{t('metrics.terrain')}: {prediction.terrain.hilly_region ? 'Hilly Region' : 'Plain'}</span>
                 {prediction.evacuation?.lead_time_hours !== null && (
-                  <span>Lead Time: {prediction.evacuation.lead_time_hours} hrs</span>
+                  <span>{t('metrics.lead_time')}: {prediction.evacuation.lead_time_hours} {t('dashboard.hrs')}</span>
                 )}
               </div>
               <button
                 className="rh-evac-btn"
                 onClick={() => navigate(`/evacuation?lat=${prediction.location.latitude}&lon=${prediction.location.longitude}&name=${encodeURIComponent(prediction.location.village || prediction.location.district)}&state=${encodeURIComponent(prediction.location.state)}&district=${encodeURIComponent(prediction.location.district)}`)}
               >
-                🚨 View Safest Escape Corridor &rarr;
+                {t('villages_page.view_escape')} &rarr;
               </button>
             </div>
           </div>
@@ -393,7 +386,7 @@ export default function Villages() {
                 <h3><MapPin size={18} className="icon-blue" /> Geospatial & Escape Map</h3>
                 {evacuationPlan?.shelter && (
                   <span className="badge-shelter">
-                    🛡️ Nearest Safe Shelter: {evacuationPlan.shelter.name?.split(' ')[0]} ({evacuationPlan.safe_route?.distance_km}km)
+                    🛡️ {t('evacuation_page.target_shelter')}: {evacuationPlan.shelter.name?.split(' ')[0]} ({evacuationPlan.safe_route?.distance_km}km)
                   </span>
                 )}
               </div>
@@ -412,14 +405,14 @@ export default function Villages() {
             {/* 2. Weather & Accumulation Chart */}
             <div className="telemetry-card panel">
               <div className="card-header">
-                <h3><CloudRain size={18} className="icon-blue" /> Live Weather & Rainfall</h3>
+                <h3><CloudRain size={18} className="icon-blue" /> {t('villages_page.weather_header')}</h3>
                 <span className="live-tag">Open-Meteo Synoptic</span>
               </div>
               <div className="stats-row-grid">
-                <div><span>Temperature</span><strong>{prediction.weather.temperature_c ?? 0}°C</strong></div>
-                <div><span>Humidity</span><strong>{prediction.weather.humidity_percent ?? 0}%</strong></div>
-                <div><span>Current Rain</span><strong>{prediction.weather.rainfall_mm ?? 0} mm</strong></div>
-                <div><span>24h Accumulation</span><strong>{prediction.weather.rainfall_24h_mm ?? 0} mm</strong></div>
+                <div><span>{t('metrics.temperature')}</span><strong>{prediction.weather.temperature_c ?? 0}°C</strong></div>
+                <div><span>{t('metrics.humidity')}</span><strong>{prediction.weather.humidity_percent ?? 0}%</strong></div>
+                <div><span>{t('metrics.current_rain')}</span><strong>{prediction.weather.rainfall_mm ?? 0} mm</strong></div>
+                <div><span>{t('metrics.rain_24h')}</span><strong>{prediction.weather.rainfall_24h_mm ?? 0} mm</strong></div>
               </div>
 
               <div className="rainfall-bars-box">
@@ -444,13 +437,13 @@ export default function Villages() {
             {/* 3. Terrain & Slope (SRTM) */}
             <div className="telemetry-card panel">
               <div className="card-header">
-                <h3><Mountain size={18} className="icon-blue" /> Topography & SRTM Relief</h3>
+                <h3><Mountain size={18} className="icon-blue" /> {t('villages_page.topography_header')}</h3>
                 <span className="live-tag">SRTM 90m</span>
               </div>
               <div className="stats-row-grid">
-                <div><span>Elevation</span><strong>{prediction.terrain.elevation_m ?? 0} m</strong></div>
+                <div><span>{t('metrics.elevation')}</span><strong>{prediction.terrain.elevation_m ?? 0} m</strong></div>
                 <div><span>Relative Relief</span><strong>{prediction.terrain.relief_m ?? 0} m</strong></div>
-                <div><span>Mean Slope</span><strong>{prediction.terrain.slope_percent ?? 0}%</strong></div>
+                <div><span>{t('metrics.slope')}</span><strong>{prediction.terrain.slope_percent ?? 0}%</strong></div>
                 <div><span>Max Slope</span><strong>{prediction.terrain.max_slope_percent ?? 0}%</strong></div>
               </div>
               <div className="insight-snippet">
@@ -463,14 +456,14 @@ export default function Villages() {
             {/* 4. Hydrology & River Discharge */}
             <div className="telemetry-card panel">
               <div className="card-header">
-                <h3><Droplets size={18} className="icon-blue" /> Hydrological Telemetry</h3>
+                <h3><Droplets size={18} className="icon-blue" /> {t('villages_page.hydrology_header')}</h3>
                 <span className="live-tag">{prediction.hydrology.model_name || 'GloFAS v4'}</span>
               </div>
               <div className="stats-row-grid">
-                <div><span>Discharge (Current)</span><strong>{prediction.hydrology.river_discharge ?? 0} m³/s</strong></div>
+                <div><span>{t('metrics.discharge')}</span><strong>{prediction.hydrology.river_discharge ?? 0} m³/s</strong></div>
                 <div><span>Ensemble Mean</span><strong>{prediction.hydrology.discharge_mean ?? prediction.hydrology.river_discharge ?? 0} m³/s</strong></div>
                 <div><span>75th Percentile</span><strong>{prediction.hydrology.discharge_p75 ?? 0} m³/s</strong></div>
-                <div><span>Water Stage</span><strong>{prediction.hydrology.water_level ?? 0} m</strong></div>
+                <div><span>{t('metrics.water_stage')}</span><strong>{prediction.hydrology.water_level ?? 0} m</strong></div>
               </div>
               <div className="insight-snippet">
                 <strong>Model Reasoning:</strong>
@@ -496,7 +489,7 @@ export default function Villages() {
             {/* 6. Soil Composition */}
             <div className="telemetry-card panel">
               <div className="card-header">
-                <h3><Layers size={18} className="icon-blue" /> Soil Texture & Infiltration</h3>
+                <h3><Layers size={18} className="icon-blue" /> {t('villages_page.soil_header')}</h3>
                 <span className="live-tag">ISRIC SoilGrids</span>
               </div>
               <div className="stats-row-grid">
@@ -509,7 +502,7 @@ export default function Villages() {
             {/* 7. Historical Baseline (1950-2024) */}
             <div className="telemetry-card panel">
               <div className="card-header">
-                <h3><History size={18} className="icon-blue" /> Historical Flood Exposure (1950-2024)</h3>
+                <h3><History size={18} className="icon-blue" /> {t('villages_page.history_header')}</h3>
                 <span className="live-tag">Disaster Catalog</span>
               </div>
               <div className="stats-row-grid">
@@ -523,17 +516,17 @@ export default function Villages() {
             {/* 8. NDRF Control & Emergency Hotline */}
             <div className="telemetry-card panel full-width-card ndrf-telemetry-card">
               <div className="card-header">
-                <h3><ShieldAlert size={18} color="#ef4444" /> NDRF Emergency Rescue Hotline</h3>
+                <h3><ShieldAlert size={18} color="#ef4444" /> {t('villages_page.ndrf_header')}</h3>
                 <span className="badge critical">16 Battalions Active</span>
               </div>
               <p className="ndrf-text">
-                For prompt disaster rescue in flooded or landlocked sectors, contact the 24/7 NDRF Command control room or local State Emergency Operation Centre (SEOC).
+                {t('ndrf.desc')}
               </p>
               <div className="ndrf-hotlines-row">
-                <div><span>National Toll-Free</span><strong>📞 1078 / 112</strong></div>
-                <div><span>NDRF 24/7 Helpline</span><strong>📞 +91-9711077372</strong></div>
-                <div><span>State SEOC Hotline</span><strong>📞 1070</strong></div>
-                <div><span>HQ Control Room</span><strong>011-23438091</strong></div>
+                <div><span>{t('ndrf.tollfree')}</span><strong>1078 / 112</strong></div>
+                <div><span>{t('ndrf.helpline')}</span><strong>+91-9711077372</strong></div>
+                <div><span>{t('ndrf.seoc')}</span><strong>1070</strong></div>
+                <div><span>{t('ndrf.hq')}</span><strong>011-23438091</strong></div>
               </div>
             </div>
           </div>
@@ -541,9 +534,9 @@ export default function Villages() {
       ) : (
         <div className="empty-analytics panel">
           <MapPin size={42} className="icon-blue" />
-          <h3>Select a State & District or Click "Use Current Location"</h3>
+          <h3>{t('villages_page.empty_title')}</h3>
           <p>
-            Evaluate high-resolution Open-Meteo telemetry, SRTM 90m slope relief, GloFAS v4 hydrological discharge, and historical baseline data with our XGBoost prediction pipeline.
+            {t('villages_page.empty_desc')}
           </p>
         </div>
       )}
@@ -551,8 +544,8 @@ export default function Villages() {
       {/* Monitored Valleys & Checkpoints Table */}
       <div className="table-section">
         <div className="section-header">
-          <h2>Monitored Valleys & Regional Checkpoints</h2>
-          <p>Click any checkpoint to immediately run deep risk telemetry.</p>
+          <h2>{t('villages_page.table_title')}</h2>
+          <p>{t('villages_page.table_subtitle')}</p>
         </div>
 
         <div className="toolbar panel">
@@ -560,30 +553,30 @@ export default function Villages() {
             <Search size={18} color="var(--text-muted)" />
             <input
               type="text"
-              placeholder="Search valley or district..."
+              placeholder={t('villages_page.search_placeholder')}
               value={tableSearch}
               onChange={(e) => setTableSearch(e.target.value)}
             />
           </div>
-          <span className="count-tag">{filteredAndSortedVillages.length} Valleys Monitored</span>
+          <span className="count-tag">{filteredAndSortedVillages.length} {t('villages_page.valleys_monitored')}</span>
         </div>
 
         <div className="table-container panel">
           <table className="data-table">
             <thead>
               <tr>
-                <th onClick={() => setSortField('name')}>Valley / Ward <ArrowUpDown size={14} /></th>
-                <th onClick={() => setSortField('district')}>District <ArrowUpDown size={14} /></th>
-                <th onClick={() => setSortField('risk_level')}>Status <ArrowUpDown size={14} /></th>
-                <th onClick={() => setSortField('risk_score')}>Risk Score <ArrowUpDown size={14} /></th>
-                <th onClick={() => setSortField('rainfall_24h_mm')}>24h Rain <ArrowUpDown size={14} /></th>
-                <th>Actions</th>
+                <th onClick={() => setSortField('name')}>{t('villages_page.th_valley')} <ArrowUpDown size={14} /></th>
+                <th onClick={() => setSortField('district')}>{t('villages_page.th_district')} <ArrowUpDown size={14} /></th>
+                <th onClick={() => setSortField('risk_level')}>{t('villages_page.th_status')} <ArrowUpDown size={14} /></th>
+                <th onClick={() => setSortField('risk_score')}>{t('villages_page.th_risk_score')} <ArrowUpDown size={14} /></th>
+                <th onClick={() => setSortField('rainfall_24h_mm')}>{t('villages_page.th_24h_rain')} <ArrowUpDown size={14} /></th>
+                <th>{t('villages_page.th_actions')}</th>
               </tr>
             </thead>
             <tbody>
               {filteredAndSortedVillages.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="text-center">No valleys match your search.</td>
+                  <td colSpan="6" className="text-center">{t('villages_page.no_match')}</td>
                 </tr>
               ) : (
                 filteredAndSortedVillages.map((v, i) => (
@@ -608,7 +601,7 @@ export default function Villages() {
                         className="btn-primary table-action-btn"
                         onClick={() => handleSelectFromTable(v)}
                       >
-                        Analyze Risk &rarr;
+                        {t('villages_page.analyze_risk_btn')} &rarr;
                       </button>
                     </td>
                   </tr>
