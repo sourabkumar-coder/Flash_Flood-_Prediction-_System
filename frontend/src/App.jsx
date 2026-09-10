@@ -3,6 +3,7 @@ import axios from 'axios';
 import MapComponent from './components/MapComponent';
 import GloFASChart from './components/GloFASChart';
 import CommandCenter from './components/CommandCenter';
+import EvacuationModal from './components/EvacuationModal';
 import './App.css';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
@@ -26,8 +27,6 @@ function App() {
   // Navigation View: 'command_center' | 'district_analytics'
   const [activeTab, setActiveTab] = useState('command_center');
 
-  const [isNdrfModalOpen, setIsNdrfModalOpen] = useState(false);
-
   const [states, setStates] = useState([]);
   const [selectedState, setSelectedState] = useState('');
   const [districts, setDistricts] = useState([]);
@@ -40,8 +39,16 @@ function App() {
   const [loadingMessage, setLoadingMessage] = useState('');
   const [error, setError] = useState(null);
   const [prediction, setPrediction] = useState(null);
-  const [evacuationPlan, setEvacuationPlan] = useState(null);
   const [gpsCoords, setGpsCoords] = useState(null);
+
+  // Evacuation Routing State (OSRM + OSM + SRTM)
+  const [evacuationPlan, setEvacuationPlan] = useState(null);
+  const [evacLoading, setEvacLoading] = useState(false);
+  const [isEvacModalOpen, setIsEvacModalOpen] = useState(false);
+  const [evacMode, setEvacMode] = useState('driving'); // 'driving' | 'walking'
+
+  // NDRF Emergency Modal State
+  const [isNdrfModalOpen, setIsNdrfModalOpen] = useState(false);
 
   useEffect(() => {
     fetchStates();
@@ -68,7 +75,6 @@ function App() {
   const fetchStates = async () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/states`).catch(async () => {
-        // Fallback directly to port 8000 if gateway is not reachable
         return await axios.get(`http://localhost:8000/states`);
       });
       setStates(response.data.states || []);
@@ -99,16 +105,51 @@ function App() {
     }
   };
 
-  const fetchEvacuationPlan = async (lat, lon) => {
+  // Fetch Safest Evacuation Route from OSRM + OSM
+  const handleFetchEvacuationRoute = async (targetMode = evacMode, shelterIdx = 0) => {
+    const lat = prediction?.location?.latitude || gpsCoords?.latitude;
+    const lon = prediction?.location?.longitude || gpsCoords?.longitude;
+    if (!lat || !lon) return;
+
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/evacuation/plan`, {
-        params: { lat, lon }
+      setEvacLoading(true);
+      const payload = {
+        latitude: lat,
+        longitude: lon,
+        state: prediction?.location?.state || selectedState || '',
+        district: prediction?.location?.district || selectedDistrict || '',
+        mode: targetMode,
+        target_shelter_index: shelterIdx
+      };
+
+      let res = await axios.post(`${API_BASE_URL}/api/evacuation/route`, payload).catch(async () => {
+        return await axios.post(`http://localhost:8000/api/evacuation/route`, payload);
       });
-      setEvacuationPlan(response.data);
+
+      if (res?.data) {
+        setEvacuationPlan(res.data);
+      }
     } catch (err) {
-      console.error('Failed to fetch evacuation plan:', err);
-      setEvacuationPlan(null);
+      console.error('Failed to fetch evacuation route:', err);
+    } finally {
+      setEvacLoading(false);
     }
+  };
+
+  const handleOpenEvacuation = async () => {
+    setIsEvacModalOpen(true);
+    if (!evacuationPlan) {
+      await handleFetchEvacuationRoute(evacMode, 0);
+    }
+  };
+
+  const handleModeChange = async (newMode) => {
+    setEvacMode(newMode);
+    await handleFetchEvacuationRoute(newMode, 0);
+  };
+
+  const handleSelectAlternativeShelter = async (shelterIdx) => {
+    await handleFetchEvacuationRoute(evacMode, shelterIdx);
   };
 
   // Run prediction pipeline given payload
@@ -116,6 +157,7 @@ function App() {
     setLoading(true);
     setError(null);
     setPrediction(null);
+    setEvacuationPlan(null);
     setLoadingMessage(loadingSteps[0]);
 
     try {
@@ -127,19 +169,11 @@ function App() {
       const response = await axios.post(`${API_BASE_URL}/predict`, payload).catch(async () => {
         return await axios.post(`http://localhost:8000/predict`, payload);
       });
-      setPrediction(response.data);
+      const data = response.data;
+      setPrediction(data);
 
-      if (response.data?.location?.latitude && response.data?.location?.longitude) {
-        if (['HIGH', 'CRITICAL'].includes(response.data.overall_risk)) {
-          await fetchEvacuationPlan(response.data.location.latitude, response.data.location.longitude);
-        } else {
-          setEvacuationPlan(null);
-        }
-      }
-
-      // If location was reverse-resolved from GPS or Valley, sync dropdowns
-      if (response.data?.location) {
-        const { state, district } = response.data.location;
+      if (data?.location) {
+        const { state, district } = data.location;
         if (state && state !== 'Unknown' && state !== 'India') {
           setSelectedState(state);
           if (district && district !== 'Unknown' && !district.startsWith('GPS')) {
@@ -147,6 +181,32 @@ function App() {
           }
         }
       }
+
+      // Pre-fetch evacuation route automatically
+      if (data?.location?.latitude && data?.location?.longitude) {
+        const lat = data.location.latitude;
+        const lon = data.location.longitude;
+        axios.post(`${API_BASE_URL}/api/evacuation/route`, {
+          latitude: lat,
+          longitude: lon,
+          state: data.location.state || '',
+          district: data.location.district || '',
+          mode: 'driving'
+        }).then(r => {
+          if (r.data) setEvacuationPlan(r.data);
+        }).catch(() => {
+          axios.post(`http://localhost:8000/api/evacuation/route`, {
+            latitude: lat,
+            longitude: lon,
+            state: data.location.state || '',
+            district: data.location.district || '',
+            mode: 'driving'
+          }).then(r2 => {
+            if (r2.data) setEvacuationPlan(r2.data);
+          }).catch(() => null);
+        });
+      }
+
     } catch (err) {
       setError(err.response?.data?.detail || 'Failed to analyze risk for the selected region.');
     } finally {
@@ -193,7 +253,6 @@ function App() {
         setGpsCoords({ latitude: lat, longitude: lon });
         setGpsLoading(false);
 
-        // Switch to district view and run prediction immediately
         setActiveTab('district_analytics');
         await runPrediction({
           latitude: lat,
@@ -224,7 +283,6 @@ function App() {
     setGpsCoords(null);
   };
 
-  // Handler for drilldown from Command Center
   const handleSelectValleyFromMap = async (valley) => {
     setSelectedState(valley.state);
     setSelectedDistrict(valley.district);
@@ -294,10 +352,17 @@ function App() {
         </nav>
 
         <div className="topbar-meta">
-          <div className="ndrf-pill" onClick={() => setIsNdrfModalOpen(true)} style={{ cursor: 'pointer' }}>
+          {/* NDRF Emergency Hotline Pill */}
+          <div
+            className="ndrf-pill"
+            onClick={() => setIsNdrfModalOpen(true)}
+            style={{ cursor: 'pointer' }}
+            title="Click to view NDRF Control Room & Emergency Rescue Numbers"
+          >
             <span className="live-dot" style={{ background: '#ef4444' }} />
             <span>NDRF: 112 / 1078</span>
           </div>
+
           <div className="system-pill">
             <span className="live-dot" />
             <span>Multi-Source Live</span>
@@ -424,6 +489,18 @@ function App() {
               {loading ? 'Processing...' : gpsCoords ? 'Analyze GPS Risk' : 'Analyze risk'}
             </button>
 
+            {/* Quick Evacuation Assistant Button */}
+            {prediction && (
+              <button
+                className="evac-trigger-btn"
+                onClick={handleOpenEvacuation}
+                title="Calculate fastest and safest escape route avoiding river inundation paths"
+              >
+                <span className="evac-icon">🚨</span>
+                <span>View Safest Evacuation Route (OSRM)</span>
+              </button>
+            )}
+
             {error && <div className="error-box">{error}</div>}
 
             {loading && (
@@ -434,13 +511,13 @@ function App() {
             )}
 
             <div className="utility-box">
-              <h3>Data Feeds</h3>
+              <h3>Data Feeds & Response</h3>
               <ul>
                 <li>Weather: live (Open-Meteo)</li>
                 <li>Terrain: available (SRTM 90m)</li>
                 <li>Hydrology: GloFAS v4 Seamless</li>
-                <li>Soil: SoilGrids Infiltration</li>
-                <li>Historical: 1950-2024 EM-DAT Baseline</li>
+                <li>Routing: OSRM + OSM Overpass</li>
+                <li>Rescue: 16 NDRF Battalions Active</li>
               </ul>
             </div>
           </aside>
@@ -486,11 +563,19 @@ function App() {
                     <span>Hilly Region: {prediction.prediction.hilly_region ? 'Yes' : 'No'}</span>
                   </div>
 
-                  {prediction.evacuation?.lead_time_hours !== null && (
-                    <div className="warning-bar">
-                      Lead time: {prediction.evacuation.lead_time_hours} hours · {prediction.evacuation.status}
-                    </div>
-                  )}
+                  <div className="banner-actions-row">
+                    {prediction.evacuation?.lead_time_hours !== null && (
+                      <div className="warning-bar">
+                        Lead time: {prediction.evacuation.lead_time_hours} hours · {prediction.evacuation.status}
+                      </div>
+                    )}
+                    <button
+                      className="banner-evac-btn"
+                      onClick={handleOpenEvacuation}
+                    >
+                      🚨 Open Evacuation Navigator &rarr;
+                    </button>
+                  </div>
                 </section>
 
                 <section className="summary-grid">
@@ -515,7 +600,15 @@ function App() {
                 <section className="content-grid">
                   <div className="panel map-panel">
                     <div className="panel-header">
-                      <h3>Geospatial Overview</h3>
+                      <h3>Geospatial & Evacuation Map</h3>
+                      {evacuationPlan && (
+                        <button
+                          className="mini-evac-toggle-btn"
+                          onClick={() => setIsEvacModalOpen(true)}
+                        >
+                          🛡️ Shelter: {evacuationPlan.shelter?.name?.split(' ')[0]} ({evacuationPlan.safe_route?.distance_km}km)
+                        </button>
+                      )}
                     </div>
                     <div className="map-wrap">
                       <MapComponent
@@ -533,40 +626,32 @@ function App() {
                       <h3>Risk Explanation & Indicators</h3>
                     </div>
                     <p className="insight-text">{prediction.hydrology.reason || 'Risk assessment is being evaluated with live environmental indicators.'}</p>
-                  </div>
-
-                  {evacuationPlan && (
-                    <div className="panel" style={{ gridColumn: '1 / -1', borderLeft: '4px solid #ef4444' }}>
-                      <div className="panel-header">
-                        <h3 style={{ color: '#ef4444' }}>🚨 Evacuation Plan & Safe Routes</h3>
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginTop: '10px' }}>
-                        <div>
-                          <h4 style={{ color: '#fca5a5', marginBottom: '8px' }}>Disrupted Route</h4>
-                          <p style={{ fontSize: '0.9rem', marginBottom: '8px' }}>
-                            <strong style={{ color: '#ef4444' }}>Avoid: </strong> 
-                            {evacuationPlan.disrupted_route.reason}
-                          </p>
-                          <p style={{ fontSize: '0.8rem', color: 'var(--muted)' }}>
-                            Original Distance: {evacuationPlan.disrupted_route.distance_km} km
-                          </p>
-                        </div>
-                        <div style={{ background: 'rgba(34, 197, 94, 0.1)', padding: '16px', borderRadius: '12px', border: '1px solid rgba(34, 197, 94, 0.3)' }}>
-                          <h4 style={{ color: '#4ade80', marginBottom: '12px' }}>✅ Safe Route to {evacuationPlan.shelter.name}</h4>
-                          <ul style={{ listStyle: 'none', margin: 0, padding: 0, fontSize: '0.9rem', color: '#e2e8f0', display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                            {evacuationPlan.safe_route.steps.map((step, idx) => (
-                              <li key={idx} style={{ display: 'flex', gap: '10px' }}>
-                                <span style={{ color: '#4ade80', fontWeight: 'bold' }}>{idx + 1}.</span> {step}
-                              </li>
-                            ))}
-                          </ul>
-                          <div style={{ marginTop: '12px', fontSize: '0.85rem', color: '#4ade80' }}>
-                            Est. Distance: {evacuationPlan.safe_route.distance_km} km | Time: {evacuationPlan.safe_route.duration_min} min
+                    
+                    {evacuationPlan && (
+                      <div className="evac-quick-card">
+                        <div className="eq-head">
+                          <span className="eq-shield">🛡️</span>
+                          <div>
+                            <strong>Primary Safe Shelter Found:</strong>
+                            <p>{evacuationPlan.shelter?.name}</p>
                           </div>
                         </div>
+                        <div className="eq-meta">
+                          <span>⏱ {evacuationPlan.safe_route?.duration_min} min drive</span>
+                          <span>·</span>
+                          <span>▲ +{evacuationPlan.elevation_gain_m}m High Ground</span>
+                          <span>·</span>
+                          <span className="text-green">✓ River Avoided</span>
+                        </div>
+                        <button
+                          className="eq-btn"
+                          onClick={() => setIsEvacModalOpen(true)}
+                        >
+                          Show Turn-by-Turn Guidance &rarr;
+                        </button>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
 
                   <div className="panel">
                     <div className="panel-header">
@@ -666,19 +751,22 @@ function App() {
                     </div>
                   </div>
 
+                  {/* NDRF Emergency Response Panel */}
                   <div className="panel emergency-panel">
                     <div className="panel-header">
                       <h3>🚨 National Disaster Response Force (NDRF)</h3>
-                      <span className={`status-badge live`}>16 Battalions Active</span>
+                      <span className="status-badge live">16 Battalions Active</span>
                     </div>
                     <p style={{ color: '#fca5a5', fontSize: '0.85rem', marginBottom: '14px', lineHeight: '1.5' }}>
-                      If you need immediate help or disaster support, you can use these official numbers for the NDRF. The force currently consists of 16 active battalions deployed across the nation.
+                      For rapid flood rescue and emergency disaster response, the NDRF operates 16 active battalions deployed nationwide with 24/7 dedicated control rooms.
                     </p>
                     <div className="stats-grid">
-                      <div><span>Main Helpline</span><strong>+91-9711077372</strong></div>
+                      <div><span>Main Toll-Free</span><strong style={{ color: '#ef4444' }}>1078 / 112</strong></div>
+                      <div><span>NDRF 24/7 Helpline</span><strong style={{ color: '#38bdf8' }}>+91-9711077372</strong></div>
                       <div><span>HQ Control Room</span><strong>011-23438091</strong></div>
                       <div><span>HQ Control Room (Alt)</span><strong>011-23438136</strong></div>
-                      <div><span>General Disaster Helpline</span><strong>011-24363260</strong></div>
+                      <div><span>State SEOC Hotline</span><strong style={{ color: '#34d399' }}>1070</strong></div>
+                      <div><span>Ministry Helpline</span><strong>011-24363260</strong></div>
                     </div>
                   </div>
                 </section>
@@ -688,7 +776,19 @@ function App() {
         </div>
       )}
 
-      {/* NDRF Modal */}
+      {/* Evacuation Assistant Modal & Turn-by-Turn Drawer */}
+      <EvacuationModal
+        isOpen={isEvacModalOpen}
+        onClose={() => setIsEvacModalOpen(false)}
+        evacuationData={evacuationPlan}
+        loading={evacLoading}
+        mode={evacMode}
+        onModeChange={handleModeChange}
+        onSelectShelter={handleSelectAlternativeShelter}
+        originLabel={prediction?.location?.village || prediction?.location?.district || 'Selected Location'}
+      />
+
+      {/* NDRF Emergency Details Modal */}
       {isNdrfModalOpen && (
         <div className="modal-overlay" onClick={() => setIsNdrfModalOpen(false)}>
           <div className="modal-content panel" onClick={(e) => e.stopPropagation()}>
@@ -696,14 +796,34 @@ function App() {
               <h2>🚨 National Disaster Response Force (NDRF)</h2>
               <button className="modal-close" onClick={() => setIsNdrfModalOpen(false)}>×</button>
             </div>
-            <p style={{ color: '#fca5a5', fontSize: '0.95rem', marginBottom: '20px', lineHeight: '1.6' }}>
-              If you need immediate help or disaster support, you can use these official numbers for the NDRF. The force currently consists of 16 active battalions deployed across the nation.
+            <p style={{ color: '#fca5a5', fontSize: '0.92rem', marginBottom: '18px', lineHeight: '1.6' }}>
+              If you need immediate flood rescue or emergency disaster support, use these official emergency numbers for the NDRF. 16 active battalions are deployed across the nation equipped with inflatable rescue boats and deep-divers.
             </p>
-            <div className="stats-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-              <div style={{ background: 'rgba(0,0,0,0.2)' }}><span>Main Helpline</span><strong style={{ fontSize: '1.2rem', color: '#ef4444' }}>+91-9711077372</strong></div>
-              <div style={{ background: 'rgba(0,0,0,0.2)' }}><span>General Disaster Helpline</span><strong style={{ fontSize: '1.1rem' }}>011-24363260</strong></div>
-              <div style={{ background: 'rgba(0,0,0,0.2)' }}><span>HQ Control Room</span><strong style={{ fontSize: '1.1rem' }}>011-23438091</strong></div>
-              <div style={{ background: 'rgba(0,0,0,0.2)' }}><span>HQ Control Room (Alt)</span><strong style={{ fontSize: '1.1rem' }}>011-23438136</strong></div>
+            <div className="stats-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>National Disaster Toll-Free</span>
+                <a href="tel:1078" style={{ fontSize: '1.25rem', color: '#ef4444', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>📞 1078 / 112</a>
+              </div>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>Main NDRF Helpline</span>
+                <a href="tel:9711077372" style={{ fontSize: '1.15rem', color: '#38bdf8', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>📞 +91-9711077372</a>
+              </div>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>HQ Control Room</span>
+                <a href="tel:01123438091" style={{ fontSize: '1.05rem', color: '#f8fafc', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>011-23438091</a>
+              </div>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>HQ Control Room (Alt)</span>
+                <a href="tel:01123438136" style={{ fontSize: '1.05rem', color: '#f8fafc', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>011-23438136</a>
+              </div>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>State Disaster Control (SEOC)</span>
+                <a href="tel:1070" style={{ fontSize: '1.1rem', color: '#34d399', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>1070</a>
+              </div>
+              <div style={{ background: 'rgba(0,0,0,0.25)', padding: '12px', borderRadius: '10px' }}>
+                <span style={{ fontSize: '0.72rem', color: 'var(--muted)' }}>Disaster Management Ministry</span>
+                <a href="tel:01124363260" style={{ fontSize: '1.05rem', color: '#cbd5e1', fontWeight: 'bold', textDecoration: 'none', display: 'block', marginTop: '4px' }}>011-24363260</a>
+              </div>
             </div>
           </div>
         </div>

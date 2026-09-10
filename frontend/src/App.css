@@ -1892,3 +1892,558 @@ select:disabled {
   color: #fff;
   font-size: 1.15rem;
 }
+
+/* ==========================================================================
+   Safest Evacuation Route & OSRM Navigation Assistant Styles
+   ========================================================================== */
+
+/* Evacuation Drawer Overlay */
+.evac-drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(2, 6, 23, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  justify-content: flex-end;
+  animation: fadeIn 0.25s ease;
+}
+
+.evac-drawer {
+  width: 100%;
+  max-width: 480px;
+  height: 100vh;
+  background: #0f172a;
+  border-left: 1px solid var(--panel-border);
+  box-shadow: -15px 0 35px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+/* Evac Header */
+.evac-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--panel-border);
+  background: rgba(15, 23, 42, 0.95);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.evac-title-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.evac-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  width: fit-content;
+}
+
+.siren-dot {
+  color: #ef4444;
+  animation: pulseDot 1.2s infinite;
+}
+
+.evac-header h2 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 2px 0 0 0;
+}
+
+.evac-sub {
+  font-size: 0.76rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.evac-close-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--panel-border);
+  color: #94a3b8;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.evac-close-btn:hover {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+}
+
+/* Mode Switcher */
+.evac-mode-bar {
+  display: flex;
+  gap: 8px;
+  padding: 12px 22px;
+  background: rgba(15, 23, 42, 0.6);
+  border-bottom: 1px solid var(--panel-border);
+}
+
+.mode-btn {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--panel-border);
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mode-btn:hover:not(:disabled) {
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mode-btn.active {
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(14, 165, 233, 0.2));
+  border-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
+}
+
+/* Evac Content Scrollable */
+.evac-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 18px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.evac-loading, .evac-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 40px 20px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* Primary Shelter Hero Card */
+.shelter-hero-card {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(15, 23, 42, 0.95));
+  border: 1.5px solid rgba(16, 185, 129, 0.4);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.shelter-hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.shelter-type-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #34d399;
+}
+
+.shelter-dist-pill {
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.shelter-hero-card h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.shelter-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 10px 12px;
+  border-radius: 10px;
+}
+
+.s-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.s-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+}
+
+.s-val {
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.text-green { color: #34d399; }
+.text-blue { color: #38bdf8; }
+.text-white { color: #f8fafc; }
+
+/* Hazard Warning Card */
+.hazard-warning-card {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hazard-head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #fca5a5;
+  font-size: 0.82rem;
+}
+
+.hazard-desc {
+  font-size: 0.74rem;
+  color: #cbd5e1;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.hazard-tag {
+  align-self: flex-start;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  padding: 2px 7px;
+  border-radius: 5px;
+  margin-top: 2px;
+}
+
+/* Tabs */
+.evac-tabs {
+  display: flex;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--panel-border);
+}
+
+.e-tab {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 7px;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.e-tab:hover { color: #f8fafc; }
+.e-tab.active {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+}
+
+/* Step by Step Navigation */
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+}
+
+.step-num {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.2);
+  border: 1px solid #38bdf8;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.step-details {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.step-instruction {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #f8fafc;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.step-meta {
+  display: flex;
+  gap: 6px;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+/* Alternative Shelters List */
+.alt-shelters-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.alt-shelter-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.alt-card-info h4 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 0 0 3px 0;
+}
+
+.alt-card-info p {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin: 0;
+}
+
+.btn-select-shelter {
+  padding: 6px 10px;
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-select-shelter:hover {
+  background: rgba(16, 185, 129, 0.3);
+}
+
+/* Helplines Grid */
+.helpline-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.helpline-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid var(--panel-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hl-label {
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+
+.hl-number {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+.hl-number:hover {
+  text-decoration: underline;
+}
+
+/* Buttons and Triggers */
+.evac-trigger-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(5, 150, 105, 0.15));
+  border: 1.5px solid rgba(16, 185, 129, 0.5);
+  color: #34d399;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+}
+
+.evac-trigger-btn:hover {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.35), rgba(5, 150, 105, 0.25));
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  transform: translateY(-1px);
+}
+
+.banner-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.banner-evac-btn {
+  background: #10b981;
+  color: #022c22;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.banner-evac-btn:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+.mini-evac-toggle-btn {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.evac-quick-card {
+  margin-top: 14px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.eq-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eq-shield {
+  font-size: 1.3rem;
+}
+
+.eq-head strong {
+  font-size: 0.72rem;
+  color: #34d399;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.eq-head p {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin: 1px 0 0 0;
+}
+
+.eq-meta {
+  display: flex;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.eq-btn {
+  padding: 7px 12px;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  color: #a7f3d0;
+  border-radius: 7px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.eq-btn:hover {
+  background: rgba(16, 185, 129, 0.35);
+}
