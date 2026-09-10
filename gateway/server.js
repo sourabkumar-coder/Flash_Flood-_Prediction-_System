@@ -5,11 +5,18 @@ import cron from 'node-cron';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
+const httpServer = createServer(app);
+const io = new Server(httpServer, {
+  cors: { origin: '*' }
+});
+
 const PORT = process.env.GATEWAY_PORT || 5000;
 const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000';
 
@@ -338,7 +345,7 @@ app.get('/api/districts/:state', async (req, res) => {
 
 app.post('/api/evacuation/route', async (req, res) => {
   try {
-    const response = await axios.post(`${FASTAPI_URL}/api/evacuation/route`, req.body, { timeout: 20000 });
+    const response = await axios.post(`${FASTAPI_URL}/api/evacuation/route`, req.body, { timeout: 30000 });
     res.json(response.data);
   } catch (err) {
     const status = err.response?.status || 500;
@@ -347,9 +354,107 @@ app.post('/api/evacuation/route', async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+app.get('/api/villages/:district', async (req, res) => {
+  try {
+    const response = await axios.get(`${FASTAPI_URL}/villages/${encodeURIComponent(req.params.district)}`, { timeout: 10000 });
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ detail: err.message });
+  }
+});
+
+app.get('/api/features/:state/:district', async (req, res) => {
+  try {
+    const response = await axios.get(`${FASTAPI_URL}/features/${encodeURIComponent(req.params.state)}/${encodeURIComponent(req.params.district)}`, { timeout: 10000 });
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ detail: err.message });
+  }
+});
+
+app.get('/api/location/reverse', async (req, res) => {
+  try {
+    const response = await axios.get(`${FASTAPI_URL}/location/reverse`, { params: req.query, timeout: 10000 });
+    res.json(response.data);
+  } catch (err) {
+    res.status(500).json({ detail: err.message });
+  }
+});
+
+
+// ==============================================================================
+// NEW JALDRISHTI MOCK ENDPOINTS (Until backend is fully integrated)
+// ==============================================================================
+
+let mockAlerts = [];
+
+app.get('/api/alerts', (req, res) => {
+  res.json({ alerts: mockAlerts.length > 0 ? mockAlerts : (threatCache.criticalAlert ? [
+    {
+      id: 'alert-1',
+      severity: 'CRITICAL',
+      title: threatCache.criticalAlert.title,
+      target: threatCache.criticalAlert.target,
+      leadTime: threatCache.criticalAlert.leadTime,
+      issuedAt: new Date().toISOString(),
+      status: 'ACTIVE'
+    }
+  ] : []) });
+});
+
+app.post('/api/alerts/:id/acknowledge', (req, res) => {
+  res.json({ message: 'DEMO ACTION: Alert acknowledged', id: req.params.id });
+});
+
+app.get('/api/villages', (req, res) => {
+  // Return the valleys as villages for the initial table view
+  res.json({ villages: threatCache.valleys || [] });
+});
+
+app.get('/api/shelters', (req, res) => {
+  res.json({
+    shelters: [
+      { id: 'sh1', name: 'Govt Higher Secondary School', capacity: 1500, occupied: 840, medical: true, power: true, lat: 31.8, lon: 77.2 },
+      { id: 'sh2', name: 'Community Center Bhawan', capacity: 800, occupied: 120, medical: false, power: true, lat: 31.75, lon: 77.15 }
+    ]
+  });
+});
+
+app.get('/api/evacuation/:villageId', (req, res) => {
+  res.json({
+    villageId: req.params.villageId,
+    populationAtRisk: 2840,
+    evacuated: 840,
+    remaining: 2000,
+    status: 'IN_PROGRESS',
+    safeZones: [
+      { id: 'sz1', name: 'Upper Ridge Safe Zone', lat: 31.85, lon: 77.25 }
+    ]
+  });
+});
+
+// Broadcast threat cache updates via WebSocket
+io.on('connection', (socket) => {
+  console.log('[Socket.IO] Client connected:', socket.id);
+  socket.emit('threatCache.updated', threatCache);
+  socket.on('disconnect', () => console.log('[Socket.IO] Client disconnected:', socket.id));
+});
+
+function broadcastUpdates() {
+  io.emit('threatCache.updated', threatCache);
+}
+
+// Override the original sync function calls to also broadcast
+const originalSync = syncRegionalThreats;
+syncRegionalThreats = async () => {
+  await originalSync();
+  broadcastUpdates();
+};
+
+httpServer.listen(PORT, () => {
   console.log(`=======================================================`);
   console.log(`🚀 Flash Flood Express Gateway running on port ${PORT}`);
   console.log(`🔗 Connected to Python FastAPI ML engine at ${FASTAPI_URL}`);
+  console.log(`📡 WebSocket real-time server is active`);
   console.log(`=======================================================`);
 });

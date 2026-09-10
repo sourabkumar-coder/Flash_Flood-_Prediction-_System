@@ -333,9 +333,6 @@ async def simulate_overview(request: Request):
 def sync_overview():
     return {"message": "Synced.", "threatCache": get_threat_overview_data()}
 
-# ==============================================================================
-# Safest Route for Evacuation Endpoint (OSRM + OSM Overpass + SRTM)
-# ==============================================================================
 from services.routing_service import get_evacuation_routes
 from api_models import EvacuationRouteRequest, EvacuationRouteResponse
 
@@ -359,3 +356,4 @@ def calculate_evacuation_route(req: EvacuationRouteRequest):
     except Exception as e:
         logger.error(f"Evacuation routing failed: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Failed to generate evacuation route: {str(e)}")
+

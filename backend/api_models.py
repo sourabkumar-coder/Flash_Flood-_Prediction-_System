@@ -167,3 +167,4 @@ class EvacuationRouteResponse(BaseModel):
     safe_route: SafeRouteDetails
     disrupted_route: Optional[DisruptedRouteDetails] = None
     emergency_helpline: Dict[str, str]
+
