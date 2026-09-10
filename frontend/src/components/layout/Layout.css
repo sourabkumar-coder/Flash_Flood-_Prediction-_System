@@ -160,6 +160,43 @@
   animation: pulse-border 2s infinite;
 }
 
+.language-selector-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--bg-panel-soft);
+  border: 1px solid var(--border-color);
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.language-selector-wrapper:hover {
+  border-color: var(--primary);
+}
+
+.lang-icon {
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.lang-select {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  padding-right: 4px;
+}
+
+.lang-select option {
+  background: var(--bg-panel);
+  color: var(--text-main);
+  padding: 6px;
+}
+
 .system-status {
   display: flex;
   align-items: center;
