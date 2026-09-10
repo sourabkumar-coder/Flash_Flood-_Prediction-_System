@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { evacuationApi, riskApi } from '../api/client';
 import MapComponent from '../components/MapComponent';
 import { 
@@ -9,6 +10,7 @@ import {
 import './Evacuation.css';
 
 export default function Evacuation() {
+  const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [lat, setLat] = useState(parseFloat(searchParams.get('lat')) || 31.765);
@@ -91,8 +93,8 @@ export default function Evacuation() {
           <div className="etb-title-wrap">
             <ShieldAlert size={22} color="#10b981" />
             <div>
-              <h2>Safe Evacuation Navigator</h2>
-              <p>Topographical high-ground rescue routing avoiding inundated river channels.</p>
+              <h2>{t('evacuation_page.title')}</h2>
+              <p>{t('evacuation_page.subtitle')}</p>
             </div>
           </div>
         </div>
@@ -105,7 +107,7 @@ export default function Evacuation() {
             disabled={gpsLoading || loading}
           >
             <MapPin size={15} />
-            <span>{gpsLoading ? 'Acquiring GPS...' : 'Route From My GPS'}</span>
+            <span>{gpsLoading ? t('villages_page.detecting_gps') : t('villages_page.use_gps')}</span>
           </button>
 
           {/* Mode Switcher */}
@@ -116,7 +118,7 @@ export default function Evacuation() {
               onClick={() => handleModeChange('driving')}
             >
               <Car size={15} />
-              <span>Driving</span>
+              <span>{t('evacuation_page.driving_mode')}</span>
             </button>
             <button
               type="button"
@@ -124,7 +126,7 @@ export default function Evacuation() {
               onClick={() => handleModeChange('walking')}
             >
               <Footprints size={15} />
-              <span>Walking</span>
+              <span>{t('evacuation_page.walking_mode')}</span>
             </button>
           </div>
         </div>
@@ -138,17 +140,17 @@ export default function Evacuation() {
         <div className="evac-map-panel panel">
           <div className="map-panel-header">
             <div>
-              <h3><MapPin size={18} className="icon-blue" /> Live Escape Route & Hazard Map</h3>
+              <h3><MapPin size={18} className="icon-blue" /> {t('evacuation_page.safe_route')}</h3>
               <p className="subtitle-text">
-                Origin: <strong>{locationName}</strong> &rarr; Destination: <strong>{evacuationPlan?.shelter?.name || 'Safe High Ground Shelter'}</strong>
+                {locationName} &rarr; {evacuationPlan?.shelter?.name || t('evacuation_page.target_shelter')}
               </p>
             </div>
 
             {evacuationPlan?.safe_route && (
               <div className="safe-stats-pills">
-                <span className="pill green">🟢 {evacuationPlan.safe_route.distance_km} km</span>
-                <span className="pill blue">⏱ ~{evacuationPlan.safe_route.duration_min} min</span>
-                <span className="pill orange">▲ +{evacuationPlan.elevation_gain_m}m Elevation</span>
+                <span className="pill green">{evacuationPlan.safe_route.distance_km} km</span>
+                <span className="pill blue">~{evacuationPlan.safe_route.duration_min} min</span>
+                <span className="pill orange">+{evacuationPlan.elevation_gain_m}m {t('metrics.elevation')}</span>
               </div>
             )}
           </div>
@@ -183,15 +185,15 @@ export default function Evacuation() {
           {evacuationPlan?.shelter && (
             <div className="primary-shelter-card panel">
               <div className="psc-header">
-                <span className="badge-safe">PRIMARY RELIEF SHELTER</span>
-                <span className="shelter-dist">{evacuationPlan.shelter.distance_km} km away</span>
+                <span className="badge-safe">{t('evacuation_page.target_shelter')}</span>
+                <span className="shelter-dist">{evacuationPlan.shelter.distance_km} km</span>
               </div>
               <h3>{evacuationPlan.shelter.name}</h3>
               <p className="psc-type">{evacuationPlan.shelter.type} · High Ground Sanctuary</p>
               <div className="psc-stats">
-                <div><span>Elevation Gain</span><strong>+{evacuationPlan.elevation_gain_m}m</strong></div>
-                <div><span>Estimated Travel</span><strong>~{evacuationPlan.safe_route?.duration_min} mins</strong></div>
-                <div><span>Safety Level</span><strong style={{ color: '#10b981' }}>{evacuationPlan.safe_route?.hazard_level || 'Safe Corridor'}</strong></div>
+                <div><span>{t('metrics.elevation')}</span><strong>+{evacuationPlan.elevation_gain_m}m</strong></div>
+                <div><span>{t('evacuation_page.duration')}</span><strong>~{evacuationPlan.safe_route?.duration_min} mins</strong></div>
+                <div><span>Status</span><strong style={{ color: '#10b981' }}>{evacuationPlan.safe_route?.hazard_level || 'Safe Corridor'}</strong></div>
               </div>
             </div>
           )}
@@ -199,7 +201,7 @@ export default function Evacuation() {
           {/* Alternative Shelters Selection */}
           {evacuationPlan?.alternative_shelters && evacuationPlan.alternative_shelters.length > 0 && (
             <div className="alt-shelters-panel panel">
-              <h4>Alternative Relief Shelters</h4>
+              <h4>{t('evacuation_page.alt_shelters')}</h4>
               <div className="alt-shelters-list">
                 {evacuationPlan.alternative_shelters.map((alt, idx) => (
                   <div
@@ -223,7 +225,7 @@ export default function Evacuation() {
           {/* Turn-by-Turn Navigation Steps */}
           {evacuationPlan?.safe_route?.steps && evacuationPlan.safe_route.steps.length > 0 && (
             <div className="steps-panel panel">
-              <h4>Turn-by-Turn Safe Navigation</h4>
+              <h4>{t('evacuation_page.turn_by_turn')}</h4>
               <div className="steps-scroll-list">
                 {evacuationPlan.safe_route.steps.map((st, i) => (
                   <div key={i} className="step-row">
@@ -242,11 +244,11 @@ export default function Evacuation() {
 
           {/* Emergency Helpline Box */}
           <div className="helpline-panel panel">
-            <h4>🚨 Emergency Rescue Helplines</h4>
+            <h4>{t('ndrf.title')}</h4>
             <div className="hl-grid">
-              <div><span>NDRF National Helpline</span><a href="tel:1078">📞 1078 / 112</a></div>
-              <div><span>NDRF 24/7 Mobile</span><a href="tel:9711077372">📞 +91-9711077372</a></div>
-              <div><span>State SEOC Hotline</span><a href="tel:1070">📞 1070</a></div>
+              <div><span>{t('ndrf.tollfree')}</span><a href="tel:1078">1078 / 112</a></div>
+              <div><span>{t('ndrf.helpline')}</span><a href="tel:9711077372">+91-9711077372</a></div>
+              <div><span>{t('ndrf.seoc')}</span><a href="tel:1070">1070</a></div>
             </div>
           </div>
         </div>

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { Settings as SettingsIcon, Bell, Shield, Database, Wifi, Save, CheckCircle } from 'lucide-react';
+import { Settings as SettingsIcon, Bell, Shield, Database, Wifi, Save, CheckCircle, Globe } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../context/ThemeContext';
+import { LANGUAGES } from '../i18n';
 import './Settings.css';
 
 export default function Settings() {
   const { theme, toggleTheme } = useTheme();
+  const { t, i18n } = useTranslation();
   const [criticalThreshold, setCriticalThreshold] = useState(75);
   const [highThreshold, setHighThreshold] = useState(55);
   const [autoRefreshInterval, setAutoRefreshInterval] = useState(15);
@@ -87,6 +90,21 @@ export default function Settings() {
             </div>
 
             <div className="settings-field">
+              <label>Interface Language (भाषा)</label>
+              <select
+                value={i18n.language ? i18n.language.substring(0, 2) : 'en'}
+                onChange={(e) => i18n.changeLanguage(e.target.value)}
+              >
+                {LANGUAGES.map((lang) => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.name} ({lang.nativeName})
+                  </option>
+                ))}
+              </select>
+              <span className="field-hint">Optimized for hilly & flood-prone regions across India.</span>
+            </div>
+
+            <div className="settings-field">
               <label>UI Theme Mode</label>
               <div className="theme-select-row">
                 <button
@@ -94,14 +112,14 @@ export default function Settings() {
                   className={`theme-btn ${theme === 'light' ? 'active' : ''}`}
                   onClick={() => theme === 'dark' && toggleTheme()}
                 >
-                  ☀️ Light Mode
+                  Light Mode
                 </button>
                 <button
                   type="button"
                   className={`theme-btn ${theme === 'dark' ? 'active' : ''}`}
                   onClick={() => theme === 'light' && toggleTheme()}
                 >
-                  🌑 Dark Mode
+                  Dark Mode
                 </button>
               </div>
             </div>

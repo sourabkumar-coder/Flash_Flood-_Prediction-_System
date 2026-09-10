@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip, useMap } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import { useTranslation } from 'react-i18next';
 import { riskApi } from '../api/client';
 import { X, Navigation, AlertTriangle, Droplets, Map as MapIcon, ChevronRight, CloudRain, Zap, RefreshCw, Layers, Search, ShieldAlert, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -240,6 +241,8 @@ export default function LiveRiskMap() {
     return list;
   }, [threatData, selectedBasin, searchTerm]);
 
+  const { t } = useTranslation();
+
   return (
     <div className="map-page-wrapper">
       {/* Top Map Action & Filter Bar */}
@@ -249,7 +252,7 @@ export default function LiveRiskMap() {
             <Search size={16} className="search-icon" />
             <input
               type="text"
-              placeholder="Search valley or district..."
+              placeholder={t('villages_page.search_placeholder')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -260,7 +263,7 @@ export default function LiveRiskMap() {
             onChange={(e) => setSelectedBasin(e.target.value)}
             className="basin-select"
           >
-            <option value="ALL">All River Basins</option>
+            <option value="ALL">{t('map_page.all_basins')}</option>
             {riversData.map(b => (
               <option key={b.id} value={b.id}>{b.name}</option>
             ))}
@@ -271,10 +274,10 @@ export default function LiveRiskMap() {
             onChange={(e) => setActiveBasemap(e.target.value)}
             className="basemap-select"
           >
-            <option value="osm">🗺️ OpenStreetMap</option>
-            <option value="esri_topo">🏔️ Esri Topographic (Hilly / Terrain)</option>
-            <option value="esri_dark">🌑 Esri Dark Canvas</option>
-            <option value="esri_satellite">🛰️ Esri Satellite</option>
+            <option value="osm">OpenStreetMap</option>
+            <option value="esri_topo">Esri Topographic (Hilly / Terrain)</option>
+            <option value="esri_dark">Esri Dark Canvas</option>
+            <option value="esri_satellite">Esri Satellite</option>
           </select>
 
         </div>
@@ -288,7 +291,7 @@ export default function LiveRiskMap() {
             title="Simulate sudden cloudburst & flash flood at Sainj Valley"
           >
             <Zap size={15} />
-            <span>{isSimulating ? 'Reset Simulation' : '⚡ Simulate Cloudburst'}</span>
+            <span>{isSimulating ? t('map_page.reset_sim') : t('map_page.simulate_cloudburst')}</span>
           </button>
 
           <button
@@ -299,7 +302,7 @@ export default function LiveRiskMap() {
             title="Fetch live synoptic streams"
           >
             <RefreshCw size={15} className={syncing ? 'spinning' : ''} />
-            <span>Sync Live</span>
+            <span>{t('map_page.sync_live')}</span>
           </button>
         </div>
       </div>
@@ -320,7 +323,7 @@ export default function LiveRiskMap() {
               }
             }}
           >
-            Evacuate Now &rarr;
+            {t('villages_page.view_escape')} &rarr;
           </button>
         </div>
       )}
