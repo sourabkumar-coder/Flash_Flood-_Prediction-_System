@@ -1,5 +1,24 @@
 # ==============================================================================
-# Python & Bytecode
+# Environment Variables & Secrets (CRITICAL)
+# ==============================================================================
+.env
+.env.*
+*.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+frontend/.env
+frontend/.env.*
+backend/.env
+backend/.env.*
+gateway/.env
+gateway/.env.*
+!.env.example
+!frontend/.env.example
+
+# ==============================================================================
+# Python & Virtual Environments
 # ==============================================================================
 __pycache__/
 *.py[cod]
@@ -23,15 +42,30 @@ wheels/
 *.egg
 MANIFEST
 
-# ==============================================================================
-# Virtual Environments
-# ==============================================================================
 .venv/
 venv/
 ENV/
 env/
 env.bak/
 venv.bak/
+
+# ==============================================================================
+# Node.js & Frontend Builds
+# ==============================================================================
+node_modules/
+*/node_modules/
+frontend/node_modules/
+gateway/node_modules/
+dist/
+dist-ssr/
+frontend/dist/
+frontend/dist-ssr/
+frontend/build/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
 
 # ==============================================================================
 # Testing & Coverage
@@ -44,23 +78,38 @@ htmlcov/
 .hypothesis/
 
 # ==============================================================================
-# Environment Variables & Secrets
+# Data Caches & Large Generated Files
 # ==============================================================================
-.env
-.env.local
-.env.*.local
-*.env
-!.env.example
+data/cache/
+data/temp/
+data/raw/historical_weather/cache/
+*.tmp
+*.temp
+*.cache
 
 # ==============================================================================
-# IDE & Operating System
+# ML Checkpoints, Runs & Temporary Models
+# ==============================================================================
+ml/runs/
+ml/checkpoints/
+ml/cache/
+*.pkl.tmp
+
+# ==============================================================================
+# IDE, Editor & OS Files
 # ==============================================================================
 .vscode/
+!.vscode/extensions.json
 .idea/
 *.swp
 *.swo
 *~
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 desktop.ini
 
@@ -71,23 +120,10 @@ desktop.ini
 *-checkpoint.ipynb
 
 # ==============================================================================
-# Node.js & Frontend Build
-# ==============================================================================
-frontend/node_modules/
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-frontend/dist/
-frontend/dist-ssr/
-frontend/build/
-*.tsbuildinfo
-
-# ==============================================================================
-# Logs & Temporary Files
+# Logs
 # ==============================================================================
 *.log
 logs/
 tmp/
 temp/
+
