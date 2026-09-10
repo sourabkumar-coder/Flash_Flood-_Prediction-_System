@@ -1,0 +1,734 @@
+state_name,district,latitude,longitude,elevation_m,status,terrain_class,terrain_data_source,slope_percent,terrain_cluster
+Manipur,Kamjong,24.796875,94.392713,1403.0,success,non_hilly,SRTM30m,10.87369928159328,2.0
+Madhya Pradesh,Anuppur,23.035743,81.390492,781.0,success,non_hilly,SRTM30m,1.0111357062431259,0.0
+Madhya Pradesh,Ashoknagar,24.618374,77.878765,460.0,success,non_hilly,SRTM30m,0.10885511318457693,0.0
+Madhya Pradesh,Balaghat,21.861079,80.323596,462.0,success,non_hilly,SRTM30m,11.816064704590854,0.0
+Madhya Pradesh,Harda,22.242797,77.117917,305.0,success,non_hilly,SRTM30m,0.4348218751149451,0.0
+Madhya Pradesh,Narmadapuram,22.600282,77.926984,340.0,success,non_hilly,SRTM30m,1.135599337944857,0.0
+Madhya Pradesh,Indore,22.710812,75.807693,559.0,success,non_hilly,SRTM30m,0.5446453230508688,0.0
+Madhya Pradesh,Jabalpur,23.223166,79.982607,391.0,success,non_hilly,SRTM30m,0.576203291655127,0.0
+Madhya Pradesh,Jhabua,22.88692,74.724386,390.0,success,non_hilly,SRTM30m,2.51410970206162,0.0
+Madhya Pradesh,Katni,23.717649,80.261021,410.0,success,non_hilly,SRTM30m,0.6946747606039899,0.0
+Madhya Pradesh,Khargone,21.954473,75.752125,208.0,success,non_hilly,SRTM30m,0.6938240486281475,0.0
+Madhya Pradesh,Mandla,22.687176,80.583176,490.0,success,non_hilly,SRTM30m,1.9144363811722367,0.0
+Puducherry,Pondicherry,11.921836,79.794853,7.0,success,non_hilly,SRTM30m,0.5286093548123109,0.0
+Puducherry,Yanam,16.73321,82.205175,4.0,success,non_hilly,SRTM30m,0.22522522522522523,0.0
+Rajasthan,Jaipur,27.150559,75.746774,488.0,success,non_hilly,SRTM30m,0.82380499773731,0.0
+Rajasthan,Jaisalmer,27.027373,70.777652,162.0,success,non_hilly,SRTM30m,0.36525745497681733,0.0
+Rajasthan,Jalore,25.210003,72.319279,116.0,success,non_hilly,SRTM30m,0.330664154897446,0.0
+Rajasthan,Jhalawar,24.312933,76.52299,324.0,success,non_hilly,SRTM30m,0.753647502106205,0.0
+Rajasthan,Jhunjhunu,28.079953,75.541611,348.0,success,non_hilly,SRTM30m,0.3745475642649298,0.0
+Rajasthan,Jodhpur,26.736771,72.873695,322.0,success,non_hilly,SRTM30m,0.506384459126655,0.0
+Rajasthan,Karauli,26.516121,77.057687,317.0,success,non_hilly,SRTM30m,1.0316924627832127,0.0
+Rajasthan,Kota,25.194782,75.999636,258.0,success,non_hilly,SRTM30m,0.27023999319684144,0.0
+Rajasthan,Nagaur,27.05898,74.175805,322.0,success,non_hilly,SRTM30m,0.4145616511913331,0.0
+Rajasthan,Pali,25.605202,73.416043,248.0,success,non_hilly,SRTM30m,0.22522522522522523,0.0
+Rajasthan,Rajsamand,25.289278,73.82296,686.0,success,non_hilly,SRTM30m,0.7485405936593145,0.0
+Rajasthan,Sawai Madhopur,26.229548,76.30371,245.0,success,non_hilly,SRTM30m,0.2307553286081064,0.0
+Uttar Pradesh,Siddharth Nagar,27.251256,82.871457,86.0,success,non_hilly,SRTM30m,0.13559346991411148,0.0
+Uttar Pradesh,Sitapur,27.502672,80.833568,133.0,success,non_hilly,SRTM30m,0.40540540540540543,0.0
+Uttar Pradesh,Sonbhadra,24.415127,83.063218,272.0,success,non_hilly,SRTM30m,0.526480073656642,0.0
+Uttar Pradesh,Sultanpur,26.260453,82.238104,94.0,success,non_hilly,SRTM30m,0.1572758931573123,0.0
+Uttar Pradesh,Unnao,26.567325,80.619864,122.0,success,non_hilly,SRTM30m,0.27120875534600813,0.0
+Uttar Pradesh,Varanasi,25.372151,82.941737,79.0,success,non_hilly,SRTM30m,0.18694997788971462,0.0
+Uttar Pradesh,Kasganj,27.788846,78.822967,176.0,success,non_hilly,SRTM30m,0.3712952403319194,0.0
+Uttar Pradesh,Amethi,26.346261,81.625244,110.0,success,non_hilly,SRTM30m,0.13499267293722866,0.0
+Uttar Pradesh,Sambhal,28.42723,78.556456,192.0,success,non_hilly,SRTM30m,0.31313751184594557,0.0
+Uttar Pradesh,Shamli,29.477224,77.287074,244.0,success,non_hilly,SRTM30m,0.13720651081671012,0.0
+Uttar Pradesh,Hapur,28.716716,77.890408,212.0,success,non_hilly,SRTM30m,0.051362298477783105,0.0
+West Bengal,24 Paraganas North,22.687777,88.660602,12.0,success,non_hilly,SRTM30m,0.06642842817981956,0.0
+West Bengal,24 Paraganas South,22.091132,88.631053,0.0,success,non_hilly,SRTM30m,0.24306974050019695,0.0
+West Bengal,Bankura,23.133384,87.208101,75.0,success,non_hilly,SRTM30m,0.2609621993716117,0.0
+West Bengal,Purba Bardhaman,23.389576,87.906445,30.0,success,non_hilly,SRTM30m,0.13323212157701608,0.0
+West Bengal,Birbhum,24.063678,87.697955,49.0,success,non_hilly,SRTM30m,0.14385822408068658,0.0
+West Bengal,Coochbehar,26.252012,89.419444,41.0,success,non_hilly,SRTM30m,0.1004508734833813,0.0
+West Bengal,Darjeeling,26.839211,88.308289,492.0,success,non_hilly,SRTM30m,19.038402394726923,2.0
+West Bengal,Dinajpur Dakshin,25.386878,88.505436,28.0,success,non_hilly,SRTM30m,0.09009009009009009,0.0
+Andaman & Nicobar Island,South Andamans,10.704663,92.488856,113.0,success,non_hilly,SRTM30m,3.851060017109643,0.0
+Andaman & Nicobar Island,Nicobars,7.000402,93.810291,121.0,success,non_hilly,SRTM30m,4.871203355631617,0.0
+Andaman & Nicobar Island,North And Middle Andaman,12.611585,92.831538,99.0,success,non_hilly,SRTM30m,3.52742881521985,0.0
+Andhra Pradesh,Anantapur,14.459022,77.501397,428.0,success,non_hilly,SRTM30m,0.5786932816148782,0.0
+Andhra Pradesh,Chittoor,13.309409,78.975506,417.0,success,non_hilly,SRTM30m,1.865064147046025,0.0
+Andhra Pradesh,Y.S.R.,14.476819,78.665296,157.0,success,non_hilly,SRTM30m,0.2791330629298629,0.0
+Andhra Pradesh,East Godavari,17.161476,82.044391,30.0,success,non_hilly,SRTM30m,0.5537123966726928,0.0
+Andhra Pradesh,Guntur,16.266894,80.181816,45.0,success,non_hilly,SRTM30m,0.47193427397011933,0.0
+Andhra Pradesh,Krishna,16.431761,81.036913,5.0,success,non_hilly,SRTM30m,0.09392629198286989,0.0
+Andhra Pradesh,Kurnool,15.524792,77.9034,356.0,success,non_hilly,SRTM30m,0.40599227218995987,0.0
+Andhra Pradesh,Spsr Nellore,14.293407,79.77947,27.0,success,non_hilly,SRTM30m,0.4229933274000241,0.0
+Andhra Pradesh,Prakasam,15.634589,79.51104,133.0,success,non_hilly,SRTM30m,0.6229193334341431,0.0
+Andhra Pradesh,Srikakulam,18.622074,83.973235,37.0,success,non_hilly,SRTM30m,0.6325410313318286,0.0
+Andhra Pradesh,Visakhapatanam,17.899462,82.564071,1199.0,success,non_hilly,SRTM30m,16.9150266479027,2.0
+Andhra Pradesh,Vizianagaram,18.5012,83.319456,126.0,success,non_hilly,SRTM30m,0.6891590682029807,0.0
+Andhra Pradesh,West Godavari,16.979197,81.340664,123.0,success,non_hilly,SRTM30m,0.9462584951936195,0.0
+Arunanchal Pradesh,Changlang,27.269464,96.059419,556.0,success,non_hilly,SRTM30m,8.700928166746701,0.0
+Arunanchal Pradesh,Dibang Valley,28.878366,95.92481,2835.0,success,hilly,SRTM30m,41.195111505472035,1.0
+Arunanchal Pradesh,East Kameng,27.55575,92.973731,474.0,success,non_hilly,SRTM30m,7.137458169794039,0.0
+Arunanchal Pradesh,Lohit,27.964058,96.273539,733.0,success,non_hilly,SRTM30m,22.01043944175744,2.0
+Arunanchal Pradesh,Lower Dibang Valley,28.228521,95.887507,1640.0,success,non_hilly,SRTM30m,42.2483085711298,2.0
+Arunanchal Pradesh,Lower Subansiri,27.542303,93.789731,1753.0,success,non_hilly,SRTM30m,5.343168714592511,2.0
+Arunanchal Pradesh,East Siang,28.069064,95.392603,144.0,success,non_hilly,SRTM30m,0.40860688501757403,0.0
+Arunanchal Pradesh,Kurung Kumey,27.982685,93.161421,2096.0,success,non_hilly,SRTM30m,24.959208285146858,2.0
+Arunanchal Pradesh,Papum Pare,27.284704,93.616501,1313.0,success,non_hilly,SRTM30m,13.723380240081632,2.0
+Arunanchal Pradesh,Tawang,27.661099,91.907038,3965.0,success,hilly,SRTM30m,25.56963583817218,1.0
+Arunanchal Pradesh,Tirap,27.035919,95.507777,673.0,success,non_hilly,SRTM30m,15.741168850070252,2.0
+Arunanchal Pradesh,Upper Siang,28.74735,95.025005,2119.0,success,hilly,SRTM30m,44.915712148658926,1.0
+Arunanchal Pradesh,Upper Subansiri,28.232839,94.103972,618.0,success,non_hilly,SRTM30m,23.460038075150834,2.0
+Arunanchal Pradesh,West Kameng,27.317855,92.445382,1680.0,success,non_hilly,SRTM30m,38.15195535022716,2.0
+Arunanchal Pradesh,West Siang,28.196509,94.483026,2256.0,success,hilly,SRTM30m,31.179179387247995,1.0
+Arunanchal Pradesh,Anjaw,28.035419,96.853275,3333.0,success,hilly,SRTM30m,31.1760759955043,1.0
+Arunanchal Pradesh,Longding,26.879063,95.287775,613.0,success,non_hilly,SRTM30m,32.38690130061425,2.0
+Arunanchal Pradesh,Kra Daadi,27.942655,93.771025,1374.0,success,non_hilly,SRTM30m,35.37992684854363,2.0
+Arunanchal Pradesh,Namsai,27.710383,96.01294,207.0,success,non_hilly,SRTM30m,0.5429299294681124,0.0
+Arunanchal Pradesh,Siang,28.476869,94.81827,1044.0,success,non_hilly,SRTM30m,24.46994579464669,2.0
+Bihar,Araria,26.264828,87.371782,55.0,success,non_hilly,SRTM30m,0.15728133281663298,0.0
+Bihar,Aurangabad,24.802722,84.410966,103.0,success,non_hilly,SRTM30m,0.1089888010977216,0.0
+Arunanchal Pradesh,Kamle,27.737138,94.110428,978.0,success,non_hilly,SRTM30m,48.00547749500655,2.0
+Arunanchal Pradesh,Lower Siang,27.803531,94.56848,729.0,success,non_hilly,SRTM30m,2.7046210388300884,0.0
+Bihar,Banka,24.833282,86.816,115.0,success,non_hilly,SRTM30m,0.3270332851525391,0.0
+Bihar,Begusarai,25.513015,86.08868,41.0,success,non_hilly,SRTM30m,0.0998242005964693,0.0
+Bihar,Bhagalpur,25.283884,87.132333,33.0,success,non_hilly,SRTM30m,0.40183096819085595,0.0
+Bihar,Bhojpur,25.46112,84.566145,63.0,success,non_hilly,SRTM30m,0.1563031129152312,0.0
+Bihar,Buxar,25.504203,84.109275,67.0,success,non_hilly,SRTM30m,0.15635448615559774,0.0
+Bihar,Darbhanga,26.082602,86.032877,44.0,success,non_hilly,SRTM30m,0.10310916422463043,0.0
+Bihar,Gaya,24.679524,85.011406,120.0,success,non_hilly,SRTM30m,0.09009009009009009,0.0
+Bihar,Gopalganj,26.42129,84.373947,66.0,success,non_hilly,SRTM30m,0.13513513513513514,0.0
+Arunanchal Pradesh,Pakke Kessang,27.156486,93.151057,1436.0,success,non_hilly,SRTM30m,17.779441315981547,2.0
+Bihar,Jamui,24.755728,86.300689,122.0,success,non_hilly,SRTM30m,0.7721653028927876,0.0
+Bihar,Jehanabad,25.15318,85.006554,72.0,success,non_hilly,SRTM30m,0.24623605552480493,0.0
+Arunanchal Pradesh,Leparada,27.917339,94.707408,675.0,success,non_hilly,SRTM30m,5.468788361575857,0.0
+Bihar,Kaimur (Bhabua),24.975338,83.576387,98.0,success,non_hilly,SRTM30m,0.9918202525252001,0.0
+Bihar,Katihar,25.547833,87.647614,35.0,success,non_hilly,SRTM30m,0.13448747756381274,0.0
+Arunanchal Pradesh,Shi Yomi,28.68507,94.238426,2722.0,success,hilly,SRTM30m,31.12293238406699,1.0
+Assam,Barpeta,26.376306,91.049468,40.0,success,non_hilly,SRTM30m,0.18706392016211146,0.0
+Assam,Bongaigaon,26.339917,90.628451,39.0,success,non_hilly,SRTM30m,0.1349885682669035,0.0
+Assam,Cachar,24.75841,92.881356,26.0,success,non_hilly,SRTM30m,0.4531735057178055,0.0
+Assam,Darrang,26.438395,92.005064,55.0,success,non_hilly,SRTM30m,0.16847683786193943,0.0
+Assam,Dhemaji,27.577704,94.695287,110.0,success,non_hilly,SRTM30m,0.18720966161669708,0.0
+Assam,Dhubri,26.132295,90.129865,28.0,success,non_hilly,SRTM30m,0.21998830783387796,0.0
+Assam,Dibrugarh,27.398014,94.996351,105.0,success,non_hilly,SRTM30m,0.2874285047869868,0.0
+Assam,Goalpara,26.061127,90.581017,49.0,success,non_hilly,SRTM30m,9.85976821925583,0.0
+Assam,Golaghat,26.318346,93.998703,105.0,success,non_hilly,SRTM30m,0.2710271793084717,0.0
+Assam,Hailakandi,24.507957,92.630415,51.0,success,non_hilly,SRTM30m,1.6847863719078173,0.0
+Assam,Jorhat,26.650268,94.269665,110.0,success,non_hilly,SRTM30m,0.10322948500771291,0.0
+Assam,Kamrup,26.124433,91.29921,45.0,success,non_hilly,SRTM30m,0.20227502351818824,0.0
+Assam,Karbi Anglong,26.071343,93.451405,857.0,success,non_hilly,SRTM30m,14.801732052566358,2.0
+Assam,Karimganj,24.582981,92.371324,60.0,success,non_hilly,SRTM30m,1.0077934603337995,0.0
+Assam,Kokrajhar,26.49328,90.121263,50.0,success,non_hilly,SRTM30m,0.187077650414555,0.0
+Assam,Lakhimpur,27.171225,94.188407,88.0,success,non_hilly,SRTM30m,0.18018018018018017,0.0
+Assam,Marigaon,26.289928,92.291859,55.0,success,non_hilly,SRTM30m,0.04504504504504504,0.0
+Assam,Nagaon,26.331023,92.758212,62.0,success,non_hilly,SRTM30m,0.05025966655934766,0.0
+Assam,Nalbari,26.355102,91.399785,44.0,success,non_hilly,SRTM30m,0.10316641874540142,0.0
+Assam,Dima Hasao,25.398471,93.076869,271.0,success,non_hilly,SRTM30m,2.72783097758139,0.0
+Assam,Sivasagar,26.993864,94.621813,94.0,success,non_hilly,SRTM30m,0.3787922939870037,0.0
+Assam,Sonitpur,26.763877,92.703411,79.0,success,non_hilly,SRTM30m,0.4419910745908118,0.0
+Assam,Tinsukia,27.597178,95.566896,129.0,success,non_hilly,SRTM30m,0.3542175718683003,0.0
+Assam,Chirang,26.645248,90.629425,93.0,success,non_hilly,SRTM30m,0.7051068578869734,0.0
+Assam,Baksa,26.633,91.455052,75.0,success,non_hilly,SRTM30m,0.3193165863628372,0.0
+Assam,Udalguri,26.70767,92.038879,92.0,success,non_hilly,SRTM30m,0.20666792722914903,0.0
+Assam,Kamrup Metro,26.126069,91.862585,185.0,success,non_hilly,SRTM30m,3.9518116912811543,0.0
+Assam,Biswanath,26.793083,93.361125,77.0,success,non_hilly,SRTM30m,0.09009009009009009,0.0
+Assam,Majuli,26.970921,94.278549,87.0,success,non_hilly,SRTM30m,0.13540409557852956,0.0
+Assam,South Salmara Mancachar,25.760507,89.893939,26.0,success,non_hilly,SRTM30m,0.04504504504504504,0.0
+Assam,Charaideo,27.070207,95.06496,108.0,success,non_hilly,SRTM30m,0.1442932254045285,0.0
+Assam,Hojai,25.963203,92.9793,79.0,success,non_hilly,SRTM30m,0.35047217423696153,0.0
+Assam,West Karbi Anglong,25.852531,92.587243,408.0,success,non_hilly,SRTM30m,1.8542076898749587,0.0
+Bihar,Khagaria,25.492787,86.698328,35.0,success,non_hilly,SRTM30m,0.04504504504504504,0.0
+Bihar,Kishanganj,26.304286,87.948677,58.0,success,non_hilly,SRTM30m,0.10049613481951591,0.0
+Bihar,Lakhisarai,25.156322,86.175638,45.0,success,non_hilly,SRTM30m,0.3356653566429886,0.0
+Bihar,Madhepura,25.780047,86.93618,46.0,success,non_hilly,SRTM30m,0.13463205741546486,0.0
+Bihar,Madhubani,26.350265,86.22968,54.0,success,non_hilly,SRTM30m,0.13499526434562648,0.0
+Bihar,Munger,25.220764,86.516423,324.0,success,non_hilly,SRTM30m,5.187219177246253,0.0
+Bihar,Muzaffarpur,26.148751,85.340321,53.0,success,non_hilly,SRTM30m,0.10312297790448506,0.0
+Bihar,Nalanda,25.209913,85.447539,54.0,success,non_hilly,SRTM30m,0.09957419644383578,0.0
+Bihar,Nawada,24.817142,85.51796,99.0,success,non_hilly,SRTM30m,0.23373368529631755,0.0
+Bihar,Pashchim Champaran,27.052278,84.334708,84.0,success,non_hilly,SRTM30m,0.1354587491263753,0.0
+Bihar,Patna,25.467363,85.19618,50.0,success,non_hilly,SRTM30m,0.04504504504504504,0.0
+Bihar,Purbi Champaran,26.638942,84.899306,64.0,success,non_hilly,SRTM30m,0.2712614752552588,0.0
+Bihar,Purnia,25.774872,87.409736,38.0,success,non_hilly,SRTM30m,0.0,0.0
+Bihar,Rohtas,24.939508,84.020582,110.0,success,non_hilly,SRTM30m,0.3014481853658595,0.0
+Bihar,Saharsa,25.832113,86.617877,42.0,success,non_hilly,SRTM30m,0.06733236854665929,0.0
+Bihar,Samastipur,25.77449,85.866873,43.0,success,non_hilly,SRTM30m,0.20194286282467871,0.0
+Bihar,Saran,25.910005,84.781223,55.0,success,non_hilly,SRTM30m,0.16820550014378377,0.0
+Bihar,Sheikhpura,25.125545,85.815257,48.0,success,non_hilly,SRTM30m,0.24055507482345778,0.0
+Bihar,Sheohar,26.493754,85.271935,64.0,success,non_hilly,SRTM30m,0.11028027687231831,0.0
+Bihar,Sitamarhi,26.571264,85.599721,59.0,success,non_hilly,SRTM30m,0.050364622305380836,0.0
+Bihar,Siwan,26.131378,84.390116,65.0,success,non_hilly,SRTM30m,0.10999343512479023,0.0
+Bihar,Supaul,26.27655,86.79018,59.0,success,non_hilly,SRTM30m,0.13513513513513514,0.0
+Bihar,Vaishali,25.754303,85.397609,50.0,success,non_hilly,SRTM30m,0.27485873712182185,0.0
+Bihar,Arwal,25.181214,84.65995,76.0,success,non_hilly,SRTM30m,0.10926758321840008,0.0
+Chhattisgarh,Bastar,19.124376,81.830075,578.0,success,non_hilly,SRTM30m,0.9882524295473819,0.0
+Chhattisgarh,Bilaspur,22.169534,82.136391,283.0,success,non_hilly,SRTM30m,0.24734136062147058,0.0
+Chhattisgarh,Dantewada,18.785351,81.480871,497.0,success,non_hilly,SRTM30m,0.7789553982740385,0.0
+Chhattisgarh,Dhamtari,20.535082,81.715765,443.0,success,non_hilly,SRTM30m,1.3522071706091587,0.0
+Chhattisgarh,Durg,21.19674,81.400492,307.0,success,non_hilly,SRTM30m,0.18654520883103223,0.0
+Chhattisgarh,Janjgir-Champa,21.972449,82.661891,244.0,success,non_hilly,SRTM30m,0.9756326711372674,0.0
+Chhattisgarh,Jashpur,22.770256,83.970968,509.0,success,non_hilly,SRTM30m,1.1089553392158213,0.0
+Chhattisgarh,Kanker,20.132414,80.985946,351.0,success,non_hilly,SRTM30m,0.5730430279069164,0.0
+Chhattisgarh,Kabirdham,22.114981,81.24718,367.0,success,non_hilly,SRTM30m,0.5562890694318849,0.0
+Chhattisgarh,Korba,22.519838,82.6352,290.0,success,non_hilly,SRTM30m,0.4169712462054185,0.0
+Chhattisgarh,Korea,23.43175,82.317689,808.0,success,non_hilly,SRTM30m,4.168931178973201,0.0
+Chhattisgarh,Mahasamund,21.191387,82.488668,304.0,success,non_hilly,SRTM30m,0.5999034606550157,0.0
+Chhattisgarh,Raigarh,22.066965,83.310042,283.0,success,non_hilly,SRTM30m,1.4936213178235624,0.0
+Chhattisgarh,Raipur,21.283023,81.817586,283.0,success,non_hilly,SRTM30m,0.6074421323552235,0.0
+Chhattisgarh,Rajnandgaon,20.976771,80.691611,362.0,success,non_hilly,SRTM30m,0.1981568139579921,0.0
+Chhattisgarh,Surguja,22.94631,83.165859,590.0,success,non_hilly,SRTM30m,0.6236554960524496,0.0
+Chhattisgarh,Bijapur,18.770597,80.740603,205.0,success,non_hilly,SRTM30m,1.5365268491774162,0.0
+Chhattisgarh,Narayanpur,19.524878,81.168094,619.0,success,non_hilly,SRTM30m,2.543501721558138,0.0
+Chhattisgarh,Sukma,18.26662,81.292194,360.0,success,non_hilly,SRTM30m,13.892107564682716,2.0
+Chhattisgarh,Kondagaon,19.709025,81.742211,593.0,success,non_hilly,SRTM30m,0.9321257823538577,0.0
+Chhattisgarh,Baloda Bazar,21.573178,82.438886,275.0,success,non_hilly,SRTM30m,3.006051980427113,0.0
+Chhattisgarh,Gariyaband,20.429566,82.253018,426.0,success,non_hilly,SRTM30m,1.5773091891515232,0.0
+Chhattisgarh,Balod,20.727911,81.144049,338.0,success,non_hilly,SRTM30m,1.040504292159703,0.0
+Chhattisgarh,Mungeli,22.243972,81.654072,315.0,success,non_hilly,SRTM30m,0.15279130929322207,0.0
+Chhattisgarh,Surajpur,23.358201,82.975669,552.0,success,non_hilly,SRTM30m,0.9274276752442884,0.0
+Chhattisgarh,Balrampur,23.628494,83.480986,747.0,success,non_hilly,SRTM30m,17.26233799378396,2.0
+Chhattisgarh,Bemetara,21.678209,81.441411,268.0,success,non_hilly,SRTM30m,0.1865866276299017,0.0
+Chhattisgarh,Gaurella Pendra Marwahi,22.831123,81.958756,579.0,success,non_hilly,SRTM30m,0.880827989131777,0.0
+Chandigarh,Chandigarh,30.730988,76.784176,346.0,success,non_hilly,SRTM30m,0.8087027156741526,0.0
+Dadra & Nagar Havelli and Daman & Diu,Daman,20.418435,72.843079,11.0,success,non_hilly,SRTM30m,0.7346470812840386,0.0
+Delhi,New Delhi,28.564714,77.121865,236.0,success,non_hilly,SRTM30m,0.7180310873916178,0.0
+Delhi,North,28.783929,77.099297,212.0,success,non_hilly,SRTM30m,0.4148774835717687,0.0
+Delhi,North East,28.726534,77.261513,212.0,success,non_hilly,SRTM30m,0.13513513513513514,0.0
+Delhi,North West,28.737232,77.012092,214.0,success,non_hilly,SRTM30m,0.22522522522522523,0.0
+Delhi,South,28.493457,77.197901,265.0,success,non_hilly,SRTM30m,1.1173478407263735,0.0
+Delhi,South West,28.585501,76.978557,214.0,success,non_hilly,SRTM30m,0.4181859763698605,0.0
+Delhi,West,28.649047,77.090072,220.0,success,non_hilly,SRTM30m,0.23701688949701555,0.0
+Delhi,South East,28.54477,77.274132,233.0,success,non_hilly,SRTM30m,0.9500895269820355,0.0
+Delhi,Shahdara,28.676982,77.295972,211.0,success,non_hilly,SRTM30m,0.14455998148980997,0.0
+Dadra & Nagar Havelli and Daman & Diu,Diu,20.721669,70.932773,11.0,success,non_hilly,SRTM30m,0.8199673358219606,0.0
+Delhi,Central,28.700658,77.2211,216.0,success,non_hilly,SRTM30m,0.5984279195870018,0.0
+Dadra & Nagar Havelli and Daman & Diu,Dadra And Nagar Haveli,20.20403,73.00653,47.0,success,non_hilly,SRTM30m,0.9197219580414692,0.0
+Goa,North Goa,15.53455,74.019597,17.0,success,non_hilly,SRTM30m,3.5168733406820967,0.0
+Goa,South Goa,15.196196,74.12255,45.0,success,non_hilly,SRTM30m,5.185992526924916,0.0
+Gujarat,Ahmadabad,22.695622,72.314232,15.0,success,non_hilly,SRTM30m,0.14368527305173906,0.0
+Gujarat,Amreli,21.418126,71.280395,109.0,success,non_hilly,SRTM30m,0.3699783361076525,0.0
+Delhi,East,28.614514,77.298329,205.0,success,non_hilly,SRTM30m,0.21013372707574693,0.0
+Gujarat,Anand,22.432362,72.719501,26.0,success,non_hilly,SRTM30m,0.06636206268629492,0.0
+Gujarat,Banas Kantha,24.269663,72.162832,123.0,success,non_hilly,SRTM30m,1.335763311851058,0.0
+Gujarat,Bharuch,21.812184,72.947441,15.0,success,non_hilly,SRTM30m,0.0,0.0
+Gujarat,Bhavnagar,21.55773,71.904753,76.0,success,non_hilly,SRTM30m,0.3649708527865459,0.0
+Gujarat,Dang,20.788026,73.709403,517.0,success,non_hilly,SRTM30m,1.5773126436980545,0.0
+Gujarat,Dohad,22.919382,74.134398,314.0,success,non_hilly,SRTM30m,1.0843849650159225,0.0
+Gujarat,Gandhinagar,23.281988,72.653628,81.0,success,non_hilly,SRTM30m,0.06658678777913189,0.0
+Gujarat,Jamnagar,22.332524,70.098167,44.0,success,non_hilly,SRTM30m,0.33001453552550053,0.0
+Gujarat,Junagadh,21.340327,70.419692,72.0,success,non_hilly,SRTM30m,0.4491925642197998,0.0
+Gujarat,Kachchh,23.70826,69.80596,6.0,success,non_hilly,SRTM30m,0.10821485158875167,0.0
+Gujarat,Kheda,22.852854,72.99483,55.0,success,non_hilly,SRTM30m,0.35383526352996414,0.0
+Gujarat,Mahesana,23.570552,72.441694,96.0,success,non_hilly,SRTM30m,0.2982926440408439,0.0
+Gujarat,Narmada,21.739088,73.626406,351.0,success,non_hilly,SRTM30m,2.5887416986375533,0.0
+Gujarat,Navsari,20.829626,73.032462,20.0,success,non_hilly,SRTM30m,0.21279171669421038,0.0
+Gujarat,Panch Mahals,22.697806,73.597957,125.0,success,non_hilly,SRTM30m,0.5066205685863305,0.0
+Gujarat,Patan,23.773757,71.679603,31.0,success,non_hilly,SRTM30m,0.09844357836736187,0.0
+Gujarat,Porbandar,21.603179,69.853064,10.0,success,non_hilly,SRTM30m,0.18018018018018017,0.0
+Gujarat,Rajkot,22.069868,71.028451,193.0,success,non_hilly,SRTM30m,0.4466398830026302,0.0
+Gujarat,Sabar Kantha,23.868835,73.013862,220.0,success,non_hilly,SRTM30m,0.5244984382026063,0.0
+Gujarat,Surat,21.191725,72.952797,18.0,success,non_hilly,SRTM30m,0.3297877874366237,0.0
+Gujarat,Surendranagar,22.825462,71.62139,73.0,success,non_hilly,SRTM30m,0.2152488573859628,0.0
+Gujarat,Vadodara,22.317956,73.304845,44.0,success,non_hilly,SRTM30m,0.3438115788444954,0.0
+Gujarat,Valsad,20.43527,73.14595,89.0,success,non_hilly,SRTM30m,1.249947520571652,0.0
+Gujarat,Tapi,21.188671,73.555485,103.0,success,non_hilly,SRTM30m,1.3210630249887267,0.0
+Gujarat,Chhotaudepur,22.222774,73.777916,95.0,success,non_hilly,SRTM30m,0.39956443509868694,0.0
+Gujarat,Mahisagar,23.191634,73.657304,101.0,success,non_hilly,SRTM30m,0.30414165508970503,0.0
+Gujarat,Arvalli,23.484486,73.39868,167.0,success,non_hilly,SRTM30m,0.4443079802442633,0.0
+Gujarat,Morbi,22.802514,70.884662,61.0,success,non_hilly,SRTM30m,1.0611387369333405,0.0
+Gujarat,Devbhumi Dwarka,22.14747,69.425681,36.0,success,non_hilly,SRTM30m,0.3977353709926526,0.0
+Gujarat,Gir Somnath,20.995172,70.682064,104.0,success,non_hilly,SRTM30m,0.7461129939695113,0.0
+Gujarat,Botad,22.046786,71.675633,67.0,success,non_hilly,SRTM30m,0.4344834255993772,0.0
+Himachal Pradesh,Bilaspur,31.402383,76.640379,623.0,success,non_hilly,SRTM30m,1.6250530787173443,0.0
+Himachal Pradesh,Chamba,32.693095,76.165078,2300.0,success,non_hilly,SRTM30m,20.569755360834225,2.0
+Himachal Pradesh,Hamirpur,31.653989,76.540373,755.0,success,non_hilly,SRTM30m,3.4971944321799833,0.0
+Himachal Pradesh,Kangra,32.075971,76.300054,809.0,success,non_hilly,SRTM30m,1.7636343600502573,0.0
+Himachal Pradesh,Kinnaur,31.591916,78.332833,2803.0,success,hilly,SRTM30m,58.37668011471202,1.0
+Himachal Pradesh,Kullu,31.877796,77.450549,3692.0,success,hilly,SRTM30m,35.382426095215735,1.0
+Himachal Pradesh,Lahul And Spiti,32.501624,77.578993,4489.0,success,hilly,SRTM30m,13.685591436509576,1.0
+Himachal Pradesh,Mandi,31.651535,77.009086,1496.0,success,non_hilly,SRTM30m,9.20293403238055,2.0
+Himachal Pradesh,Shimla,31.239696,77.712694,1923.0,success,non_hilly,SRTM30m,21.296076478152422,2.0
+Himachal Pradesh,Sirmaur,30.699347,77.44934,1531.0,success,non_hilly,SRTM30m,8.872649167961457,2.0
+Himachal Pradesh,Solan,31.056641,76.849896,928.0,success,non_hilly,SRTM30m,13.731085298781462,2.0
+Himachal Pradesh,Una,31.583109,76.235688,480.0,success,non_hilly,SRTM30m,3.211866080458959,0.0
+Haryana,Ambala,30.343491,76.950246,281.0,success,non_hilly,SRTM30m,0.2486982471113773,0.0
+Haryana,Bhiwani,28.732235,75.893368,221.0,success,non_hilly,SRTM30m,0.1445696156441797,0.0
+Haryana,Faridabad,28.356718,77.326396,202.0,success,non_hilly,SRTM30m,0.7363586333080571,0.0
+Haryana,Fatehabad,29.53536,75.575095,214.0,success,non_hilly,SRTM30m,0.17955519537971265,0.0
+Haryana,Gurugram,28.37021,76.941873,242.0,success,non_hilly,SRTM30m,0.4948112665657885,0.0
+Haryana,Hisar,29.239554,75.817576,216.0,success,non_hilly,SRTM30m,0.15486757539489251,0.0
+Haryana,Jhajjar,28.597664,76.650942,214.0,success,non_hilly,SRTM30m,0.3619419931385598,0.0
+Haryana,Jind,29.450225,76.235041,225.0,success,non_hilly,SRTM30m,0.10388527231189044,0.0
+Haryana,Kaithal,29.853611,76.468939,238.0,success,non_hilly,SRTM30m,0.13749935051143342,0.0
+Haryana,Karnal,29.704674,76.915945,247.0,success,non_hilly,SRTM30m,0.15557969235458657,0.0
+Haryana,Kurukshetra,30.060721,76.76308,253.0,success,non_hilly,SRTM30m,0.11341937939394937,0.0
+Haryana,Mahendragarh,28.133108,76.168054,291.0,success,non_hilly,SRTM30m,0.27241294169071195,0.0
+Haryana,Panchkula,30.699647,76.987661,598.0,success,non_hilly,SRTM30m,13.89342667831494,2.0
+Haryana,Panipat,29.347831,76.887045,234.0,success,non_hilly,SRTM30m,0.1033545715688144,0.0
+Haryana,Rewari,28.218388,76.581406,241.0,success,non_hilly,SRTM30m,0.2725399446062493,0.0
+Haryana,Rohtak,28.890426,76.587099,224.0,success,non_hilly,SRTM30m,0.36294207308292964,0.0
+Haryana,Sirsa,29.607688,74.902191,198.0,success,non_hilly,SRTM30m,0.16182547428280783,0.0
+Haryana,Sonipat,29.041419,76.9227,225.0,success,non_hilly,SRTM30m,0.2731630752412782,0.0
+Haryana,Yamunanagar,30.212838,77.287524,285.0,success,non_hilly,SRTM30m,0.2081663948882771,0.0
+Haryana,Nuh,27.993493,77.040841,189.0,success,non_hilly,SRTM30m,0.2750425516790027,0.0
+Haryana,Palwal,28.059649,77.322736,193.0,success,non_hilly,SRTM30m,0.16936308161867555,0.0
+Haryana,Charki Dadri,28.600137,76.112524,226.0,success,non_hilly,SRTM30m,0.49565624642907635,0.0
+Jharkhand,Bokaro,23.69908,85.990717,271.0,success,non_hilly,SRTM30m,2.2669677575113885,0.0
+Jharkhand,Chatra,24.096834,84.867588,473.0,success,non_hilly,SRTM30m,1.3512025654442403,0.0
+Jharkhand,Deoghar,24.330059,86.719575,241.0,success,non_hilly,SRTM30m,0.7193363664738476,0.0
+Jharkhand,Dhanbad,23.84473,86.461645,231.0,success,non_hilly,SRTM30m,1.2698853803462864,0.0
+Jharkhand,Dumka,24.317326,87.275155,162.0,success,non_hilly,SRTM30m,1.8597871534535169,0.0
+Jharkhand,East Singhbum,22.613899,86.382505,192.0,success,non_hilly,SRTM30m,4.86625811941503,0.0
+Jharkhand,Garhwa,24.053084,83.653081,334.0,success,non_hilly,SRTM30m,3.809739567820868,0.0
+Jharkhand,Giridih,24.331812,86.160541,360.0,success,non_hilly,SRTM30m,0.8025656604641798,0.0
+Jharkhand,Godda,24.864342,87.298523,99.0,success,non_hilly,SRTM30m,0.4612644795613267,0.0
+Jharkhand,Gumla,23.158824,84.45994,669.0,success,non_hilly,SRTM30m,7.554761468097279,0.0
+Jharkhand,Hazaribagh,24.088202,85.470583,582.0,success,non_hilly,SRTM30m,0.5198555852545066,0.0
+Jharkhand,Jamtara,23.981072,86.923719,185.0,success,non_hilly,SRTM30m,0.6691336202018998,0.0
+Jharkhand,Koderma,24.542058,85.693667,360.0,success,non_hilly,SRTM30m,3.0279407003558685,0.0
+Jharkhand,Latehar,23.687152,84.498109,403.0,success,non_hilly,SRTM30m,0.9878982638387348,0.0
+Jharkhand,Lohardaga,23.477119,84.699208,640.0,success,non_hilly,SRTM30m,0.6325399814177484,0.0
+Jharkhand,Pakur,24.532852,87.594399,103.0,success,non_hilly,SRTM30m,1.6001254981525583,0.0
+Jharkhand,Palamu,24.218802,84.174196,273.0,success,non_hilly,SRTM30m,3.4716321654498126,0.0
+Jharkhand,Ranchi,23.300599,85.375409,643.0,success,non_hilly,SRTM30m,0.3636825623526616,0.0
+Jharkhand,Sahebganj,25.031975,87.69411,199.0,success,non_hilly,SRTM30m,9.98492889385661,0.0
+Jharkhand,Saraikela Kharsawan,22.823027,85.919264,336.0,success,non_hilly,SRTM30m,6.7897246398655575,0.0
+Jharkhand,Simdega,22.589989,84.546481,508.0,success,non_hilly,SRTM30m,4.114022210843769,0.0
+Jharkhand,West Singhbhum,22.427733,85.533614,426.0,success,non_hilly,SRTM30m,1.0255925846063088,0.0
+Jharkhand,Khunti,22.928995,85.281667,588.0,success,non_hilly,SRTM30m,3.0404023343229007,0.0
+Jharkhand,Ramgarh,23.692713,85.521281,375.0,success,non_hilly,SRTM30m,0.9773986172226192,0.0
+Jammu & Kashmir,Anantnag,33.809383,75.254123,1708.0,success,non_hilly,SRTM30m,1.896301710204443,0.0
+Jammu & Kashmir,Budgam,33.90543,74.623683,2306.0,success,non_hilly,SRTM30m,6.726263089087807,2.0
+Jammu & Kashmir,Baramulla,34.170177,74.311758,1599.0,success,non_hilly,SRTM30m,8.183266371977,2.0
+Jammu & Kashmir,Doda,33.135722,75.602105,849.0,success,non_hilly,SRTM30m,2.5345849319890474,0.0
+Jammu & Kashmir,Jammu,32.769719,74.92207,324.0,success,non_hilly,SRTM30m,3.405306167199693,0.0
+Jammu & Kashmir,Kathua,32.583164,75.611836,717.0,success,non_hilly,SRTM30m,3.8634031194120837,0.0
+Jammu & Kashmir,Kupwara,34.519461,74.221769,1634.0,success,non_hilly,SRTM30m,1.170970618844229,0.0
+Jammu & Kashmir,Poonch,33.768776,74.014548,1129.0,success,non_hilly,SRTM30m,3.5022439328363104,0.0
+Jammu & Kashmir,Pulwama,33.940584,75.03431,2172.0,success,non_hilly,SRTM30m,19.69031093979215,2.0
+Jammu & Kashmir,Rajouri,33.267118,74.351474,1128.0,success,non_hilly,SRTM30m,12.376561115268307,2.0
+Jammu & Kashmir,Srinagar,34.116891,74.790205,1581.0,success,non_hilly,SRTM30m,0.04504504504504504,0.0
+Jammu & Kashmir,Udhampur,32.907941,75.333379,1822.0,success,non_hilly,SRTM30m,25.774956078140498,2.0
+Jammu & Kashmir,Kishtwar,33.61654,75.879884,4547.0,success,hilly,SRTM30m,29.70288157465561,1.0
+Jammu & Kashmir,Ramban,33.316457,75.192927,1111.0,success,non_hilly,SRTM30m,28.578529579890795,2.0
+Jammu & Kashmir,Kulgam,33.620252,74.820857,2404.0,success,hilly,SRTM30m,28.984641754645356,1.0
+Jammu & Kashmir,Bandipora,34.448546,74.690014,2396.0,success,hilly,SRTM30m,26.39376913582111,1.0
+Jammu & Kashmir,Samba,32.575483,75.121279,350.0,success,non_hilly,SRTM30m,1.62822748337439,0.0
+Jammu & Kashmir,Shopian,33.724249,74.778268,2218.0,success,non_hilly,SRTM30m,4.919897417850754,2.0
+Jammu & Kashmir,Ganderbal,34.253916,74.962523,2651.0,success,hilly,SRTM30m,53.36808132138787,1.0
+Jammu & Kashmir,Reasi,33.206017,74.856749,859.0,success,non_hilly,SRTM30m,25.035451448728434,2.0
+Karnataka,Bagalkote,16.2904,75.591577,550.0,success,non_hilly,SRTM30m,1.3096738309013478,0.0
+Karnataka,Bengaluru Urban,12.945312,77.552189,884.0,success,non_hilly,SRTM30m,2.6822589201805886,0.0
+Karnataka,Bengaluru Rural,13.182599,77.339441,901.0,success,non_hilly,SRTM30m,1.7011256165956472,0.0
+Karnataka,Belagavi,16.157843,74.888677,554.0,success,non_hilly,SRTM30m,0.6022498716242026,0.0
+Karnataka,Ballari,15.198955,76.709084,493.0,success,non_hilly,SRTM30m,5.515400787128931,0.0
+Karnataka,Bidar,18.017065,77.248509,587.0,success,non_hilly,SRTM30m,1.0309396086045084,0.0
+Karnataka,Vijayapura,16.814492,75.893275,557.0,success,non_hilly,SRTM30m,1.6049867802985205,0.0
+Karnataka,Chamarajanagara,11.954363,77.106275,732.0,success,non_hilly,SRTM30m,3.8346045850875523,0.0
+Karnataka,Chikkamagaluru,13.405911,75.6387,954.0,success,non_hilly,SRTM30m,15.888549849868166,2.0
+Karnataka,Chitradurga,14.306334,76.528669,645.0,success,non_hilly,SRTM30m,2.7279883445322533,0.0
+Karnataka,Dakshina Kannada,12.822725,75.226428,82.0,success,non_hilly,SRTM30m,0.9020845906470634,0.0
+Karnataka,Davangere,14.369361,75.888397,571.0,success,non_hilly,SRTM30m,0.8944188001139873,0.0
+Karnataka,Dharwad,15.370745,75.133239,661.0,success,non_hilly,SRTM30m,1.4152469438717048,0.0
+Karnataka,Gadag,15.416033,75.681495,656.0,success,non_hilly,SRTM30m,0.5514410094156458,0.0
+Karnataka,Kalaburagi,17.240627,76.770173,431.0,success,non_hilly,SRTM30m,1.7414138090884121,0.0
+Karnataka,Hassan,13.030246,76.17443,978.0,success,non_hilly,SRTM30m,1.1954637136906554,0.0
+Karnataka,Haveri,14.718019,75.387126,596.0,success,non_hilly,SRTM30m,1.0483611214352846,0.0
+Karnataka,Kodagu,12.382854,75.664212,915.0,success,non_hilly,SRTM30m,1.3207992324541094,0.0
+Karnataka,Kolar,13.17992,78.266664,794.0,success,non_hilly,SRTM30m,0.10290952053036818,0.0
+Karnataka,Koppal,15.57517,76.311826,554.0,success,non_hilly,SRTM30m,0.6850598801441974,0.0
+Karnataka,Mandya,12.636909,76.727479,791.0,success,non_hilly,SRTM30m,1.3234106446994485,0.0
+Karnataka,Mysuru,12.19707,76.612022,716.0,success,non_hilly,SRTM30m,0.5246412374871585,0.0
+Karnataka,Raichur,16.054871,76.900686,402.0,success,non_hilly,SRTM30m,0.9306980982433263,0.0
+Karnataka,Shivamogga,14.055689,75.238001,628.0,success,non_hilly,SRTM30m,0.3040594727905462,0.0
+Karnataka,Tumakuru,13.419261,76.880937,833.0,success,non_hilly,SRTM30m,0.5403300699097865,0.0
+Karnataka,Udupi,13.527058,74.8731,34.0,success,non_hilly,SRTM30m,0.49155601184110226,0.0
+Karnataka,Uttara Kannada,14.725044,74.640217,560.0,success,non_hilly,SRTM30m,0.6899713410005883,0.0
+Karnataka,Chikkaballapura,13.589635,77.782235,864.0,success,non_hilly,SRTM30m,1.1445863000563885,0.0
+Karnataka,Ramanagara,12.720113,77.317775,714.0,success,non_hilly,SRTM30m,6.300372703459154,0.0
+Karnataka,Yadgir,16.573869,76.925077,363.0,success,non_hilly,SRTM30m,0.2933715985567265,0.0
+Kerala,Alappuzha,9.500614,76.410605,0.0,success,non_hilly,SRTM30m,0.04504504504504504,0.0
+Kerala,Ernakulam,10.04571,76.497432,21.0,success,non_hilly,SRTM30m,1.2880075122212156,0.0
+Kerala,Idukki,9.815972,76.998049,725.0,success,non_hilly,SRTM30m,3.8984865881830837,0.0
+Kerala,Kannur,11.985666,75.547572,7.0,success,non_hilly,SRTM30m,0.9470661205458795,0.0
+Kerala,Kasaragod,12.420039,75.190562,91.0,success,non_hilly,SRTM30m,4.433700568629738,0.0
+Kerala,Kollam,8.967736,76.857852,104.0,success,non_hilly,SRTM30m,3.8708760807154463,0.0
+Kerala,Kottayam,9.628555,76.645233,51.0,success,non_hilly,SRTM30m,2.0076199472737035,0.0
+Kerala,Kozhikode,11.464151,75.891919,49.0,success,non_hilly,SRTM30m,0.7079047858172923,0.0
+Kerala,Malappuram,11.106349,76.109914,39.0,success,non_hilly,SRTM30m,1.246739686307109,0.0
+Kerala,Palakkad,10.786764,76.473462,88.0,success,non_hilly,SRTM30m,0.6772298914046628,0.0
+Kerala,Pathanamthitta,9.277372,76.977781,502.0,success,non_hilly,SRTM30m,8.971300469979258,0.0
+Kerala,Thiruvananthapuram,8.577346,77.04979,75.0,success,non_hilly,SRTM30m,2.893929917528043,0.0
+Kerala,Thrissur,10.477657,76.273504,9.0,success,non_hilly,SRTM30m,1.5160152496759216,0.0
+Kerala,Wayanad,11.714751,76.125475,738.0,success,non_hilly,SRTM30m,2.542977873954475,0.0
+Lakshadweep,Lakshadweep District,11.278161,74.042694,0.0,success,unknown,SRTM30m,,
+Ladakh,Kargil,33.807076,76.438331,3991.0,success,hilly,SRTM30m,5.377728855290083,1.0
+Ladakh,Leh Ladakh,34.712102,78.247944,5855.0,success,hilly,SRTM30m,7.132814937170186,1.0
+Maharashtra,Ahmednagar,19.162156,74.85749,866.0,success,non_hilly,SRTM30m,5.126792867904919,0.0
+Maharashtra,Akola,20.76141,77.192084,279.0,success,non_hilly,SRTM30m,0.32976173886198346,0.0
+Maharashtra,Amravati,21.154037,77.644342,353.0,success,non_hilly,SRTM30m,0.22522522522522523,0.0
+Maharashtra,Aurangabad,20.023137,75.150311,585.0,success,non_hilly,SRTM30m,0.9208858809678996,0.0
+Maharashtra,Beed,18.992537,75.910545,523.0,success,non_hilly,SRTM30m,2.1809732582609196,0.0
+Maharashtra,Bhandara,21.122799,79.791891,291.0,success,non_hilly,SRTM30m,0.7155120169275035,0.0
+Maharashtra,Buldhana,20.563248,76.408453,548.0,success,non_hilly,SRTM30m,3.756670369500555,0.0
+Maharashtra,Chandrapur,20.097001,79.503304,239.0,success,non_hilly,SRTM30m,1.7502740585061294,0.0
+Maharashtra,Dhule,21.130882,74.479154,340.0,success,non_hilly,SRTM30m,1.224466044943785,0.0
+Maharashtra,Gadchiroli,19.756947,80.163277,237.0,success,non_hilly,SRTM30m,0.31738127412324507,0.0
+Maharashtra,Gondia,21.145309,80.268299,327.0,success,non_hilly,SRTM30m,0.5609892295065925,0.0
+Maharashtra,Hingoli,19.623174,77.191156,431.0,success,non_hilly,SRTM30m,0.49779792789641986,0.0
+Maharashtra,Jalgaon,20.842545,75.526434,233.0,success,non_hilly,SRTM30m,0.6639773740115531,0.0
+Maharashtra,Jalna,19.917634,75.867839,530.0,success,non_hilly,SRTM30m,2.4978746564127325,0.0
+Maharashtra,Kolhapur,16.461912,74.089343,668.0,success,non_hilly,SRTM30m,12.55859275541304,2.0
+Maharashtra,Latur,18.354038,76.754874,630.0,success,non_hilly,SRTM30m,1.1741069690913613,0.0
+Maharashtra,Mumbai Suburban,19.129703,72.8932,35.0,success,non_hilly,SRTM30m,0.9534988457536073,0.0
+Maharashtra,Nagpur,21.152818,79.014829,353.0,success,non_hilly,SRTM30m,0.7207207207207207,0.0
+Maharashtra,Nanded,19.09355,77.482529,388.0,success,non_hilly,SRTM30m,1.186676812629576,0.0
+Maharashtra,Nandurbar,21.516845,74.541276,158.0,success,non_hilly,SRTM30m,0.43809655410160536,0.0
+Maharashtra,Nashik,20.224182,74.106384,644.0,success,non_hilly,SRTM30m,1.5789469615467546,0.0
+Maharashtra,Osmanabad,18.169545,76.117983,655.0,success,non_hilly,SRTM30m,0.9206433483814603,0.0
+Maharashtra,Parbhani,19.286927,76.62087,441.0,success,non_hilly,SRTM30m,0.9319660132736347,0.0
+Maharashtra,Pune,18.645146,73.92303,565.0,success,non_hilly,SRTM30m,1.5781612060871233,0.0
+Maharashtra,Raigad,18.493681,73.143104,336.0,success,non_hilly,SRTM30m,5.3938080614899935,0.0
+Maharashtra,Ratnagiri,17.282428,73.472308,246.0,success,non_hilly,SRTM30m,3.333902586204899,0.0
+Maharashtra,Sangli,17.172061,74.586054,641.0,success,non_hilly,SRTM30m,1.246334159441614,0.0
+Maharashtra,Satara,17.636333,74.297653,857.0,success,non_hilly,SRTM30m,2.1388898255216855,0.0
+Maharashtra,Sindhudurg,16.135637,73.651491,188.0,success,non_hilly,SRTM30m,1.73723940487969,0.0
+Maharashtra,Solapur,17.849768,75.2762,486.0,success,non_hilly,SRTM30m,0.9017261582262657,0.0
+Maharashtra,Thane,19.359503,73.370809,102.0,success,non_hilly,SRTM30m,0.7218141005162768,0.0
+Maharashtra,Wardha,20.826282,78.612716,258.0,success,non_hilly,SRTM30m,0.20434164370860633,0.0
+Maharashtra,Washim,20.287143,77.236281,490.0,success,non_hilly,SRTM30m,0.8289568142207798,0.0
+Maharashtra,Yavatmal,20.06379,78.358149,291.0,success,non_hilly,SRTM30m,0.6951331227327172,0.0
+Maharashtra,Palghar,19.757484,73.086686,54.0,success,non_hilly,SRTM30m,1.0948821542392047,0.0
+Meghalaya,East Garo Hills,25.632189,90.643835,333.0,success,non_hilly,SRTM30m,5.624631042811852,0.0
+Meghalaya,East Khasi Hills,25.399069,91.822745,1168.0,success,non_hilly,SRTM30m,16.464733325372784,2.0
+Meghalaya,West Jaintia Hills,25.436173,92.182571,1303.0,success,non_hilly,SRTM30m,2.755309854226325,0.0
+Meghalaya,Ri Bhoi,25.860731,91.829776,718.0,success,non_hilly,SRTM30m,20.501363037727742,2.0
+Meghalaya,South Garo Hills,25.346125,90.569898,102.0,success,non_hilly,SRTM30m,6.106406750479451,0.0
+Meghalaya,West Garo Hills,25.606346,90.20372,353.0,success,non_hilly,SRTM30m,0.6993956849037278,0.0
+Meghalaya,West Khasi Hills,25.577437,91.275972,1355.0,success,non_hilly,SRTM30m,6.784561905309854,2.0
+Meghalaya,North Garo Hills,25.870553,90.718956,230.0,success,non_hilly,SRTM30m,7.563168824184115,0.0
+Meghalaya,East Jaintia Hills,25.249911,92.482897,870.0,success,non_hilly,SRTM30m,6.01280779793494,0.0
+Meghalaya,South West Khasi Hills,25.33363,91.320905,1179.0,success,non_hilly,SRTM30m,21.687020172482438,2.0
+Meghalaya,South West Garo Hills,25.442245,89.98148,79.0,success,non_hilly,SRTM30m,1.149869285150111,0.0
+Manipur,Imphal East,24.874395,94.024701,787.0,success,non_hilly,SRTM30m,0.26815771471206756,0.0
+Manipur,Imphal West,24.759059,93.861934,774.0,success,non_hilly,SRTM30m,0.049604875589160734,0.0
+Mizoram,Saiha,22.286998,93.013158,903.0,success,non_hilly,SRTM30m,4.921763851919486,0.0
+Mizoram,Serchhip,23.292383,92.84458,1117.0,success,non_hilly,SRTM30m,22.401149472379856,2.0
+Nagaland,Dimapur,25.810633,93.89935,346.0,success,non_hilly,SRTM30m,6.543816775055122,0.0
+Nagaland,Kohima,25.770003,94.124019,1214.0,success,non_hilly,SRTM30m,15.110804418499345,2.0
+Nagaland,Mokokchung,26.478574,94.507568,318.0,success,non_hilly,SRTM30m,2.2005648901450754,0.0
+Nagaland,Mon,26.660365,94.999855,871.0,success,non_hilly,SRTM30m,14.540333480342277,2.0
+Nagaland,Phek,25.653109,94.380044,1454.0,success,non_hilly,SRTM30m,30.042401572997964,2.0
+Manipur,Bishnupur,24.528467,93.79168,767.0,success,non_hilly,SRTM30m,0.0,0.0
+Manipur,Chandel,24.160649,94.00211,1101.0,success,non_hilly,SRTM30m,24.487972038659358,2.0
+Manipur,Churachandpur,24.276286,93.677942,837.0,success,non_hilly,SRTM30m,0.7628044351925573,0.0
+Manipur,Senapati,25.393454,94.162959,1234.0,success,non_hilly,SRTM30m,7.0973231687118155,2.0
+Manipur,Tamenglong,25.060212,93.549145,1025.0,success,non_hilly,SRTM30m,14.08330025189413,2.0
+Manipur,Noney,24.664775,93.489005,680.0,success,non_hilly,SRTM30m,1.2846371303659618,0.0
+Manipur,Pherzawl,24.364419,93.253744,527.0,success,non_hilly,SRTM30m,18.382576550468812,2.0
+Nagaland,Tuensang,26.155986,94.909136,1485.0,success,non_hilly,SRTM30m,18.348780867677718,2.0
+Manipur,Thoubal,24.62875,94.003086,774.0,success,non_hilly,SRTM30m,0.13393369357252688,0.0
+Manipur,Ukhrul,25.310005,94.471272,1725.0,success,non_hilly,SRTM30m,27.191664707472118,2.0
+Madhya Pradesh,Rajgarh,23.870824,76.774447,412.0,success,non_hilly,SRTM30m,1.3981751289246207,0.0
+Madhya Pradesh,Ratlam,23.502929,74.954615,543.0,success,non_hilly,SRTM30m,0.4155471658654693,0.0
+Madhya Pradesh,Rewa,24.756063,81.654453,326.0,success,non_hilly,SRTM30m,0.5939297753859586,0.0
+Madhya Pradesh,Sagar,23.808313,78.758258,543.0,success,non_hilly,SRTM30m,3.8903789741729526,0.0
+Madhya Pradesh,Satna,24.577611,80.808965,317.0,success,non_hilly,SRTM30m,0.36036036036036034,0.0
+Madhya Pradesh,Sehore,23.115072,77.066538,561.0,success,non_hilly,SRTM30m,1.295210438281386,0.0
+Madhya Pradesh,Seoni,22.274811,79.720252,496.0,success,non_hilly,SRTM30m,0.36882040476732536,0.0
+Madhya Pradesh,Shahdol,23.653072,81.430319,443.0,success,non_hilly,SRTM30m,0.2328725978025851,0.0
+Madhya Pradesh,Shajapur,23.417227,76.607514,460.0,success,non_hilly,SRTM30m,0.5400846146127393,0.0
+Manipur,Kakching,24.393216,93.886482,767.0,success,non_hilly,SRTM30m,0.30832264090195444,0.0
+Manipur,Kangpokpi,24.991801,94.092281,1061.0,success,non_hilly,SRTM30m,15.806399559460033,2.0
+Manipur,Jiribam,24.708992,93.117288,80.0,success,non_hilly,SRTM30m,5.797392274818036,0.0
+Madhya Pradesh,Sheopur,25.749628,76.92042,353.0,success,non_hilly,SRTM30m,0.33653252329071637,0.0
+Madhya Pradesh,Shivpuri,25.374153,77.827922,414.0,success,non_hilly,SRTM30m,0.8357260226082753,0.0
+Madhya Pradesh,Sidhi,24.211269,81.700042,372.0,success,non_hilly,SRTM30m,0.6281561199527668,0.0
+Madhya Pradesh,Tikamgarh,24.855216,79.047255,285.0,success,non_hilly,SRTM30m,0.7373709723761275,0.0
+Madhya Pradesh,Ujjain,23.293507,75.625763,477.0,success,non_hilly,SRTM30m,0.8529690870687353,0.0
+Madhya Pradesh,Umaria,23.643184,80.941908,482.0,success,non_hilly,SRTM30m,1.2288018774688785,0.0
+Madhya Pradesh,Vidisha,23.846303,77.837021,406.0,success,non_hilly,SRTM30m,0.4743320309911747,0.0
+Madhya Pradesh,Singrauli,24.243331,82.382723,354.0,success,non_hilly,SRTM30m,1.3030478575190443,0.0
+Madhya Pradesh,Alirajpur,22.285952,74.35456,299.0,success,non_hilly,SRTM30m,0.8035198874407946,0.0
+Madhya Pradesh,Agar Malwa,23.935057,76.145115,420.0,success,non_hilly,SRTM30m,0.38920081810032986,0.0
+Madhya Pradesh,Niwari,25.306313,78.663122,229.0,success,non_hilly,SRTM30m,0.4412459687119027,0.0
+Mizoram,Aizawl,23.865843,92.982065,804.0,success,non_hilly,SRTM30m,8.45067617525574,0.0
+Mizoram,Champhai,23.543562,93.227198,1144.0,success,non_hilly,SRTM30m,20.504522734547432,2.0
+Mizoram,Kolasib,24.183775,92.711904,349.0,success,non_hilly,SRTM30m,18.016154912008716,2.0
+Mizoram,Lawngtlai,22.368687,92.731139,486.0,success,non_hilly,SRTM30m,4.178639310406722,0.0
+Mizoram,Lunglei,22.952465,92.758853,710.0,success,non_hilly,SRTM30m,18.342114599811403,2.0
+Mizoram,Mamit,23.755661,92.450691,255.0,success,non_hilly,SRTM30m,8.776920957943242,0.0
+Manipur,Tengnoupal,24.380922,94.263302,726.0,success,non_hilly,SRTM30m,6.530532133478417,0.0
+Madhya Pradesh,Barwani,21.75126,74.891549,496.0,success,non_hilly,SRTM30m,2.584566012952732,0.0
+Madhya Pradesh,Betul,21.879747,77.875365,635.0,success,non_hilly,SRTM30m,0.5289721726044214,0.0
+Madhya Pradesh,Bhind,26.351337,78.686262,152.0,success,non_hilly,SRTM30m,0.09009009009009009,0.0
+Madhya Pradesh,Bhopal,23.483976,77.392851,493.0,success,non_hilly,SRTM30m,1.1304018746948936,0.0
+Madhya Pradesh,Burhanpur,21.334536,76.36994,271.0,success,non_hilly,SRTM30m,1.1433415093277397,0.0
+Madhya Pradesh,Chhatarpur,24.760609,79.678163,289.0,success,non_hilly,SRTM30m,0.6611098801771094,0.0
+Madhya Pradesh,Chhindwara,22.139636,78.809623,756.0,success,non_hilly,SRTM30m,1.7184256961139504,0.0
+Madhya Pradesh,Damoh,23.798138,79.542004,344.0,success,non_hilly,SRTM30m,1.295389105917614,0.0
+Madhya Pradesh,Datia,25.8638,78.633511,182.0,success,non_hilly,SRTM30m,0.15017792058791551,0.0
+Madhya Pradesh,Dewas,22.80565,76.294058,503.0,success,non_hilly,SRTM30m,0.5450132962818379,0.0
+Madhya Pradesh,Dhar,22.578657,75.225864,560.0,success,non_hilly,SRTM30m,0.816660125471051,0.0
+Madhya Pradesh,Dindori,22.907087,80.888853,679.0,success,non_hilly,SRTM30m,0.5932690189345248,0.0
+Madhya Pradesh,East Nimar,21.976987,76.567531,283.0,success,non_hilly,SRTM30m,0.6141061511114003,0.0
+Madhya Pradesh,Guna,24.500208,77.260107,442.0,success,non_hilly,SRTM30m,1.5211617147786456,0.0
+Madhya Pradesh,Gwalior,26.028749,78.157065,252.0,success,non_hilly,SRTM30m,0.47489187209254735,0.0
+Madhya Pradesh,Mandsaur,24.262874,75.385754,386.0,success,non_hilly,SRTM30m,1.0055667435804383,0.0
+Madhya Pradesh,Morena,26.384517,77.861202,186.0,success,non_hilly,SRTM30m,0.11019321786547398,0.0
+Madhya Pradesh,Narsinghpur,22.934805,79.086638,357.0,success,non_hilly,SRTM30m,0.20502258418119576,0.0
+Madhya Pradesh,Neemuch,24.629765,75.182746,484.0,success,non_hilly,SRTM30m,0.9063358112348435,0.0
+Madhya Pradesh,Panna,24.449893,80.146272,321.0,success,non_hilly,SRTM30m,0.40841407419078857,0.0
+Madhya Pradesh,Raisen,23.267591,78.172714,540.0,success,non_hilly,SRTM30m,6.224483168967489,0.0
+Nagaland,Wokha,26.254738,94.203681,298.0,success,non_hilly,SRTM30m,4.373985835850915,0.0
+Nagaland,Zunheboto,26.012753,94.511916,1574.0,success,non_hilly,SRTM30m,19.87988307568927,2.0
+Nagaland,Peren,25.454998,93.599138,1130.0,success,non_hilly,SRTM30m,22.66649338966797,2.0
+Nagaland,Kiphire,25.811629,94.847963,1455.0,success,non_hilly,SRTM30m,7.688665149883174,2.0
+Nagaland,Longleng,26.584109,94.804711,1105.0,success,non_hilly,SRTM30m,15.076212146914807,2.0
+Odisha,Anugul,21.103706,84.954677,138.0,success,non_hilly,SRTM30m,0.5368966177383669,0.0
+Odisha,Balangir,20.609313,83.167596,275.0,success,non_hilly,SRTM30m,1.492928245855445,0.0
+Odisha,Baleshwar,21.519837,86.883753,19.0,success,non_hilly,SRTM30m,0.6136671285757826,0.0
+Odisha,Bargarh,21.232178,83.567324,180.0,success,non_hilly,SRTM30m,0.38842970734954957,0.0
+Odisha,Bhadrak,20.984019,86.59477,5.0,success,non_hilly,SRTM30m,0.2702702702702703,0.0
+Odisha,Boudh,20.639812,83.997729,211.0,success,non_hilly,SRTM30m,7.86431551011967,0.0
+Odisha,Cuttack,20.370132,85.467902,33.0,success,non_hilly,SRTM30m,0.5586737696486587,0.0
+Odisha,Deogarh,21.447282,84.717553,152.0,success,non_hilly,SRTM30m,0.6167541391355404,0.0
+Odisha,Dhenkanal,20.835406,85.601435,57.0,success,non_hilly,SRTM30m,2.051948914534718,0.0
+Odisha,Gajapati,19.197901,84.190418,910.0,success,non_hilly,SRTM30m,22.367741959744592,2.0
+Odisha,Ganjam,19.60969,84.70702,53.0,success,non_hilly,SRTM30m,0.2744678967278393,0.0
+Odisha,Jagatsinghapur,20.179096,86.342175,3.0,success,non_hilly,SRTM30m,0.04799076932990524,0.0
+Odisha,Jajapur,20.873986,86.123763,24.0,success,non_hilly,SRTM30m,0.10642161524180682,0.0
+Odisha,Jharsuguda,21.801123,84.016825,198.0,success,non_hilly,SRTM30m,0.1663619166567572,0.0
+Odisha,Kalahandi,19.826425,83.040934,253.0,success,non_hilly,SRTM30m,1.5054700154688743,0.0
+Odisha,Kandhamal,20.13159,84.079112,560.0,success,non_hilly,SRTM30m,4.473250901922237,0.0
+Odisha,Kendrapara,20.546626,86.52807,3.0,success,non_hilly,SRTM30m,0.10623315576998452,0.0
+Odisha,Kendujhar,21.58954,85.668318,492.0,success,non_hilly,SRTM30m,1.024742250132972,0.0
+Odisha,Khordha,20.05412,85.502032,18.0,success,non_hilly,SRTM30m,0.561763304943836,0.0
+Odisha,Koraput,18.724322,82.607102,998.0,success,non_hilly,SRTM30m,1.1934438533967704,0.0
+Odisha,Malkangiri,18.275577,81.95248,159.0,success,non_hilly,SRTM30m,0.22522522522522523,0.0
+Odisha,Mayurbhanj,21.915318,86.39762,803.0,success,non_hilly,SRTM30m,7.697772298129833,0.0
+Odisha,Nabarangpur,19.609651,82.299133,609.0,success,non_hilly,SRTM30m,1.458060852787019,0.0
+Odisha,Nayagarh,20.23898,85.051146,147.0,success,non_hilly,SRTM30m,2.0664762831236256,0.0
+Odisha,Nuapada,20.538972,82.529299,595.0,success,non_hilly,SRTM30m,14.60700817359595,2.0
+Odisha,Puri,19.835276,85.687865,2.0,success,non_hilly,SRTM30m,0.2908257686331273,0.0
+Odisha,Rayagada,19.442479,83.587745,534.0,success,non_hilly,SRTM30m,6.585922395632339,0.0
+Odisha,Sambalpur,21.555867,84.153894,200.0,success,non_hilly,SRTM30m,0.6599374435263823,0.0
+Odisha,Sonepur,20.852893,83.852304,146.0,success,non_hilly,SRTM30m,0.13513513513513514,0.0
+Odisha,Sundargarh,22.060669,83.936436,230.0,success,non_hilly,SRTM30m,0.8108108108108109,0.0
+Punjab,Amritsar,31.773046,74.831819,233.0,success,non_hilly,SRTM30m,0.2489100597974151,0.0
+Punjab,Bathinda,30.17903,75.047053,209.0,success,non_hilly,SRTM30m,0.16268391896476808,0.0
+Punjab,Faridkot,30.60144,74.795038,209.0,success,non_hilly,SRTM30m,0.3864237881674421,0.0
+Punjab,Fatehgarh Sahib,30.660952,76.383575,268.0,success,non_hilly,SRTM30m,0.36931778820791433,0.0
+Punjab,Ferozepur,30.950201,74.76015,201.0,success,non_hilly,SRTM30m,0.18018018018018017,0.0
+Punjab,Gurdaspur,31.903794,75.227542,254.0,success,non_hilly,SRTM30m,0.17182313928263093,0.0
+Punjab,Hoshiarpur,31.609498,75.843911,306.0,success,non_hilly,SRTM30m,0.7087134017074137,0.0
+Punjab,Jalandhar,31.292203,75.567966,237.0,success,non_hilly,SRTM30m,0.27536286567469687,0.0
+Punjab,Kapurthala,31.385602,75.304983,222.0,success,non_hilly,SRTM30m,0.18213764411517674,0.0
+Punjab,Ludhiana,30.789426,75.827198,249.0,success,non_hilly,SRTM30m,0.27530984862139835,0.0
+Punjab,Mansa,29.876276,75.488944,218.0,success,non_hilly,SRTM30m,0.49606915643292127,0.0
+Punjab,Moga,30.788247,75.160063,220.0,success,non_hilly,SRTM30m,0.10423843180504737,0.0
+Punjab,Sri Muktsar Sahib,30.28673,74.526198,197.0,success,non_hilly,SRTM30m,0.13784388069691272,0.0
+Punjab,Shahid Bhagat Singh Nagar,31.126858,76.159931,258.0,success,non_hilly,SRTM30m,0.2669340585060978,0.0
+Punjab,Patiala,30.209387,76.338762,243.0,success,non_hilly,SRTM30m,0.10424772576749199,0.0
+Punjab,Rupnagar,31.091386,76.528876,296.0,success,non_hilly,SRTM30m,0.6866459577465196,0.0
+Punjab,Sangrur,30.209697,75.819192,235.0,success,non_hilly,SRTM30m,0.18756815169240024,0.0
+Punjab,Barnala,30.371727,75.503965,225.0,success,non_hilly,SRTM30m,0.2487488465913412,0.0
+Punjab,S.A.S Nagar,30.649944,76.739836,302.0,success,non_hilly,SRTM30m,0.376277532446648,0.0
+Punjab,Tarn Taran,31.321298,74.841609,221.0,success,non_hilly,SRTM30m,0.10438692425621099,0.0
+Punjab,Fazilka,30.376043,74.107422,181.0,success,non_hilly,SRTM30m,0.18759275912713605,0.0
+Punjab,Pathankot,32.302806,75.659351,345.0,success,non_hilly,SRTM30m,1.0344003591760245,0.0
+Puducherry,Karaikal,10.915569,79.807048,3.0,success,non_hilly,SRTM30m,0.2293752442013116,0.0
+Puducherry,Mahe,11.700876,75.535987,13.0,success,non_hilly,SRTM30m,0.8806162757579901,0.0
+Rajasthan,Ajmer,26.331985,74.7164,449.0,success,non_hilly,SRTM30m,0.9057000452196524,0.0
+Rajasthan,Alwar,27.63789,76.613801,270.0,success,non_hilly,SRTM30m,0.24418822544982444,0.0
+Rajasthan,Banswara,23.493242,74.349965,193.0,success,non_hilly,SRTM30m,0.4315913251050201,0.0
+Rajasthan,Baran,24.917788,76.697125,275.0,success,non_hilly,SRTM30m,0.2980111586600495,0.0
+Rajasthan,Barmer,25.584237,71.619873,135.0,success,non_hilly,SRTM30m,1.4669596080032024,0.0
+Rajasthan,Bharatpur,27.265544,77.368512,180.0,success,non_hilly,SRTM30m,0.06780160077667852,0.0
+Rajasthan,Bhilwara,25.488421,74.699136,424.0,success,non_hilly,SRTM30m,1.5097878835138507,0.0
+Rajasthan,Bikaner,28.116573,73.110417,195.0,success,non_hilly,SRTM30m,0.3554793365506295,0.0
+Rajasthan,Bundi,25.437776,75.737376,237.0,success,non_hilly,SRTM30m,0.20454509192264664,0.0
+Rajasthan,Chittorgarh,24.717229,74.471367,427.0,success,non_hilly,SRTM30m,0.33496435923263973,0.0
+Rajasthan,Churu,28.205042,74.69085,303.0,success,non_hilly,SRTM30m,0.05111425657188586,0.0
+Rajasthan,Dausa,26.805604,76.444767,337.0,success,non_hilly,SRTM30m,0.8842531826753994,0.0
+Rajasthan,Dholpur,26.65332,77.62356,205.0,success,non_hilly,SRTM30m,0.36412619988089745,0.0
+Rajasthan,Dungarpur,23.672579,73.816471,276.0,success,non_hilly,SRTM30m,1.5773435671986107,0.0
+Rajasthan,Ganganagar,29.461907,73.540964,168.0,success,non_hilly,SRTM30m,0.21178697999695803,0.0
+Rajasthan,Hanumangarh,29.36436,74.211235,180.0,success,non_hilly,SRTM30m,0.4086868622723442,0.0
+Rajasthan,Sikar,27.662843,75.027324,397.0,success,non_hilly,SRTM30m,0.8657658012663149,0.0
+Rajasthan,Sirohi,24.811056,72.82989,325.0,success,non_hilly,SRTM30m,9.057109766339023,0.0
+Rajasthan,Tonk,26.122467,75.663488,276.0,success,non_hilly,SRTM30m,0.5805349213897445,0.0
+Rajasthan,Udaipur,24.453834,73.651523,512.0,success,non_hilly,SRTM30m,0.568234338549844,0.0
+Rajasthan,Pratapgarh,24.022775,74.626967,411.0,success,non_hilly,SRTM30m,3.3274211679119503,0.0
+Sikkim,Gangtok,27.278681,88.675281,2418.0,success,non_hilly,SRTM30m,13.46755819270047,2.0
+Sikkim,Mangan,27.75364,88.516714,3574.0,success,hilly,SRTM30m,54.94039619725258,1.0
+Sikkim,Namchi,27.303811,88.379892,1560.0,success,non_hilly,SRTM30m,27.912545356751473,2.0
+Sikkim,Gyalshing,27.363836,88.187317,1827.0,success,hilly,SRTM30m,48.126307036176485,1.0
+Tamil Nadu,Pudukkottai,10.291651,78.817045,89.0,success,non_hilly,SRTM30m,0.24599826563732044,0.0
+Tamil Nadu,Ramanathapuram,9.518559,78.652662,32.0,success,non_hilly,SRTM30m,0.18269551591244462,0.0
+Tamil Nadu,Salem,11.647346,78.210734,368.0,success,non_hilly,SRTM30m,11.232918470995639,0.0
+Tamil Nadu,Sivaganga,9.965005,78.720845,61.0,success,non_hilly,SRTM30m,0.26561966651798485,0.0
+Tamil Nadu,Thanjavur,10.659645,79.197937,38.0,success,non_hilly,SRTM30m,0.3481488354777973,0.0
+Tamil Nadu,The Nilgiris,11.445508,76.697645,2212.0,success,non_hilly,SRTM30m,13.238856881123098,2.0
+Tamil Nadu,Theni,9.868892,77.422463,388.0,success,non_hilly,SRTM30m,2.2223623430627977,0.0
+Tamil Nadu,Thiruvallur,13.254709,80.062284,24.0,success,non_hilly,SRTM30m,0.16550224781312356,0.0
+Tamil Nadu,Thiruvarur,10.647875,79.50237,11.0,success,non_hilly,SRTM30m,0.04583425123809327,0.0
+Tamil Nadu,Chennai,13.055368,80.235511,13.0,success,non_hilly,SRTM30m,0.22522522522522523,0.0
+Tamil Nadu,Coimbatore,10.812725,77.081606,329.0,success,non_hilly,SRTM30m,1.8244533464323605,0.0
+Tamil Nadu,Cuddalore,11.520657,79.339851,54.0,success,non_hilly,SRTM30m,0.931527751237033,0.0
+Tamil Nadu,Dharmapuri,12.144845,78.113206,467.0,success,non_hilly,SRTM30m,0.2642605113996538,0.0
+Tamil Nadu,Dindigul,10.42694,77.81625,301.0,success,non_hilly,SRTM30m,0.6737554302557905,0.0
+Tamil Nadu,Erode,11.488925,77.349814,216.0,success,non_hilly,SRTM30m,0.7095575469884324,0.0
+Tamil Nadu,Kanchipuram,12.794215,79.774512,67.0,success,non_hilly,SRTM30m,0.20556095524497542,0.0
+Tamil Nadu,Kanniyakumari,8.328087,77.35411,256.0,success,non_hilly,SRTM30m,12.414915003566469,0.0
+Tamil Nadu,Karur,10.821975,78.383931,124.0,success,non_hilly,SRTM30m,0.583249198336376,0.0
+Tamil Nadu,Krishnagiri,12.515051,78.009924,705.0,success,non_hilly,SRTM30m,3.240637612814142,0.0
+Tamil Nadu,Madurai,9.936291,78.007498,166.0,success,non_hilly,SRTM30m,0.7873108643687374,0.0
+Tamil Nadu,Nagapattinam,11.191282,79.696367,7.0,success,non_hilly,SRTM30m,0.428170371527357,0.0
+Tamil Nadu,Namakkal,11.305297,78.118536,195.0,success,non_hilly,SRTM30m,0.5530738318857422,0.0
+Tamil Nadu,Perambalur,11.289708,78.929828,115.0,success,non_hilly,SRTM30m,0.4864815916971723,0.0
+Tamil Nadu,Tiruchirappalli,10.851019,78.726704,66.0,success,non_hilly,SRTM30m,0.3186335774124075,0.0
+Tamil Nadu,Tirunelveli,8.54944,77.579769,112.0,success,non_hilly,SRTM30m,1.2696362915987496,0.0
+Tamil Nadu,Tiruvannamalai,12.429321,78.999758,347.0,success,non_hilly,SRTM30m,11.76175745849032,0.0
+Tamil Nadu,Tuticorin,8.846457,77.993494,30.0,success,non_hilly,SRTM30m,0.39058741275666564,0.0
+Tamil Nadu,Vellore,12.902077,79.061143,233.0,success,non_hilly,SRTM30m,0.5981825445992933,0.0
+Tamil Nadu,Villupuram,12.12507,79.600647,50.0,success,non_hilly,SRTM30m,1.1382997597135651,0.0
+Tamil Nadu,Virudhunagar,9.494113,77.863499,86.0,success,non_hilly,SRTM30m,0.3055331243956083,0.0
+Tamil Nadu,Ariyalur,11.152859,79.258881,75.0,success,non_hilly,SRTM30m,0.18909206422747285,0.0
+Tamil Nadu,Tiruppur,10.791533,77.53428,237.0,success,non_hilly,SRTM30m,0.9353112489702492,0.0
+Tamil Nadu,Kallakurichi,11.79805,79.054152,122.0,success,non_hilly,SRTM30m,0.6323073413259064,0.0
+Tamil Nadu,Chengalpattu,12.628889,80.036613,48.0,success,non_hilly,SRTM30m,3.3954043670540535,0.0
+Tamil Nadu,Ranipet,12.919363,79.408063,174.0,success,non_hilly,SRTM30m,0.9798768308747711,0.0
+Tamil Nadu,Tirupathur,12.584825,78.625053,1031.0,success,non_hilly,SRTM30m,6.970391677281823,0.0
+Tamil Nadu,Tenkasi,9.093121,77.47558,161.0,success,non_hilly,SRTM30m,4.1441441441441444,0.0
+Tripura,Dhalai,23.827709,91.98144,94.0,success,non_hilly,SRTM30m,2.709338360671759,0.0
+Tripura,North Tripura,24.091844,92.241829,96.0,success,non_hilly,SRTM30m,0.719025664165525,0.0
+Tripura,South Tripura,23.181356,91.614844,35.0,success,non_hilly,SRTM30m,0.6756756756756757,0.0
+Tripura,West Tripura,23.91862507031634,91.38745873633484,41.0,success_srtm30m,non_hilly,SRTM30m,1.1892773321784729,0.0
+Tripura,Khowai,23.954463106040784,91.64123425262862,57.0,success_srtm30m,non_hilly,SRTM30m,0.8427677998747437,0.0
+Tripura,Sepahijala,23.531917062116563,91.30086223504884,29.0,success_srtm30m,non_hilly,SRTM30m,0.22522522522522523,0.0
+Tripura,Gomati,23.426337737448748,91.62206875989226,156.0,success_srtm30m,non_hilly,SRTM30m,0.909034846340215,0.0
+Tripura,Unakoti,24.201913786189703,92.04631904121656,81.0,success_srtm30m,non_hilly,SRTM30m,4.899344814091554,0.0
+Telangana,Adilabad,19.54085010362641,78.63803265411033,477.0,success_srtm30m,non_hilly,SRTM30m,2.7397563636594335,0.0
+Telangana,Hyderabad,17.399417665235212,78.46043044479089,531.0,success_srtm30m,non_hilly,SRTM30m,0.9166870249848975,0.0
+Telangana,Karimnagar,18.405717253742992,79.277765078362,258.0,success_srtm30m,non_hilly,SRTM30m,0.3587405753461723,0.0
+Telangana,Khammam,17.174686088752793,80.40315102722829,94.0,success_srtm30m,non_hilly,SRTM30m,0.41622716337776444,0.0
+Telangana,Mahabubnagar,16.69188516908462,77.95659150431472,451.0,success_srtm30m,non_hilly,SRTM30m,2.6839201550452665,0.0
+Telangana,Medak,17.945250000354577,78.1687891640452,483.0,success_srtm30m,non_hilly,SRTM30m,0.3725950953266094,0.0
+Telangana,Nalgonda,16.85839822522908,79.21725386857591,183.0,success_srtm30m,non_hilly,SRTM30m,0.7014154844230799,0.0
+Telangana,Nizamabad,18.72246918438259,78.21998850951934,481.0,success_srtm30m,non_hilly,SRTM30m,0.8765034515947854,0.0
+Telangana,Ranga Reddy,17.130491474529556,78.3988728048196,634.0,success_srtm30m,non_hilly,SRTM30m,1.046069190935791,0.0
+Telangana,Warangal,17.948574999893086,79.78823230912525,268.0,success_srtm30m,non_hilly,SRTM30m,0.7837014910853032,0.0
+Telangana,Nirmal,19.092894260245004,78.39628524712825,333.0,success_srtm30m,non_hilly,SRTM30m,0.855462357899124,0.0
+Telangana,Jagitial,18.822495000171507,78.91376706433523,262.0,success_srtm30m,non_hilly,SRTM30m,0.5597403885257308,0.0
+Telangana,Peddapalli,18.62375883664402,79.49462228122368,184.0,success_srtm30m,non_hilly,SRTM30m,1.1865048634258017,0.0
+Telangana,Rajanna Sircilla,18.4221291346974,78.76640851479007,365.0,success_srtm30m,non_hilly,SRTM30m,0.7788530909302145,0.0
+Telangana,Mancherial,18.97813449869358,79.52277372838985,188.0,success_srtm30m,non_hilly,SRTM30m,0.9526863070564625,0.0
+Telangana,Kamareddy,18.31228875915098,78.0555665624176,503.0,success_srtm30m,non_hilly,SRTM30m,1.3054930751952922,0.0
+Telangana,Hanumakonda,18.07177000046501,79.4461772571317,273.0,success_srtm30m,non_hilly,SRTM30m,0.3153153153153153,0.0
+Telangana,Jayashankar Bhupalapally,18.50959609537277,79.96127503441954,173.0,success_srtm30m,non_hilly,SRTM30m,0.9603069641012716,0.0
+Telangana,Mahabubabad,17.7040259999389,80.03322005085359,205.0,success_srtm30m,non_hilly,SRTM30m,1.5712330267156298,0.0
+Telangana,Jangoan,17.7475700006646,79.24131857928944,361.0,success_srtm30m,non_hilly,SRTM30m,0.6105019366180542,0.0
+Telangana,Bhadradri Kothagudem,17.716944662147654,80.5681018374253,160.0,success_srtm30m,non_hilly,SRTM30m,1.3309375428376824,0.0
+Telangana,Sangareddy,17.8556647678349,77.72035298361712,571.0,success_srtm30m,non_hilly,SRTM30m,0.39201043660653123,0.0
+Telangana,Siddipet,18.04667500042516,78.90670094814425,509.0,success_srtm30m,non_hilly,SRTM30m,0.38737542249644846,0.0
+Telangana,Wanaparthy,16.288821690806333,77.98425536718136,363.0,success_srtm30m,non_hilly,SRTM30m,0.8289714567184645,0.0
+Telangana,Nagarkurnool,16.42027980842601,78.65662766320676,464.0,success_srtm30m,non_hilly,SRTM30m,0.7058443674972003,0.0
+Telangana,Jogulamba Gadwal,16.096648128643956,77.73464549192302,364.0,success_srtm30m,non_hilly,SRTM30m,0.6681129461144402,0.0
+Telangana,Suryapet,17.080359591262294,79.7924717268082,154.0,success_srtm30m,non_hilly,SRTM30m,0.673426747025945,0.0
+Telangana,Yadadri Bhuvanagiri,17.431525001199915,79.085975475395,331.0,success_srtm30m,non_hilly,SRTM30m,0.7887095256600196,0.0
+Telangana,Vikarabad,17.25115412742968,77.73928527477476,510.0,success_srtm30m,non_hilly,SRTM30m,0.6532254021217911,0.0
+Telangana,Kumuram Bheem Asifabad,19.324966487701907,79.42850159064992,189.0,success_srtm30m,non_hilly,SRTM30m,0.6633722398929219,0.0
+Telangana,Medchal Malkajgiri,17.53405000024964,78.53230795989174,591.0,success_srtm30m,non_hilly,SRTM30m,1.1386533709556843,0.0
+Telangana,Mulugu,18.31325863428248,80.34424102757099,154.0,success_srtm30m,non_hilly,SRTM30m,0.9969854598774454,0.0
+Telangana,Narayanpet,16.687871181577634,77.61751996677006,423.0,success_srtm30m,non_hilly,SRTM30m,1.0402962555469104,0.0
+Uttarakhand,Almora,29.70264374771609,79.4326232567407,1134.0,success_srtm30m,non_hilly,SRTM30m,8.469482944147618,2.0
+Uttarakhand,Bageshwar,30.00883890462288,79.9280311918487,1795.0,success_srtm30m,non_hilly,SRTM30m,24.39001385135245,2.0
+Uttarakhand,Chamoli,30.50033155787555,79.61952067704064,1851.0,success_srtm30m,non_hilly,SRTM30m,7.542060431604762,2.0
+Uttarakhand,Champawat,29.23507490815985,80.10222705173607,1043.0,success_srtm30m,non_hilly,SRTM30m,22.167530206915867,2.0
+Uttarakhand,Dehradun,30.49756060813852,77.86293191687517,697.0,success_srtm30m,non_hilly,SRTM30m,10.39041500142349,0.0
+Uttarakhand,Haridwar,29.911283430221925,78.0086520396884,263.0,success_srtm30m,non_hilly,SRTM30m,0.3438618927815606,0.0
+Uttarakhand,Nainital,29.29503833603276,79.4162594394372,824.0,success_srtm30m,non_hilly,SRTM30m,14.280118106412743,2.0
+Uttarakhand,Pauri Garhwal,29.847357500783623,78.7070147143955,1084.0,success_srtm30m,non_hilly,SRTM30m,23.39121401666891,2.0
+Uttarakhand,Pithoragarh,30.12481240972884,80.47772490329876,5387.0,success_srtm30m,hilly,SRTM30m,3.660306278089824,1.0
+Uttarakhand,Rudra Prayag,30.49110386444508,79.03611829362461,2278.0,success_srtm30m,non_hilly,SRTM30m,25.49687930310788,2.0
+Uttarakhand,Tehri Garhwal,30.465629653611515,78.48394960148289,1709.0,success_srtm30m,non_hilly,SRTM30m,25.90824862680647,2.0
+Uttarakhand,Udam Singh Nagar,29.045758556089925,79.43388335411915,231.0,success_srtm30m,non_hilly,SRTM30m,0.7371105959432885,0.0
+Uttarakhand,Uttar Kashi,30.965148725470307,78.6342315703518,4494.0,success_srtm30m,hilly,SRTM30m,9.28156122119252,1.0
+Uttar Pradesh,Agra,27.07550431517351,77.89109193240543,171.0,success_srtm30m,non_hilly,SRTM30m,0.20664458721144818,0.0
+Uttar Pradesh,Aligarh,27.87556670797523,78.1357490744855,187.0,success_srtm30m,non_hilly,SRTM30m,0.13513513513513514,0.0
+Uttar Pradesh,Prayagraj,25.27930905363276,81.90356070399068,97.0,success_srtm30m,non_hilly,SRTM30m,0.10294567649189953,0.0
+Uttar Pradesh,Ambedkar Nagar,26.40457629889788,82.60657315629338,90.0,success_srtm30m,non_hilly,SRTM30m,0.23500671659598327,0.0
+Uttar Pradesh,Auraiya,26.6558278913632,79.51607225067536,141.0,success_srtm30m,non_hilly,SRTM30m,0.18709689206117883,0.0
+Uttar Pradesh,Azamgarh,26.02361760870231,83.02936002911619,81.0,success_srtm30m,non_hilly,SRTM30m,0.13478577004441739,0.0
+Uttar Pradesh,Baghpat,29.03751796150414,77.30626185131042,229.0,success_srtm30m,non_hilly,SRTM30m,0.1789024362404481,0.0
+Uttar Pradesh,Bahraich,27.731414409099507,81.49427945487821,124.0,success_srtm30m,non_hilly,SRTM30m,0.5318104445190563,0.0
+Uttar Pradesh,Ballia,25.874497213580582,84.12087187965025,66.0,success_srtm30m,non_hilly,SRTM30m,0.18700611036811723,0.0
+Uttar Pradesh,Balrampur,27.44768331230472,82.39568358257726,101.0,success_srtm30m,non_hilly,SRTM30m,0.31021634385839686,0.0
+Uttar Pradesh,Banda,25.4438606022312,80.55956696584724,125.0,success_srtm30m,non_hilly,SRTM30m,0.3153153153153153,0.0
+Uttar Pradesh,Barabanki,26.94213240329276,81.38567361722129,120.0,success_srtm30m,non_hilly,SRTM30m,0.10329293455433108,0.0
+Uttar Pradesh,Bareilly,28.45830136564176,79.40471915847962,174.0,success_srtm30m,non_hilly,SRTM30m,0.13644348319435684,0.0
+Uttar Pradesh,Basti,26.83872497444947,82.53511113130764,92.0,success_srtm30m,non_hilly,SRTM30m,0.20689524460780415,0.0
+Uttar Pradesh,Bijnor,29.40695770696666,78.48240772066686,241.0,success_srtm30m,non_hilly,SRTM30m,0.1127991231211334,0.0
+Uttar Pradesh,Budaun,28.064970932222923,79.04384096144315,175.0,success_srtm30m,non_hilly,SRTM30m,0.0,0.0
+Uttar Pradesh,Bulandshahr,28.387444484359293,77.97437550126219,202.0,success_srtm30m,non_hilly,SRTM30m,0.05120193557435341,0.0
+Uttar Pradesh,Chandauli,25.12579941401688,83.24986192779629,80.0,success_srtm30m,non_hilly,SRTM30m,0.2339720863853132,0.0
+Uttar Pradesh,Chitrakoot,25.21722005287541,81.08760109861652,130.0,success_srtm30m,non_hilly,SRTM30m,0.23066307666875324,0.0
+Uttar Pradesh,Deoria,26.42393203521394,83.76422673408919,81.0,success_srtm30m,non_hilly,SRTM30m,0.10060019920618332,0.0
+Uttar Pradesh,Etah,27.555019502064468,78.59922872988683,172.0,success_srtm30m,non_hilly,SRTM30m,0.10342976877878649,0.0
+Uttar Pradesh,Etawah,26.715550593336616,79.09168713942415,148.0,success_srtm30m,non_hilly,SRTM30m,0.25214147769573003,0.0
+Uttar Pradesh,Ayodhya,26.63860148055892,82.05814036926479,103.0,success_srtm30m,non_hilly,SRTM30m,0.15775077079510746,0.0
+Uttar Pradesh,Farrukhabad,27.436210962164587,79.48948380451634,153.0,success_srtm30m,non_hilly,SRTM30m,0.3193738791505911,0.0
+Uttar Pradesh,Fatehpur,25.83479623721236,80.91549422042696,111.0,success_srtm30m,non_hilly,SRTM30m,0.3036419742850739,0.0
+Uttar Pradesh,Firozabad,27.19418805160479,78.46051349831369,165.0,success_srtm30m,non_hilly,SRTM30m,0.17663133553375487,0.0
+Uttar Pradesh,Gautam Buddha Nagar,28.369705955292456,77.56394695114217,202.0,success_srtm30m,non_hilly,SRTM30m,0.6401988304229752,0.0
+Uttar Pradesh,Ghaziabad,28.767927453582924,77.46038775678466,220.0,success_srtm30m,non_hilly,SRTM30m,0.32121716306132087,0.0
+Uttar Pradesh,Ghazipur,25.60346053749257,83.50763663180416,72.0,success_srtm30m,non_hilly,SRTM30m,0.10958550841932196,0.0
+Uttar Pradesh,Gonda,27.110336464124345,81.92390786813169,104.0,success_srtm30m,non_hilly,SRTM30m,0.2356112834269771,0.0
+Uttar Pradesh,Gorakhpur,26.667359974172264,83.36422385674115,81.0,success_srtm30m,non_hilly,SRTM30m,0.3024418542516261,0.0
+Uttar Pradesh,Hamirpur,25.81981680503323,79.86637748085448,115.0,success_srtm30m,non_hilly,SRTM30m,1.0476544912881438,0.0
+Uttar Pradesh,Hardoi,27.337002353309902,80.09985284682546,141.0,success_srtm30m,non_hilly,SRTM30m,0.4940106874736173,0.0
+Uttar Pradesh,Jalaun,26.1044653162573,79.39352085208569,143.0,success_srtm30m,non_hilly,SRTM30m,0.06741863098083506,0.0
+Uttar Pradesh,Jaunpur,25.79666699712517,82.48893926166707,81.0,success_srtm30m,non_hilly,SRTM30m,0.10006184444599313,0.0
+Uttar Pradesh,Jhansi,25.53016399834573,78.6527458271076,204.0,success_srtm30m,non_hilly,SRTM30m,0.5342159335424004,0.0
+Uttar Pradesh,Amroha,28.758217750616303,78.28358039765304,207.0,success_srtm30m,non_hilly,SRTM30m,0.15414810807580803,0.0
+Uttar Pradesh,Kannauj,26.99877344070493,79.69276316683592,140.0,success_srtm30m,non_hilly,SRTM30m,0.27495780606779807,0.0
+Uttar Pradesh,Kanpur Dehat,26.458565894611304,79.85482736235873,138.0,success_srtm30m,non_hilly,SRTM30m,0.5111539738737809,0.0
+Uttar Pradesh,Kanpur Nagar,26.44159054910463,80.26485389151989,131.0,success_srtm30m,non_hilly,SRTM30m,0.24667773257659414,0.0
+Uttar Pradesh,Kaushambi,25.53442261259781,81.44944455365246,106.0,success_srtm30m,non_hilly,SRTM30m,0.13447918624979946,0.0
+Uttar Pradesh,Kheri,28.183457851531458,80.71314551778426,150.0,success_srtm30m,non_hilly,SRTM30m,0.20436735226615632,0.0
+Uttar Pradesh,Kushi Nagar,26.924239019431766,83.8320348978958,90.0,success_srtm30m,non_hilly,SRTM30m,0.2431045852293342,0.0
+Uttar Pradesh,Lalitpur,24.700311190898343,78.51859920770217,356.0,success_srtm30m,non_hilly,SRTM30m,0.5646929163210047,0.0
+Uttar Pradesh,Lucknow,26.831236404786136,80.91744434717515,124.0,success_srtm30m,non_hilly,SRTM30m,0.1514390856892854,0.0
+Uttar Pradesh,Hathras,27.5724552300802,78.11162503711301,179.0,success_srtm30m,non_hilly,SRTM30m,0.16908801456579048,0.0
+Uttar Pradesh,Maharajganj,27.183728401961204,83.49179618192923,91.0,success_srtm30m,non_hilly,SRTM30m,0.3544676297115062,0.0
+Uttar Pradesh,Mahoba,25.359745444745727,79.70451053197725,173.0,success_srtm30m,non_hilly,SRTM30m,0.3307012168649773,0.0
+Uttar Pradesh,Mainpuri,27.20931787475651,79.06253994592986,157.0,success_srtm30m,non_hilly,SRTM30m,0.18018018018018017,0.0
+Uttar Pradesh,Mathura,27.600241103110854,77.58838044141501,185.0,success_srtm30m,non_hilly,SRTM30m,0.3912955234872256,0.0
+Uttar Pradesh,Mau,26.039009926878755,83.4986307334739,70.0,success_srtm30m,non_hilly,SRTM30m,0.4614750542547812,0.0
+Uttar Pradesh,Meerut,29.01412987773992,77.76530682774955,226.0,success_srtm30m,non_hilly,SRTM30m,0.32191982454327034,0.0
+Uttar Pradesh,Mirzapur,24.93167268323516,82.62806229468295,241.0,success_srtm30m,non_hilly,SRTM30m,1.7145923879644074,0.0
+Uttar Pradesh,Moradabad,28.879727967870227,78.78439863782489,193.0,success_srtm30m,non_hilly,SRTM30m,0.04504504504504504,0.0
+Uttar Pradesh,Muzaffarnagar,29.44974225871912,77.74292853169634,247.0,success_srtm30m,non_hilly,SRTM30m,0.17944170204930696,0.0
+Uttar Pradesh,Pilibhit,28.4942638299873,80.10782628179233,182.0,success_srtm30m,non_hilly,SRTM30m,0.20990489500629134,0.0
+Uttar Pradesh,Pratapgarh,25.876672218670848,81.83180261088658,100.0,success_srtm30m,non_hilly,SRTM30m,0.10979516031948511,0.0
+Uttar Pradesh,Rae Bareli,26.20862426963012,81.21866454608254,110.0,success_srtm30m,non_hilly,SRTM30m,0.5685663978535888,0.0
+Uttar Pradesh,Rampur,28.79351246370353,79.18458712720457,187.0,success_srtm30m,non_hilly,SRTM30m,0.0683448992619331,0.0
+Uttar Pradesh,Saharanpur,29.985448327165848,77.50554572045829,283.0,success_srtm30m,non_hilly,SRTM30m,0.13760335958660577,0.0
+Uttar Pradesh,Sant Kabeer Nagar,26.7550416881505,83.03988830258768,82.0,success_srtm30m,non_hilly,SRTM30m,0.2702702702702703,0.0
+Uttar Pradesh,Bhadohi,25.357344174113585,82.50034322560958,87.0,success_srtm30m,non_hilly,SRTM30m,0.20592243500491555,0.0
+Uttar Pradesh,Shahjahanpur,27.91288448307091,79.7476579519969,152.0,success_srtm30m,non_hilly,SRTM30m,0.18018018018018017,0.0
+Uttar Pradesh,Shravasti,27.678619891799244,81.8929720316789,121.0,success_srtm30m,non_hilly,SRTM30m,0.10345796489886197,0.0
+West Bengal,Dinajpur Uttar,25.871239903304925,87.96334810274564,42.0,success_srtm30m,non_hilly,SRTM30m,0.2693787180878169,0.0
+West Bengal,Hooghly,22.90869080587081,88.01097455433043,19.0,success_srtm30m,non_hilly,SRTM30m,0.15346603623974897,0.0
+West Bengal,Howrah,22.49989852575684,88.03694274831486,4.0,success_srtm30m,non_hilly,SRTM30m,0.18666033566700724,0.0
+West Bengal,Jalpaiguri,26.626519749702744,88.73084186792494,90.0,success_srtm30m,non_hilly,SRTM30m,0.22077355916813993,0.0
+West Bengal,Kolkata,22.542077940188143,88.35135425855606,12.0,success_srtm30m,non_hilly,SRTM30m,0.14366676731632133,0.0
+West Bengal,Maldah,25.09666357971449,88.11272679844473,30.0,success_srtm30m,non_hilly,SRTM30m,0.283046743080457,0.0
+West Bengal,Medinipur East,22.10255532446467,87.90915123997507,6.0,success_srtm30m,non_hilly,SRTM30m,0.14361477404962805,0.0
+West Bengal,Medinipur West,22.35957089590417,87.41053208066228,25.0,success_srtm30m,non_hilly,SRTM30m,0.36675362213499957,0.0
+West Bengal,Murshidabad,24.29147692178723,88.37295062680874,24.0,success_srtm30m,non_hilly,SRTM30m,0.14388847123553233,0.0
+West Bengal,Nadia,23.485204171322376,88.55721840771179,17.0,success_srtm30m,non_hilly,SRTM30m,0.13513513513513514,0.0
+West Bengal,Purulia,23.20185821762064,86.32248660231207,274.0,success_srtm30m,non_hilly,SRTM30m,0.5639790849570082,0.0
+West Bengal,Alipurduar,26.62959844968537,89.4478295680746,93.0,success_srtm30m,non_hilly,SRTM30m,0.892170848363174,0.0
+West Bengal,Kalimpong,27.026137798611337,88.6447116710479,1441.0,success_srtm30m,non_hilly,SRTM30m,23.661598772869425,2.0
+West Bengal,Jhargram,22.33157473340332,86.99354275772322,61.0,success_srtm30m,non_hilly,SRTM30m,1.201455464436316,0.0
+West Bengal,Paschim Bardhaman,23.643096942482423,87.16375558835648,88.0,success_srtm30m,non_hilly,SRTM30m,0.9495732435205194,0.0
+Jammu & Kashmir,Mirpur,33.2320761965823,73.82131579962783,380.0,success_srtm30m,non_hilly,SRTM30m,3.9437698383955313,0.0
+Jammu & Kashmir,Muzaffarabad,34.54157019283275,73.68395449703658,3545.0,success_srtm30m,hilly,SRTM30m,33.240698958146474,1.0
+Maharashtra,Mumbai,18.97117845312565,72.8266485109371,6.0,success_srtm30m,non_hilly,SRTM30m,0.21075493234308101,0.0

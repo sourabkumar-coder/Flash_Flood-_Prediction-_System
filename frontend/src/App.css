@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-app: #f8fafc;
+  --bg-panel: #ffffff;
+  --bg-panel-soft: #f1f5f9;
+
+  /* Text Colors */
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --text-inverse: #ffffff;
+
+  /* Primary Colors */
+  --primary: #0284c7;
+  --primary-hover: #0369a1;
+  --primary-light: #e0f2fe;
+
+  /* Risk Colors */
+  --risk-low: #10b981;
+  --risk-moderate: #f59e0b;
+  --risk-high: #f97316;
+  --risk-critical: #ef4444;
+
+  /* Glassmorphism - liquid glass selectively used */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+  /* Borders */
+  --border-color: #e2e8f0;
+}
+
+[data-theme='dark'] {
+  --bg-app: #0f172a;
+  --bg-panel: #172033;
+  --bg-panel-soft: #202c42;
+  --text-main: #e5edf7;
+  --text-muted: #9aabc0;
+  --text-inverse: #0f172a;
+  --primary: #38bdf8;
+  --primary-hover: #7dd3fc;
+  --primary-light: #0c4a6e;
+  --glass-bg: rgba(23, 32, 51, 0.82);
+  --glass-border: rgba(148, 163, 184, 0.22);
+  --border-color: #334155;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.22);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.28);
+  --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.32);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-app);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-main);
+  font-weight: 600;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input,
+button {
+  color: inherit;
+}
+
+.panel {
+  background-color: var(--bg-panel);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  padding: 1.5rem;
+}
+
+.liquid-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge.low {
+  background-color: color-mix(in srgb, var(--risk-low) 18%, var(--bg-panel));
+  color: var(--risk-low);
+}
+
+.badge.moderate {
+  background-color: color-mix(in srgb, var(--risk-moderate) 18%, var(--bg-panel));
+  color: var(--risk-moderate);
+}
+
+.badge.high {
+  background-color: color-mix(in srgb, var(--risk-high) 18%, var(--bg-panel));
+  color: var(--risk-high);
+}
+
+.badge.critical {
+  background-color: color-mix(in srgb, var(--risk-critical) 18%, var(--bg-panel));
+  color: var(--risk-critical);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
