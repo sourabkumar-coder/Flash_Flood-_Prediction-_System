@@ -12,9 +12,9 @@ const navItems = [
   { path: '/evacuation', label: 'Evacuation', icon: ShieldAlert },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ isOpen, onClose }) {
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isOpen ? 'is-open' : ''}`}>
       <div className="sidebar-brand">
         <div className="brand-logo">
           <ShieldAlert size={24} color="var(--primary)" />
@@ -30,6 +30,7 @@ export default function Sidebar() {
           <NavLink 
             key={item.path} 
             to={item.path} 
+            onClick={onClose}
             className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
           >
             <item.icon size={20} className="nav-icon" />
@@ -39,7 +40,7 @@ export default function Sidebar() {
       </nav>
 
       <div className="sidebar-footer">
-        <NavLink to="/settings" className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
+        <NavLink to="/settings" onClick={onClose} className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}>
           <Settings size={20} className="nav-icon" />
           <span>Settings</span>
         </NavLink>

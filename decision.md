@@ -12,7 +12,8 @@ Date: 2026-09-10
 
 ## Responsive Layout
 
-- Keep the desktop sidebar, but turn it into a compact horizontal navigation bar on screens narrower than 768px so the primary navigation remains available without a hidden drawer interaction.
+- Keep the desktop sidebar, and use an off-canvas sidebar drawer below 768px so mobile navigation stays familiar without consuming the page header.
+- Add a menu button, backdrop dismissal, route-selection close behavior, and body scroll locking while the drawer is open.
 - Let the main content shrink with `min-width: 0` and reduce mobile padding to preserve usable width.
 - Stack forecast and evacuation columns on phones.
 - Make the village table horizontally scrollable instead of clipping columns.

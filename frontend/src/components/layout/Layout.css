@@ -19,6 +19,11 @@
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.02);
 }
 
+.sidebar-backdrop,
+.menu-toggle {
+  display: none;
+}
+
 .sidebar-brand {
   display: flex;
   align-items: center;
@@ -210,45 +215,67 @@
 
 @media (max-width: 767px) {
   .app-layout {
-    display: block;
+    display: flex;
     min-height: 100vh;
-    height: auto;
-    overflow: visible;
+    height: 100vh;
+    overflow: hidden;
   }
 
   .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: min(84vw, 300px);
+    padding: 1.25rem 1rem;
+    border-right: 1px solid var(--border-color);
+    border-bottom: 0;
+    box-shadow: 10px 0 30px rgba(15, 23, 42, 0.18);
+    transform: translateX(-105%);
+    transition: transform 0.25s ease;
+    z-index: 120;
+  }
+
+  .sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
     width: 100%;
-    padding: 0.75rem;
-    border-right: 0;
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
+    height: 100%;
+    background: rgba(15, 23, 42, 0.48);
+    z-index: 110;
   }
 
   .sidebar-brand {
-    margin-bottom: 0.75rem;
+    margin-bottom: 2rem;
   }
 
   .sidebar-nav,
   .sidebar-footer {
-    flex-direction: row;
-    gap: 0.35rem;
-    overflow-x: auto;
-    padding-bottom: 0.2rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    overflow: visible;
+    padding-bottom: 0;
   }
 
   .sidebar-footer {
-    margin-top: 0.45rem;
-    padding-top: 0.45rem;
+    margin-top: auto;
+    padding-top: 1rem;
     border-top: 1px solid var(--border-color);
   }
 
   .nav-item {
     flex: 0 0 auto;
-    padding: 0.6rem 0.75rem;
-    font-size: 0.82rem;
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
   }
 
   .main-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
     min-width: 0;
     overflow: visible;
   }
@@ -259,6 +286,19 @@
     align-items: flex-start;
     gap: 0.75rem;
     padding: 0.85rem 1rem;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+    color: var(--text-main);
+    background: var(--bg-panel);
   }
 
   .header-left {
@@ -286,5 +326,9 @@
   .page-content {
     padding: 1rem;
     overflow-x: hidden;
+  }
+
+  body.sidebar-open {
+    overflow: hidden;
   }
 }
