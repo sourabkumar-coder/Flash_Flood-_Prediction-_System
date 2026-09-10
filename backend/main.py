@@ -160,6 +160,18 @@ def predict_batch(request: BatchPredictionRequest):
     return BatchPredictionResponse(predictions=predictions, errors=errors)
 
 # ==============================================================================
+# Evacuation Routing Endpoint
+# ==============================================================================
+from services.routing_service import get_evacuation_routes
+
+@app.get("/api/evacuation/plan")
+def get_evacuation_plan(lat: float, lon: float):
+    routes = get_evacuation_routes(lat, lon)
+    if not routes:
+        raise HTTPException(status_code=404, detail="Evacuation routes could not be generated.")
+    return routes
+
+# ==============================================================================
 # Regional Hilly Basins & Macro GIS Overview Endpoints
 # ==============================================================================
 import json

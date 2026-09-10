@@ -183,11 +183,14 @@ def build_features(state_name=None, district_name=None, latitude=None, longitude
     # ========================================================
 
     print("\n[2/6] Getting weather data...")
-
-    weather = get_weather(
-        latitude,
-        longitude
-    )
+    try:
+        weather = get_weather(
+            latitude,
+            longitude
+        )
+    except Exception as e:
+        print(f"Weather API failed: {e}")
+        weather = {}
 
     temperature = first_value(
         weather,
@@ -223,12 +226,16 @@ def build_features(state_name=None, district_name=None, latitude=None, longitude
 
     print("\n[3/6] Getting terrain data...")
 
-    terrain = get_terrain_features(
-        state_name,
-        district_name,
-        latitude=latitude,
-        longitude=longitude,
-    )
+    try:
+        terrain = get_terrain_features(
+            state_name,
+            district_name,
+            latitude=latitude,
+            longitude=longitude,
+        )
+    except Exception as e:
+        print(f"Terrain API failed: {e}")
+        terrain = {}
 
     mean_elevation = first_value(
         terrain,
@@ -293,11 +300,15 @@ def build_features(state_name=None, district_name=None, latitude=None, longitude
 
     print("\n[4/6] Getting hydrology data...")
 
-    hydrology = get_hydrology_features(
-        latitude,
-        longitude,
-        state_name
-    )
+    try:
+        hydrology = get_hydrology_features(
+            latitude,
+            longitude,
+            state_name
+        )
+    except Exception as e:
+        print(f"Hydrology API failed: {e}")
+        hydrology = {}
 
     discharge = hydrology.get(
         "discharge"
@@ -351,12 +362,16 @@ def build_features(state_name=None, district_name=None, latitude=None, longitude
 
     print("\n[5/6] Getting SoilGrids data...")
 
-    soil = get_district_soil(
-        state_name,
-        district_name,
-        latitude=latitude,
-        longitude=longitude,
-    )
+    try:
+        soil = get_district_soil(
+            state_name,
+            district_name,
+            latitude=latitude,
+            longitude=longitude,
+        )
+    except Exception as e:
+        print(f"Soil API failed: {e}")
+        soil = {}
 
     properties = soil.get(
         "properties",
