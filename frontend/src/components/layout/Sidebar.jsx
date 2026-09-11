@@ -24,7 +24,6 @@ export default function Sidebar({ isOpen, onClose }) {
         </div>
         <div className="brand-text">
           <h1>{t('app_title')}</h1>
-          <span className="eyebrow">{t('app_subtitle')}</span>
         </div>
       </div>
 

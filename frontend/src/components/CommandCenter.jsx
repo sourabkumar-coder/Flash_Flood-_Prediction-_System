@@ -484,7 +484,7 @@ export default function CommandCenter({ apiBaseUrl, onSelectValley, onSwitchToDi
                       >
                         {valley.risk_level} ({valley.risk_score}%)
                       </span>
-                      <span className="popup-lead-time">⏱ {valley.lead_time_hours}h Lead</span>
+                      <span className="popup-lead-time">⏱ {valley.lead_time_hours == null ? '--' : `${valley.lead_time_hours}h`} Lead</span>
                     </div>
 
                     <h3>{valley.name}</h3>
@@ -641,7 +641,7 @@ export default function CommandCenter({ apiBaseUrl, onSelectValley, onSwitchToDi
                     </div>
 
                     <div className="card-meta-chips">
-                      <span className="chip chip-time">⏱ Lead: {valley.lead_time_hours}h</span>
+                      <span className="chip chip-time">⏱ Lead: {valley.lead_time_hours == null ? '--' : `${valley.lead_time_hours}h`}</span>
                       <span className="chip chip-rain">🌧 24h: {valley.rainfall_24h_mm}mm</span>
                       <span className="chip chip-basin">🌊 {valley.basin}</span>
                     </div>

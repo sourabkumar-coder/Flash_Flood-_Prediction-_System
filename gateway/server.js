@@ -1,4 +1,5 @@
 import express from 'express';
+import * as dotenv from 'dotenv';
 import cors from 'cors';
 import axios from 'axios';
 import cron from 'node-cron';
@@ -11,6 +12,9 @@ import { Server } from 'socket.io';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
+dotenv.config();
+
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
@@ -19,6 +23,12 @@ const io = new Server(httpServer, {
 
 const PORT = process.env.GATEWAY_PORT || 5000;
 const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000';
+
+console.log('[Gateway] Provider configuration:', {
+  newsApiKeyConfigured: Boolean(process.env.NEWS_API_KEY && process.env.NEWS_API_KEY !== 'your_newsapi_key_here'),
+  weatherApiKeyConfigured: Boolean(process.env.WEATHER_API_KEY),
+  weatherProvider: 'Open-Meteo',
+});
 
 app.use(cors({ origin: '*' }));
 app.use(express.json());
@@ -53,6 +63,15 @@ let threatCache = {
     status: 'NORMAL_BASELINE'
   }
 };
+
+// API Caches for Weather and News
+const apiCache = {
+  weather: new Map(), // key: lat_lon, value: { data, timestamp }
+  news: new Map(), // key: location_category, value: { data, timestamp }
+};
+
+const WEATHER_CACHE_TTL = 10 * 60 * 1000; // 10 minutes
+const NEWS_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 
 /**
  * Batch-fetch live weather for all regional valley checkpoints in 1 API call
@@ -97,7 +116,7 @@ async function syncRegionalThreats() {
 
       // Unified Risk Thresholds matching backend risk_engine.py
       let riskLevel = 'LOW';
-      let leadTimeHours = 12.0;
+      let leadTimeHours = null;
 
       if (threatScore >= 75) {
         riskLevel = 'CRITICAL';
@@ -151,7 +170,7 @@ async function syncRegionalThreats() {
         highCount,
         moderateCount,
         lowCount,
-        minLeadTimeHours: criticalCount > 0 ? 3.5 : (highCount > 0 ? 6.0 : 12.0),
+        minLeadTimeHours: criticalCount > 0 ? 3.5 : (highCount > 0 ? 6.0 : (moderateCount > 0 ? 9.0 : '--')),
         status: criticalCount > 0 ? 'CRITICAL_ALERT' : (highCount > 0 ? 'ELEVATED_WATCH' : 'NORMAL_BASELINE')
       }
     };
@@ -171,7 +190,7 @@ async function syncRegionalThreats() {
           ...v,
           risk_score: score,
           risk_level: riskLevel,
-          lead_time_hours: 12.0,
+          lead_time_hours: null,
           current_rainfall_mm: 0.0,
           rainfall_24h_mm: 0.0,
           current_river_stage_m: 2.2,
@@ -225,13 +244,13 @@ app.get('/api/overview/rivers', (req, res) => {
   res.json({ basins });
 });
 
-app.post('/api/overview/simulate', (req, res) => {
+app.post('/api/overview/simulate', async (req, res) => {
   const { scenario } = req.body;
 
   if (scenario === 'RESET') {
     threatCache.isSimulated = false;
     threatCache.simulationScenario = null;
-    syncRegionalThreats();
+    await syncRegionalThreats();
     return res.json({ message: 'Simulation reset. Restored live synoptic streams.', threatCache });
   }
 
@@ -278,7 +297,7 @@ app.post('/api/overview/simulate', (req, res) => {
       ...v,
       risk_score: v.base_risk,
       risk_level: 'LOW',
-      lead_time_hours: 12.0,
+      lead_time_hours: null,
       current_rainfall_mm: 0.0,
       rainfall_24h_mm: 2.0,
       current_river_stage_m: 2.2,
@@ -381,6 +400,201 @@ app.get('/api/location/reverse', async (req, res) => {
   }
 });
 
+
+// ==============================================================================
+// WEATHER AND NEWS ENDPOINTS (GPS-Driven)
+// ==============================================================================
+
+app.get('/api/weather', async (req, res) => {
+  const { lat, lon } = req.query;
+  if (!lat || !lon) {
+    return res.status(400).json({ error: 'Missing lat or lon parameters' });
+  }
+
+  // Round coordinates to ~1km for caching
+  const cacheKey = `${Number(lat).toFixed(2)}_${Number(lon).toFixed(2)}`;
+  const cached = apiCache.weather.get(cacheKey);
+  console.log('[Gateway] Weather request:', { lat, lon, cacheHit: Boolean(cached) });
+
+  const weatherConditionFromCode = (code) => {
+    if (code === 0) return 'Clear';
+    if ([1, 2].includes(code)) return 'Partly cloudy';
+    if (code === 3) return 'Cloudy';
+    if ([45, 48].includes(code)) return 'Fog';
+    if ([51, 53, 55, 56, 57].includes(code)) return 'Drizzle';
+    if ([61, 63, 65, 66, 67, 80, 81, 82].includes(code)) return 'Rain';
+    if ([71, 73, 75, 77, 85, 86].includes(code)) return 'Snow';
+    if ([95, 96, 99].includes(code)) return 'Thunderstorm';
+    return 'Unknown';
+  };
+
+  if (cached && Date.now() - cached.timestamp < WEATHER_CACHE_TTL) {
+    return res.json(cached.data);
+  }
+
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m&hourly=temperature_2m,precipitation_probability,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&timezone=auto`;
+    const response = await axios.get(url, { timeout: 10000 });
+    const data = response.data;
+
+    const formattedData = {
+      location: {
+        latitude: Number(lat),
+        longitude: Number(lon),
+      },
+      current: {
+        temperature: data.current.temperature_2m,
+        feelsLike: data.current.apparent_temperature,
+        humidity: data.current.relative_humidity_2m,
+        windSpeed: data.current.wind_speed_10m,
+        conditionCode: data.current.weather_code,
+        condition: weatherConditionFromCode(data.current.weather_code),
+        precipitation: data.current.precipitation
+      },
+      hourly: data.hourly.time.slice(0, 24).map((time, i) => ({
+        time,
+        temperature: data.hourly.temperature_2m[i],
+        precipitationProbability: data.hourly.precipitation_probability[i],
+        conditionCode: data.hourly.weather_code[i]
+      })),
+      daily: data.daily.time.map((time, i) => ({
+        time,
+        temperatureMax: data.daily.temperature_2m_max[i],
+        temperatureMin: data.daily.temperature_2m_min[i],
+        precipitationSum: data.daily.precipitation_sum[i],
+        precipitationProbability: data.daily.precipitation_probability_max[i],
+        conditionCode: data.daily.weather_code[i]
+      }))
+    };
+
+    apiCache.weather.set(cacheKey, { data: formattedData, timestamp: Date.now() });
+    console.log('[Gateway] Weather response:', {
+      temperature: formattedData.current.temperature,
+      condition: formattedData.current.condition,
+      hourlyCount: formattedData.hourly.length,
+      dailyCount: formattedData.daily.length,
+    });
+    res.json(formattedData);
+  } catch (err) {
+    console.error('[Gateway] Weather API failed:', err.message);
+    res.status(500).json({ error: 'Weather data unavailable' });
+  }
+});
+
+const getNewsRelevanceScore = (article, locations) => {
+  const text = (article.title + ' ' + (article.description || '')).toLowerCase();
+  let score = 0;
+
+  // Hazard relevance
+  if (text.includes('flash flood')) score += 5;
+  if (text.includes('cloudburst')) score += 5;
+  if (text.includes('heavy rainfall')) score += 5;
+  if (text.includes('extreme rainfall')) score += 5;
+  if (text.includes('river overflow') || text.includes('river level') || text.includes('dam overflow')) score += 4;
+  if (text.includes('water level') || text.includes('flood warning') || text.includes('landslide')) score += 3;
+  if (text.includes('rainfall') || text.includes('flood') || text.includes('river') || text.includes('dam')) score += 2;
+
+  // Location relevance
+  const locationWeights = [
+    [locations.city, 5],
+    [locations.district, 4],
+    [locations.state, 3],
+    ['India', 2],
+  ];
+  locationWeights.forEach(([name, weight]) => {
+    if (name && text.includes(name.toLowerCase())) score += weight;
+  });
+
+  return score;
+};
+
+const categorizeNews = (article) => {
+  const text = (article.title + ' ' + (article.description || '')).toLowerCase();
+  if (text.includes('flash flood') || text.includes('cloudburst')) return 'FLASH FLOOD';
+  if (text.includes('landslide')) return 'LANDSLIDE';
+  if (text.includes('heavy rain') || text.includes('extreme rain')) return 'HEAVY RAINFALL';
+  if (text.includes('dam') || text.includes('reservoir')) return 'DAM / RESERVOIR';
+  if (text.includes('river') || text.includes('water level')) return 'RIVER / WATER LEVEL';
+  if (text.includes('flood')) return 'FLOOD';
+  return 'WEATHER WARNING';
+};
+
+app.get('/api/news', async (req, res) => {
+  const { location, city, district, state, category } = req.query;
+  const NEWS_API_KEY = process.env.NEWS_API_KEY;
+  console.log('[Gateway] News request:', { location, city, district, state, category, keyConfigured: Boolean(NEWS_API_KEY) });
+
+  if (!NEWS_API_KEY || NEWS_API_KEY === 'your_newsapi_key_here') {
+    console.warn('[Gateway] News request skipped: NEWS_API_KEY is not configured in .env.');
+    return res.status(503).json({ error: 'News API key not configured' });
+  }
+
+  const cacheKey = `${city || location || 'india'}_${district || ''}_${state || ''}_${category || 'all'}`.toLowerCase();
+  const cached = apiCache.news.get(cacheKey);
+
+  if (cached && Date.now() - cached.timestamp < NEWS_CACHE_TTL) {
+    return res.json(cached.data);
+  }
+
+  try {
+    let query = '("flash flood" OR flood OR flooding OR "heavy rainfall" OR "extreme rainfall" OR cloudburst OR "river overflow" OR "river level" OR "water level" OR "dam overflow" OR "reservoir overflow" OR "dam release" OR waterlogging OR landslide)';
+    const locationTerms = [city || location, district, state].filter(Boolean);
+    if (locationTerms.length > 0) {
+      query += ` AND (${locationTerms.join(' OR ')})`;
+    } else {
+      query += ` AND India`;
+    }
+
+    if (category && category !== 'All') {
+      const catMap = {
+        'Flood': 'flood',
+        'Heavy Rain': '"heavy rain" OR rainfall OR cloudburst',
+        'Rivers': 'river OR "water level"',
+        'Dams': 'dam OR reservoir',
+        'Landslide': 'landslide'
+      };
+      if (catMap[category]) {
+         query = `(${catMap[category]}) AND (${locationTerms.join(' OR ') || 'India'})`;
+      }
+    }
+
+    const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&sortBy=publishedAt&language=en&apiKey=${NEWS_API_KEY}`;
+    const response = await axios.get(url, { timeout: 10000 });
+    console.log('[Gateway] News provider response:', { status: response.status, providerCount: response.data.articles?.length || 0, query });
+
+    let articles = response.data.articles || [];
+
+    // Filter and score
+    articles = articles
+      .filter(a => a.title && a.title !== '[Removed]')
+      .map(a => {
+        const score = getNewsRelevanceScore(a, { city: city || location, district, state });
+        return {
+          id: a.url,
+          title: a.title,
+          description: a.description,
+          source: a.source.name,
+          url: a.url,
+          publishedAt: a.publishedAt,
+          score,
+          category: categorizeNews(a),
+          location: city || district || state || 'India'
+        };
+      })
+      .filter(a => a.score > 0)
+      .sort((a, b) => b.score - a.score || new Date(b.publishedAt) - new Date(a.publishedAt))
+      .filter((article, index, list) => list.findIndex(item => item.url === article.url) === index)
+      .slice(0, 15);
+
+    const result = { articles, lastUpdated: new Date().toISOString() };
+    apiCache.news.set(cacheKey, { data: result, timestamp: Date.now() });
+    console.log('[Gateway] News response:', { filteredCount: articles.length, cacheKey });
+    res.json(result);
+  } catch (err) {
+    console.error('[Gateway] News API failed:', err.message);
+    res.status(500).json({ error: 'News data unavailable' });
+  }
+});
 
 // ==============================================================================
 // NEW JALDRISHTI MOCK ENDPOINTS (Until backend is fully integrated)

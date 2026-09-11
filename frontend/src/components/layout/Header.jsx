@@ -19,7 +19,6 @@ export default function Header({ onMenuClick }) {
     <>
       <header className="top-header">
         <button
-          type="button"
           className="menu-toggle"
           onClick={onMenuClick}
           aria-label="Open navigation menu"
@@ -29,7 +28,6 @@ export default function Header({ onMenuClick }) {
         </button>
         <div className="header-left">
           <h2 className="page-title">{t('app_title')}</h2>
-          <span className="subtitle-text">{t('app_subtitle')}</span>
         </div>
         
         <div className="header-right">
