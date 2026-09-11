@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000';
 
 const client = axios.create({
   baseURL: API_BASE_URL,
@@ -33,6 +33,14 @@ export const evacuationApi = {
   getShelters: () => client.get('/api/shelters').catch(() => axios.get('http://localhost:8000/api/shelters')),
   getRoute: (payload) => client.post('/api/evacuation/route', payload).catch(() => axios.post('http://localhost:8000/api/evacuation/route', payload)),
   getEvacuationStatus: (villageId) => client.get(`/api/evacuation/${villageId}`).catch(() => axios.get(`http://localhost:8000/api/evacuation/${villageId}`)),
+};
+
+export const weatherApi = {
+  getCurrentWeather: (lat, lon) => client.get('/api/weather', { params: { lat, lon } }),
+};
+
+export const newsApi = {
+  getNews: (params) => client.get('/api/news', { params }),
 };
 
 export default client;

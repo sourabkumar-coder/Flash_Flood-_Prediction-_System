@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  min-width: 0;
 }
 
 .presets-bar {
@@ -47,6 +48,7 @@
   gap: 14px;
   padding: 1rem 1.25rem;
   flex-wrap: wrap;
+  min-width: 0;
 }
 
 .fsb-group {
@@ -55,6 +57,7 @@
   gap: 4px;
   flex: 1;
   min-width: 180px;
+  max-width: 100%;
 }
 
 .fsb-group label {
@@ -65,6 +68,8 @@
 }
 
 .fsb-group select {
+  width: 100%;
+  min-width: 0;
   padding: 8px 12px;
   border-radius: 8px;
   border: 1px solid var(--border-color);
@@ -90,9 +95,16 @@
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
+  min-width: 0;
+}
+
+.forecast-chart-header > div {
+  min-width: 0;
 }
 
 .forecast-station-pill {
+  max-width: 100%;
+  overflow-wrap: anywhere;
   background: var(--bg-panel-soft);
   border: 1px solid var(--border-color);
   padding: 4px 10px;
@@ -115,8 +127,13 @@
   grid-template-columns: 1fr 350px;
   gap: 1.5rem;
   align-items: start;
+  min-width: 0;
 }
 
+.forecast-main-panel,
+.forecast-side-panel {
+  min-width: 0;
+}
 
 .forecast-main-panel h2 {
   font-size: 1.2rem;
@@ -234,8 +251,39 @@
   }
 
   .chart-wrapper {
-    height: 300px;
-    overflow-x: auto;
+    height: auto;
+    min-height: 0;
+    align-items: stretch;
+    overflow: visible;
     justify-content: flex-start;
+  }
+
+  .forecast-main-panel,
+  .forecast-side-panel {
+    width: 100%;
+  }
+
+  .forecast-chart-header h2 {
+    align-items: flex-start;
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+
+  .forecast-chart-header .subtitle-text {
+    overflow-wrap: anywhere;
+  }
+
+  .forecast-station-pill {
+    width: 100%;
+  }
+
+  .fsb-group {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+
+  .fsb-apply-btn {
+    width: 100%;
+    justify-content: center;
   }
 }

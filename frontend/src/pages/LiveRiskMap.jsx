@@ -400,10 +400,12 @@ export default function LiveRiskMap() {
                   <span>Risk Score</span>
                   <strong style={{ color: getThreatColor(selectedNode.risk_level) }}>{selectedNode.risk_score} / 100</strong>
                 </div>
-                <div className="stat-card">
-                  <span>Lead Time</span>
-                  <strong>{selectedNode.lead_time_hours} hrs</strong>
-                </div>
+                {selectedNode.lead_time_hours != null && (
+                  <div className="stat-card">
+                    <span>Lead Time</span>
+                    <strong>{selectedNode.lead_time_hours} hrs</strong>
+                  </div>
+                )}
               </div>
 
               <div className="drawer-section">
@@ -439,12 +441,14 @@ export default function LiveRiskMap() {
                 >
                   GloFAS 30-Day Forecast &rarr;
                 </button>
-                <button
-                  className="btn-outline evac-btn"
-                  onClick={() => navigate(`/evacuation?lat=${selectedNode.lat}&lon=${selectedNode.lon}&name=${encodeURIComponent(selectedNode.name)}&state=${encodeURIComponent(selectedNode.state || '')}&district=${encodeURIComponent(selectedNode.district || '')}`)}
-                >
-                  🚨 Safest Evacuation Route &rarr;
-                </button>
+                {selectedNode.risk_level !== 'LOW' && (
+                  <button
+                    className="btn-outline evac-btn"
+                    onClick={() => navigate(`/evacuation?lat=${selectedNode.lat}&lon=${selectedNode.lon}&name=${encodeURIComponent(selectedNode.name)}&state=${encodeURIComponent(selectedNode.state || '')}&district=${encodeURIComponent(selectedNode.district || '')}`)}
+                  >
+                    🚨 Safest Evacuation Route &rarr;
+                  </button>
+                )}
               </div>
             </div>
           )}

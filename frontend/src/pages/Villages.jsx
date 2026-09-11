@@ -149,8 +149,8 @@ export default function Villages() {
         }
       }
 
-      // Pre-fetch evacuation route automatically
-      if (data?.location?.latitude && data?.location?.longitude) {
+      // Only calculate evacuation routes when the assessed area needs one.
+      if (data?.prediction?.risk_level !== 'LOW' && data?.location?.latitude && data?.location?.longitude) {
         evacuationApi.getRoute({
           latitude: data.location.latitude,
           longitude: data.location.longitude,
@@ -372,16 +372,18 @@ export default function Villages() {
               <div className="rh-meta">
                 <span>{t('metrics.susceptibility')}: {prediction.prediction.susceptibility_percent}%</span>
                 <span>{t('metrics.terrain')}: {prediction.terrain.hilly_region ? 'Hilly Region' : 'Plain'}</span>
-                {prediction.evacuation?.lead_time_hours !== null && (
+                {prediction.evacuation?.lead_time_hours != null && (
                   <span>{t('metrics.lead_time')}: {prediction.evacuation.lead_time_hours} {t('dashboard.hrs')}</span>
                 )}
               </div>
-              <button
-                className="rh-evac-btn"
-                onClick={() => navigate(`/evacuation?lat=${prediction.location.latitude}&lon=${prediction.location.longitude}&name=${encodeURIComponent(prediction.location.village || prediction.location.district)}&state=${encodeURIComponent(prediction.location.state)}&district=${encodeURIComponent(prediction.location.district)}`)}
-              >
-                {t('villages_page.view_escape')} &rarr;
-              </button>
+              {prediction.prediction.risk_level !== 'LOW' && (
+                <button
+                  className="rh-evac-btn"
+                  onClick={() => navigate(`/evacuation?lat=${prediction.location.latitude}&lon=${prediction.location.longitude}&name=${encodeURIComponent(prediction.location.village || prediction.location.district)}&state=${encodeURIComponent(prediction.location.state)}&district=${encodeURIComponent(prediction.location.district)}`)}
+                >
+                  {t('villages_page.view_escape')} &rarr;
+                </button>
+              )}
             </div>
           </div>
 
@@ -391,7 +393,7 @@ export default function Villages() {
             <div className="telemetry-card panel map-card">
               <div className="card-header">
                 <h3><MapPin size={18} className="icon-blue" /> Geospatial & Escape Map</h3>
-                {evacuationPlan?.shelter && (
+                {prediction.prediction.risk_level !== 'LOW' && evacuationPlan?.shelter && (
                   <span className="badge-shelter">
                     🛡️ {t('evacuation_page.target_shelter')}: {evacuationPlan.shelter.name?.split(' ')[0]} ({evacuationPlan.safe_route?.distance_km}km)
                   </span>
@@ -403,7 +405,7 @@ export default function Villages() {
                   longitude={prediction.location.longitude}
                   riskLevel={prediction.prediction.risk_level}
                   districtName={prediction.location.village || prediction.location.district}
-                  evacuationPlan={evacuationPlan}
+                  evacuationPlan={prediction.prediction.risk_level === 'LOW' ? null : evacuationPlan}
                   height="340px"
                 />
               </div>

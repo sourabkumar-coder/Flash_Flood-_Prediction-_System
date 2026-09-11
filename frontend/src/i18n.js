@@ -16,7 +16,6 @@ const resources = {
   en: {
     translation: {
       app_title: "JALDRISHTI",
-      app_subtitle: "Hyperlocal Flash-Flood & Landslide Early Warning System",
       nav: {
         dashboard: "Dashboard",
         map: "Live Risk Map",
@@ -53,7 +52,6 @@ const resources = {
         monitored_valleys: "MONITORED VALLEYS",
         min_lead_time: "MIN LEAD TIME",
         hrs: "hrs",
-        quick_actions: "Quick Actions",
         live_risk_map: "Live Risk Map",
         live_map_desc: "View real-time geospatial risk data and telemetry.",
         manage_alerts: "Manage Alerts",

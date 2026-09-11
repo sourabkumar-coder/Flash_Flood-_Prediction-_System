@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import './GloFASChart.css';
 
 /**
  * GloFAS v4 Seamless River Discharge Time-Series Chart

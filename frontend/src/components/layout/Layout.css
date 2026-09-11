@@ -133,11 +133,9 @@
   font-weight: 600;
   color: var(--text-main);
   margin: 0;
-}
-
-.header-left .subtitle-text {
-  font-size: 0.75rem;
-  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header-right {
@@ -320,13 +318,20 @@
   .top-header {
     height: auto;
     min-height: 70px;
-    align-items: flex-start;
-    gap: 0.75rem;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "menu title"
+      "actions actions";
+    align-items: center;
+    row-gap: 0.7rem;
+    column-gap: 0.75rem;
     padding: 0.85rem 1rem;
   }
 
   .menu-toggle {
     display: inline-flex;
+    grid-area: menu;
     flex: 0 0 auto;
     align-items: center;
     justify-content: center;
@@ -339,17 +344,32 @@
   }
 
   .header-left {
+    grid-area: title;
     min-width: 0;
   }
 
-  .header-left .subtitle-text {
-    display: block;
-    line-height: 1.35;
+  .header-right {
+    grid-area: actions;
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
 
-  .header-right {
-    flex-shrink: 0;
-    gap: 0.5rem;
+  .language-selector-wrapper {
+    min-width: 0;
+  }
+
+  .lang-select {
+    min-width: 5.25rem;
+    max-width: 8rem;
+  }
+
+  .ndrf-header-btn {
+    min-height: 36px;
+    white-space: nowrap;
   }
 
   .system-status span {
@@ -473,8 +493,52 @@
 }
 
 @media (max-width: 540px) {
+  .top-header {
+    padding-inline: 0.75rem;
+  }
+
+  .header-right {
+    justify-content: stretch;
+  }
+
+  .language-selector-wrapper {
+    flex: 1 1 8rem;
+  }
+
+  .lang-select {
+    flex: 1;
+    width: 100%;
+    max-width: none;
+  }
+
+  .ndrf-header-btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+
+  .system-status,
+  .theme-toggle {
+    flex: 0 0 36px;
+  }
+
   .ndrf-numbers-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 380px) {
+  .ndrf-header-btn span {
+    display: none;
+  }
+
+  .ndrf-header-btn {
+    flex: 0 0 36px;
+    justify-content: center;
+    padding-inline: 8px;
+  }
+
+  .language-selector-wrapper {
+    flex-basis: 7rem;
   }
 }
 
