@@ -13,11 +13,14 @@ export default function Evacuation() {
   const { t } = useTranslation();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [lat, setLat] = useState(parseFloat(searchParams.get('lat')) || 31.765);
-  const [lon, setLon] = useState(parseFloat(searchParams.get('lon')) || 77.342);
-  const [locationName, setLocationName] = useState(searchParams.get('name') || 'Sainj Valley (Neuli)');
-  const [stateName, setStateName] = useState(searchParams.get('state') || 'Himachal Pradesh');
-  const [districtName, setDistrictName] = useState(searchParams.get('district') || 'Kullu');
+  const initialLat = searchParams.get('lat');
+  const initialLon = searchParams.get('lon');
+  const [lat, setLat] = useState(initialLat ? parseFloat(initialLat) : null);
+  const [lon, setLon] = useState(initialLon ? parseFloat(initialLon) : null);
+  const [locationName, setLocationName] = useState(searchParams.get('name') || 'No location selected');
+  const [stateName, setStateName] = useState(searchParams.get('state') || '');
+  const [districtName, setDistrictName] = useState(searchParams.get('district') || '');
+  const [riskLevel, setRiskLevel] = useState(searchParams.get('risk') || '');
 
   const [mode, setMode] = useState('driving');
   const [selectedShelterIdx, setSelectedShelterIdx] = useState(0);
@@ -26,14 +29,44 @@ export default function Evacuation() {
   const [gpsLoading, setGpsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const evacuationRequired = riskLevel === 'HIGH' || riskLevel === 'CRITICAL';
+
   useEffect(() => {
-    fetchEvacuationRoute(mode, selectedShelterIdx);
+    if (lat != null && lon != null) {
+      fetchEvacuationRoute(mode, selectedShelterIdx);
+    } else {
+      setLoading(false);
+      setEvacuationPlan(null);
+    }
   }, [lat, lon, mode, selectedShelterIdx]);
 
   const fetchEvacuationRoute = async (currentMode = mode, shelterIdx = selectedShelterIdx) => {
     try {
       setLoading(true);
       setError(null);
+
+      let currentRisk = riskLevel;
+      if (!currentRisk) {
+        try {
+          const riskRes = await riskApi.predict({ latitude: lat, longitude: lon });
+          currentRisk = riskRes.data?.prediction?.risk_level || 'LOW';
+          setRiskLevel(currentRisk);
+        } catch (err) {
+          console.error('Failed to fetch risk level:', err);
+          setRiskLevel('UNKNOWN');
+          setEvacuationPlan(null);
+          setError('Risk level could not be verified for this location. Evacuation route is unavailable.');
+          setLoading(false);
+          return;
+        }
+      }
+
+      if (currentRisk !== 'HIGH' && currentRisk !== 'CRITICAL') {
+        setEvacuationPlan(null);
+        setLoading(false);
+        return;
+      }
+
       const payload = {
         latitude: lat,
         longitude: lon,
@@ -76,6 +109,7 @@ export default function Evacuation() {
         setLon(userLon);
         setLocationName('Current Location (GPS)');
         setGpsLoading(false);
+        setRiskLevel(''); // Reset risk to fetch it for the new location
         setSearchParams({ lat: userLat.toString(), lon: userLon.toString(), name: 'Current Location (GPS)' });
       },
       (err) => {
@@ -137,12 +171,12 @@ export default function Evacuation() {
       {/* Main Evacuation Grid */}
       <div className="evac-main-grid">
         {/* Left Column: Interactive Escape Corridor Map */}
-        <div className="evac-map-panel panel">
+          <div className="evac-map-panel panel">
           <div className="map-panel-header">
             <div>
-              <h3><MapPin size={18} className="icon-blue" /> {t('evacuation_page.safe_route')}</h3>
+              <h3><MapPin size={18} className="icon-blue" /> {evacuationRequired ? t('evacuation_page.safe_route') : 'Evacuation Status'}</h3>
               <p className="subtitle-text">
-                {locationName} &rarr; {evacuationPlan?.shelter?.name || t('evacuation_page.target_shelter')}
+                {locationName} {evacuationPlan?.shelter ? `→ ${evacuationPlan.shelter.name}` : ''}
               </p>
             </div>
 
@@ -154,20 +188,39 @@ export default function Evacuation() {
               </div>
             )}
           </div>
+          {!evacuationRequired && riskLevel && (
+            <div className="hazard-warning-box" style={{ backgroundColor: '#f0fdf4', borderLeftColor: '#10b981', color: '#065f46' }}>
+              <ShieldAlert size={20} color="#10b981" />
+              <div>
+                <strong style={{ color: '#10b981' }}>Evacuation Not Required</strong>
+                <p>{riskLevel ? <>The current risk level for {locationName} is <strong>{riskLevel}</strong>. No evacuation route is necessary at this time.</> : 'Select a high-risk location to view an evacuation route.'}</p>
+              </div>
+            </div>
+          )}
 
-          <div className="evac-map-canvas">
-            <MapComponent
-              latitude={lat}
-              longitude={lon}
-              districtName={locationName}
-              riskLevel="CRITICAL"
-              evacuationPlan={evacuationPlan}
-              height="480px"
-            />
-          </div>
+          {evacuationRequired && lat != null && lon != null ? (
+            <div className="evac-map-canvas">
+              <MapComponent
+                latitude={lat}
+                longitude={lon}
+                districtName={locationName}
+                riskLevel={riskLevel || 'UNKNOWN'}
+                evacuationPlan={evacuationPlan}
+                height="480px"
+              />
+            </div>
+          ) : !evacuationRequired && lat == null && lon == null ? (
+            <div className="hazard-warning-box" style={{ backgroundColor: '#eff6ff', borderLeftColor: '#0284c7', color: '#0c4a6e' }}>
+              <Compass size={20} color="#0284c7" />
+              <div>
+                <strong style={{ color: '#0284c7' }}>No evacuation route selected</strong>
+                <p>Open this page from a high-risk location or use GPS to verify a specific area.</p>
+              </div>
+            </div>
+          ) : null}
 
           {/* Disrupted Road Hazard Notice */}
-          {evacuationPlan?.disrupted_route && (
+          {evacuationRequired && evacuationPlan?.disrupted_route && (
             <div className="hazard-warning-box">
               <AlertTriangle size={20} color="#ef4444" />
               <div>

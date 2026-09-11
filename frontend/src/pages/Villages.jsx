@@ -379,7 +379,7 @@ export default function Villages() {
               {prediction.prediction.risk_level !== 'LOW' && (
                 <button
                   className="rh-evac-btn"
-                  onClick={() => navigate(`/evacuation?lat=${prediction.location.latitude}&lon=${prediction.location.longitude}&name=${encodeURIComponent(prediction.location.village || prediction.location.district)}&state=${encodeURIComponent(prediction.location.state)}&district=${encodeURIComponent(prediction.location.district)}`)}
+                  onClick={() => navigate(`/evacuation?lat=${prediction.location.latitude}&lon=${prediction.location.longitude}&name=${encodeURIComponent(prediction.location.village || prediction.location.district)}&state=${encodeURIComponent(prediction.location.state)}&district=${encodeURIComponent(prediction.location.district)}&risk=${prediction.prediction.risk_level}`)}
                 >
                   {t('villages_page.view_escape')} &rarr;
                 </button>
