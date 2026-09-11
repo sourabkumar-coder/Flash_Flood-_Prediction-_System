@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Sidebar from './Sidebar';
 import Header from './Header';
+import ChatbotWidget from '../ChatbotWidget';
 import './Layout.css';
 
 export default function PageContainer({ children }) {
@@ -28,6 +29,8 @@ export default function PageContainer({ children }) {
           {children}
         </main>
       </div>
+      <ChatbotWidget />
     </div>
   );
 }
+

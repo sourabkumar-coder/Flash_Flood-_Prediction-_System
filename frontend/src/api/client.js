@@ -44,5 +44,9 @@ export const newsApi = {
   getNews: (params) => client.get('/api/news', { params }),
 };
 
+export const chatApi = {
+  sendMessage: (payload) => client.post('/api/chat', payload).catch(() => axios.post('http://localhost:8000/api/chat', payload)),
+};
+
 export default client;
 
