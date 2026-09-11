@@ -399,43 +399,50 @@ async def simulate_overview(request: Request):
         "status": "CRITICAL_SIMULATION"
     }
 
-    # Dispatch Real-Time Alert to user and registered citizens in this district
+    # Dispatch Real-Time Alert ONLY when an authenticated user is logged in (saves SMS balance)
     alert_dispatches = []
-    try:
-        from services.sms_service import send_sms
-        from services.db_service import find_users_by_region
-        
-        alert_msg = f"🚨 [CRITICAL CLOUDBURST ALERT] Extreme rainfall (135mm/hr) detected in {user_district}, {user_state}! Flash flood risk is CRITICAL. Evacuate to Upper Safe Zones immediately!"
-        
-        # 1. Send to currently logged-in user if phone provided
-        if user_phone:
+    has_logged_in_user = bool(user_phone and str(user_phone).strip())
+
+    if has_logged_in_user:
+        try:
+            from services.sms_service import send_sms
+            from services.db_service import find_users_by_region
+            
+            alert_msg = f"🚨 [CRITICAL CLOUDBURST ALERT] Extreme rainfall (135mm/hr) detected in {user_district}, {user_state}! Flash flood risk is CRITICAL. Evacuate to Upper Safe Zones immediately!"
+            
+            # Send to the logged-in user
             try:
                 res = send_sms(alert_msg, to=user_phone)
                 alert_dispatches.append({"name": user_name, "phone": user_phone, "status": "sent", "ref": res})
+                logger.info(f"Disaster simulation alert delivered to logged-in user {user_phone}")
             except Exception as e:
                 logger.error(f"Failed to alert logged-in user {user_phone}: {e}")
                 alert_dispatches.append({"name": user_name, "phone": user_phone, "status": "failed", "error": str(e)})
 
-        # 2. Also alert all citizens registered in MongoDB for this district
-        citizens = find_users_by_region(user_state, user_district)
-        for c in citizens:
-            c_phone = c.get("phone")
-            c_name = c.get("name", "Resident")
-            if c_phone and c_phone != user_phone:
-                try:
-                    res = send_sms(alert_msg, to=c_phone)
-                    alert_dispatches.append({"name": c_name, "phone": c_phone, "status": "sent", "ref": res})
-                except Exception as e:
-                    logger.error(f"Failed to alert citizen {c_phone}: {e}")
-                    
-    except Exception as dispatch_err:
-        logger.error(f"Alert dispatch failed during simulation: {dispatch_err}")
+            # Also alert registered citizens in MongoDB for this district
+            citizens = find_users_by_region(user_state, user_district)
+            for c in citizens:
+                c_phone = c.get("phone")
+                c_name = c.get("name", "Resident")
+                if c_phone and c_phone != user_phone:
+                    try:
+                        res = send_sms(alert_msg, to=c_phone)
+                        alert_dispatches.append({"name": c_name, "phone": c_phone, "status": "sent", "ref": res})
+                    except Exception as e:
+                        logger.error(f"Failed to alert citizen {c_phone}: {e}")
+                        
+        except Exception as dispatch_err:
+            logger.error(f"Alert dispatch failed during simulation: {dispatch_err}")
+    else:
+        logger.info("Simulation running in visual demo mode (No user logged in -> SMS skipped to save wallet credits)")
 
     return {
-        "message": f"Cloudburst simulation triggered for {user_district}, {user_state}.",
+        "message": f"Cloudburst simulation active for {user_district}, {user_state}." + (" (Live SMS Dispatched)" if has_logged_in_user else " (Visual Demo Mode - Log in to receive SMS)"),
         "threatCache": REGIONAL_CACHE,
+        "isLiveAlertDispatched": has_logged_in_user,
         "alertDispatches": alert_dispatches
     }
+
 
 
 @app.post("/api/overview/sync")
