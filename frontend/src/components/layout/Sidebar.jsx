@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, Map, Bell, Home, CloudRain, ShieldAlert, Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import logoAsset from '../../assets/ChatGPT Image Sep 12, 2026, 12_33_54 AM.ico';
 import './Layout.css';
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -20,7 +21,7 @@ export default function Sidebar({ isOpen, onClose }) {
     <aside className={`sidebar ${isOpen ? 'is-open' : ''}`}>
       <div className="sidebar-brand">
         <div className="brand-logo">
-          <ShieldAlert size={24} color="var(--primary)" />
+          <img src={logoAsset} alt="Jaldrishti logo" />
         </div>
         <div className="brand-text">
           <h1>{t('app_title')}</h1>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Activity, Globe, Menu, Moon, PhoneCall, ShieldAlert, Sun, X, User, LogIn, LogOut } from 'lucide-react';
+import { Globe, Menu, Moon, PhoneCall, ShieldAlert, Sun, X, User, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../context/ThemeContext';
 import { useAuth } from '../../context/AuthContext';
@@ -9,7 +9,6 @@ import './Layout.css';
 
 
 export default function Header({ onMenuClick }) {
-  const status = 'ONLINE';
   const { theme, toggleTheme } = useTheme();
   const { t, i18n } = useTranslation();
   const [isNdrfModalOpen, setIsNdrfModalOpen] = useState(false);
@@ -32,11 +31,6 @@ export default function Header({ onMenuClick }) {
           <Menu size={21} />
         </button>
         <div className="header-left">
-          <h2 className="page-title">{t('app_title')}</h2>
-        </div>
-        
-        <div className="header-right">
-          {/* User Auth Profile / Login */}
           {user ? (
             <div className="user-badge-wrap" title={`Registered for alerts in ${user.district}, ${user.state}`}>
               <div className="user-avatar-pill">
@@ -46,10 +40,10 @@ export default function Header({ onMenuClick }) {
                 <span className="user-name-label">{user.name}</span>
                 <span className="user-region-label">{user.district || user.state}</span>
               </div>
-              <button 
-                type="button" 
-                className="btn-logout-icon" 
-                onClick={logout} 
+              <button
+                type="button"
+                className="btn-logout-icon"
+                onClick={logout}
                 title="Sign Out"
                 aria-label="Sign Out"
               >
@@ -58,14 +52,17 @@ export default function Header({ onMenuClick }) {
             </div>
           ) : (
             <Link to="/login" className="header-auth-btn" title="Register your region for SMS alerts">
-              <User size={14} />
+              <User size={15} />
               <span>Sign In / Alerts</span>
             </Link>
           )}
+        </div>
 
+        <div className="header-right">
           {/* Language Selector */}
           <div className="language-selector-wrapper">
             <Globe size={15} className="lang-icon" />
+            <span className="lang-code" aria-hidden="true">{(i18n.language || 'en').substring(0, 2).toUpperCase()}</span>
             <select 
               className="lang-select" 
               value={i18n.language ? i18n.language.substring(0, 2) : 'en'} 
@@ -80,22 +77,6 @@ export default function Header({ onMenuClick }) {
             </select>
           </div>
 
-          {/* NDRF Emergency Hotline Pill */}
-          <button
-            type="button"
-            className="ndrf-header-btn"
-            onClick={() => setIsNdrfModalOpen(true)}
-            title="Click to view NDRF Control Room & Emergency Rescue Numbers"
-          >
-            <PhoneCall size={14} className="pulse-icon" />
-            <span>{t('ndrf.pill')}</span>
-          </button>
-
-          <div className="system-status">
-            <Activity size={16} className={status === 'ONLINE' ? 'status-icon online' : 'status-icon offline'} />
-            <span>{t('status.online')}</span>
-          </div>
-
           <button
             type="button"
             className="theme-toggle"
@@ -107,6 +88,22 @@ export default function Header({ onMenuClick }) {
           </button>
         </div>
       </header>
+
+      <button
+        type="button"
+        className="ndrf-marquee-banner"
+        onClick={() => setIsNdrfModalOpen(true)}
+        title="Click to view all NDRF emergency numbers"
+      >
+        <span className="ndrf-marquee-label"><PhoneCall size={15} /> NDRF EMERGENCY CONTACTS</span>
+        <span className="ndrf-marquee-viewport" aria-hidden="true">
+          <span className="ndrf-marquee-track">
+            <span>1078 / 112</span><span>+91-9711077372</span><span>011-23438091</span><span>011-23438136</span><span>1070</span><span>011-24363260</span>
+            <span>1078 / 112</span><span>+91-9711077372</span><span>011-23438091</span><span>011-23438136</span><span>1070</span><span>011-24363260</span>
+          </span>
+        </span>
+        <span className="ndrf-marquee-action">View all numbers</span>
+      </button>
 
 
       {/* NDRF Emergency Details Modal */}
