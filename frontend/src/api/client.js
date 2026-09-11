@@ -10,7 +10,8 @@ const client = axios.create({
 export const riskApi = {
   getThreats: () => client.get('/api/overview/threats').catch(() => axios.get('http://localhost:8000/api/overview/threats')),
   getRivers: () => client.get('/api/overview/rivers').catch(() => axios.get('http://localhost:8000/api/overview/rivers')),
-  simulate: (scenario) => client.post('/api/overview/simulate', { scenario }).catch(() => axios.post('http://localhost:8000/api/overview/simulate', { scenario })),
+  simulate: (scenario, payload = {}) => client.post('/api/overview/simulate', { scenario, ...payload }).catch(() => axios.post('http://localhost:8000/api/overview/simulate', { scenario, ...payload })),
+
   sync: () => client.post('/api/overview/sync').catch(() => axios.post('http://localhost:8000/api/overview/sync')),
   predict: (payload) => client.post('/api/predict', payload).catch(() => axios.post('http://localhost:8000/api/predict', payload)),
   getStates: () => client.get('/api/states').catch(() => axios.get('http://localhost:8000/api/states')),

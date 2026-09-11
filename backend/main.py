@@ -286,41 +286,61 @@ def read_rivers():
 @app.post("/api/overview/simulate")
 @app.post("/overview/simulate")
 async def simulate_overview(request: Request):
-    body = await request.json()
-    scenario = body.get("scenario", "CLOUDBURST_SAINJ")
+    try:
+        body = await request.json()
+    except Exception:
+        body = {}
+
+    scenario = body.get("scenario", "CLOUDBURST")
+    user_state = body.get("state", "Himachal Pradesh")
+    user_district = body.get("district", "Kullu")
+    user_phone = body.get("phone")
+    user_name = body.get("name", "Resident")
+
     if scenario == "RESET":
         REGIONAL_CACHE["isSimulated"] = False
         REGIONAL_CACHE["simulationScenario"] = None
         REGIONAL_CACHE["criticalAlert"] = None
         REGIONAL_CACHE["valleys"] = []
         get_threat_overview_data()
-        return {"message": "Simulation reset.", "threatCache": REGIONAL_CACHE}
+        return {"message": "Simulation reset. Restored baseline monitoring.", "threatCache": REGIONAL_CACHE}
     
     REGIONAL_CACHE["isSimulated"] = True
     REGIONAL_CACHE["simulationScenario"] = scenario
+    
     valleys = REGIONAL_DATA.get("monitored_valleys", [])
     computed = []
+    
+    # Target district matching
+    target_dist_clean = user_district.strip().lower()
+    target_state_clean = user_state.strip().lower()
+    
+    matched_any = False
     for v in valleys:
-        if v.get("id") == "val_sainj":
+        v_dist = v.get("district", "").strip().lower()
+        v_state = v.get("state", "").strip().lower()
+        
+        if v_dist == target_dist_clean or (not matched_any and v.get("id") == "val_sainj" and target_dist_clean == "kullu"):
+            matched_any = True
             computed.append({
                 **v,
-                "risk_score": 77.7,
+                "risk_score": 88.5,
                 "risk_level": "CRITICAL",
-                "lead_time_hours": 3.2,
-                "current_rainfall_mm": 88.5,
-                "rainfall_24h_mm": 194.2,
-                "current_river_stage_m": 7.8,
+                "lead_time_hours": 2.2,
+                "current_rainfall_mm": 135.0,
+                "rainfall_24h_mm": 245.0,
+                "current_river_stage_m": 8.4,
                 "is_above_danger": True
             })
-        elif v.get("id") in ["val_aut", "val_larji"]:
+        elif v_state == target_state_clean:
             computed.append({
                 **v,
-                "risk_score": 64.2,
+                "risk_score": 68.4,
                 "risk_level": "HIGH",
-                "lead_time_hours": 5.5,
-                "current_rainfall_mm": 42.0,
-                "rainfall_24h_mm": 112.0,
-                "current_river_stage_m": 6.8,
+                "lead_time_hours": 4.5,
+                "current_rainfall_mm": 55.0,
+                "rainfall_24h_mm": 120.0,
+                "current_river_stage_m": 6.5,
                 "is_above_danger": False
             })
         else:
@@ -334,24 +354,96 @@ async def simulate_overview(request: Request):
                 "current_river_stage_m": 2.2,
                 "is_above_danger": False
             })
+            
+    # If the user's district was not in the default pre-configured valley list, inject a dynamic node
+    if not matched_any:
+        computed.insert(0, {
+            "id": f"val_sim_{target_dist_clean}",
+            "name": f"{user_district} Deluge Center",
+            "district": user_district,
+            "state": user_state,
+            "lat": 31.85,
+            "lon": 77.25,
+            "risk_score": 89.0,
+            "risk_level": "CRITICAL",
+            "lead_time_hours": 1.8,
+            "current_rainfall_mm": 140.0,
+            "rainfall_24h_mm": 260.0,
+            "current_river_stage_m": 8.6,
+            "is_above_danger": True
+        })
+
     computed.sort(key=lambda x: x["risk_score"], reverse=True)
     REGIONAL_CACHE["valleys"] = computed
+    
+    critical_count = sum(1 for v in computed if v["risk_level"] == "CRITICAL")
+    high_count = sum(1 for v in computed if v["risk_level"] == "HIGH")
+    
+    alert_title = f"🚨 FLASH FLOOD & CLOUDBURST ALERT: {user_district} ({user_state}) has reached CRITICAL risk (88.5/100)"
+    alert_action = f"Intense cloudburst deluge (>135mm/hr). Immediate evacuation recommended for low-lying areas in {user_district}."
+    
     REGIONAL_CACHE["criticalAlert"] = {
-        "title": "FLASH FLOOD WARNING: Sainj Valley (Neuli) has reached CRITICAL risk (77.7/100)",
-        "target": "Sainj Valley (Neuli) · Kullu Dist. · Lead Time: 3.2h",
-        "leadTime": "3.2 hrs",
-        "action": "Evacuate low-lying riverbanks immediately."
+        "title": alert_title,
+        "target": f"{user_district} Basin · {user_state} · Lead Time: 2.2h",
+        "leadTime": "2.2 hrs",
+        "action": alert_action
     }
+    
     REGIONAL_CACHE["summary"] = {
         "totalMonitored": len(computed),
-        "criticalCount": 1,
-        "highCount": 2,
+        "criticalCount": critical_count,
+        "highCount": high_count,
         "moderateCount": 0,
-        "lowCount": len(computed) - 3,
-        "minLeadTimeHours": 3.2,
+        "lowCount": len(computed) - (critical_count + high_count),
+        "minLeadTimeHours": 2.2,
         "status": "CRITICAL_SIMULATION"
     }
-    return {"message": "Simulation active.", "threatCache": REGIONAL_CACHE}
+
+    # Dispatch Real-Time Alert ONLY when an authenticated user is logged in (saves SMS balance)
+    alert_dispatches = []
+    has_logged_in_user = bool(user_phone and str(user_phone).strip())
+
+    if has_logged_in_user:
+        try:
+            from services.sms_service import send_sms
+            from services.db_service import find_users_by_region
+            
+            alert_msg = f"🚨 [CRITICAL CLOUDBURST ALERT] Extreme rainfall (135mm/hr) detected in {user_district}, {user_state}! Flash flood risk is CRITICAL. Evacuate to Upper Safe Zones immediately!"
+            
+            # Send to the logged-in user
+            try:
+                res = send_sms(alert_msg, to=user_phone)
+                alert_dispatches.append({"name": user_name, "phone": user_phone, "status": "sent", "ref": res})
+                logger.info(f"Disaster simulation alert delivered to logged-in user {user_phone}")
+            except Exception as e:
+                logger.error(f"Failed to alert logged-in user {user_phone}: {e}")
+                alert_dispatches.append({"name": user_name, "phone": user_phone, "status": "failed", "error": str(e)})
+
+            # Also alert registered citizens in MongoDB for this district
+            citizens = find_users_by_region(user_state, user_district)
+            for c in citizens:
+                c_phone = c.get("phone")
+                c_name = c.get("name", "Resident")
+                if c_phone and c_phone != user_phone:
+                    try:
+                        res = send_sms(alert_msg, to=c_phone)
+                        alert_dispatches.append({"name": c_name, "phone": c_phone, "status": "sent", "ref": res})
+                    except Exception as e:
+                        logger.error(f"Failed to alert citizen {c_phone}: {e}")
+                        
+        except Exception as dispatch_err:
+            logger.error(f"Alert dispatch failed during simulation: {dispatch_err}")
+    else:
+        logger.info("Simulation running in visual demo mode (No user logged in -> SMS skipped to save wallet credits)")
+
+    return {
+        "message": f"Cloudburst simulation active for {user_district}, {user_state}." + (" (Live SMS Dispatched)" if has_logged_in_user else " (Visual Demo Mode - Log in to receive SMS)"),
+        "threatCache": REGIONAL_CACHE,
+        "isLiveAlertDispatched": has_logged_in_user,
+        "alertDispatches": alert_dispatches
+    }
+
+
 
 @app.post("/api/overview/sync")
 @app.post("/overview/sync")

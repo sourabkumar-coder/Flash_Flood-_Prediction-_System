@@ -132,10 +132,11 @@ def send_sms(message: str, to: str = None) -> str:
             to_addr = to_number if to_number.startswith("whatsapp:") else f"whatsapp:{to_number}"
 
             from twilio.rest import Client
+            content_sid = os.getenv("TWILIO_CONTENT_SID")
             client = Client(account_sid, auth_token)
 
-
             if content_sid:
+
                 sms = client.messages.create(
                     content_sid=content_sid,
                     from_=from_addr,

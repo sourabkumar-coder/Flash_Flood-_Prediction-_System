@@ -3,6 +3,8 @@ import { MapContainer, TileLayer, Marker, Popup, Polyline, Tooltip, useMap } fro
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
+
 
 // Component to dynamically pan/zoom map
 function MapController({ center, zoom }) {
@@ -140,15 +142,25 @@ export default function CommandCenter({ apiBaseUrl, onSelectValley, onSwitchToDi
     }
   };
 
+  const { user } = useAuth();
+
   const handleToggleSimulation = async () => {
     try {
       setSyncing(true);
       const targetState = !isSimulating;
-      const scenario = targetState ? 'CLOUDBURST_SAINJ' : 'RESET';
+      const scenario = targetState ? 'CLOUDBURST' : 'RESET';
       
-      let res = await axios.post(`${apiBaseUrl}/api/overview/simulate`, { scenario }).catch(() => null);
+      const payload = {
+        scenario,
+        state: user?.state || 'Himachal Pradesh',
+        district: user?.district || 'Kullu',
+        phone: user?.phone || null,
+        name: user?.name || 'Resident'
+      };
+
+      let res = await axios.post(`${apiBaseUrl}/api/overview/simulate`, payload).catch(() => null);
       if (!res?.data) {
-        res = await axios.post(`http://localhost:8000/api/overview/simulate`, { scenario }).catch(() => null);
+        res = await axios.post(`http://localhost:8000/api/overview/simulate`, payload).catch(() => null);
       }
 
       if (res?.data?.threatCache) {
@@ -158,8 +170,14 @@ export default function CommandCenter({ apiBaseUrl, onSelectValley, onSwitchToDi
       await fetchRivers();
 
       if (targetState) {
-        setMapCenter([31.7850, 77.2950]);
-        setMapZoom(9);
+        const topValley = res?.data?.threatCache?.valleys?.[0];
+        if (topValley && topValley.lat && topValley.lon) {
+          setMapCenter([topValley.lat, topValley.lon]);
+          setMapZoom(10);
+        } else {
+          setMapCenter([31.7850, 77.2950]);
+          setMapZoom(9);
+        }
       }
     } catch (err) {
       console.error('Simulation toggle failed:', err);
@@ -167,6 +185,7 @@ export default function CommandCenter({ apiBaseUrl, onSelectValley, onSwitchToDi
       setSyncing(false);
     }
   };
+
 
   const handleFocusValley = (valley) => {
     setSelectedNode(valley);
