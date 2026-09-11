@@ -10,7 +10,7 @@ load_env()
 
 from api_models import (
     LocationRequest, PredictionResponse, BatchPredictionRequest, BatchPredictionResponse,
-    UserRegisterRequest, UserLoginRequest, RegionalAlertRequest
+    UserRegisterRequest, UserLoginRequest, RegionalAlertRequest, ChatRequest
 )
 
 from services.district_service import (
@@ -641,3 +641,25 @@ def broadcast_regional_alert(req: RegionalAlertRequest):
     except Exception as e:
         logger.error(f"Regional broadcast error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Broadcast failed: {str(e)}")
+
+
+@app.post("/chat")
+@app.post("/api/chat")
+def chat_endpoint(req: ChatRequest):
+    """
+    Multilingual AI Assistant for flood safety, helpline info, and emergency protocols.
+    Powered by Groq LPU with automatic offline fallback.
+    """
+    try:
+        from services.chatbot_service import generate_chat_response
+        history_dicts = [{"role": m.role, "content": m.content} for m in (req.history or [])]
+        res = generate_chat_response(
+            message=req.message,
+            language=req.language or "en",
+            history=history_dicts,
+            user_district=req.district
+        )
+        return res
+    except Exception as e:
+        logger.error(f"Chatbot endpoint error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Chat error: {str(e)}")

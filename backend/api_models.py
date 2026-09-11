@@ -196,3 +196,21 @@ class RegionalAlertRequest(BaseModel):
     severity: Optional[str] = "CRITICAL"
 
 
+# ==============================================================================
+# Multilingual Chatbot Models
+# ==============================================================================
+
+class ChatMessage(BaseModel):
+    role: str
+    content: str
+
+
+class ChatRequest(BaseModel):
+    message: str
+    language: Optional[str] = "en"
+    history: Optional[List[ChatMessage]] = []
+    district: Optional[str] = None
+    state: Optional[str] = None
+
+
+
