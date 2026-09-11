@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { riskApi } from '../api/client';
 import { X, Navigation, AlertTriangle, Droplets, Map as MapIcon, ChevronRight, CloudRain, Zap, RefreshCw, Layers, Search, ShieldAlert, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import './LiveRiskMap.css';
 
 function MapController({ center, zoom }) {
@@ -40,7 +41,6 @@ const BASEMAP_TILES = {
     attribution: '&copy; Esri, Maxar, Earthstar Geographics'
   }
 };
-
 
 const getThreatColor = (level) => {
   switch (level?.toUpperCase()) {
@@ -130,6 +130,7 @@ const createGaugeIcon = (gauge) => {
 
 export default function LiveRiskMap() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [threatData, setThreatData] = useState(null);
   const [riversData, setRiversData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -142,7 +143,6 @@ export default function LiveRiskMap() {
   const [activeBasemap, setActiveBasemap] = useState('osm');
   const [selectedBasin, setSelectedBasin] = useState('ALL');
   const [searchTerm, setSearchTerm] = useState('');
-
 
   useEffect(() => {
     fetchData();
@@ -177,14 +177,26 @@ export default function LiveRiskMap() {
         }
         setIsSimulating(false);
       } else {
-        const res = await riskApi.simulate('CLOUDBURST_SAINJ');
+        const payload = {
+          state: user?.state || 'Himachal Pradesh',
+          district: user?.district || 'Kullu',
+          phone: user?.phone || null,
+          name: user?.name || 'Resident'
+        };
+        const res = await riskApi.simulate('CLOUDBURST', payload);
         if (res.data?.threatCache) {
           setThreatData(res.data.threatCache);
         }
         setIsSimulating(true);
-        // Pan to Sainj Valley
-        setMapCenter([31.76, 77.34]);
-        setMapZoom(11);
+        // Pan to the affected cloudburst valley
+        const topValley = res.data?.threatCache?.valleys?.[0];
+        if (topValley && topValley.lat && topValley.lon) {
+          setMapCenter([topValley.lat, topValley.lon]);
+          setMapZoom(11);
+        } else {
+          setMapCenter([31.76, 77.34]);
+          setMapZoom(11);
+        }
       }
     } catch (err) {
       console.error('Simulation toggle failed:', err);
@@ -288,7 +300,7 @@ export default function LiveRiskMap() {
             className={`btn-sim ${isSimulating ? 'sim-active' : ''}`}
             onClick={handleToggleSimulation}
             disabled={syncing}
-            title="Simulate sudden cloudburst & flash flood at Sainj Valley"
+            title="Simulate sudden cloudburst & flash flood"
           >
             <Zap size={15} />
             <span>{isSimulating ? t('map_page.reset_sim') : t('map_page.simulate_cloudburst')}</span>
@@ -319,7 +331,7 @@ export default function LiveRiskMap() {
             onClick={() => {
               const val = threatData.valleys?.[0];
               if (val) {
-                navigate(`/evacuation?lat=${val.lat}&lon=${val.lon}&name=${encodeURIComponent(val.name)}`);
+                navigate(`/evacuation?lat=${val.lat}&lon=${val.lon}&name=${encodeURIComponent(val.name)}&state=${encodeURIComponent(val.state || '')}&district=${encodeURIComponent(val.district || '')}&risk=${val.risk_level}`);
               }
             }}
           >
@@ -340,8 +352,8 @@ export default function LiveRiskMap() {
             <MapController center={mapCenter} zoom={mapZoom} />
 
             <TileLayer
-              url={BASEMAP_TILES[activeBasemap]?.url || BASEMAP_TILES.voyager.url}
-              attribution={BASEMAP_TILES[activeBasemap]?.attribution || BASEMAP_TILES.voyager.attribution}
+              url={BASEMAP_TILES[activeBasemap]?.url || BASEMAP_TILES.voyager?.url || BASEMAP_TILES.osm.url}
+              attribution={BASEMAP_TILES[activeBasemap]?.attribution || BASEMAP_TILES.osm.attribution}
             />
 
             {riversData.map(basin => (
@@ -444,7 +456,7 @@ export default function LiveRiskMap() {
                 {selectedNode.risk_level !== 'LOW' && (
                   <button
                     className="btn-outline evac-btn"
-                    onClick={() => navigate(`/evacuation?lat=${selectedNode.lat}&lon=${selectedNode.lon}&name=${encodeURIComponent(selectedNode.name)}&state=${encodeURIComponent(selectedNode.state || '')}&district=${encodeURIComponent(selectedNode.district || '')}`)}
+                    onClick={() => navigate(`/evacuation?lat=${selectedNode.lat}&lon=${selectedNode.lon}&name=${encodeURIComponent(selectedNode.name)}&state=${encodeURIComponent(selectedNode.state || '')}&district=${encodeURIComponent(selectedNode.district || '')}&risk=${selectedNode.risk_level}`)}
                   >
                     🚨 Safest Evacuation Route &rarr;
                   </button>
@@ -457,4 +469,3 @@ export default function LiveRiskMap() {
     </div>
   );
 }
-
