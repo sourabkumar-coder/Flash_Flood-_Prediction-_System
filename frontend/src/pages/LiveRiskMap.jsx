@@ -319,7 +319,7 @@ export default function LiveRiskMap() {
             onClick={() => {
               const val = threatData.valleys?.[0];
               if (val) {
-                navigate(`/evacuation?lat=${val.lat}&lon=${val.lon}&name=${encodeURIComponent(val.name)}`);
+                navigate(`/evacuation?lat=${val.lat}&lon=${val.lon}&name=${encodeURIComponent(val.name)}&state=${encodeURIComponent(val.state || '')}&district=${encodeURIComponent(val.district || '')}&risk=${val.risk_level}`);
               }
             }}
           >
@@ -444,7 +444,7 @@ export default function LiveRiskMap() {
                 {selectedNode.risk_level !== 'LOW' && (
                   <button
                     className="btn-outline evac-btn"
-                    onClick={() => navigate(`/evacuation?lat=${selectedNode.lat}&lon=${selectedNode.lon}&name=${encodeURIComponent(selectedNode.name)}&state=${encodeURIComponent(selectedNode.state || '')}&district=${encodeURIComponent(selectedNode.district || '')}`)}
+                    onClick={() => navigate(`/evacuation?lat=${selectedNode.lat}&lon=${selectedNode.lon}&name=${encodeURIComponent(selectedNode.name)}&state=${encodeURIComponent(selectedNode.state || '')}&district=${encodeURIComponent(selectedNode.district || '')}&risk=${selectedNode.risk_level}`)}
                   >
                     🚨 Safest Evacuation Route &rarr;
                   </button>
