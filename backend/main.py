@@ -43,10 +43,12 @@ async def global_exception_handler(request: Request, exc: Exception):
     )
 
 @app.get("/health")
+@app.get("/api/health")
 def health_check():
     return {"status": "ok"}
 
 @app.get("/states")
+@app.get("/api/states")
 def read_states():
     try:
         states = get_states()
@@ -55,6 +57,7 @@ def read_states():
         raise HTTPException(status_code=500, detail=f"Failed to fetch states: {str(e)}")
 
 @app.get("/districts/{state}")
+@app.get("/api/districts/{state}")
 def read_districts(state: str):
     try:
         districts = get_districts_by_state(state)
@@ -66,7 +69,17 @@ def read_districts(state: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch districts: {str(e)}")
 
+@app.get("/villages")
+@app.get("/api/villages")
+def read_all_villages():
+    try:
+        data = get_threat_overview_data()
+        return {"villages": data.get("valleys", [])}
+    except Exception as e:
+        return {"villages": []}
+
 @app.get("/villages/{district}")
+@app.get("/api/villages/{district}")
 def read_villages(district: str):
     try:
         # Currently returns empty list as village GeoJSON was removed
@@ -75,6 +88,7 @@ def read_villages(district: str):
         raise HTTPException(status_code=500, detail=f"Failed to fetch villages: {str(e)}")
 
 @app.get("/location/reverse")
+@app.get("/api/location/reverse")
 def read_reverse_location(lat: float, lon: float):
     """
     Reverse geocode GPS coordinates to State, District, and nearest location metadata.
@@ -86,6 +100,7 @@ def read_reverse_location(lat: float, lon: float):
         raise HTTPException(status_code=500, detail=f"Failed to reverse-geocode coordinates: {str(e)}")
 
 @app.get("/location/{state}/{district}")
+@app.get("/api/location/{state}/{district}")
 def read_location(state: str, district: str):
     try:
         coords = get_district_coordinates(state, district)
@@ -98,6 +113,7 @@ def read_location(state: str, district: str):
         raise HTTPException(status_code=500, detail=f"Failed to fetch location: {str(e)}")
 
 @app.get("/features/{state}/{district}")
+@app.get("/api/features/{state}/{district}")
 def read_features(state: str, district: str):
     try:
         data = build_features(state, district)
@@ -108,6 +124,7 @@ def read_features(state: str, district: str):
         raise HTTPException(status_code=500, detail=f"Failed to build features: {str(e)}")
 
 @app.post("/predict", response_model=PredictionResponse)
+@app.post("/api/predict", response_model=PredictionResponse)
 def predict_risk(request: LocationRequest):
     now = time.time()
 
@@ -144,6 +161,7 @@ def predict_risk(request: LocationRequest):
         raise HTTPException(status_code=500, detail=f"Prediction failed: {str(e)}")
 
 @app.post("/predict/batch", response_model=BatchPredictionResponse)
+@app.post("/api/predict/batch", response_model=BatchPredictionResponse)
 def predict_batch(request: BatchPredictionRequest):
     predictions = []
     errors = []
@@ -165,6 +183,7 @@ def predict_batch(request: BatchPredictionRequest):
 from services.routing_service import get_evacuation_routes
 
 @app.get("/api/evacuation/plan")
+@app.get("/evacuation/plan")
 def get_evacuation_plan(lat: float, lon: float):
     routes = get_evacuation_routes(lat, lon)
     if not routes:
@@ -356,4 +375,57 @@ def calculate_evacuation_route(req: EvacuationRouteRequest):
     except Exception as e:
         logger.error(f"Evacuation routing failed: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"Failed to generate evacuation route: {str(e)}")
+
+
+# ==============================================================================
+# Emergency Operations Endpoints (Alerts, Shelters, Evacuation Status)
+# ==============================================================================
+
+@app.get("/api/alerts")
+@app.get("/alerts")
+def get_alerts():
+    threats = get_threat_overview_data()
+    critical_alert = threats.get("criticalAlert")
+    alerts = []
+    if critical_alert:
+        alerts.append({
+            "id": "alert-crit-1",
+            "severity": "CRITICAL",
+            "title": critical_alert.get("title", ""),
+            "target": critical_alert.get("target", ""),
+            "leadTime": critical_alert.get("leadTime", ""),
+            "issuedAt": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            "status": "ACTIVE"
+        })
+    return {"alerts": alerts}
+
+@app.post("/api/alerts/{id}/acknowledge")
+@app.post("/alerts/{id}/acknowledge")
+def acknowledge_alert(id: str):
+    return {"message": "Alert acknowledged", "id": id}
+
+@app.get("/api/shelters")
+@app.get("/shelters")
+def get_shelters():
+    return {
+        "shelters": [
+            {"id": "sh1", "name": "Govt Higher Secondary School", "capacity": 1500, "occupied": 840, "medical": True, "power": True, "lat": 31.8, "lon": 77.2},
+            {"id": "sh2", "name": "Community Center Bhawan", "capacity": 800, "occupied": 120, "medical": False, "power": True, "lat": 31.75, "lon": 77.15}
+        ]
+    }
+
+@app.get("/api/evacuation/{village_id}")
+@app.get("/evacuation/{village_id}")
+def get_evacuation_status(village_id: str):
+    return {
+        "villageId": village_id,
+        "populationAtRisk": 2840,
+        "evacuated": 840,
+        "remaining": 2000,
+        "status": "IN_PROGRESS",
+        "safeZones": [
+            {"id": "sz1", "name": "Upper Ridge Safe Zone", "lat": 31.85, "lon": 77.25}
+        ]
+    }
+
 

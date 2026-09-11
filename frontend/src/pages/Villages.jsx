@@ -11,6 +11,13 @@ import {
 } from 'lucide-react';
 import './Villages.css';
 
+const loadingSteps = [
+  'Acquiring coordinates & GIS metadata...',
+  'Fetching live Open-Meteo telemetry...',
+  'Querying SRTM 90m terrain & hydrological data...',
+  'Executing XGBoost ensemble risk engine...'
+];
+
 export default function Villages() {
   const { t } = useTranslation();
   const [searchParams] = useSearchParams();
