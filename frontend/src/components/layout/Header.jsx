@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import { Activity, Globe, Menu, Moon, PhoneCall, ShieldAlert, Sun, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Activity, Globe, Menu, Moon, PhoneCall, ShieldAlert, Sun, X, User, LogIn, LogOut } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../context/ThemeContext';
+import { useAuth } from '../../context/AuthContext';
 import { LANGUAGES } from '../../i18n';
 import './Layout.css';
+
 
 export default function Header({ onMenuClick }) {
   const status = 'ONLINE';
   const { theme, toggleTheme } = useTheme();
   const { t, i18n } = useTranslation();
   const [isNdrfModalOpen, setIsNdrfModalOpen] = useState(false);
+
+  const { user, logout } = useAuth();
 
   const handleLanguageChange = (e) => {
     i18n.changeLanguage(e.target.value);
@@ -33,6 +38,33 @@ export default function Header({ onMenuClick }) {
         </div>
         
         <div className="header-right">
+          {/* User Auth Profile / Login */}
+          {user ? (
+            <div className="user-badge-wrap" title={`Registered for alerts in ${user.district}, ${user.state}`}>
+              <div className="user-avatar-pill">
+                {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+              </div>
+              <div className="user-info-text">
+                <span className="user-name-label">{user.name}</span>
+                <span className="user-region-label">{user.district || user.state}</span>
+              </div>
+              <button 
+                type="button" 
+                className="btn-logout-icon" 
+                onClick={logout} 
+                title="Sign Out"
+                aria-label="Sign Out"
+              >
+                <LogOut size={14} />
+              </button>
+            </div>
+          ) : (
+            <Link to="/login" className="header-auth-btn" title="Register your region for SMS alerts">
+              <User size={14} />
+              <span>Sign In / Alerts</span>
+            </Link>
+          )}
+
           {/* Language Selector */}
           <div className="language-selector-wrapper">
             <Globe size={15} className="lang-icon" />
@@ -77,6 +109,7 @@ export default function Header({ onMenuClick }) {
           </button>
         </div>
       </header>
+
 
       {/* NDRF Emergency Details Modal */}
       {isNdrfModalOpen && (

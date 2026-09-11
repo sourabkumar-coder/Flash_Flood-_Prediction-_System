@@ -512,3 +512,83 @@
   color: #ef4444;
 }
 
+/* User Auth Header Controls */
+.header-auth-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--primary, #3b82f6);
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  cursor: pointer;
+}
+
+.header-auth-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.user-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-panel-soft, rgba(255, 255, 255, 0.05));
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.1));
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.user-avatar-pill {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.2);
+  color: var(--primary, #3b82f6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.user-info-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+  text-align: left;
+}
+
+.user-name-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-main, #f8fafc);
+}
+
+.user-region-label {
+  font-size: 0.68rem;
+  color: var(--text-muted, #94a3b8);
+}
+
+.btn-logout-icon {
+  background: transparent;
+  border: none;
+  color: var(--text-muted, #94a3b8);
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.btn-logout-icon:hover {
+  color: #ef4444;
+}
+
+

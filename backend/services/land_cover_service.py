@@ -1,15 +1,16 @@
 import os
 import requests
 
-from dotenv import load_dotenv
-from shapely.geometry import shape
-from shapely.ops import transform
-from pyproj import Transformer
+try:
+    from env_loader import load_env
+    load_env()
+except ImportError:
+    try:
+        from ..env_loader import load_env
+        load_env()
+    except Exception:
+        pass
 
-from services.district_service import get_district_by_name
-
-
-load_dotenv()
 
 
 BHUVAN_LULC_API = (

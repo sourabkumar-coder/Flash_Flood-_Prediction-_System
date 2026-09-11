@@ -168,3 +168,31 @@ class EvacuationRouteResponse(BaseModel):
     disrupted_route: Optional[DisruptedRouteDetails] = None
     emergency_helpline: Dict[str, str]
 
+
+# ==============================================================================
+# Auth & Regional Alert Models
+# ==============================================================================
+
+class UserRegisterRequest(BaseModel):
+    name: str
+    email: str
+    phone: str
+    password: str
+    state: str = "Himachal Pradesh"
+    district: str = "Kullu"
+    role: Optional[str] = "citizen"
+    notification_channel: Optional[str] = "sms"
+
+
+class UserLoginRequest(BaseModel):
+    email: str
+    password: str
+
+
+class RegionalAlertRequest(BaseModel):
+    state: str
+    district: str
+    message: str
+    severity: Optional[str] = "CRITICAL"
+
+

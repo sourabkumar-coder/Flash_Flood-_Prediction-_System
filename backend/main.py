@@ -3,10 +3,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 import logging
 import time
+from env_loader import load_env
+
+load_env()
+
 
 from api_models import (
-    LocationRequest, PredictionResponse, BatchPredictionRequest, BatchPredictionResponse
+    LocationRequest, PredictionResponse, BatchPredictionRequest, BatchPredictionResponse,
+    UserRegisterRequest, UserLoginRequest, RegionalAlertRequest
 )
+
 from services.district_service import (
     get_states, get_districts_by_state, get_district_coordinates, reverse_geocode_coordinates
 )
@@ -429,3 +435,117 @@ def get_evacuation_status(village_id: str):
     }
 
 
+@app.get("/test-sms")
+def test_sms():
+    try:
+        from services.sms_service import send_sms
+        result = send_sms(
+            "🚨 TEST ALERT: Flash Flood Prediction System is working."
+        )
+        return {"status": "sent", "channel_result": result}
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
+    except Exception as e:
+        logger.error(f"Failed to send alert: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Alert delivery failed: {str(e)}")
+
+
+# ==============================================================================
+# User Authentication & Regional Alert Dispatch (MongoDB Atlas)
+# ==============================================================================
+
+@app.post("/api/auth/register")
+def register_user(req: UserRegisterRequest):
+    """Register a citizen with name, phone, and region for targeted flood alerts."""
+    try:
+        from services.db_service import create_user
+        user = create_user(
+            name=req.name,
+            email=req.email,
+            phone=req.phone,
+            password=req.password,
+            state=req.state,
+            district=req.district,
+            role=req.role or "citizen",
+            notification_channel=req.notification_channel or "sms"
+        )
+        safe_user = {k: v for k, v in user.items() if k != "password"}
+        return {"status": "success", "message": "Registered successfully", "user": safe_user}
+    except ValueError as ve:
+        raise HTTPException(status_code=400, detail=str(ve))
+    except Exception as e:
+        logger.error(f"Registration error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to register user: {str(e)}")
+
+
+@app.post("/api/auth/login")
+def login_user(req: UserLoginRequest):
+    """Authenticate user with email and password (demo check)."""
+    try:
+        from services.db_service import authenticate_user
+        user = authenticate_user(req.email, req.password)
+        if not user:
+            raise HTTPException(status_code=401, detail="Invalid email or password.")
+        return {"status": "success", "message": "Logged in successfully", "user": user}
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Login error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Authentication error: {str(e)}")
+
+
+@app.get("/api/auth/users")
+def list_users():
+    """List registered users / citizens."""
+    try:
+        from services.db_service import get_all_users
+        users = get_all_users()
+        return {"users": users, "total": len(users)}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/api/alerts/broadcast-region")
+def broadcast_regional_alert(req: RegionalAlertRequest):
+    """Broadcast an emergency flood alert to all registered citizens in a state & district."""
+    try:
+        from services.db_service import find_users_by_region
+        from services.sms_service import send_sms
+
+        citizens = find_users_by_region(req.state, req.district)
+        if not citizens:
+            return {
+                "status": "ok",
+                "message": f"No registered citizens found in {req.district}, {req.state}.",
+                "dispatched_count": 0,
+                "recipients": []
+            }
+
+        dispatched = []
+        failures = []
+
+        formatted_msg = f"🚨 [{req.severity}] FLOOD ALERT for {req.district}, {req.state}: {req.message}"
+
+        for citizen in citizens:
+            phone = citizen.get("phone")
+            name = citizen.get("name", "Resident")
+            if phone:
+                try:
+                    res = send_sms(formatted_msg, to=phone)
+                    dispatched.append({"name": name, "phone": phone, "result": res})
+                except Exception as err:
+                    logger.error(f"Failed to send to {phone}: {str(err)}")
+                    failures.append({"name": name, "phone": phone, "error": str(err)})
+
+        return {
+            "status": "success",
+            "state": req.state,
+            "district": req.district,
+            "total_citizens_in_region": len(citizens),
+            "dispatched_count": len(dispatched),
+            "dispatched": dispatched,
+            "failures": failures
+        }
+    except Exception as e:
+        logger.error(f"Regional broadcast error: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Broadcast failed: {str(e)}")
