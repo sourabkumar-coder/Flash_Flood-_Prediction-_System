@@ -95,6 +95,13 @@ export default function Evacuation() {
     setSelectedShelterIdx(idx);
   };
 
+  const handleOpenGoogleMaps = (targetShelter = evacuationPlan?.shelter) => {
+    if (!targetShelter || lat == null || lon == null) return;
+    const travelMode = mode === 'walking' ? 'walking' : 'driving';
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${lat},${lon}&destination=${targetShelter.latitude},${targetShelter.longitude}&travelmode=${travelMode}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   const handleDetectGps = () => {
     if (!navigator.geolocation) {
       setError('Geolocation not supported by browser.');
@@ -248,6 +255,33 @@ export default function Evacuation() {
                 <div><span>{t('evacuation_page.duration')}</span><strong>~{evacuationPlan.safe_route?.duration_min} mins</strong></div>
                 <div><span>Status</span><strong style={{ color: '#10b981' }}>{evacuationPlan.safe_route?.hazard_level || 'Safe Corridor'}</strong></div>
               </div>
+
+              <button
+                type="button"
+                className="gmaps-direct-btn"
+                onClick={() => handleOpenGoogleMaps(evacuationPlan.shelter)}
+                style={{
+                  marginTop: '12px',
+                  width: '100%',
+                  padding: '9px 14px',
+                  background: 'linear-gradient(135deg, #10b981, #059669)',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '8px',
+                  fontWeight: '700',
+                  fontSize: '0.85rem',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  boxShadow: '0 4px 12px rgba(16, 185, 129, 0.35)',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <Navigation size={16} />
+                <span>Navigate via Google Maps</span>
+              </button>
             </div>
           )}
 

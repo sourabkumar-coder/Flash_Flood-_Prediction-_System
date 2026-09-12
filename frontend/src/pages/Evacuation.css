@@ -418,3 +418,142 @@
   text-decoration: none;
 }
 
+/* Custom SVG Map Markers */
+.leaflet-div-icon {
+  background: transparent !important;
+  border: none !important;
+}
+
+@keyframes evac-radar-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@keyframes evac-alert-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+@keyframes evac-badge-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.evac-start-marker {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+}
+
+.evac-radar-ring {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  animation: evac-radar-pulse 2s infinite ease-out;
+}
+
+.evac-radar-ring-2 {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  animation: evac-radar-pulse 2s infinite ease-out 0.6s;
+}
+
+.evac-start-pin-core {
+  position: relative;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.5);
+  border: 2px solid #ffffff;
+}
+
+.evac-shelter-marker-wrap {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: evac-badge-float 3s ease-in-out infinite;
+}
+
+.evac-shelter-badge {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.95), rgba(5, 150, 105, 0.9));
+  backdrop-filter: blur(8px);
+  border: 2px solid #ffffff;
+  border-radius: 12px;
+  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.55), 0 2px 6px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.evac-shelter-badge svg {
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+}
+
+.evac-shelter-elev {
+  font-size: 0.7rem;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 2px 6px;
+  border-radius: 6px;
+  letter-spacing: 0.3px;
+}
+
+.evac-shelter-pointer {
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 8px solid #059669;
+  margin-top: -1px;
+}
+
+.evac-hazard-marker {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: 2.5px solid #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: evac-alert-pulse 1.8s infinite;
+  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.6);
+  color: #ffffff;
+}
+
+

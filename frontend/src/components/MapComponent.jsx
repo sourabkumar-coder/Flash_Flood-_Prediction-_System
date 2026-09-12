@@ -44,87 +44,61 @@ const MapComponent = ({
     }
   };
 
-  // Custom DivIcon for Start / Current Location
+  // Custom DivIcon for Start / Current Location (Radar Pulse Ring + SVG Location Pin)
   const startIcon = L.divIcon({
-    className: 'evac-start-icon',
-    iconSize: [26, 26],
-    iconAnchor: [13, 13],
-    popupAnchor: [0, -14],
+    className: 'evac-start-icon-container',
+    iconSize: [44, 44],
+    iconAnchor: [22, 22],
+    popupAnchor: [0, -22],
     html: `
-      <div style="
-        position: relative;
-        width: 24px;
-        height: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      ">
-        <div style="
-          position: absolute;
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          background: ${getRiskColor(riskLevel)};
-          opacity: 0.4;
-          animation: pulse-ring 1.5s infinite;
-        "></div>
-        <div style="
-          width: 18px;
-          height: 18px;
-          background: ${getRiskColor(riskLevel)};
-          border: 2.5px solid #ffffff;
-          border-radius: 50%;
-          box-shadow: 0 0 10px rgba(0,0,0,0.6);
-        "></div>
+      <div class="evac-start-marker">
+        <div class="evac-radar-ring" style="background: ${getRiskColor(riskLevel)};"></div>
+        <div class="evac-radar-ring-2" style="background: ${getRiskColor(riskLevel)};"></div>
+        <div class="evac-start-pin-core" style="background: ${getRiskColor(riskLevel)};">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 10c0 6-8 12-8 12s-8-6-8-10a8 8 0 0 1 16 0Z"/>
+            <circle cx="12" cy="10" r="3"/>
+          </svg>
+        </div>
       </div>
     `
   });
 
-  // Custom DivIcon for Safe Shelter Destination (Shield)
+  // Custom DivIcon for Safe Shelter Destination (Emerald Glassmorphism Shield Badge with Elevation)
+  const elevationText = evacuationPlan?.elevation_gain_m ? `+${evacuationPlan.elevation_gain_m}m` : 'Safe Zone';
   const shelterIcon = L.divIcon({
-    className: 'evac-shelter-icon',
-    iconSize: [38, 38],
-    iconAnchor: [19, 19],
+    className: 'evac-shelter-icon-container',
+    iconSize: [140, 52],
+    iconAnchor: [70, 50],
+    popupAnchor: [0, -48],
+    html: `
+      <div class="evac-shelter-marker-wrap">
+        <div class="evac-shelter-badge">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff" opacity="0.95">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </svg>
+          <span style="font-size: 0.76rem; letter-spacing: 0.2px;">SHELTER</span>
+          <span class="evac-shelter-elev">${elevationText}</span>
+        </div>
+        <div class="evac-shelter-pointer"></div>
+      </div>
+    `
+  });
+
+  // Custom DivIcon for Hazard / Submerged Road Warning (Danger Alert Badge with Pulse)
+  const hazardIcon = L.divIcon({
+    className: 'evac-hazard-icon-container',
+    iconSize: [36, 36],
+    iconAnchor: [18, 18],
     popupAnchor: [0, -18],
     html: `
-      <div style="
-        width: 36px;
-        height: 36px;
-        background: #10b981;
-        border: 2.5px solid #ffffff;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 15px rgba(16, 185, 129, 0.7), 0 4px 10px rgba(0,0,0,0.4);
-        font-size: 18px;
-        cursor: pointer;
-      ">
-        🛡️
-      </div>
-    `
-  });
-
-  // Custom DivIcon for Hazard / Submerged Road Warning
-  const hazardIcon = L.divIcon({
-    className: 'evac-hazard-icon',
-    iconSize: [28, 28],
-    iconAnchor: [14, 14],
-    popupAnchor: [0, -14],
-    html: `
-      <div style="
-        width: 26px;
-        height: 26px;
-        background: #ef4444;
-        border: 2px solid #ffffff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 12px rgba(239, 68, 68, 0.8);
-        font-size: 13px;
-      ">
-        ⛔
+      <div class="evac-hazard-marker">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/>
+          <line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
       </div>
     `
   });
@@ -232,9 +206,18 @@ const MapComponent = ({
           <Marker
             position={[evacuationPlan.shelter.latitude, evacuationPlan.shelter.longitude]}
             icon={shelterIcon}
+            eventHandlers={{
+              click: () => {
+                const origin = `${position[0]},${position[1]}`;
+                const dest = `${evacuationPlan.shelter.latitude},${evacuationPlan.shelter.longitude}`;
+                const travelMode = (evacuationPlan.mode || 'driving') === 'walking' ? 'walking' : 'driving';
+                const gmapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}&travelmode=${travelMode}`;
+                window.open(gmapsUrl, '_blank', 'noopener,noreferrer');
+              }
+            }}
           >
             <Popup>
-              <div style={{ padding: '8px 10px', minWidth: '200px', fontSize: '12px' }}>
+              <div style={{ padding: '8px 10px', minWidth: '210px', fontSize: '12px' }}>
                 <span style={{ background: '#10b981', color: '#fff', fontSize: '10px', padding: '2px 6px', borderRadius: '4px', fontWeight: 'bold' }}>
                   SAFE RELIEF SHELTER
                 </span>
@@ -247,6 +230,35 @@ const MapComponent = ({
                 <div style={{ marginTop: '6px', fontSize: '11px', color: '#059669', fontWeight: 'bold' }}>
                   Distance: {evacuationPlan.safe_route?.distance_km} km (⏱ ~{evacuationPlan.safe_route?.duration_min} mins)
                 </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const origin = `${position[0]},${position[1]}`;
+                    const dest = `${evacuationPlan.shelter.latitude},${evacuationPlan.shelter.longitude}`;
+                    const travelMode = (evacuationPlan.mode || 'driving') === 'walking' ? 'walking' : 'driving';
+                    const gmapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${dest}&travelmode=${travelMode}`;
+                    window.open(gmapsUrl, '_blank', 'noopener,noreferrer');
+                  }}
+                  style={{
+                    marginTop: '10px',
+                    width: '100%',
+                    padding: '7px 10px',
+                    background: 'linear-gradient(135deg, #10b981, #059669)',
+                    color: '#ffffff',
+                    border: 'none',
+                    borderRadius: '6px',
+                    fontWeight: '700',
+                    fontSize: '11px',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '5px',
+                    boxShadow: '0 2px 8px rgba(16, 185, 129, 0.4)'
+                  }}
+                >
+                  🗺️ Open in Google Maps
+                </button>
               </div>
             </Popup>
           </Marker>
