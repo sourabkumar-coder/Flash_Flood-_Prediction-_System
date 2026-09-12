@@ -3,7 +3,7 @@
   "appName": "Flash Flood Prediction",
   "webDir": "dist",
   "server": {
-    "url": "https://floodprediction-cyan.vercel.app",
-    "cleartext": false
+    "cleartext": true,
+    "androidScheme": "https"
   }
 }
