@@ -1,7 +1,31 @@
 services:
+  # 1. Python FastAPI Backend & ML Engine
   - type: web
     name: flash-flood-backend
     env: python
     rootDir: backend
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: PYTHONPATH
+        value: .
+
+  # 2. Node.js Express & Real-Time Alert Gateway
+  - type: web
+    name: flash-flood-gateway
+    env: node
+    rootDir: gateway
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: GATEWAY_PORT
+        value: 5000
+      - key: FASTAPI_URL
+        fromService:
+          type: web
+          name: flash-flood-backend
+          property: host
