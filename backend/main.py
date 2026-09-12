@@ -48,6 +48,16 @@ async def global_exception_handler(request: Request, exc: Exception):
         content={"detail": str(exc), "type": "InternalServerError"}
     )
 
+@app.get("/")
+def root_status():
+    return {
+        "system": "Flash Flood Early Warning System API",
+        "status": "online",
+        "docs": "/docs",
+        "health": "/health",
+        "version": "1.0.0"
+    }
+
 @app.get("/health")
 @app.get("/api/health")
 def health_check():
