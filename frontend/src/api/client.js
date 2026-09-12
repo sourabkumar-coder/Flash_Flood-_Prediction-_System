@@ -37,11 +37,11 @@ export const evacuationApi = {
 };
 
 export const weatherApi = {
-  getCurrentWeather: (lat, lon) => client.get('/api/weather', { params: { lat, lon } }),
+  getCurrentWeather: (lat, lon) => client.get('/api/weather', { params: { lat, lon } }).catch(() => axios.get('http://localhost:8000/api/weather', { params: { lat, lon } })),
 };
 
 export const newsApi = {
-  getNews: (params) => client.get('/api/news', { params }),
+  getNews: (params) => client.get('/api/news', { params }).catch(() => axios.get('http://localhost:8000/api/news', { params })),
 };
 
 export const chatApi = {
