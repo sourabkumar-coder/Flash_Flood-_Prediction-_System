@@ -112,12 +112,30 @@ _DEFAULT_INFRASTRUCTURE    = 1        # 1 = basic infrastructure present
 
 
 # ---------------------------------------------------------------------------
-# Model loader
+# Model loader (Cached in memory)
 # ---------------------------------------------------------------------------
+_LOADED_MODEL = None
+
 def load_model():
-    if not os.path.exists(MODEL_PATH):
-        raise FileNotFoundError(f"Model not found: {MODEL_PATH}")
-    return joblib.load(MODEL_PATH)
+    global _LOADED_MODEL
+    if _LOADED_MODEL is not None:
+        return _LOADED_MODEL
+
+    candidate_paths = [
+        MODEL_PATH,
+        os.path.join(BACKEND_DIR, "../ml/models/xgboost_flood_model.pkl"),
+        os.path.join(BACKEND_DIR, "ml/models/xgboost_flood_model.pkl"),
+        os.path.join(os.getcwd(), "ml/models/xgboost_flood_model.pkl"),
+        os.path.join(BACKEND_DIR, "../ml/models/flood_prediction_model.pkl"),
+    ]
+
+    for path in candidate_paths:
+        abs_p = os.path.abspath(path)
+        if os.path.exists(abs_p):
+            _LOADED_MODEL = joblib.load(abs_p)
+            return _LOADED_MODEL
+
+    raise FileNotFoundError(f"Model pickle file not found in candidates: {candidate_paths}")
 
 
 # ---------------------------------------------------------------------------
