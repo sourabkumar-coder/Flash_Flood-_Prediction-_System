@@ -15,8 +15,8 @@ export const riskApi = {
   sync: () => client.post('/api/overview/sync').catch(() => axios.post('http://localhost:8000/api/overview/sync')),
   predict: (payload) => client.post('/api/predict', payload).catch(() => axios.post('http://localhost:8000/api/predict', payload)),
   getStates: () => client.get('/api/states').catch(() => axios.get('http://localhost:8000/api/states')),
-  getDistricts: (state) => client.get(`/api/districts/${encodeURIComponent(state)}`).catch(() => axios.get(`http://localhost:8000/api/districts/${encodeURIComponent(state)}`)),
-  getVillages: (district) => client.get(`/api/villages/${encodeURIComponent(district)}`).catch(() => axios.get(`http://localhost:8000/api/villages/${encodeURIComponent(district)}`)),
+  getDistricts: (state) => (state ? client.get(`/api/districts/${encodeURIComponent(state)}`).catch(() => axios.get(`http://localhost:8000/api/districts/${encodeURIComponent(state)}`)) : client.get('/api/districts').catch(() => axios.get('http://localhost:8000/api/districts'))),
+  getVillages: (district, state) => client.get(`/api/villages/${encodeURIComponent(district)}`, { params: { state } }).catch(() => axios.get(`http://localhost:8000/api/villages/${encodeURIComponent(district)}`, { params: { state } })),
   getFeatures: (state, district) => client.get(`/api/features/${encodeURIComponent(state)}/${encodeURIComponent(district)}`).catch(() => axios.get(`http://localhost:8000/api/features/${encodeURIComponent(state)}/${encodeURIComponent(district)}`)),
   reverseGeocode: (lat, lon) => client.get('/api/location/reverse', { params: { lat, lon } }).catch(() => axios.get('http://localhost:8000/api/location/reverse', { params: { lat, lon } })),
 };

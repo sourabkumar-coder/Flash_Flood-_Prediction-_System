@@ -127,6 +127,7 @@ def predict_flood_risk(state_name=None, district_name=None, village_name=None, l
     data = build_features(
         state_name=state_name,
         district_name=district_name,
+        village_name=village_name,
         latitude=latitude,
         longitude=longitude,
     )
