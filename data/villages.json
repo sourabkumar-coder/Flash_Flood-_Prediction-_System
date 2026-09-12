@@ -1,0 +1,3978 @@
+{
+  "Himachal Pradesh": {
+    "Bilaspur": [
+      {
+        "name": "Ghumarwin",
+        "lat": 31.4392,
+        "lon": 76.7118,
+        "elevation_m": 700,
+        "river_basin": "Seer Khad / Sutlej",
+        "vulnerability": "MODERATE"
+      },
+      {
+        "name": "Naina Devi",
+        "lat": 31.306,
+        "lon": 76.54,
+        "elevation_m": 1100,
+        "river_basin": "Gobind Sagar / Sutlej",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Swarghat",
+        "lat": 31.236,
+        "lon": 76.713,
+        "elevation_m": 1220,
+        "river_basin": "Gamrola / Sutlej",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Berthin",
+        "lat": 31.412,
+        "lon": 76.653,
+        "elevation_m": 620,
+        "river_basin": "Seer Khad",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Namhol",
+        "lat": 31.25,
+        "lon": 76.86,
+        "elevation_m": 950,
+        "river_basin": "Ali Khad / Sutlej",
+        "vulnerability": "MODERATE"
+      },
+      {
+        "name": "Jhandutta",
+        "lat": 31.37,
+        "lon": 76.6,
+        "elevation_m": 640,
+        "river_basin": "Sutlej Basin",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Chamba": [
+      {
+        "name": "Bharmour",
+        "lat": 32.44,
+        "lon": 76.54,
+        "elevation_m": 2150,
+        "river_basin": "Budhil / Ravi",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Killar (Pangi Valley)",
+        "lat": 33.09,
+        "lon": 76.53,
+        "elevation_m": 2600,
+        "river_basin": "Chenab / Chandrabhaga",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dalhousie (Sub-basin)",
+        "lat": 32.5387,
+        "lon": 75.971,
+        "elevation_m": 1970,
+        "river_basin": "Ravi River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Salooni",
+        "lat": 32.72,
+        "lon": 76.04,
+        "elevation_m": 1820,
+        "river_basin": "Seul / Ravi",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Chowari",
+        "lat": 32.43,
+        "lon": 76.01,
+        "elevation_m": 980,
+        "river_basin": "Chakki / Ravi",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Tissa (Churah)",
+        "lat": 32.83,
+        "lon": 76.16,
+        "elevation_m": 1570,
+        "river_basin": "Baira / Seul",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Mehla",
+        "lat": 32.5,
+        "lon": 76.19,
+        "elevation_m": 1020,
+        "river_basin": "Ravi River Corridor",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Hamirpur": [
+      {
+        "name": "Nadaun",
+        "lat": 31.78,
+        "lon": 76.34,
+        "elevation_m": 508,
+        "river_basin": "Beas River Floodplain",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Bhoranj",
+        "lat": 31.64,
+        "lon": 76.66,
+        "elevation_m": 820,
+        "river_basin": "Kunah Khad",
+        "vulnerability": "MODERATE"
+      },
+      {
+        "name": "Sujanpur Tira",
+        "lat": 31.83,
+        "lon": 76.5,
+        "elevation_m": 550,
+        "river_basin": "Beas River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Barsar",
+        "lat": 31.52,
+        "lon": 76.44,
+        "elevation_m": 890,
+        "river_basin": "Sukkar Khad",
+        "vulnerability": "MODERATE"
+      },
+      {
+        "name": "Tauni Devi",
+        "lat": 31.72,
+        "lon": 76.62,
+        "elevation_m": 950,
+        "river_basin": "Maan Khad",
+        "vulnerability": "MODERATE"
+      },
+      {
+        "name": "Galore",
+        "lat": 31.61,
+        "lon": 76.43,
+        "elevation_m": 740,
+        "river_basin": "Pung Khad",
+        "vulnerability": "MODERATE"
+      }
+    ],
+    "Kangra": [
+      {
+        "name": "Dharamshala (Bhagsunag)",
+        "lat": 32.246,
+        "lon": 76.353,
+        "elevation_m": 1750,
+        "river_basin": "Manjhi / Beas",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Palampur (Neugal Gorge)",
+        "lat": 32.1109,
+        "lon": 76.5363,
+        "elevation_m": 1220,
+        "river_basin": "Neugal Khad",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Baijnath",
+        "lat": 32.05,
+        "lon": 76.65,
+        "elevation_m": 1125,
+        "river_basin": "Binwa / Beas",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Nurpur",
+        "lat": 32.3,
+        "lon": 75.89,
+        "elevation_m": 640,
+        "river_basin": "Jabbar Khad",
+        "vulnerability": "MODERATE"
+      },
+      {
+        "name": "Dehra Gopipur",
+        "lat": 31.89,
+        "lon": 76.22,
+        "elevation_m": 450,
+        "river_basin": "Pong Dam / Beas",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Jawali",
+        "lat": 32.15,
+        "lon": 76.01,
+        "elevation_m": 530,
+        "river_basin": "Dehar Khad",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Shahpur",
+        "lat": 32.22,
+        "lon": 76.18,
+        "elevation_m": 720,
+        "river_basin": "Gaj Khad",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Nagrota Bagwan",
+        "lat": 32.11,
+        "lon": 76.38,
+        "elevation_m": 880,
+        "river_basin": "Baner Khad",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Kinnaur": [
+      {
+        "name": "Kalpa",
+        "lat": 31.54,
+        "lon": 78.25,
+        "elevation_m": 2960,
+        "river_basin": "Sutlej River Gorge",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sangla (Baspa Valley)",
+        "lat": 31.4244,
+        "lon": 78.2619,
+        "elevation_m": 2680,
+        "river_basin": "Baspa River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Pooh",
+        "lat": 31.76,
+        "lon": 78.59,
+        "elevation_m": 2800,
+        "river_basin": "Spiti-Sutlej Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Reckong Peo",
+        "lat": 31.54,
+        "lon": 78.27,
+        "elevation_m": 2290,
+        "river_basin": "Sutlej River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Nichar (Bhaba Valley)",
+        "lat": 31.56,
+        "lon": 77.96,
+        "elevation_m": 2150,
+        "river_basin": "Wangpo / Sutlej",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Chitkul",
+        "lat": 31.35,
+        "lon": 78.44,
+        "elevation_m": 3450,
+        "river_basin": "Upper Baspa",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Moorang",
+        "lat": 31.6,
+        "lon": 78.45,
+        "elevation_m": 2590,
+        "river_basin": "Tidong / Sutlej",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Kullu": [
+      {
+        "name": "Manali (Old Manali)",
+        "lat": 32.2432,
+        "lon": 77.1892,
+        "elevation_m": 2050,
+        "river_basin": "Beas River Headwaters",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Palchan / Solang",
+        "lat": 32.316,
+        "lon": 77.157,
+        "elevation_m": 2350,
+        "river_basin": "Solang Nullah / Beas",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kasol (Parvati Valley)",
+        "lat": 32.01,
+        "lon": 77.315,
+        "elevation_m": 1580,
+        "river_basin": "Parvati River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Manikaran",
+        "lat": 32.03,
+        "lon": 77.35,
+        "elevation_m": 1760,
+        "river_basin": "Parvati River Gorge",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Bhuntar (Confluence)",
+        "lat": 31.879,
+        "lon": 77.152,
+        "elevation_m": 1089,
+        "river_basin": "Beas-Parvati Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Naggar",
+        "lat": 32.138,
+        "lon": 77.17,
+        "elevation_m": 1760,
+        "river_basin": "Beas Valley Slope",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Banjar (Tirthan Valley)",
+        "lat": 31.637,
+        "lon": 77.344,
+        "elevation_m": 1520,
+        "river_basin": "Tirthan River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Jibhi",
+        "lat": 31.605,
+        "lon": 77.387,
+        "elevation_m": 1600,
+        "river_basin": "Tirthan Basin",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Anni",
+        "lat": 31.36,
+        "lon": 77.43,
+        "elevation_m": 1240,
+        "river_basin": "Kurpan Khad / Sutlej",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Nirmand",
+        "lat": 31.43,
+        "lon": 77.58,
+        "elevation_m": 1450,
+        "river_basin": "Sutlej Catchment",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Lahaul and Spiti": [
+      {
+        "name": "Keylong",
+        "lat": 32.571,
+        "lon": 77.032,
+        "elevation_m": 3080,
+        "river_basin": "Bhaga River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kaza",
+        "lat": 32.227,
+        "lon": 78.071,
+        "elevation_m": 3650,
+        "river_basin": "Spiti River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Udaipur (Pattan Valley)",
+        "lat": 32.73,
+        "lon": 76.66,
+        "elevation_m": 2740,
+        "river_basin": "Chandrabhaga",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sissu",
+        "lat": 32.48,
+        "lon": 77.12,
+        "elevation_m": 3120,
+        "river_basin": "Chandra River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Tabo",
+        "lat": 32.09,
+        "lon": 78.38,
+        "elevation_m": 3280,
+        "river_basin": "Spiti River Basin",
+        "vulnerability": "MODERATE"
+      },
+      {
+        "name": "Losar",
+        "lat": 32.45,
+        "lon": 77.75,
+        "elevation_m": 4080,
+        "river_basin": "Upper Spiti",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Darcha",
+        "lat": 32.68,
+        "lon": 77.21,
+        "elevation_m": 3360,
+        "river_basin": "Bhaga-Zanskar Gateway",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Mandi": [
+      {
+        "name": "Mandi Urban / Purani Mandi",
+        "lat": 31.7087,
+        "lon": 76.932,
+        "elevation_m": 760,
+        "river_basin": "Beas River / Suketi Khad",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Pandoh",
+        "lat": 31.67,
+        "lon": 76.98,
+        "elevation_m": 880,
+        "river_basin": "Pandoh Dam / Beas",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Aut (Gorge)",
+        "lat": 31.75,
+        "lon": 77.16,
+        "elevation_m": 920,
+        "river_basin": "Larji / Beas Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Jogindernagar",
+        "lat": 31.98,
+        "lon": 76.77,
+        "elevation_m": 1220,
+        "river_basin": "Rana Khad / Uhl",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Sundernagar",
+        "lat": 31.53,
+        "lon": 76.89,
+        "elevation_m": 860,
+        "river_basin": "Suketi Basin / BSL Canal",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Karsog",
+        "lat": 31.38,
+        "lon": 77.2,
+        "elevation_m": 1400,
+        "river_basin": "Amla / Sutlej",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Thunag (Seraj)",
+        "lat": 31.55,
+        "lon": 77.16,
+        "elevation_m": 1850,
+        "river_basin": "Bakhlidhar / Beas",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Janjehli",
+        "lat": 31.48,
+        "lon": 77.22,
+        "elevation_m": 2150,
+        "river_basin": "Bakhli Khad",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Shimla": [
+      {
+        "name": "Rampur Bushahr",
+        "lat": 31.397,
+        "lon": 77.629,
+        "elevation_m": 1005,
+        "river_basin": "Sutlej River Canyon",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Rohru (Pabbar Valley)",
+        "lat": 31.2,
+        "lon": 77.75,
+        "elevation_m": 1525,
+        "river_basin": "Pabbar River / Tons",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Jubbal",
+        "lat": 31.11,
+        "lon": 77.66,
+        "elevation_m": 1900,
+        "river_basin": "Pabbar Tributary",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Theog",
+        "lat": 31.12,
+        "lon": 77.35,
+        "elevation_m": 2280,
+        "river_basin": "Giri River Catchment",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Kotkhai",
+        "lat": 31.12,
+        "lon": 77.53,
+        "elevation_m": 1800,
+        "river_basin": "Giri Ganga",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Chopal",
+        "lat": 30.95,
+        "lon": 77.58,
+        "elevation_m": 2350,
+        "river_basin": "Shalvi / Tons",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Suni / Tattapani",
+        "lat": 31.24,
+        "lon": 77.17,
+        "elevation_m": 670,
+        "river_basin": "Sutlej River Basin",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kumarsain",
+        "lat": 31.31,
+        "lon": 77.44,
+        "elevation_m": 1760,
+        "river_basin": "Sutlej Slope",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Sirmaur": [
+      {
+        "name": "Paonta Sahib",
+        "lat": 30.44,
+        "lon": 77.62,
+        "elevation_m": 398,
+        "river_basin": "Yamuna-Bata Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Nahan",
+        "lat": 30.56,
+        "lon": 77.3,
+        "elevation_m": 932,
+        "river_basin": "Markanda Catchment",
+        "vulnerability": "MODERATE"
+      },
+      {
+        "name": "Rajgarh",
+        "lat": 30.85,
+        "lon": 77.3,
+        "elevation_m": 2130,
+        "river_basin": "Giri River Valley",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Sangrah",
+        "lat": 30.68,
+        "lon": 77.45,
+        "elevation_m": 1780,
+        "river_basin": "Renuka / Giri",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Shillai",
+        "lat": 30.67,
+        "lon": 77.7,
+        "elevation_m": 1600,
+        "river_basin": "Tons River Gorge",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sarahan",
+        "lat": 30.74,
+        "lon": 77.2,
+        "elevation_m": 1650,
+        "river_basin": "Jalall / Giri",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Solan": [
+      {
+        "name": "Kasauli (Dharampur)",
+        "lat": 30.9,
+        "lon": 76.96,
+        "elevation_m": 1800,
+        "river_basin": "Kaushalya River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Nalagarh",
+        "lat": 31.04,
+        "lon": 76.72,
+        "elevation_m": 372,
+        "river_basin": "Sirsa River Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Baddi Industrial Valley",
+        "lat": 30.95,
+        "lon": 76.79,
+        "elevation_m": 415,
+        "river_basin": "Ratta / Sirsa",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Arki",
+        "lat": 31.15,
+        "lon": 76.96,
+        "elevation_m": 1200,
+        "river_basin": "Gamber River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Kandaghat",
+        "lat": 30.96,
+        "lon": 77.11,
+        "elevation_m": 1430,
+        "river_basin": "Ashwani Khad",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Una": [
+      {
+        "name": "Amb",
+        "lat": 31.68,
+        "lon": 76.12,
+        "elevation_m": 420,
+        "river_basin": "Swan River (River of Sorrow)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Haroli",
+        "lat": 31.42,
+        "lon": 76.22,
+        "elevation_m": 380,
+        "river_basin": "Swan River Basin",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Gagret",
+        "lat": 31.66,
+        "lon": 75.98,
+        "elevation_m": 440,
+        "river_basin": "Swan Tributaries",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Bangana",
+        "lat": 31.53,
+        "lon": 76.4,
+        "elevation_m": 580,
+        "river_basin": "Gobind Sagar Slope",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Mehatpur",
+        "lat": 31.39,
+        "lon": 76.28,
+        "elevation_m": 360,
+        "river_basin": "Lower Swan Floodplain",
+        "vulnerability": "CRITICAL"
+      }
+    ]
+  },
+  "Uttarakhand": {
+    "Chamoli": [
+      {
+        "name": "Joshimath (Jyotirmath)",
+        "lat": 30.556,
+        "lon": 79.566,
+        "elevation_m": 1890,
+        "river_basin": "Alaknanda-Dhauliganga",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Raini (Rishiganga Valley)",
+        "lat": 30.485,
+        "lon": 79.692,
+        "elevation_m": 2050,
+        "river_basin": "Rishiganga / Dhauliganga",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Tapovan",
+        "lat": 30.493,
+        "lon": 79.628,
+        "elevation_m": 1920,
+        "river_basin": "Dhauliganga River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Badrinath / Mana",
+        "lat": 30.743,
+        "lon": 79.493,
+        "elevation_m": 3133,
+        "river_basin": "Alaknanda Headwaters",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Karnaprayag",
+        "lat": 30.26,
+        "lon": 79.22,
+        "elevation_m": 860,
+        "river_basin": "Alaknanda-Pindar Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Tharali",
+        "lat": 30.06,
+        "lon": 79.5,
+        "elevation_m": 1150,
+        "river_basin": "Pindar River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Pipalkoti",
+        "lat": 30.43,
+        "lon": 79.43,
+        "elevation_m": 1260,
+        "river_basin": "Alaknanda Gorge",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Ghat (Nandaprayag)",
+        "lat": 30.27,
+        "lon": 79.4,
+        "elevation_m": 1330,
+        "river_basin": "Nandakini River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Rudraprayag": [
+      {
+        "name": "Kedarnath Dham",
+        "lat": 30.735,
+        "lon": 79.0669,
+        "elevation_m": 3583,
+        "river_basin": "Mandakini Headwaters",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sonprayag / Gaurikund",
+        "lat": 30.63,
+        "lon": 78.99,
+        "elevation_m": 1820,
+        "river_basin": "Mandakini-Vasuki Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Guptkashi",
+        "lat": 30.52,
+        "lon": 79.08,
+        "elevation_m": 1319,
+        "river_basin": "Mandakini River Valley",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Ukhimath",
+        "lat": 30.51,
+        "lon": 79.1,
+        "elevation_m": 1311,
+        "river_basin": "Mandakini / Madhyamaheshwar",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Agastyamuni",
+        "lat": 30.39,
+        "lon": 78.98,
+        "elevation_m": 820,
+        "river_basin": "Mandakini Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Tilwara",
+        "lat": 30.34,
+        "lon": 78.97,
+        "elevation_m": 760,
+        "river_basin": "Mandakini-Laster Confluence",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Uttarkashi": [
+      {
+        "name": "Barkot",
+        "lat": 30.81,
+        "lon": 78.21,
+        "elevation_m": 1220,
+        "river_basin": "Yamuna River Valley",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Harsil / Dharali",
+        "lat": 31.04,
+        "lon": 78.74,
+        "elevation_m": 2620,
+        "river_basin": "Bhagirathi River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Gangotri",
+        "lat": 30.99,
+        "lon": 78.94,
+        "elevation_m": 3100,
+        "river_basin": "Bhagirathi Headwaters",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Bhatwari",
+        "lat": 30.81,
+        "lon": 78.6,
+        "elevation_m": 1580,
+        "river_basin": "Bhagirathi Gorge",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Purola",
+        "lat": 30.87,
+        "lon": 78.08,
+        "elevation_m": 1524,
+        "river_basin": "Kamal River / Tons",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Mori (Tons Valley)",
+        "lat": 31.02,
+        "lon": 78.04,
+        "elevation_m": 1150,
+        "river_basin": "Tons River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dunda",
+        "lat": 30.66,
+        "lon": 78.36,
+        "elevation_m": 1050,
+        "river_basin": "Bhagirathi River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Dehradun": [
+      {
+        "name": "Rishikesh (Triveni Ghat)",
+        "lat": 30.0869,
+        "lon": 78.2676,
+        "elevation_m": 372,
+        "river_basin": "Ganga-Chandrabhaga",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Mussoorie (Kempty Falls)",
+        "lat": 30.4598,
+        "lon": 78.0644,
+        "elevation_m": 2005,
+        "river_basin": "Yamuna-Song Basin",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Vikasnagar",
+        "lat": 30.47,
+        "lon": 77.77,
+        "elevation_m": 450,
+        "river_basin": "Yamuna / Asan Barrage",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Chakrata",
+        "lat": 30.7,
+        "lon": 77.86,
+        "elevation_m": 2118,
+        "river_basin": "Tons-Yamuna Ridge",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Doiwala",
+        "lat": 30.17,
+        "lon": 78.12,
+        "elevation_m": 500,
+        "river_basin": "Song River Floodplain",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Kalsi",
+        "lat": 30.53,
+        "lon": 77.85,
+        "elevation_m": 540,
+        "river_basin": "Yamuna-Tons Confluence",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Haridwar": [
+      {
+        "name": "Haridwar (Har Ki Pauri)",
+        "lat": 29.9457,
+        "lon": 78.1642,
+        "elevation_m": 314,
+        "river_basin": "Ganga Canal & Mainstem",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Roorkee",
+        "lat": 29.8543,
+        "lon": 77.888,
+        "elevation_m": 268,
+        "river_basin": "Solani River / Upper Ganga",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Laksar",
+        "lat": 29.76,
+        "lon": 78.04,
+        "elevation_m": 255,
+        "river_basin": "Banganga / Ganga Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Bhagwanpur",
+        "lat": 29.94,
+        "lon": 77.81,
+        "elevation_m": 260,
+        "river_basin": "Solani Basin",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Nainital": [
+      {
+        "name": "Haldwani (Gaula Barrage)",
+        "lat": 29.2183,
+        "lon": 79.513,
+        "elevation_m": 424,
+        "river_basin": "Gaula River Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Ramnagar",
+        "lat": 29.39,
+        "lon": 79.12,
+        "elevation_m": 345,
+        "river_basin": "Kosi River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Bhowali",
+        "lat": 29.38,
+        "lon": 79.52,
+        "elevation_m": 1706,
+        "river_basin": "Kshipra / Gaula Catchment",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Mukteshwar",
+        "lat": 29.47,
+        "lon": 79.65,
+        "elevation_m": 2171,
+        "river_basin": "Ramganga Slope",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Kaladhungi",
+        "lat": 29.28,
+        "lon": 79.35,
+        "elevation_m": 390,
+        "river_basin": "Baur River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Betalghat",
+        "lat": 29.56,
+        "lon": 79.35,
+        "elevation_m": 850,
+        "river_basin": "Kosi River Valley",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Pithoragarh": [
+      {
+        "name": "Dharchula",
+        "lat": 29.85,
+        "lon": 80.53,
+        "elevation_m": 940,
+        "river_basin": "Kali River (India-Nepal Border)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Munsyari (Goriganga)",
+        "lat": 30.07,
+        "lon": 80.24,
+        "elevation_m": 2200,
+        "river_basin": "Goriganga River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Tawaghat",
+        "lat": 29.96,
+        "lon": 80.6,
+        "elevation_m": 1050,
+        "river_basin": "Dhauliganga-Kali Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Berinag",
+        "lat": 29.78,
+        "lon": 80.05,
+        "elevation_m": 1860,
+        "river_basin": "Sarju-Ramganga Ridge",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Didihat",
+        "lat": 29.8,
+        "lon": 80.25,
+        "elevation_m": 1725,
+        "river_basin": "Charandhar / Kali",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Jhulaghat",
+        "lat": 29.57,
+        "lon": 80.38,
+        "elevation_m": 580,
+        "river_basin": "Kali River Gorge",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Almora": [
+      {
+        "name": "Ranikhet",
+        "lat": 29.64,
+        "lon": 79.43,
+        "elevation_m": 1869,
+        "river_basin": "Gagas / Kosi",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Chaukhutia",
+        "lat": 29.88,
+        "lon": 79.35,
+        "elevation_m": 940,
+        "river_basin": "Western Ramganga",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Someshwar",
+        "lat": 29.78,
+        "lon": 79.6,
+        "elevation_m": 1420,
+        "river_basin": "Kosi River Valley",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Bhikiyasain",
+        "lat": 29.7,
+        "lon": 79.27,
+        "elevation_m": 720,
+        "river_basin": "Ramganga-Gagas Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dwarahat",
+        "lat": 29.78,
+        "lon": 79.43,
+        "elevation_m": 1510,
+        "river_basin": "Kosi Catchment",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Bageshwar": [
+      {
+        "name": "Kapkot",
+        "lat": 29.93,
+        "lon": 79.9,
+        "elevation_m": 1080,
+        "river_basin": "Sarju River Basin",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Song (Pindar-Sarju Trek)",
+        "lat": 30.03,
+        "lon": 79.95,
+        "elevation_m": 1650,
+        "river_basin": "Sarju Headwaters",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Garur (Baijnath Valley)",
+        "lat": 29.88,
+        "lon": 79.62,
+        "elevation_m": 1100,
+        "river_basin": "Garur Ganga / Gomati",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Kanda",
+        "lat": 29.83,
+        "lon": 79.88,
+        "elevation_m": 1520,
+        "river_basin": "Sarju Slope",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Champawat": [
+      {
+        "name": "Lohaghat",
+        "lat": 29.41,
+        "lon": 80.09,
+        "elevation_m": 1754,
+        "river_basin": "Lohawati / Kali",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Tanakpur",
+        "lat": 29.07,
+        "lon": 80.11,
+        "elevation_m": 255,
+        "river_basin": "Sharda River (Barrage)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Pati",
+        "lat": 29.35,
+        "lon": 79.93,
+        "elevation_m": 1820,
+        "river_basin": "Ladhiya River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Devidhura",
+        "lat": 29.42,
+        "lon": 79.87,
+        "elevation_m": 2100,
+        "river_basin": "Ladhiya Catchment",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Pauri Garhwal": [
+      {
+        "name": "Srinagar Garhwal",
+        "lat": 30.22,
+        "lon": 78.78,
+        "elevation_m": 560,
+        "river_basin": "Alaknanda Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kotdwar",
+        "lat": 29.75,
+        "lon": 78.53,
+        "elevation_m": 454,
+        "river_basin": "Khoh River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Satpuli",
+        "lat": 29.92,
+        "lon": 78.71,
+        "elevation_m": 650,
+        "river_basin": "East Nayar River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Thalisain",
+        "lat": 30.02,
+        "lon": 79.05,
+        "elevation_m": 1690,
+        "river_basin": "Nayar Catchment",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Lansdowne",
+        "lat": 29.83,
+        "lon": 78.68,
+        "elevation_m": 1700,
+        "river_basin": "Khoh Headwaters",
+        "vulnerability": "MODERATE"
+      }
+    ],
+    "Tehri Garhwal": [
+      {
+        "name": "Devprayag (Confluence)",
+        "lat": 30.146,
+        "lon": 78.599,
+        "elevation_m": 472,
+        "river_basin": "Bhagirathi-Alaknanda Confluence (Birth of Ganga)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "New Tehri (Dam Rim)",
+        "lat": 30.38,
+        "lon": 78.48,
+        "elevation_m": 1750,
+        "river_basin": "Tehri Dam Reservoir / Bhagirathi",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Chamba",
+        "lat": 30.35,
+        "lon": 78.4,
+        "elevation_m": 1600,
+        "river_basin": "Bhagirathi Catchment",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Ghuttu (Bhilangana Valley)",
+        "lat": 30.55,
+        "lon": 78.8,
+        "elevation_m": 1550,
+        "river_basin": "Bhilangana River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kirtinagar",
+        "lat": 30.21,
+        "lon": 78.74,
+        "elevation_m": 570,
+        "river_basin": "Alaknanda Basin",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Udham Singh Nagar": [
+      {
+        "name": "Kashipur",
+        "lat": 29.21,
+        "lon": 78.96,
+        "elevation_m": 218,
+        "river_basin": "Dhela River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Rudrapur",
+        "lat": 28.98,
+        "lon": 79.4,
+        "elevation_m": 205,
+        "river_basin": "Kalyani River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Khatima",
+        "lat": 28.92,
+        "lon": 79.97,
+        "elevation_m": 210,
+        "river_basin": "Lohia / Sharda Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sitarganj",
+        "lat": 28.93,
+        "lon": 79.7,
+        "elevation_m": 215,
+        "river_basin": "Baigul / Nanak Sagar",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Kichha",
+        "lat": 28.91,
+        "lon": 79.51,
+        "elevation_m": 200,
+        "river_basin": "Gola / Kichha River",
+        "vulnerability": "CRITICAL"
+      }
+    ]
+  },
+  "Arunachal Pradesh": {
+    "Tawang": [
+      {
+        "name": "Tawang Town",
+        "lat": 27.586,
+        "lon": 91.859,
+        "elevation_m": 2669,
+        "river_basin": "Tawang Chu",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Jang (Nuranang Falls)",
+        "lat": 27.57,
+        "lon": 91.98,
+        "elevation_m": 2150,
+        "river_basin": "Tawang Chu Basin",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Lumla",
+        "lat": 27.53,
+        "lon": 91.71,
+        "elevation_m": 2200,
+        "river_basin": "Namjang Chu",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Zemithang (Nyamjang Chu)",
+        "lat": 27.7,
+        "lon": 91.72,
+        "elevation_m": 2100,
+        "river_basin": "Nyamjang Chu (Border Gorge)",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "West Kameng": [
+      {
+        "name": "Dirang Valley",
+        "lat": 27.35,
+        "lon": 92.23,
+        "elevation_m": 1560,
+        "river_basin": "Dirang Chu / Kameng",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Bhalukpong",
+        "lat": 27.01,
+        "lon": 92.65,
+        "elevation_m": 213,
+        "river_basin": "Kameng River Gorge Entrance",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Bomdila",
+        "lat": 27.26,
+        "lon": 92.42,
+        "elevation_m": 2415,
+        "river_basin": "Kameng Ridge",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Rupa",
+        "lat": 27.2,
+        "lon": 92.4,
+        "elevation_m": 1400,
+        "river_basin": "Tenga River Valley",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "East Kameng": [
+      {
+        "name": "Seppa",
+        "lat": 27.35,
+        "lon": 93.03,
+        "elevation_m": 363,
+        "river_basin": "Kameng River Mainstream",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Chayang Tajo",
+        "lat": 27.61,
+        "lon": 93.13,
+        "elevation_m": 1250,
+        "river_basin": "Kameng Headwaters",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Seijosa",
+        "lat": 26.95,
+        "lon": 93.02,
+        "elevation_m": 140,
+        "river_basin": "Pakke River",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Papum Pare": [
+      {
+        "name": "Naharlagun / Nirjuli",
+        "lat": 27.1,
+        "lon": 93.69,
+        "elevation_m": 290,
+        "river_basin": "Dikrong River Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Doimukh",
+        "lat": 27.14,
+        "lon": 93.75,
+        "elevation_m": 240,
+        "river_basin": "Pare / Dikrong Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sagalee",
+        "lat": 27.24,
+        "lon": 93.43,
+        "elevation_m": 610,
+        "river_basin": "Panyor River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Kimin",
+        "lat": 27.31,
+        "lon": 93.97,
+        "elevation_m": 190,
+        "river_basin": "Ranga River",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "East Siang": [
+      {
+        "name": "Pasighat",
+        "lat": 28.066,
+        "lon": 95.326,
+        "elevation_m": 155,
+        "river_basin": "Siang (Brahmaputra Entry)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Mebo",
+        "lat": 28.12,
+        "lon": 95.44,
+        "elevation_m": 140,
+        "river_basin": "Left Bank Siang Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Ruksin",
+        "lat": 27.84,
+        "lon": 95.23,
+        "elevation_m": 130,
+        "river_basin": "Sille River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Upper Siang": [
+      {
+        "name": "Yingkiong",
+        "lat": 28.61,
+        "lon": 94.92,
+        "elevation_m": 620,
+        "river_basin": "Siang River Canyon",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Tuting",
+        "lat": 28.99,
+        "lon": 94.9,
+        "elevation_m": 580,
+        "river_basin": "Yarlung Tsangpo / Siang Entry",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Gelling",
+        "lat": 29.13,
+        "lon": 94.95,
+        "elevation_m": 1100,
+        "river_basin": "Border Siang Gorge",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Lower Dibang Valley": [
+      {
+        "name": "Roing",
+        "lat": 28.14,
+        "lon": 95.84,
+        "elevation_m": 390,
+        "river_basin": "Dibang River Alluvial Fan",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dambuk",
+        "lat": 28.19,
+        "lon": 95.6,
+        "elevation_m": 220,
+        "river_basin": "Dibang River Braided Channels",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Hunli",
+        "lat": 28.32,
+        "lon": 95.96,
+        "elevation_m": 1250,
+        "river_basin": "Eze River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Dibang Valley": [
+      {
+        "name": "Anini",
+        "lat": 28.8,
+        "lon": 95.9,
+        "elevation_m": 1968,
+        "river_basin": "Dri / Mathun River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Etalin",
+        "lat": 28.61,
+        "lon": 95.88,
+        "elevation_m": 720,
+        "river_basin": "Dri-Tangon Confluence",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Lohit": [
+      {
+        "name": "Tezu",
+        "lat": 27.92,
+        "lon": 96.16,
+        "elevation_m": 210,
+        "river_basin": "Lohit River Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sunpura",
+        "lat": 27.87,
+        "lon": 95.99,
+        "elevation_m": 150,
+        "river_basin": "Lohit Basin",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Wakro",
+        "lat": 27.77,
+        "lon": 96.35,
+        "elevation_m": 420,
+        "river_basin": "Kamlang River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Namsai": [
+      {
+        "name": "Namsai Town",
+        "lat": 27.67,
+        "lon": 95.87,
+        "elevation_m": 140,
+        "river_basin": "Dihing / Noa-Dihing Basin",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Chowkham",
+        "lat": 27.75,
+        "lon": 95.97,
+        "elevation_m": 160,
+        "river_basin": "Bereng River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Lekang (Mahadevpur)",
+        "lat": 27.63,
+        "lon": 95.73,
+        "elevation_m": 130,
+        "river_basin": "Noa Dihing Lowlands",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Changlang": [
+      {
+        "name": "Miao",
+        "lat": 27.49,
+        "lon": 96.21,
+        "elevation_m": 240,
+        "river_basin": "Noa-Dihing Valley",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Jairampur",
+        "lat": 27.33,
+        "lon": 96.04,
+        "elevation_m": 215,
+        "river_basin": "Namchik River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Bordumsa",
+        "lat": 27.55,
+        "lon": 95.86,
+        "elevation_m": 145,
+        "river_basin": "Burhi Dihing Floodplain",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Tirap": [
+      {
+        "name": "Khonsa",
+        "lat": 26.98,
+        "lon": 95.5,
+        "elevation_m": 1215,
+        "river_basin": "Tirap River Valley",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Deomali",
+        "lat": 27.18,
+        "lon": 95.48,
+        "elevation_m": 135,
+        "river_basin": "Namsang River",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Longding": [
+      {
+        "name": "Longding Town",
+        "lat": 26.86,
+        "lon": 95.27,
+        "elevation_m": 1100,
+        "river_basin": "Tisa River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Kanubari",
+        "lat": 26.96,
+        "lon": 95.14,
+        "elevation_m": 220,
+        "river_basin": "Disang River Headwaters",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "West Siang": [
+      {
+        "name": "Aalo (Along)",
+        "lat": 28.17,
+        "lon": 94.8,
+        "elevation_m": 610,
+        "river_basin": "Yomgo / Siyom River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Liromoba",
+        "lat": 28.27,
+        "lon": 94.62,
+        "elevation_m": 850,
+        "river_basin": "Siyom Catchment",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Siang": [
+      {
+        "name": "Pangin",
+        "lat": 28.2,
+        "lon": 94.98,
+        "elevation_m": 350,
+        "river_basin": "Siyom-Siang Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Boleng",
+        "lat": 28.33,
+        "lon": 94.97,
+        "elevation_m": 420,
+        "river_basin": "Siang Gorge",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Anjaw": [
+      {
+        "name": "Hawai",
+        "lat": 27.88,
+        "lon": 96.53,
+        "elevation_m": 1296,
+        "river_basin": "Lohit River Canyon",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Hayuliang",
+        "lat": 28.07,
+        "lon": 96.54,
+        "elevation_m": 750,
+        "river_basin": "Lohit-Delai Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kibithu / Walong",
+        "lat": 28.23,
+        "lon": 97.02,
+        "elevation_m": 1300,
+        "river_basin": "Upper Lohit (Border Gorge)",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Lower Subansiri": [
+      {
+        "name": "Ziro Valley",
+        "lat": 27.56,
+        "lon": 93.83,
+        "elevation_m": 1572,
+        "river_basin": "Kele River Basin",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Yachuli",
+        "lat": 27.5,
+        "lon": 93.77,
+        "elevation_m": 1150,
+        "river_basin": "Ranga River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Upper Subansiri": [
+      {
+        "name": "Daporijo",
+        "lat": 27.98,
+        "lon": 94.22,
+        "elevation_m": 300,
+        "river_basin": "Subansiri River Mainstream",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dumporijo",
+        "lat": 27.97,
+        "lon": 94.27,
+        "elevation_m": 280,
+        "river_basin": "Subansiri Valley",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Kurung Kumey": [
+      {
+        "name": "Koloriang",
+        "lat": 27.9,
+        "lon": 93.35,
+        "elevation_m": 1040,
+        "river_basin": "Kurung River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Nyapin",
+        "lat": 27.67,
+        "lon": 93.44,
+        "elevation_m": 880,
+        "river_basin": "Panyor Basin",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Kra Daadi": [
+      {
+        "name": "Palin",
+        "lat": 27.72,
+        "lon": 93.6,
+        "elevation_m": 1080,
+        "river_basin": "Palin River / Subansiri",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Lower Siang": [
+      {
+        "name": "Likabali",
+        "lat": 27.65,
+        "lon": 94.69,
+        "elevation_m": 140,
+        "river_basin": "Simen / Siji River",
+        "vulnerability": "CRITICAL"
+      }
+    ]
+  },
+  "Assam": {
+    "Dhemaji": [
+      {
+        "name": "Silapathar",
+        "lat": 27.59,
+        "lon": 94.72,
+        "elevation_m": 102,
+        "river_basin": "Brahmaputra / Gainadi",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Jonai (Border Confluence)",
+        "lat": 27.78,
+        "lon": 95.16,
+        "elevation_m": 115,
+        "river_basin": "Lali / Brahmaputra",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sissiborgaon",
+        "lat": 27.46,
+        "lon": 94.68,
+        "elevation_m": 98,
+        "river_basin": "Ji Dhol (River of Sorrow)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Gogamukh",
+        "lat": 27.48,
+        "lon": 94.39,
+        "elevation_m": 105,
+        "river_basin": "Subansiri Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Machkhowa",
+        "lat": 27.32,
+        "lon": 94.52,
+        "elevation_m": 95,
+        "river_basin": "Brahmaputra Lowlands",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Dibrugarh": [
+      {
+        "name": "Chabua",
+        "lat": 27.48,
+        "lon": 95.17,
+        "elevation_m": 106,
+        "river_basin": "Brahmaputra-Dibru Basin",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Naharkatia",
+        "lat": 27.28,
+        "lon": 95.34,
+        "elevation_m": 120,
+        "river_basin": "Burhi Dihing River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Moranhat",
+        "lat": 27.18,
+        "lon": 94.93,
+        "elevation_m": 100,
+        "river_basin": "Disang River Floodplain",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Tingkhong",
+        "lat": 27.23,
+        "lon": 95.07,
+        "elevation_m": 105,
+        "river_basin": "Tipling River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Tinsukia": [
+      {
+        "name": "Doomdooma",
+        "lat": 27.57,
+        "lon": 95.57,
+        "elevation_m": 125,
+        "river_basin": "Doomdooma River / Brahmaputra",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sadiya (Kundil)",
+        "lat": 27.83,
+        "lon": 95.66,
+        "elevation_m": 135,
+        "river_basin": "Lohit-Dibang-Brahmaputra Tri-junction",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Margherita",
+        "lat": 27.28,
+        "lon": 95.68,
+        "elevation_m": 160,
+        "river_basin": "Burhi Dihing",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Kakopathar",
+        "lat": 27.61,
+        "lon": 95.7,
+        "elevation_m": 130,
+        "river_basin": "Noa-Dihing Basin",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Lakhimpur": [
+      {
+        "name": "North Lakhimpur Town",
+        "lat": 27.23,
+        "lon": 94.1,
+        "elevation_m": 101,
+        "river_basin": "Ranganadi Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Bihpuria",
+        "lat": 27.02,
+        "lon": 93.9,
+        "elevation_m": 92,
+        "river_basin": "Dikrong River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dhakuakhana",
+        "lat": 27.24,
+        "lon": 94.45,
+        "elevation_m": 95,
+        "river_basin": "Charikadia / Brahmaputra",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Narayanpur",
+        "lat": 26.99,
+        "lon": 93.85,
+        "elevation_m": 90,
+        "river_basin": "Pichala River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Majuli": [
+      {
+        "name": "Garamur (District HQ)",
+        "lat": 26.97,
+        "lon": 94.25,
+        "elevation_m": 88,
+        "river_basin": "Brahmaputra-Kherkutia Channel",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kamalabari Ghat",
+        "lat": 26.92,
+        "lon": 94.18,
+        "elevation_m": 85,
+        "river_basin": "Southern Brahmaputra Mainstream",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Jengraimukh",
+        "lat": 27.08,
+        "lon": 94.41,
+        "elevation_m": 90,
+        "river_basin": "Subansiri River Island Rim",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Bongaon",
+        "lat": 26.98,
+        "lon": 94.33,
+        "elevation_m": 87,
+        "river_basin": "Central Majuli Floodplain",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Kamrup Metropolitan": [
+      {
+        "name": "Guwahati (Bharalu Outfall)",
+        "lat": 26.18,
+        "lon": 91.75,
+        "elevation_m": 55,
+        "river_basin": "Brahmaputra / Bharalu River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sonapur",
+        "lat": 26.12,
+        "lon": 91.98,
+        "elevation_m": 60,
+        "river_basin": "Digaru River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Chandrapur",
+        "lat": 26.22,
+        "lon": 91.88,
+        "elevation_m": 58,
+        "river_basin": "Brahmaputra Bend",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Cachar": [
+      {
+        "name": "Silchar (Sadargat)",
+        "lat": 24.82,
+        "lon": 92.8,
+        "elevation_m": 25,
+        "river_basin": "Barak River Mainstream",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Katigorah",
+        "lat": 24.96,
+        "lon": 92.6,
+        "elevation_m": 22,
+        "river_basin": "Surma-Barak Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Lakhipur",
+        "lat": 24.79,
+        "lon": 93.01,
+        "elevation_m": 35,
+        "river_basin": "Jiri / Barak River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Sonai",
+        "lat": 24.73,
+        "lon": 92.89,
+        "elevation_m": 28,
+        "river_basin": "Sonai River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Barpeta": [
+      {
+        "name": "Sarthebari",
+        "lat": 26.37,
+        "lon": 91.24,
+        "elevation_m": 45,
+        "river_basin": "Tihu / Manas Basin",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Howly",
+        "lat": 26.43,
+        "lon": 90.97,
+        "elevation_m": 48,
+        "river_basin": "Manas-Beki System",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Mandia",
+        "lat": 26.24,
+        "lon": 90.95,
+        "elevation_m": 40,
+        "river_basin": "Brahmaputra Riverfront",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Dima Hasao": [
+      {
+        "name": "Haflong",
+        "lat": 25.18,
+        "lon": 93.02,
+        "elevation_m": 680,
+        "river_basin": "Diyung River Catchment",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Umrangso",
+        "lat": 25.52,
+        "lon": 92.78,
+        "elevation_m": 560,
+        "river_basin": "Kopili Dam Reservoir",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Maibang",
+        "lat": 25.29,
+        "lon": 93.16,
+        "elevation_m": 320,
+        "river_basin": "Mahur / Diyung",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Harangajao",
+        "lat": 25.11,
+        "lon": 92.86,
+        "elevation_m": 120,
+        "river_basin": "Jatinga River Gorge",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Karbi Anglong": [
+      {
+        "name": "Diphu",
+        "lat": 25.84,
+        "lon": 93.43,
+        "elevation_m": 186,
+        "river_basin": "Diphu River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Bokajan",
+        "lat": 26.02,
+        "lon": 93.78,
+        "elevation_m": 138,
+        "river_basin": "Dhansiri River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Howraghat",
+        "lat": 26.06,
+        "lon": 93.05,
+        "elevation_m": 110,
+        "river_basin": "Jamuna River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Sonitpur": [
+      {
+        "name": "Tezpur (Bhairabi Ghat)",
+        "lat": 26.63,
+        "lon": 92.79,
+        "elevation_m": 65,
+        "river_basin": "Brahmaputra / Jiabharali",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dhekiajuli",
+        "lat": 26.7,
+        "lon": 92.5,
+        "elevation_m": 80,
+        "river_basin": "Belsiri River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Jamugurihat",
+        "lat": 26.73,
+        "lon": 92.93,
+        "elevation_m": 75,
+        "river_basin": "Jiabharali Floodplain",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Nagaon": [
+      {
+        "name": "Kaliabor",
+        "lat": 26.58,
+        "lon": 92.97,
+        "elevation_m": 68,
+        "river_basin": "Kolong / Brahmaputra",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Raha",
+        "lat": 26.23,
+        "lon": 92.52,
+        "elevation_m": 60,
+        "river_basin": "Kopili River Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dhing",
+        "lat": 26.47,
+        "lon": 92.48,
+        "elevation_m": 58,
+        "river_basin": "Brahmaputra Lowlands",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Morigaon": [
+      {
+        "name": "Laharighat",
+        "lat": 26.33,
+        "lon": 92.41,
+        "elevation_m": 56,
+        "river_basin": "Brahmaputra High-erosion Bank",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Mayong (Pobitora)",
+        "lat": 26.25,
+        "lon": 92.05,
+        "elevation_m": 52,
+        "river_basin": "Brahmaputra Flood Basin",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Jagiroad",
+        "lat": 26.12,
+        "lon": 92.21,
+        "elevation_m": 58,
+        "river_basin": "Kolong River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Goalpara": [
+      {
+        "name": "Dudhnoi",
+        "lat": 25.98,
+        "lon": 90.73,
+        "elevation_m": 48,
+        "river_basin": "Dudhnoi River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Matia",
+        "lat": 26.09,
+        "lon": 90.62,
+        "elevation_m": 45,
+        "river_basin": "Jinari / Brahmaputra",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Lakhipur (Goalpara)",
+        "lat": 26.02,
+        "lon": 90.31,
+        "elevation_m": 42,
+        "river_basin": "Brahmaputra Basin",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Dhubri": [
+      {
+        "name": "Bilasipara",
+        "lat": 26.23,
+        "lon": 90.23,
+        "elevation_m": 38,
+        "river_basin": "Gaurang / Brahmaputra",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Golakganj",
+        "lat": 26.1,
+        "lon": 89.89,
+        "elevation_m": 35,
+        "river_basin": "Gangadhar River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Gauripur",
+        "lat": 26.08,
+        "lon": 89.97,
+        "elevation_m": 34,
+        "river_basin": "Gadadhar River",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Kokrajhar": [
+      {
+        "name": "Gossaigaon",
+        "lat": 26.45,
+        "lon": 89.96,
+        "elevation_m": 50,
+        "river_basin": "Sankosh River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dotma",
+        "lat": 26.48,
+        "lon": 90.15,
+        "elevation_m": 55,
+        "river_basin": "Gourang River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Baksa": [
+      {
+        "name": "Mushalpur",
+        "lat": 26.62,
+        "lon": 91.4,
+        "elevation_m": 70,
+        "river_basin": "Paghladia River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Tamulpur",
+        "lat": 26.63,
+        "lon": 91.57,
+        "elevation_m": 72,
+        "river_basin": "Borolia River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Salbari",
+        "lat": 26.68,
+        "lon": 91.03,
+        "elevation_m": 68,
+        "river_basin": "Beki / Manas River",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Chirang": [
+      {
+        "name": "Bijni",
+        "lat": 26.51,
+        "lon": 90.66,
+        "elevation_m": 58,
+        "river_basin": "Manas-Aie River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kajalgaon",
+        "lat": 26.54,
+        "lon": 90.49,
+        "elevation_m": 62,
+        "river_basin": "Champamati River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Bongaigaon": [
+      {
+        "name": "Abhayapuri",
+        "lat": 26.33,
+        "lon": 90.66,
+        "elevation_m": 42,
+        "river_basin": "Manas-Brahmaputra Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Boitamari",
+        "lat": 26.3,
+        "lon": 90.54,
+        "elevation_m": 40,
+        "river_basin": "Tunia River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Golaghat": [
+      {
+        "name": "Bokakhat (Kaziranga Gateway)",
+        "lat": 26.63,
+        "lon": 93.59,
+        "elevation_m": 76,
+        "river_basin": "Brahmaputra / Diffaloo",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sarupathar",
+        "lat": 26.18,
+        "lon": 93.81,
+        "elevation_m": 115,
+        "river_basin": "Dhansiri River Valley",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dergaon",
+        "lat": 26.7,
+        "lon": 93.97,
+        "elevation_m": 85,
+        "river_basin": "Gelabil River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Jorhat": [
+      {
+        "name": "Titabor",
+        "lat": 26.6,
+        "lon": 94.2,
+        "elevation_m": 95,
+        "river_basin": "Bhugdoi River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Teok",
+        "lat": 26.83,
+        "lon": 94.43,
+        "elevation_m": 90,
+        "river_basin": "Jhanji River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Sivasagar": [
+      {
+        "name": "Nazira",
+        "lat": 26.91,
+        "lon": 94.73,
+        "elevation_m": 98,
+        "river_basin": "Dikhow River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Demow",
+        "lat": 27.14,
+        "lon": 94.75,
+        "elevation_m": 95,
+        "river_basin": "Demow River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Charaideo": [
+      {
+        "name": "Sonari",
+        "lat": 27.02,
+        "lon": 95.02,
+        "elevation_m": 110,
+        "river_basin": "Tawkak / Disang River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Hailakandi": [
+      {
+        "name": "Lala",
+        "lat": 24.55,
+        "lon": 92.6,
+        "elevation_m": 26,
+        "river_basin": "Dhaleswari River / Katakhal",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Katlicherra",
+        "lat": 24.4,
+        "lon": 92.58,
+        "elevation_m": 32,
+        "river_basin": "Upper Dhaleswari",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Karimganj": [
+      {
+        "name": "Badarpur",
+        "lat": 24.9,
+        "lon": 92.54,
+        "elevation_m": 22,
+        "river_basin": "Barak-Kushiyara Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Patharkandi",
+        "lat": 24.58,
+        "lon": 92.33,
+        "elevation_m": 28,
+        "river_basin": "Longai River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Udalguri": [
+      {
+        "name": "Tangla",
+        "lat": 26.65,
+        "lon": 91.9,
+        "elevation_m": 78,
+        "river_basin": "Nonoi / Kulsi",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Mazbat",
+        "lat": 26.79,
+        "lon": 92.35,
+        "elevation_m": 95,
+        "river_basin": "Dhansiri (North) River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Nalbari": [
+      {
+        "name": "Tihu",
+        "lat": 26.47,
+        "lon": 91.19,
+        "elevation_m": 50,
+        "river_basin": "Tihu River / Borolia",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Mukalmua",
+        "lat": 26.25,
+        "lon": 91.33,
+        "elevation_m": 45,
+        "river_basin": "Brahmaputra Shore",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Darrang": [
+      {
+        "name": "Sipajhar",
+        "lat": 26.43,
+        "lon": 91.89,
+        "elevation_m": 58,
+        "river_basin": "Nonoi River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Kharupetia",
+        "lat": 26.51,
+        "lon": 92.13,
+        "elevation_m": 60,
+        "river_basin": "Mangaldai River",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Biswanath": [
+      {
+        "name": "Gohpur",
+        "lat": 26.88,
+        "lon": 93.63,
+        "elevation_m": 85,
+        "river_basin": "Chatrang / Brahmaputra",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Biswanath Ghat",
+        "lat": 26.65,
+        "lon": 93.16,
+        "elevation_m": 72,
+        "river_basin": "Brahmaputra Bank",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "South Salmara Mankachar": [
+      {
+        "name": "Mankachar",
+        "lat": 25.53,
+        "lon": 89.86,
+        "elevation_m": 32,
+        "river_basin": "Jinjirom / Brahmaputra",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Hatsingimari",
+        "lat": 25.68,
+        "lon": 89.88,
+        "elevation_m": 34,
+        "river_basin": "Brahmaputra Border Basin",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Hojai": [
+      {
+        "name": "Lanka",
+        "lat": 25.93,
+        "lon": 92.95,
+        "elevation_m": 78,
+        "river_basin": "Nishari / Kopili",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Doboka",
+        "lat": 26.13,
+        "lon": 92.87,
+        "elevation_m": 72,
+        "river_basin": "Jamuna River",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Kamrup": [
+      {
+        "name": "Rangia",
+        "lat": 26.47,
+        "lon": 91.63,
+        "elevation_m": 55,
+        "river_basin": "Borolia River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Hajo",
+        "lat": 26.24,
+        "lon": 91.53,
+        "elevation_m": 50,
+        "river_basin": "Brahmaputra / Puthimari",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Boko",
+        "lat": 25.98,
+        "lon": 91.23,
+        "elevation_m": 52,
+        "river_basin": "Singra River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "West Karbi Anglong": [
+      {
+        "name": "Hamren",
+        "lat": 25.86,
+        "lon": 92.56,
+        "elevation_m": 310,
+        "river_basin": "Kopili Hill Catchment",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Baithalangso",
+        "lat": 25.93,
+        "lon": 92.65,
+        "elevation_m": 180,
+        "river_basin": "Amreng River",
+        "vulnerability": "HIGH"
+      }
+    ]
+  },
+  "Manipur": {
+    "Imphal East": [
+      {
+        "name": "Porompat",
+        "lat": 24.816,
+        "lon": 93.955,
+        "elevation_m": 785,
+        "river_basin": "Imphal River / Kongba",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sawombung",
+        "lat": 24.89,
+        "lon": 94.02,
+        "elevation_m": 792,
+        "river_basin": "Iril River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Keirao Bitra",
+        "lat": 24.77,
+        "lon": 93.98,
+        "elevation_m": 780,
+        "river_basin": "Iril Floodplain",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Imphal West": [
+      {
+        "name": "Lamphelpat",
+        "lat": 24.815,
+        "lon": 93.91,
+        "elevation_m": 778,
+        "river_basin": "Nambul River Wetland Basin",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Lamsang",
+        "lat": 24.87,
+        "lon": 93.88,
+        "elevation_m": 785,
+        "river_basin": "Luwangli River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Wangoi",
+        "lat": 24.67,
+        "lon": 93.92,
+        "elevation_m": 772,
+        "river_basin": "Imphal River Lowlands",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Bishnupur": [
+      {
+        "name": "Moirang (Loktak Lake)",
+        "lat": 24.5,
+        "lon": 93.77,
+        "elevation_m": 770,
+        "river_basin": "Loktak Lake Inflow Channels",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Nambol",
+        "lat": 24.71,
+        "lon": 93.84,
+        "elevation_m": 775,
+        "river_basin": "Nambol River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kumbi",
+        "lat": 24.41,
+        "lon": 93.8,
+        "elevation_m": 768,
+        "river_basin": "Khuga / Loktak Southern Outlet",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Thoubal": [
+      {
+        "name": "Thoubal Town",
+        "lat": 24.63,
+        "lon": 94.01,
+        "elevation_m": 775,
+        "river_basin": "Thoubal River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Lilong",
+        "lat": 24.73,
+        "lon": 93.94,
+        "elevation_m": 776,
+        "river_basin": "Imphal-Thoubal Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Yairipok",
+        "lat": 24.68,
+        "lon": 94.07,
+        "elevation_m": 782,
+        "river_basin": "Thoubal River Gorge Outlet",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Churachandpur": [
+      {
+        "name": "Tuibong",
+        "lat": 24.34,
+        "lon": 93.69,
+        "elevation_m": 920,
+        "river_basin": "Khuga River Valley",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Singngat",
+        "lat": 24.16,
+        "lon": 93.6,
+        "elevation_m": 1150,
+        "river_basin": "Khuga Headwaters",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Thanlon",
+        "lat": 24.32,
+        "lon": 93.28,
+        "elevation_m": 1280,
+        "river_basin": "Tuivai River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Senapati": [
+      {
+        "name": "Tadubi",
+        "lat": 25.59,
+        "lon": 94.15,
+        "elevation_m": 1650,
+        "river_basin": "Barak Headwaters Ridge",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Maram",
+        "lat": 25.46,
+        "lon": 94.08,
+        "elevation_m": 1420,
+        "river_basin": "Barak River Upper Reach",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Ukhrul": [
+      {
+        "name": "Hunphun (Ukhrul)",
+        "lat": 25.11,
+        "lon": 94.36,
+        "elevation_m": 1662,
+        "river_basin": "Chindwin-Irrawaddy Catchment",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Chingai",
+        "lat": 25.43,
+        "lon": 94.5,
+        "elevation_m": 1500,
+        "river_basin": "Tizu River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Tamenglong": [
+      {
+        "name": "Tamenglong HQ",
+        "lat": 24.98,
+        "lon": 93.49,
+        "elevation_m": 1260,
+        "river_basin": "Ijei / Irang River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Tousem",
+        "lat": 25.1,
+        "lon": 93.3,
+        "elevation_m": 850,
+        "river_basin": "Barak River Gorge",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Chandel": [
+      {
+        "name": "Chandel Town",
+        "lat": 24.33,
+        "lon": 94.0,
+        "elevation_m": 580,
+        "river_basin": "Maha River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Chakpikarong",
+        "lat": 24.21,
+        "lon": 93.89,
+        "elevation_m": 460,
+        "river_basin": "Chakpi River",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Kangpokpi": [
+      {
+        "name": "Gamnom Sapormeina",
+        "lat": 24.99,
+        "lon": 93.92,
+        "elevation_m": 880,
+        "river_basin": "Gundung / Imphal River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Saikul",
+        "lat": 24.96,
+        "lon": 94.07,
+        "elevation_m": 820,
+        "river_basin": "Iril River Catchment",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Noney": [
+      {
+        "name": "Longmai (Noney)",
+        "lat": 24.81,
+        "lon": 93.61,
+        "elevation_m": 520,
+        "river_basin": "Ijei River Valley (Tupul railway yard)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Khoupum Valley",
+        "lat": 24.63,
+        "lon": 93.53,
+        "elevation_m": 620,
+        "river_basin": "Khoupum Dam Basin",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Pherzawl": [
+      {
+        "name": "Parbung",
+        "lat": 24.18,
+        "lon": 93.15,
+        "elevation_m": 840,
+        "river_basin": "Tuivai / Barak",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Tengnoupal": [
+      {
+        "name": "Moreh (Border Town)",
+        "lat": 24.25,
+        "lon": 94.3,
+        "elevation_m": 220,
+        "river_basin": "Menal River / Chindwin",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Kamjong": [
+      {
+        "name": "Phungyar",
+        "lat": 24.93,
+        "lon": 94.33,
+        "elevation_m": 1280,
+        "river_basin": "Chindwin Tributaries",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Kakching": [
+      {
+        "name": "Sugnu",
+        "lat": 24.32,
+        "lon": 93.88,
+        "elevation_m": 765,
+        "river_basin": "Imphal River Southern Choke Point",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Jiribam": [
+      {
+        "name": "Jiribam Town",
+        "lat": 24.8,
+        "lon": 93.12,
+        "elevation_m": 35,
+        "river_basin": "Jiri River Floodplain",
+        "vulnerability": "CRITICAL"
+      }
+    ]
+  },
+  "Meghalaya": {
+    "East Khasi Hills": [
+      {
+        "name": "Cherrapunji (Sohra)",
+        "lat": 25.27,
+        "lon": 91.73,
+        "elevation_m": 1430,
+        "river_basin": "Wah Kaba / Bangladesh Plains Runoff",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Mawsynram",
+        "lat": 25.3,
+        "lon": 91.58,
+        "elevation_m": 1400,
+        "river_basin": "Shella / Umngot Catchment",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Pynursla",
+        "lat": 25.31,
+        "lon": 91.9,
+        "elevation_m": 1380,
+        "river_basin": "Wah Umngot",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Mawphlang",
+        "lat": 25.45,
+        "lon": 91.76,
+        "elevation_m": 1780,
+        "river_basin": "Umiam Headwaters",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Shillong (Polo / Wah Umkhrah)",
+        "lat": 25.5788,
+        "lon": 91.8933,
+        "elevation_m": 1496,
+        "river_basin": "Wah Umkhrah / Umiam",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Ri Bhoi": [
+      {
+        "name": "Nongpoh",
+        "lat": 25.9,
+        "lon": 91.88,
+        "elevation_m": 580,
+        "river_basin": "Umtru River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Byrnihat (Industrial Basin)",
+        "lat": 26.06,
+        "lon": 91.87,
+        "elevation_m": 120,
+        "river_basin": "Umtru / Digaru Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Umiam (Barapani Lake)",
+        "lat": 25.66,
+        "lon": 91.89,
+        "elevation_m": 1000,
+        "river_basin": "Umiam Dam Reservoir",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Umsning",
+        "lat": 25.75,
+        "lon": 91.89,
+        "elevation_m": 820,
+        "river_basin": "Umiam Catchment",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "West Khasi Hills": [
+      {
+        "name": "Nongstoin",
+        "lat": 25.52,
+        "lon": 91.27,
+        "elevation_m": 1400,
+        "river_basin": "Kynshi River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Mairang",
+        "lat": 25.56,
+        "lon": 91.64,
+        "elevation_m": 1600,
+        "river_basin": "Khri River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "South West Khasi Hills": [
+      {
+        "name": "Mawkyrwat",
+        "lat": 25.37,
+        "lon": 91.45,
+        "elevation_m": 1500,
+        "river_basin": "Rilang River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Ranikor (Border Gorge)",
+        "lat": 25.18,
+        "lon": 91.24,
+        "elevation_m": 80,
+        "river_basin": "Kynshi River (Jadukata Entry to BD)",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "West Jaintia Hills": [
+      {
+        "name": "Jowai Town",
+        "lat": 25.44,
+        "lon": 92.2,
+        "elevation_m": 1380,
+        "river_basin": "Myntdu River Loop",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dawki (Umngot River)",
+        "lat": 25.19,
+        "lon": 92.02,
+        "elevation_m": 35,
+        "river_basin": "Umngot River Gorge",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Amlarem",
+        "lat": 25.28,
+        "lon": 92.1,
+        "elevation_m": 850,
+        "river_basin": "Myntdu Lower Basin",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "East Jaintia Hills": [
+      {
+        "name": "Khliehriat",
+        "lat": 25.35,
+        "lon": 92.37,
+        "elevation_m": 1200,
+        "river_basin": "Kupli / Lubha River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Ladrymbai",
+        "lat": 25.32,
+        "lon": 92.33,
+        "elevation_m": 1100,
+        "river_basin": "Lukha River Basin",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "West Garo Hills": [
+      {
+        "name": "Tura Town",
+        "lat": 25.51,
+        "lon": 90.22,
+        "elevation_m": 349,
+        "river_basin": "Rongkon / Ganol River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Phulbari",
+        "lat": 25.9,
+        "lon": 90.03,
+        "elevation_m": 35,
+        "river_basin": "Jinjiram / Brahmaputra Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Tikrikilla",
+        "lat": 25.92,
+        "lon": 90.17,
+        "elevation_m": 42,
+        "river_basin": "Galwang River",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "East Garo Hills": [
+      {
+        "name": "Williamnagar",
+        "lat": 25.6,
+        "lon": 90.62,
+        "elevation_m": 280,
+        "river_basin": "Simsang River (Someshwari)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Rongjeng",
+        "lat": 25.69,
+        "lon": 90.72,
+        "elevation_m": 260,
+        "river_basin": "Damring River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "South Garo Hills": [
+      {
+        "name": "Baghmara",
+        "lat": 25.2,
+        "lon": 90.63,
+        "elevation_m": 60,
+        "river_basin": "Simsang River (Entry into Bangladesh)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Siju (Cave Gorge)",
+        "lat": 25.35,
+        "lon": 90.69,
+        "elevation_m": 140,
+        "river_basin": "Simsang Gorge",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "North Garo Hills": [
+      {
+        "name": "Resubelpara",
+        "lat": 25.9,
+        "lon": 90.58,
+        "elevation_m": 130,
+        "river_basin": "Damring / Didram",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Mendipathar",
+        "lat": 25.93,
+        "lon": 90.62,
+        "elevation_m": 85,
+        "river_basin": "Dudhnoi Basin",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "South West Garo Hills": [
+      {
+        "name": "Ampati",
+        "lat": 25.46,
+        "lon": 89.93,
+        "elevation_m": 45,
+        "river_basin": "Ganol Basin",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Mahendraganj",
+        "lat": 25.3,
+        "lon": 89.85,
+        "elevation_m": 28,
+        "river_basin": "Brahmaputra Lowlands",
+        "vulnerability": "CRITICAL"
+      }
+    ]
+  },
+  "Mizoram": {
+    "Aizawl": [
+      {
+        "name": "Aizawl (Bawngkawn)",
+        "lat": 23.75,
+        "lon": 92.73,
+        "elevation_m": 1132,
+        "river_basin": "Chite Lui / Tlawng River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Sairang (River Port)",
+        "lat": 23.8,
+        "lon": 92.66,
+        "elevation_m": 140,
+        "river_basin": "Tlawng River Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Durtlang",
+        "lat": 23.78,
+        "lon": 92.73,
+        "elevation_m": 1280,
+        "river_basin": "Tuirial Catchment",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Lunglei": [
+      {
+        "name": "Lunglei Town",
+        "lat": 22.88,
+        "lon": 92.73,
+        "elevation_m": 722,
+        "river_basin": "Tlawng-Mat Ridge",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Tlabung (Demagiri)",
+        "lat": 22.9,
+        "lon": 92.49,
+        "elevation_m": 85,
+        "river_basin": "Karnaphuli (Khawthlangtuipui)",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Champhai": [
+      {
+        "name": "Champhai Valley",
+        "lat": 23.47,
+        "lon": 93.32,
+        "elevation_m": 1678,
+        "river_basin": "Tuipui River Flatbed",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Zokhawthar",
+        "lat": 23.36,
+        "lon": 93.4,
+        "elevation_m": 620,
+        "river_basin": "Tiau River (Myanmar Border)",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Kolasib": [
+      {
+        "name": "Vairengte",
+        "lat": 24.31,
+        "lon": 92.76,
+        "elevation_m": 180,
+        "river_basin": "Dhaleswari (Tlawng) Entry",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Bairabi",
+        "lat": 24.19,
+        "lon": 92.54,
+        "elevation_m": 80,
+        "river_basin": "Tlawng Dam Reservoir",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Bilkhawthlir",
+        "lat": 24.17,
+        "lon": 92.74,
+        "elevation_m": 160,
+        "river_basin": "Serlui River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Lawngtlai": [
+      {
+        "name": "Lawngtlai Town",
+        "lat": 22.53,
+        "lon": 92.89,
+        "elevation_m": 820,
+        "river_basin": "Chhimtuipui (Kaladan)",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Chawngte (Kamalanagar)",
+        "lat": 22.61,
+        "lon": 92.64,
+        "elevation_m": 110,
+        "river_basin": "Tuichawng River",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Saiha": [
+      {
+        "name": "Saiha Town",
+        "lat": 22.49,
+        "lon": 92.97,
+        "elevation_m": 729,
+        "river_basin": "Kaladan River Basin",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Tuipang",
+        "lat": 22.31,
+        "lon": 93.03,
+        "elevation_m": 890,
+        "river_basin": "Chhimtuipui Loop",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Serchhip": [
+      {
+        "name": "Thenzawl Valley",
+        "lat": 23.31,
+        "lon": 92.76,
+        "elevation_m": 780,
+        "river_basin": "Lau River / Vantawng Falls",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "North Vanlaiphai",
+        "lat": 23.13,
+        "lon": 93.06,
+        "elevation_m": 1250,
+        "river_basin": "Tuichang Catchment",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Mamit": [
+      {
+        "name": "Zawlnuam",
+        "lat": 24.12,
+        "lon": 92.35,
+        "elevation_m": 160,
+        "river_basin": "Langkay / Longai",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "West Phaileng",
+        "lat": 23.78,
+        "lon": 92.54,
+        "elevation_m": 620,
+        "river_basin": "Teirei River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Saitual": [
+      {
+        "name": "Saitual Town",
+        "lat": 23.68,
+        "lon": 92.97,
+        "elevation_m": 1180,
+        "river_basin": "Tuivawl River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Hnahthial": [
+      {
+        "name": "Hnahthial Town",
+        "lat": 22.96,
+        "lon": 92.93,
+        "elevation_m": 860,
+        "river_basin": "Mat River Valley",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Khawzawl": [
+      {
+        "name": "Khawzawl Town",
+        "lat": 23.53,
+        "lon": 93.18,
+        "elevation_m": 1240,
+        "river_basin": "Tuipui Catchment",
+        "vulnerability": "HIGH"
+      }
+    ]
+  },
+  "Nagaland": {
+    "Kohima": [
+      {
+        "name": "Kohima Village / Dziiko Gate",
+        "lat": 25.67,
+        "lon": 94.12,
+        "elevation_m": 1444,
+        "river_basin": "Dzii / Chathe Headwaters",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Jakhama",
+        "lat": 25.59,
+        "lon": 94.13,
+        "elevation_m": 1600,
+        "river_basin": "Dzukou Valley Corridor",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Khonoma",
+        "lat": 25.65,
+        "lon": 94.02,
+        "elevation_m": 1500,
+        "river_basin": "Dzuza River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Dimapur": [
+      {
+        "name": "Dimapur (Purana Bazaar)",
+        "lat": 25.9,
+        "lon": 93.73,
+        "elevation_m": 145,
+        "river_basin": "Dhansiri River Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Chumoukedima",
+        "lat": 25.8,
+        "lon": 93.77,
+        "elevation_m": 210,
+        "river_basin": "Chathe River Gorge Entrance",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Medziphema",
+        "lat": 25.75,
+        "lon": 93.85,
+        "elevation_m": 310,
+        "river_basin": "Pezha River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Mokokchung": [
+      {
+        "name": "Mokokchung Town",
+        "lat": 26.32,
+        "lon": 94.52,
+        "elevation_m": 1325,
+        "river_basin": "Milak / Tsurang River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Tuli Valley",
+        "lat": 26.68,
+        "lon": 94.63,
+        "elevation_m": 120,
+        "river_basin": "Milak River Lowlands",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Mangkolemba",
+        "lat": 26.4,
+        "lon": 94.34,
+        "elevation_m": 580,
+        "river_basin": "Tsurang (Disai) River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Wokha": [
+      {
+        "name": "Wokha Town (Doyang Dam)",
+        "lat": 26.1,
+        "lon": 94.26,
+        "elevation_m": 1313,
+        "river_basin": "Doyang River Reservoir",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Bhandari",
+        "lat": 26.21,
+        "lon": 94.05,
+        "elevation_m": 160,
+        "river_basin": "Baghty / Doyang Floodplain",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Sanis",
+        "lat": 26.17,
+        "lon": 94.18,
+        "elevation_m": 820,
+        "river_basin": "Doyang Tributary",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Phek": [
+      {
+        "name": "Phek Town",
+        "lat": 25.68,
+        "lon": 94.48,
+        "elevation_m": 1600,
+        "river_basin": "Tizu River Basin",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Pfutsero",
+        "lat": 25.56,
+        "lon": 94.32,
+        "elevation_m": 2133,
+        "river_basin": "Sedzu River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Meluri",
+        "lat": 25.7,
+        "lon": 94.65,
+        "elevation_m": 980,
+        "river_basin": "Tizu-Lanye Confluence",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Mon": [
+      {
+        "name": "Mon Town",
+        "lat": 26.75,
+        "lon": 95.06,
+        "elevation_m": 898,
+        "river_basin": "Tapi River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Tizit",
+        "lat": 26.9,
+        "lon": 95.05,
+        "elevation_m": 135,
+        "river_basin": "Tizit River / Brahmaputra Outflow",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Naginimora",
+        "lat": 26.83,
+        "lon": 94.81,
+        "elevation_m": 140,
+        "river_basin": "Dikhu Floodplain",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Tuensang": [
+      {
+        "name": "Tuensang Town",
+        "lat": 26.27,
+        "lon": 94.83,
+        "elevation_m": 1371,
+        "river_basin": "Zungki River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Longkhim",
+        "lat": 26.2,
+        "lon": 94.67,
+        "elevation_m": 1150,
+        "river_basin": "Dikhu River Gorge",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Zunheboto": [
+      {
+        "name": "Zunheboto Town",
+        "lat": 25.97,
+        "lon": 94.52,
+        "elevation_m": 1852,
+        "river_basin": "Doyang / Tizu Divide",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Aghunato",
+        "lat": 26.04,
+        "lon": 94.63,
+        "elevation_m": 1280,
+        "river_basin": "Tizu River",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Peren": [
+      {
+        "name": "Jalukie Valley",
+        "lat": 25.56,
+        "lon": 93.72,
+        "elevation_m": 310,
+        "river_basin": "Dhansiri River Valley",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Peren Town",
+        "lat": 25.51,
+        "lon": 93.74,
+        "elevation_m": 1445,
+        "river_basin": "Tepuiki / Barak Basin",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Kiphire": [
+      {
+        "name": "Kiphire Town",
+        "lat": 25.87,
+        "lon": 94.77,
+        "elevation_m": 896,
+        "river_basin": "Zungki / Tizu",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Pungro (Saramati Base)",
+        "lat": 25.78,
+        "lon": 94.88,
+        "elevation_m": 1450,
+        "river_basin": "Likhimro Hydro Basin",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Longleng": [
+      {
+        "name": "Longleng Town",
+        "lat": 26.47,
+        "lon": 94.81,
+        "elevation_m": 1066,
+        "river_basin": "Dikhu River Catchment",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Niuland": [
+      {
+        "name": "Niuland Town",
+        "lat": 25.96,
+        "lon": 93.92,
+        "elevation_m": 150,
+        "river_basin": "Dhansiri Floodplain",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Tseminyu": [
+      {
+        "name": "Tseminyu",
+        "lat": 25.93,
+        "lon": 94.21,
+        "elevation_m": 1260,
+        "river_basin": "Sanku / Doyang",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Chumoukedima": [
+      {
+        "name": "Seithekema",
+        "lat": 25.83,
+        "lon": 93.81,
+        "elevation_m": 180,
+        "river_basin": "Chathe River Basin",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Sangtam": [
+      {
+        "name": "Chare",
+        "lat": 26.23,
+        "lon": 94.62,
+        "elevation_m": 1100,
+        "river_basin": "Dikhu Basin",
+        "vulnerability": "HIGH"
+      }
+    ]
+  },
+  "Sikkim": {
+    "Gangtok": [
+      {
+        "name": "Singtam (Teesta Confluence)",
+        "lat": 27.234,
+        "lon": 88.498,
+        "elevation_m": 350,
+        "river_basin": "Teesta-Ranikhola Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Ranipool",
+        "lat": 27.28,
+        "lon": 88.58,
+        "elevation_m": 680,
+        "river_basin": "Rani Khola (Adampool)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dikchu",
+        "lat": 27.42,
+        "lon": 88.54,
+        "elevation_m": 580,
+        "river_basin": "Dikchu / Teesta V Dam",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Tadong",
+        "lat": 27.31,
+        "lon": 88.6,
+        "elevation_m": 1200,
+        "river_basin": "Rani Khola Valley",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Rumtek",
+        "lat": 27.3,
+        "lon": 88.56,
+        "elevation_m": 1500,
+        "river_basin": "Martam Slope / Teesta",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Mangan": [
+      {
+        "name": "Chungthang (Dam Confluence)",
+        "lat": 27.603,
+        "lon": 88.647,
+        "elevation_m": 1790,
+        "river_basin": "Lachen-Lachung Confluence (Teesta III Dam)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Lachen (GLOF Corridor)",
+        "lat": 27.717,
+        "lon": 88.558,
+        "elevation_m": 2750,
+        "river_basin": "Lachen Chu (South Lhonak GLOF path)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Lachung",
+        "lat": 27.69,
+        "lon": 88.74,
+        "elevation_m": 2700,
+        "river_basin": "Lachung Chu Gorge",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Dzongu (Passingdang)",
+        "lat": 27.52,
+        "lon": 88.53,
+        "elevation_m": 1100,
+        "river_basin": "Rongyong Chu / Teesta",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Phodong",
+        "lat": 27.42,
+        "lon": 88.58,
+        "elevation_m": 1350,
+        "river_basin": "Teesta Left Bank",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Namchi": [
+      {
+        "name": "Jorethang (Rangeet Floodplain)",
+        "lat": 27.1167,
+        "lon": 88.3167,
+        "elevation_m": 300,
+        "river_basin": "Rangeet River / Rangeet Dam",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Mellidara (Melli Bazaar)",
+        "lat": 27.09,
+        "lon": 88.46,
+        "elevation_m": 220,
+        "river_basin": "Teesta River Interstate Gateway",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Ravangla",
+        "lat": 27.3,
+        "lon": 88.36,
+        "elevation_m": 2000,
+        "river_basin": "Rangeet-Teesta Divide",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Yangang",
+        "lat": 27.28,
+        "lon": 88.45,
+        "elevation_m": 1350,
+        "river_basin": "Mainam / Teesta Basin",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Geyzing": [
+      {
+        "name": "Yuksom (Rathong Chu)",
+        "lat": 27.37,
+        "lon": 88.22,
+        "elevation_m": 1780,
+        "river_basin": "Rathong Chu (Khangchendzonga Glacier)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Pelling (Rimbi Valley)",
+        "lat": 27.3,
+        "lon": 88.24,
+        "elevation_m": 2150,
+        "river_basin": "Rimbi Khola",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Dentam",
+        "lat": 27.25,
+        "lon": 88.13,
+        "elevation_m": 1380,
+        "river_basin": "Kaleij Khola",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Tashiding",
+        "lat": 27.32,
+        "lon": 88.3,
+        "elevation_m": 1400,
+        "river_basin": "Rathong-Rangeet Confluence",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Pakyong": [
+      {
+        "name": "Rangpo (State Gateway)",
+        "lat": 27.177,
+        "lon": 88.529,
+        "elevation_m": 310,
+        "river_basin": "Teesta-Rangpo Chu Confluence",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Rongli (Jaldhaka)",
+        "lat": 27.2,
+        "lon": 88.7,
+        "elevation_m": 780,
+        "river_basin": "Rongli Chu / Jaldhaka Basin",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Rhenock",
+        "lat": 27.18,
+        "lon": 88.64,
+        "elevation_m": 950,
+        "river_basin": "Reshi Khola (Silk Route)",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Soreng": [
+      {
+        "name": "Chakung",
+        "lat": 27.15,
+        "lon": 88.26,
+        "elevation_m": 1200,
+        "river_basin": "Rangeet River Slope",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Mangalbarey",
+        "lat": 27.19,
+        "lon": 88.19,
+        "elevation_m": 1150,
+        "river_basin": "Rammam River",
+        "vulnerability": "HIGH"
+      }
+    ]
+  },
+  "Tripura": {
+    "West Tripura": [
+      {
+        "name": "Agartala (Howrah Riverfront)",
+        "lat": 23.8315,
+        "lon": 91.2868,
+        "elevation_m": 15,
+        "river_basin": "Howrah River Flood Basin",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Ranirbazar",
+        "lat": 23.84,
+        "lon": 91.36,
+        "elevation_m": 18,
+        "river_basin": "Howrah River Upper Valley",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Jirania",
+        "lat": 23.82,
+        "lon": 91.43,
+        "elevation_m": 22,
+        "river_basin": "Howrah River Channel",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Mandwi",
+        "lat": 23.87,
+        "lon": 91.48,
+        "elevation_m": 35,
+        "river_basin": "Baramura Hill Catchment",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Gomati": [
+      {
+        "name": "Udaipur (Gomati Riverbank)",
+        "lat": 23.53,
+        "lon": 91.48,
+        "elevation_m": 22,
+        "river_basin": "Gomati River Mainstream",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Amarpur (Dumboor Dam)",
+        "lat": 23.52,
+        "lon": 91.64,
+        "elevation_m": 45,
+        "river_basin": "Gumti Hydro Dam Reservoir",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Karbook",
+        "lat": 23.36,
+        "lon": 91.7,
+        "elevation_m": 50,
+        "river_basin": "Upper Gumti / Raima Catchment",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "South Tripura": [
+      {
+        "name": "Belonia",
+        "lat": 23.25,
+        "lon": 91.45,
+        "elevation_m": 18,
+        "river_basin": "Muhuri River (Border Floodplain)",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Santirbazar",
+        "lat": 23.3,
+        "lon": 91.56,
+        "elevation_m": 25,
+        "river_basin": "Muhuri Tributary",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Sabroom (Feni River)",
+        "lat": 23.0,
+        "lon": 91.7,
+        "elevation_m": 14,
+        "river_basin": "Feni River (Maitri Bridge)",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "North Tripura": [
+      {
+        "name": "Dharmanagar",
+        "lat": 24.37,
+        "lon": 92.16,
+        "elevation_m": 28,
+        "river_basin": "Juri River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kanchanpur (Jampui Hills)",
+        "lat": 23.98,
+        "lon": 92.22,
+        "elevation_m": 210,
+        "river_basin": "Deo River Catchment",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Panisagar",
+        "lat": 24.28,
+        "lon": 92.14,
+        "elevation_m": 32,
+        "river_basin": "Juri Valley",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Dhalai": [
+      {
+        "name": "Ambassa",
+        "lat": 23.92,
+        "lon": 91.85,
+        "elevation_m": 65,
+        "river_basin": "Dhalai River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kamalpur",
+        "lat": 24.2,
+        "lon": 91.83,
+        "elevation_m": 30,
+        "river_basin": "Dhalai River Lowlands",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Gandacherra (Dumboor Rim)",
+        "lat": 23.48,
+        "lon": 91.9,
+        "elevation_m": 85,
+        "river_basin": "Dumboor Lake Reservoir",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Manu",
+        "lat": 23.98,
+        "lon": 91.98,
+        "elevation_m": 42,
+        "river_basin": "Manu River Mainstream",
+        "vulnerability": "CRITICAL"
+      }
+    ],
+    "Unakoti": [
+      {
+        "name": "Kailashahar",
+        "lat": 24.33,
+        "lon": 92.0,
+        "elevation_m": 24,
+        "river_basin": "Manu River Embankment",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Kumarghat",
+        "lat": 24.16,
+        "lon": 92.03,
+        "elevation_m": 35,
+        "river_basin": "Manu River Valley",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Khowai": [
+      {
+        "name": "Khowai Town",
+        "lat": 24.06,
+        "lon": 91.6,
+        "elevation_m": 22,
+        "river_basin": "Khowai River",
+        "vulnerability": "CRITICAL"
+      },
+      {
+        "name": "Teliamura",
+        "lat": 23.83,
+        "lon": 91.6,
+        "elevation_m": 36,
+        "river_basin": "Khowai River Gorge",
+        "vulnerability": "HIGH"
+      }
+    ],
+    "Sepahijala": [
+      {
+        "name": "Bishalgarh",
+        "lat": 23.69,
+        "lon": 91.31,
+        "elevation_m": 20,
+        "river_basin": "Burigang / Bijoy River",
+        "vulnerability": "HIGH"
+      },
+      {
+        "name": "Sonamura",
+        "lat": 23.47,
+        "lon": 91.27,
+        "elevation_m": 16,
+        "river_basin": "Gumti River Border Reach",
+        "vulnerability": "CRITICAL"
+      }
+    ]
+  }
+}

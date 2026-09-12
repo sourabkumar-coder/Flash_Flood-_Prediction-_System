@@ -62,6 +62,21 @@ def read_states():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch states: {str(e)}")
 
+@app.get("/districts")
+@app.get("/api/districts")
+def read_all_districts():
+    try:
+        from services.district_service import _load_districts_data
+        data = _load_districts_data()
+        all_districts = []
+        for state, districts in data.items():
+            for d in districts:
+                all_districts.append({"district": d, "state": state})
+        all_districts.sort(key=lambda x: x["district"])
+        return {"districts": all_districts, "by_state": data}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch all districts: {str(e)}")
+
 @app.get("/districts/{state}")
 @app.get("/api/districts/{state}")
 def read_districts(state: str):
@@ -79,18 +94,31 @@ def read_districts(state: str):
 @app.get("/api/villages")
 def read_all_villages():
     try:
+        from services.village_service import get_all_monitored_villages
+        villages = get_all_monitored_villages()
+        if villages:
+            return {"villages": villages}
         data = get_threat_overview_data()
         return {"villages": data.get("valleys", [])}
     except Exception as e:
+        logger.error(f"Failed to read all villages: {str(e)}")
         return {"villages": []}
 
 @app.get("/villages/{district}")
 @app.get("/api/villages/{district}")
-def read_villages(district: str):
+def read_villages(district: str, state: str = None):
     try:
-        # Currently returns empty list as village GeoJSON was removed
-        return {"villages": []}
+        from services.village_service import get_villages_by_district
+        v_list = get_villages_by_district(district, state)
+        village_names = [v["name"] for v in v_list]
+        return {
+            "district": district,
+            "state": state,
+            "villages": village_names,
+            "details": v_list
+        }
     except Exception as e:
+        logger.error(f"Failed to fetch villages for {district}: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Failed to fetch villages: {str(e)}")
 
 @app.get("/location/reverse")

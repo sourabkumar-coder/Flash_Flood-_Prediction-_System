@@ -25,10 +25,13 @@ export default function Villages() {
 
   const [states, setStates] = useState([]);
   const [selectedState, setSelectedState] = useState(searchParams.get('state') || '');
+  const [allDistricts, setAllDistricts] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [selectedDistrict, setSelectedDistrict] = useState(searchParams.get('district') || '');
   const [villages, setVillages] = useState([]);
+  const [villageDetails, setVillageDetails] = useState([]);
   const [selectedVillage, setSelectedVillage] = useState(searchParams.get('village') || '');
+  const [villagesLoading, setVillagesLoading] = useState(false);
 
   const [gpsCoords, setGpsCoords] = useState(null);
   const [gpsLoading, setGpsLoading] = useState(false);
@@ -46,26 +49,29 @@ export default function Villages() {
 
   useEffect(() => {
     fetchStates();
+    fetchAllDistricts();
     fetchValleyTable();
   }, []);
 
+  // Filter or populate districts whenever selectedState or allDistricts changes
   useEffect(() => {
     if (selectedState) {
       fetchDistricts(selectedState);
-    } else {
-      setDistricts([]);
-      setSelectedDistrict('');
+    } else if (allDistricts.length > 0) {
+      setDistricts(allDistricts.map((d) => d.district));
     }
-  }, [selectedState]);
+  }, [selectedState, allDistricts]);
 
+  // Fetch villages when selectedDistrict changes
   useEffect(() => {
     if (selectedDistrict) {
-      fetchVillagesList(selectedDistrict);
+      fetchVillagesList(selectedDistrict, selectedState);
     } else {
       setVillages([]);
+      setVillageDetails([]);
       setSelectedVillage('');
     }
-  }, [selectedDistrict]);
+  }, [selectedDistrict, selectedState]);
 
   // Initial load from URL parameters if provided
   useEffect(() => {
@@ -95,21 +101,43 @@ export default function Villages() {
     }
   };
 
-  const fetchDistricts = async (state) => {
+  const fetchAllDistricts = async () => {
     try {
-      const res = await riskApi.getDistricts(state);
-      setDistricts(res.data.districts || []);
+      const res = await riskApi.getDistricts();
+      const distList = res.data.districts || [];
+      setAllDistricts(distList);
+      if (!selectedState && distList.length > 0) {
+        setDistricts(distList.map((d) => (typeof d === 'string' ? d : d.district)));
+      }
     } catch (err) {
-      console.error('Failed to fetch districts:', err);
+      console.error('Failed to fetch all districts:', err);
     }
   };
 
-  const fetchVillagesList = async (district) => {
+  const fetchDistricts = async (state) => {
     try {
-      const res = await riskApi.getVillages(district);
-      setVillages(res.data.villages || []);
+      const res = await riskApi.getDistricts(state);
+      const list = res.data.districts || [];
+      setDistricts(list.map((d) => (typeof d === 'string' ? d : d.district)));
+    } catch (err) {
+      console.error('Failed to fetch districts for state:', err);
+    }
+  };
+
+  const fetchVillagesList = async (district, state) => {
+    setVillagesLoading(true);
+    try {
+      const res = await riskApi.getVillages(district, state);
+      const vList = res.data.villages || [];
+      const vDetails = res.data.details || [];
+      setVillages(vList);
+      setVillageDetails(vDetails);
     } catch (err) {
       console.error('Failed to fetch villages:', err);
+      setVillages([]);
+      setVillageDetails([]);
+    } finally {
+      setVillagesLoading(false);
     }
   };
 
@@ -170,13 +198,26 @@ export default function Villages() {
   };
 
   const handleAnalyze = async () => {
-    if (gpsCoords) {
+    if (gpsCoords && !selectedDistrict) {
       await runPrediction({ latitude: gpsCoords.latitude, longitude: gpsCoords.longitude });
       return;
     }
-    if (!selectedState || !selectedDistrict) return;
-    const payload = { state: selectedState, district: selectedDistrict };
-    if (selectedVillage) payload.village = selectedVillage;
+    if (!selectedDistrict) return;
+    const payload = {
+      state: selectedState || undefined,
+      district: selectedDistrict,
+      village: selectedVillage || undefined
+    };
+    if (selectedVillage) {
+      const vMatch = villageDetails.find(v => v.name === selectedVillage);
+      if (vMatch && vMatch.lat && vMatch.lon) {
+        payload.latitude = parseFloat(vMatch.lat);
+        payload.longitude = parseFloat(vMatch.lon);
+      }
+    } else if (gpsCoords) {
+      payload.latitude = gpsCoords.latitude;
+      payload.longitude = gpsCoords.longitude;
+    }
     await runPrediction(payload);
   };
 
@@ -208,13 +249,15 @@ export default function Villages() {
     setSelectedState(v.state || 'Himachal Pradesh');
     setSelectedDistrict(v.district);
     setSelectedVillage(v.name || '');
-    setGpsCoords(null);
+    if (v.lat && v.lon) {
+      setGpsCoords({ latitude: parseFloat(v.lat), longitude: parseFloat(v.lon) });
+    }
     runPrediction({
       state: v.state || 'Himachal Pradesh',
       district: v.district,
       village: v.name,
-      latitude: v.lat,
-      longitude: v.lon
+      latitude: v.lat ? parseFloat(v.lat) : undefined,
+      longitude: v.lon ? parseFloat(v.lon) : undefined
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -279,7 +322,10 @@ export default function Villages() {
             <select
               value={selectedState}
               onChange={(e) => {
-                setSelectedState(e.target.value);
+                const newState = e.target.value;
+                setSelectedState(newState);
+                setSelectedDistrict('');
+                setSelectedVillage('');
                 if (gpsCoords) setGpsCoords(null);
               }}
             >
@@ -293,13 +339,28 @@ export default function Villages() {
             <select
               value={selectedDistrict}
               onChange={(e) => {
-                setSelectedDistrict(e.target.value);
+                const dist = e.target.value;
+                setSelectedDistrict(dist);
+                setSelectedVillage('');
                 if (gpsCoords) setGpsCoords(null);
+                if (dist && !selectedState) {
+                  const match = allDistricts.find(d => (typeof d === 'string' ? d === dist : d.district === dist));
+                  if (match && typeof match !== 'string' && match.state) {
+                    setSelectedState(match.state);
+                  }
+                }
               }}
-              disabled={!selectedState}
             >
               <option value="">{t('villages_page.select_district')}</option>
-              {districts.map(d => <option key={d} value={d}>{d}</option>)}
+              {selectedState ? (
+                districts.map(d => <option key={d} value={d}>{d}</option>)
+              ) : (
+                allDistricts.map(d => {
+                  const name = typeof d === 'string' ? d : d.district;
+                  const st = typeof d === 'string' ? '' : d.state;
+                  return <option key={`${name}-${st}`} value={name}>{name}{st ? ` (${st})` : ''}</option>;
+                })
+              )}
             </select>
           </div>
 
@@ -307,10 +368,27 @@ export default function Villages() {
             <label>{t('villages_page.village')}</label>
             <select
               value={selectedVillage}
-              onChange={(e) => setSelectedVillage(e.target.value)}
-              disabled={!selectedDistrict || villages.length === 0}
+              onChange={(e) => {
+                const vName = e.target.value;
+                setSelectedVillage(vName);
+                if (vName) {
+                  const vMatch = villageDetails.find(v => v.name === vName);
+                  if (vMatch && vMatch.lat && vMatch.lon) {
+                    setGpsCoords({ latitude: parseFloat(vMatch.lat), longitude: parseFloat(vMatch.lon) });
+                  }
+                } else {
+                  setGpsCoords(null);
+                }
+              }}
+              disabled={!selectedDistrict || villagesLoading}
             >
-              <option value="">{t('villages_page.select_village')}</option>
+              <option value="">
+                {villagesLoading
+                  ? 'Fetching settlements...'
+                  : !selectedDistrict
+                  ? `${t('villages_page.select_district')} first`
+                  : t('villages_page.select_village')}
+              </option>
               {villages.map(v => <option key={v} value={v}>{v}</option>)}
             </select>
           </div>
@@ -321,7 +399,7 @@ export default function Villages() {
               type="button"
               className="btn-primary analyze-btn"
               onClick={handleAnalyze}
-              disabled={loading || gpsLoading || (!gpsCoords && (!selectedState || !selectedDistrict))}
+              disabled={loading || gpsLoading || (!gpsCoords && !selectedDistrict)}
             >
               {loading ? (
                 <>
@@ -562,12 +640,12 @@ export default function Villages() {
             <Search size={18} color="var(--text-muted)" />
             <input
               type="text"
-              placeholder={t('villages_page.search_placeholder')}
+              placeholder="Search village, district, state or river basin..."
               value={tableSearch}
               onChange={(e) => setTableSearch(e.target.value)}
             />
           </div>
-          <span className="count-tag">{filteredAndSortedVillages.length} {t('villages_page.valleys_monitored')}</span>
+          <span className="count-tag">{filteredAndSortedVillages.length} Monitored Settlements &amp; Valleys</span>
         </div>
 
         <div className="table-container panel">
@@ -575,7 +653,8 @@ export default function Villages() {
             <thead>
               <tr>
                 <th onClick={() => setSortField('name')}>{t('villages_page.th_valley')} <ArrowUpDown size={14} /></th>
-                <th onClick={() => setSortField('district')}>{t('villages_page.th_district')} <ArrowUpDown size={14} /></th>
+                <th onClick={() => setSortField('district')}>{t('villages_page.th_district')} / State <ArrowUpDown size={14} /></th>
+                <th onClick={() => setSortField('river_basin')}>River Basin <ArrowUpDown size={14} /></th>
                 <th onClick={() => setSortField('risk_level')}>{t('villages_page.th_status')} <ArrowUpDown size={14} /></th>
                 <th onClick={() => setSortField('risk_score')}>{t('villages_page.th_risk_score')} <ArrowUpDown size={14} /></th>
                 <th onClick={() => setSortField('rainfall_24h_mm')}>{t('villages_page.th_24h_rain')} <ArrowUpDown size={14} /></th>
@@ -585,7 +664,7 @@ export default function Villages() {
             <tbody>
               {filteredAndSortedVillages.length === 0 ? (
                 <tr>
-                  <td colSpan="6" className="text-center">{t('villages_page.no_match')}</td>
+                  <td colSpan="7" className="text-center">{t('villages_page.no_match')}</td>
                 </tr>
               ) : (
                 filteredAndSortedVillages.map((v, i) => (
@@ -595,8 +674,17 @@ export default function Villages() {
                         <Home size={16} className="text-muted mr-2" />
                         <strong>{v.name}</strong>
                       </div>
+                      {v.lat && (
+                        <small className="text-muted" style={{ fontSize: '0.75rem', display: 'block', marginTop: '2px' }}>
+                          📍 {Number(v.lat).toFixed(3)}°N, {Number(v.lon).toFixed(3)}°E ({v.elevation_m || 1000}m)
+                        </small>
+                      )}
                     </td>
-                    <td>{v.district}</td>
+                    <td>
+                      <div><strong>{v.district}</strong></div>
+                      <small className="text-muted">{v.state}</small>
+                    </td>
+                    <td><span className="badge neutral">{v.river_basin || 'Mountain Catchment'}</span></td>
                     <td>
                       <span className={`badge ${v.risk_level?.toLowerCase() || 'low'}`}>
                         {v.risk_level || 'LOW'}

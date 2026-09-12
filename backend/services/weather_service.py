@@ -1,7 +1,14 @@
 import requests
+import time
+import logging
+from cachetools import TTLCache
 
+logger = logging.getLogger(__name__)
 
 WEATHER_API_URL = "https://api.open-meteo.com/v1/forecast"
+
+# Cache weather data for 5 minutes by rounded coordinates (precision ~1.1km)
+_WEATHER_CACHE = TTLCache(maxsize=1000, ttl=300)
 
 
 def safe_float(value):
@@ -51,52 +58,60 @@ def get_weather(
 ):
     """
     Get actual weather and recent rainfall
-    from Open-Meteo.
-
-    Rainfall windows:
-    - Current
-    - 1 hour
-    - 3 hours
-    - 6 hours
-    - 24 hours
+    from Open-Meteo with caching and retry.
     """
+    key = (round(float(latitude), 3), round(float(longitude), 3))
+    if key in _WEATHER_CACHE:
+        return _WEATHER_CACHE[key]
 
     params = {
         "latitude": latitude,
         "longitude": longitude,
-
         "current": [
             "temperature_2m",
             "relative_humidity_2m",
             "precipitation",
             "rain"
         ],
-
         "hourly": [
             "precipitation",
             "rain"
         ],
-
-        # Get enough historical hourly data
-        # for rainfall accumulation.
         "past_hours": 24,
-
-        # Small forecast window retained
-        # for future use.
         "forecast_hours": 1,
-
         "timezone": "auto"
     }
 
-    response = requests.get(
-        WEATHER_API_URL,
-        params=params,
-        timeout=20
-    )
+    data = None
+    last_err = None
+    for attempt in range(2):
+        try:
+            response = requests.get(
+                WEATHER_API_URL,
+                params=params,
+                timeout=12
+            )
+            response.raise_for_status()
+            data = response.json()
+            break
+        except Exception as e:
+            last_err = e
+            if attempt == 0 and "429" in str(e):
+                time.sleep(0.5)
 
-    response.raise_for_status()
-
-    data = response.json()
+    if not data:
+        logger.warning(f"Weather API request failed ({last_err}). Using baseline weather parameters.")
+        return {
+            "temperature": 22.0,
+            "humidity": 65.0,
+            "rainfall": 0.0,
+            "rain": 0.0,
+            "rainfall_1h": 0.0,
+            "rainfall_3h": 0.0,
+            "rainfall_6h": 0.0,
+            "rainfall_24h": 0.0,
+            "hourly": {}
+        }
 
     current = data.get(
         "current",

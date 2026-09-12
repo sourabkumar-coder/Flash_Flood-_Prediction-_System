@@ -119,10 +119,10 @@ def get_historical_features(state_name, district_name):
 
 
 
-def build_features(state_name=None, district_name=None, latitude=None, longitude=None):
+def build_features(state_name=None, district_name=None, village_name=None, latitude=None, longitude=None):
     """
     Build a unified multi-source feature vector.
-    Accepts either (state_name, district_name) OR direct (latitude, longitude).
+    Accepts (state_name, district_name, village_name) OR direct (latitude, longitude).
     """
 
     print("=" * 70)
@@ -145,9 +145,7 @@ def build_features(state_name=None, district_name=None, latitude=None, longitude
             resolved = reverse_geocode_coordinates(latitude, longitude)
             state_name = state_name or resolved.get("state")
             district_name = district_name or resolved.get("district")
-            village_name = resolved.get("village")
-        else:
-            village_name = None
+            village_name = village_name or resolved.get("village")
 
         coordinates = {
             "state": state_name,
@@ -157,20 +155,45 @@ def build_features(state_name=None, district_name=None, latitude=None, longitude
             "longitude": longitude,
         }
     else:
-        # State and district provided -> resolve centroid coordinates
-        coordinates = get_district_coordinates(
-            state_name,
-            district_name
-        )
+        # Check if village is specified and resolve exact village coordinates
+        v_coords = None
+        if village_name:
+            try:
+                from services.village_service import get_village_coordinates
+                v_coords = get_village_coordinates(state_name, district_name, village_name)
+            except Exception as e:
+                print(f"Village coordinate lookup error: {e}")
 
-        if coordinates is None:
-            raise ValueError(
-                f"District not found: "
-                f"{district_name}, {state_name}"
+        if v_coords:
+            coordinates = {
+                "state": state_name or v_coords.get("state"),
+                "district": district_name or v_coords.get("district"),
+                "village": v_coords.get("village", village_name),
+                "latitude": v_coords["latitude"],
+                "longitude": v_coords["longitude"],
+            }
+            latitude = v_coords["latitude"]
+            longitude = v_coords["longitude"]
+            state_name = coordinates["state"]
+            district_name = coordinates["district"]
+        else:
+            # State and district provided -> resolve centroid coordinates
+            coordinates = get_district_coordinates(
+                state_name,
+                district_name
             )
 
-        latitude = coordinates["latitude"]
-        longitude = coordinates["longitude"]
+            if coordinates is None:
+                raise ValueError(
+                    f"District not found: "
+                    f"{district_name}, {state_name}"
+                )
+
+            if village_name:
+                coordinates["village"] = village_name
+
+            latitude = coordinates["latitude"]
+            longitude = coordinates["longitude"]
 
     print(f"State    : {state_name}")
     print(f"District : {district_name}")

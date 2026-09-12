@@ -1,66 +1,102 @@
 import requests
 import math
-
+import time
+from cachetools import TTLCache
 
 ELEVATION_API_URL = "https://api.open-meteo.com/v1/elevation"
+
+# Cache elevations for 1 hour by rounded coordinate (precision ~1.1km)
+_ELEVATION_CACHE = TTLCache(maxsize=2000, ttl=3600)
 
 
 def get_elevation(latitude, longitude):
     """
     Get elevation for a single coordinate.
     """
+    key = (round(float(latitude), 3), round(float(longitude), 3))
+    if key in _ELEVATION_CACHE:
+        return _ELEVATION_CACHE[key]
 
     params = {
         "latitude": latitude,
         "longitude": longitude
     }
 
-    response = requests.get(
-        ELEVATION_API_URL,
-        params=params,
-        timeout=20
-    )
+    try:
+        response = requests.get(
+            ELEVATION_API_URL,
+            params=params,
+            timeout=10
+        )
+        response.raise_for_status()
+        data = response.json()
+        elevations = data.get("elevation", [])
+        if elevations:
+            val = float(elevations[0])
+            _ELEVATION_CACHE[key] = val
+            return val
+    except Exception as e:
+        raise RuntimeError(f"Elevation API error: {e}")
 
-    response.raise_for_status()
-
-    data = response.json()
-
-    elevations = data.get("elevation", [])
-
-    if not elevations:
-        raise RuntimeError("Elevation data not returned")
-
-    return elevations[0]
+    raise RuntimeError("Elevation data not returned")
 
 
 def get_elevations(latitudes, longitudes):
     """
-    Get elevations for multiple coordinates.
+    Get elevations for multiple coordinates in a single batched call with caching.
     """
+    if not latitudes or not longitudes:
+        return []
+
+    results = [None] * len(latitudes)
+    missing_indices = []
+    missing_lats = []
+    missing_lons = []
+
+    for i, (lat, lon) in enumerate(zip(latitudes, longitudes)):
+        key = (round(float(lat), 3), round(float(lon), 3))
+        if key in _ELEVATION_CACHE:
+            results[i] = _ELEVATION_CACHE[key]
+        else:
+            missing_indices.append(i)
+            missing_lats.append(lat)
+            missing_lons.append(lon)
+
+    if not missing_indices:
+        return results
 
     params = {
-        "latitude": ",".join(map(str, latitudes)),
-        "longitude": ",".join(map(str, longitudes))
+        "latitude": ",".join(map(str, missing_lats)),
+        "longitude": ",".join(map(str, missing_lons))
     }
 
-    response = requests.get(
-        ELEVATION_API_URL,
-        params=params,
-        timeout=30
-    )
+    # Attempt request with 1 quick retry if rate-limited
+    last_err = None
+    for attempt in range(2):
+        try:
+            response = requests.get(
+                ELEVATION_API_URL,
+                params=params,
+                timeout=15
+            )
+            response.raise_for_status()
+            data = response.json()
+            elevations = data.get("elevation", [])
 
-    response.raise_for_status()
+            if len(elevations) == len(missing_indices):
+                for idx, elev in zip(missing_indices, elevations):
+                    val = float(elev) if elev is not None else 0.0
+                    key = (round(float(latitudes[idx]), 3), round(float(longitudes[idx]), 3))
+                    _ELEVATION_CACHE[key] = val
+                    results[idx] = val
+                return results
+        except Exception as e:
+            last_err = e
+            if attempt == 0 and "429" in str(e):
+                time.sleep(0.5)
 
-    data = response.json()
+    raise RuntimeError(f"Elevation API batch failed: {last_err}")
 
-    elevations = data.get("elevation", [])
-
-    if len(elevations) != len(latitudes):
-        raise RuntimeError(
-            "Elevation count does not match coordinate count"
-        )
-
-    return elevations
 
 
 def calculate_slope(
