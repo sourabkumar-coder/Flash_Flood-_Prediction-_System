@@ -6,13 +6,37 @@ const categoryClass = category => category?.toLowerCase().replace(/[^a-z]+/g, '-
 
 export default function NewsPanel({ articles = [], lastUpdated, loading, error, onRefresh }) {
   const [filter, setFilter] = useState('All');
+
+  const safeArticles = useMemo(() => {
+    if (Array.isArray(articles)) return articles;
+    if (articles && Array.isArray(articles.articles)) return articles.articles;
+    return [];
+  }, [articles]);
+
   const visibleArticles = useMemo(() => {
-    if (filter === 'All') return articles;
-    return articles.filter(article => {
-      const category = article.category || '';
-      return filter === 'Heavy Rain' ? category === 'HEAVY RAINFALL' : category.toUpperCase().includes(filter.toUpperCase());
+    if (filter === 'All') return safeArticles;
+    return safeArticles.filter(article => {
+      const category = (article.category || '').toUpperCase();
+      const text = `${article.title || ''} ${article.description || ''}`.toUpperCase();
+      const f = filter.toUpperCase();
+      if (f === 'HEAVY RAIN') {
+        return category.includes('RAIN') || category.includes('CLOUDBURST') || text.includes('RAIN') || text.includes('CLOUDBURST');
+      }
+      if (f === 'RIVERS') {
+        return category.includes('RIVER') || category.includes('WATER') || text.includes('RIVER') || text.includes('STREAM');
+      }
+      if (f === 'DAMS') {
+        return category.includes('DAM') || category.includes('RESERVOIR') || text.includes('DAM') || text.includes('BARRAGE');
+      }
+      if (f === 'LANDSLIDE') {
+        return category.includes('LANDSLIDE') || text.includes('LANDSLIDE') || text.includes('SLOPE');
+      }
+      if (f === 'FLOOD') {
+        return category.includes('FLOOD') || text.includes('FLOOD');
+      }
+      return category.includes(f) || text.includes(f);
     });
-  }, [articles, filter]);
+  }, [safeArticles, filter]);
 
   return (
     <section className="news-panel panel">
