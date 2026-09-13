@@ -5,6 +5,7 @@ import {
   BellRing, CheckCircle, AlertTriangle, ArrowRight 
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { riskApi } from '../api/client';
 import './Login.css';
 
 const DEFAULT_STATES = [
@@ -43,26 +44,24 @@ export default function Login() {
   const { login, register, user } = useAuth();
   const navigate = useNavigate();
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:8000';
-
   // Load States
   useEffect(() => {
-    fetch(`${BACKEND_URL}/api/states`)
-      .then(res => res.json())
-      .then(data => {
+    riskApi.getStates()
+      .then(res => {
+        const data = res.data;
         if (data.states && data.states.length > 0) {
           setStates(data.states);
         }
       })
       .catch(() => {});
-  }, [BACKEND_URL]);
+  }, []);
 
   // Load Districts when state changes
   useEffect(() => {
     if (!formData.state) return;
-    fetch(`${BACKEND_URL}/api/districts/${encodeURIComponent(formData.state)}`)
-      .then(res => res.json())
-      .then(data => {
+    riskApi.getDistricts(formData.state)
+      .then(res => {
+        const data = res.data;
         if (data.districts && data.districts.length > 0) {
           setDistricts(data.districts);
           if (!data.districts.includes(formData.district)) {
@@ -71,7 +70,7 @@ export default function Login() {
         }
       })
       .catch(() => {});
-  }, [formData.state, BACKEND_URL]);
+  }, [formData.state]);
 
   const handleChange = (e) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));

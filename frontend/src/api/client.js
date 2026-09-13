@@ -53,5 +53,11 @@ export const chatApi = {
   sendMessage: (payload) => client.post('/api/chat', payload),
 };
 
+export const authApi = {
+  login: (email, password) => client.post('/api/auth/login', { email, password }),
+  register: (formData) => client.post('/api/auth/register', formData),
+  getUsers: () => client.get('/api/auth/users'),
+};
+
 export default client;
 
