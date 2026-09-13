@@ -44,8 +44,8 @@ export default function Villages() {
   // Valleys table list
   const [valleyList, setValleyList] = useState([]);
   const [tableSearch, setTableSearch] = useState('');
-  const [sortField, setSortField] = useState('risk_score');
-  const [sortOrder, setSortOrder] = useState('desc');
+  const [sortField, setSortField] = useState('name');
+  const [sortOrder, setSortOrder] = useState('asc');
 
   useEffect(() => {
     fetchStates();
@@ -284,12 +284,33 @@ export default function Villages() {
 
   const maxRainfall = Math.max(...rainfallChartData.map((item) => item.value), 1);
 
+  const handleSort = (field) => {
+    if (sortField === field) {
+      setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSortField(field);
+      setSortOrder('desc');
+    }
+  };
+
   const filteredAndSortedVillages = useMemo(() => {
+    const q = tableSearch.toLowerCase().trim();
     return valleyList
-      .filter(v => v.name?.toLowerCase().includes(tableSearch.toLowerCase()) || v.district?.toLowerCase().includes(tableSearch.toLowerCase()))
+      .filter((v) => {
+        if (!q) return true;
+        return (
+          v.name?.toLowerCase().includes(q) ||
+          v.district?.toLowerCase().includes(q) ||
+          v.state?.toLowerCase().includes(q) ||
+          v.river_basin?.toLowerCase().includes(q) ||
+          v.vulnerability?.toLowerCase().includes(q)
+        );
+      })
       .sort((a, b) => {
         let valA = a[sortField] ?? 0;
         let valB = b[sortField] ?? 0;
+        if (typeof valA === 'string') valA = valA.toLowerCase();
+        if (typeof valB === 'string') valB = valB.toLowerCase();
         if (valA < valB) return sortOrder === 'asc' ? -1 : 1;
         if (valA > valB) return sortOrder === 'asc' ? 1 : -1;
         return 0;
@@ -652,19 +673,17 @@ export default function Villages() {
           <table className="data-table">
             <thead>
               <tr>
-                <th onClick={() => setSortField('name')}>{t('villages_page.th_valley')} <ArrowUpDown size={14} /></th>
-                <th onClick={() => setSortField('district')}>{t('villages_page.th_district')} / State <ArrowUpDown size={14} /></th>
-                <th onClick={() => setSortField('river_basin')}>River Basin <ArrowUpDown size={14} /></th>
-                <th onClick={() => setSortField('risk_level')}>{t('villages_page.th_status')} <ArrowUpDown size={14} /></th>
-                <th onClick={() => setSortField('risk_score')}>{t('villages_page.th_risk_score')} <ArrowUpDown size={14} /></th>
-                <th onClick={() => setSortField('rainfall_24h_mm')}>{t('villages_page.th_24h_rain')} <ArrowUpDown size={14} /></th>
+                <th onClick={() => handleSort('name')}>{t('villages_page.th_valley')} <ArrowUpDown size={14} /></th>
+                <th onClick={() => handleSort('district')}>{t('villages_page.th_district')} / State <ArrowUpDown size={14} /></th>
+                <th onClick={() => handleSort('river_basin')}>River Basin <ArrowUpDown size={14} /></th>
+                <th onClick={() => handleSort('elevation_m')}>Elevation <ArrowUpDown size={14} /></th>
                 <th>{t('villages_page.th_actions')}</th>
               </tr>
             </thead>
             <tbody>
               {filteredAndSortedVillages.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="text-center">{t('villages_page.no_match')}</td>
+                  <td colSpan="5" className="text-center">{t('villages_page.no_match')}</td>
                 </tr>
               ) : (
                 filteredAndSortedVillages.map((v, i) => (
@@ -676,7 +695,7 @@ export default function Villages() {
                       </div>
                       {v.lat && (
                         <small className="text-muted" style={{ fontSize: '0.75rem', display: 'block', marginTop: '2px' }}>
-                          📍 {Number(v.lat).toFixed(3)}°N, {Number(v.lon).toFixed(3)}°E ({v.elevation_m || 1000}m)
+                          📍 {Number(v.lat).toFixed(3)}°N, {Number(v.lon).toFixed(3)}°E
                         </small>
                       )}
                     </td>
@@ -685,20 +704,14 @@ export default function Villages() {
                       <small className="text-muted">{v.state}</small>
                     </td>
                     <td><span className="badge neutral">{v.river_basin || 'Mountain Catchment'}</span></td>
-                    <td>
-                      <span className={`badge ${v.risk_level?.toLowerCase() || 'low'}`}>
-                        {v.risk_level || 'LOW'}
-                      </span>
-                    </td>
-                    <td><strong style={{ color: getRiskColor(v.risk_level) }}>{v.risk_score || '0.0'}</strong></td>
-                    <td>{v.rainfall_24h_mm || '0.0'} mm</td>
+                    <td><strong>{v.elevation_m ? `${v.elevation_m} m` : '—'}</strong></td>
                     <td>
                       <button
                         type="button"
                         className="btn-primary table-action-btn"
                         onClick={() => handleSelectFromTable(v)}
                       >
-                        {t('villages_page.analyze_risk_btn')} &rarr;
+                        ⚡ {t('villages_page.analyze_risk_btn')} &rarr;
                       </button>
                     </td>
                   </tr>

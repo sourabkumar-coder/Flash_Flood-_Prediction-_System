@@ -137,22 +137,24 @@ def get_village_coordinates(state_name, district_name, village_name):
     return None
 
 
+PRIORITY_STATES = ["Himachal Pradesh", "Uttarakhand", "Arunachal Pradesh", "Assam"]
+
+
 def get_all_monitored_villages():
     """
-    Return flattened list of all monitored villages across Himachal Pradesh, Uttarakhand,
-    and North Eastern states for directory view and Village Analytics table.
+    Return flattened list of monitored valleys & settlements across Himachal Pradesh, Uttarakhand,
+    Arunachal Pradesh, and Assam for the directory view.
     """
     data = load_villages_data()
     results = []
     v_id = 1
 
     for state, dist_dict in data.items():
+        if state not in PRIORITY_STATES:
+            continue
         for district, v_list in dist_dict.items():
             for v in v_list:
-                vuln = v.get("vulnerability", "HIGH")
-                score = 88.5 if vuln == "CRITICAL" else (72.4 if vuln == "HIGH" else 48.0)
-                level = "CRITICAL" if vuln == "CRITICAL" else (vuln or "HIGH")
-                
+                vuln = v.get("vulnerability", "MODERATE")
                 results.append({
                     "id": f"v-{v_id}",
                     "name": v["name"],
@@ -162,10 +164,6 @@ def get_all_monitored_villages():
                     "lon": float(v["lon"]),
                     "elevation_m": v.get("elevation_m", 1000),
                     "river_basin": v.get("river_basin", "Local Basin"),
-                    "risk_level": level,
-                    "risk_score": score,
-                    "rainfall_24h_mm": round(score * 1.45, 1),
-                    "lead_time_hours": 3 if vuln == "CRITICAL" else (6 if vuln == "HIGH" else 12),
                     "vulnerability": vuln
                 })
                 v_id += 1
