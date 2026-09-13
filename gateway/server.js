@@ -439,6 +439,17 @@ app.get('/api/features/:state/:district', async (req, res) => {
   }
 });
 
+app.get(['/api/location/reverse', '/location/reverse'], async (req, res) => {
+  try {
+    const response = await axios.get(`${FASTAPI_URL}/api/location/reverse`, { params: req.query, timeout: 10000 });
+    res.json(response.data);
+  } catch (err) {
+    const status = err.response?.status || 500;
+    const detail = err.response?.data?.detail || err.message;
+    res.status(status).json({ detail });
+  }
+});
+
 app.post('/api/chat', async (req, res) => {
   try {
     const response = await axios.post(`${FASTAPI_URL}/api/chat`, req.body, { timeout: 30000 });
