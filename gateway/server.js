@@ -298,6 +298,17 @@ async function proxySensorRequest(path, req, res) {
 app.get('/api/sensors/latest', (req, res) => proxySensorRequest('/api/sensors/latest', req, res));
 app.get('/api/sensors/history', (req, res) => proxySensorRequest('/api/sensors/history', req, res));
 app.get('/api/sensors/status', (req, res) => proxySensorRequest('/api/sensors/status', req, res));
+app.post('/api/sensors/ingest', async (req, res) => {
+  try {
+    const response = await axios.post(`${FASTAPI_URL}/api/sensors/ingest`, req.body, { timeout: 8000 });
+    res.json(response.data);
+  } catch (err) {
+    res.status(err.response?.status || 502).json({
+      status: 'error',
+      message: err.response?.data?.detail || err.message
+    });
+  }
+});
 
 app.get('/api/overview/threats', (req, res) => {
   res.json(threatCache);
