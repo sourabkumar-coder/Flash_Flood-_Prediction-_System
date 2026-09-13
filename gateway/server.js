@@ -46,18 +46,19 @@ try {
   console.error('[Gateway] Failed to load regional basin data:', err.message);
 }
 
-// Load comprehensive villages dataset (HP, Uttarakhand, and North Eastern States)
+// Load comprehensive villages dataset (HP, Uttarakhand, Arunachal Pradesh, Assam)
 const VILLAGES_PATH = path.resolve(__dirname, '../data/villages.json');
 let allVillagesList = [];
+const PRIORITY_STATES = ['Himachal Pradesh', 'Uttarakhand', 'Arunachal Pradesh', 'Assam'];
 try {
   if (fs.existsSync(VILLAGES_PATH)) {
     const vData = JSON.parse(fs.readFileSync(VILLAGES_PATH, 'utf-8'));
     let vid = 1;
     for (const [st, dists] of Object.entries(vData)) {
+      if (!PRIORITY_STATES.includes(st)) continue;
       for (const [dist, vList] of Object.entries(dists)) {
         for (const v of vList) {
-          const vuln = v.vulnerability || 'HIGH';
-          const score = vuln === 'CRITICAL' ? 88.5 : (vuln === 'HIGH' ? 72.4 : 48.0);
+          const vuln = v.vulnerability || 'MODERATE';
           allVillagesList.push({
             id: `v-${vid++}`,
             name: v.name,
@@ -67,16 +68,12 @@ try {
             lon: Number(v.lon),
             elevation_m: v.elevation_m || 1000,
             river_basin: v.river_basin || 'Local Basin',
-            risk_level: vuln === 'CRITICAL' ? 'CRITICAL' : (vuln || 'HIGH'),
-            risk_score: score,
-            rainfall_24h_mm: Number((score * 1.45).toFixed(1)),
-            lead_time_hours: vuln === 'CRITICAL' ? 3 : (vuln === 'HIGH' ? 6 : 12),
             vulnerability: vuln
           });
         }
       }
     }
-    console.log(`[Gateway] Loaded ${allVillagesList.length} monitored villages across ${Object.keys(vData).length} states.`);
+    console.log(`[Gateway] Loaded ${allVillagesList.length} monitored settlements across ${PRIORITY_STATES.join(', ')}.`);
   }
 } catch (e) {
   console.error('[Gateway] Failed to load villages.json:', e.message);

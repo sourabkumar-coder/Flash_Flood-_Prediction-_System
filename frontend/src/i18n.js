@@ -91,7 +91,7 @@ const resources = {
         valleys_monitored: "Valleys Monitored",
         th_valley: "Valley / Ward",
         th_district: "District",
-        th_status: "Status",
+        th_status: "Terrain Vulnerability",
         th_risk_score: "Risk Score",
         th_24h_rain: "24h Rain",
         th_actions: "Actions",
