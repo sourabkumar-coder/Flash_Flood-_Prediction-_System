@@ -280,6 +280,19 @@ app.get('/api/overview/rivers', (req, res) => {
 app.post('/api/overview/simulate', async (req, res) => {
   const { scenario } = req.body;
 
+  try {
+    const response = await axios.post(`${FASTAPI_URL}/api/overview/simulate`, req.body, { timeout: 15000 });
+    if (response.data) {
+      if (response.data.threatCache) {
+        threatCache = { ...threatCache, ...response.data.threatCache };
+        broadcastUpdates();
+      }
+      return res.json(response.data);
+    }
+  } catch (err) {
+    console.warn('[Gateway] FastAPI simulate error, falling back to local handler:', err.message);
+  }
+
   if (scenario === 'RESET') {
     threatCache.isSimulated = false;
     threatCache.simulationScenario = null;
