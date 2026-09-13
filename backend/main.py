@@ -10,7 +10,7 @@ load_env()
 
 from api_models import (
     LocationRequest, PredictionResponse, BatchPredictionRequest, BatchPredictionResponse,
-    UserRegisterRequest, UserLoginRequest, RegionalAlertRequest, ChatRequest
+    UserRegisterRequest, UserLoginRequest, RegionalAlertRequest, ChatRequest, SensorIngestRequest
 )
 
 from services.district_service import (
@@ -22,6 +22,7 @@ from services.sensor_risk_service import (
     get_latest_sensor_reading,
     get_sensor_history,
     get_sensor_status,
+    append_sensor_reading,
 )
 
 logging.basicConfig(level=logging.INFO)
@@ -85,6 +86,27 @@ def sensor_history(hours: float = 24):
 @app.get("/api/sensors/status")
 def sensor_status():
     return get_sensor_status()
+
+
+@app.post("/sensors/ingest")
+@app.post("/api/sensors/ingest")
+def ingest_sensor_data(req: SensorIngestRequest):
+    """
+    Ingest live IoT telemetry from edge serial/WiFi devices into the system.
+    """
+    try:
+        risk = append_sensor_reading(
+            temperature=req.temperature_C,
+            humidity=req.humidity_pct,
+            moisture=req.soil_moisture_pct,
+            millis=req.millis,
+            buzzer=req.buzzer_state,
+            timestamp=req.timestamp,
+        )
+        return {"status": "success", "message": "Sensor data recorded", "risk": risk}
+    except Exception as e:
+        logger.error(f"Failed to ingest sensor data: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.get("/states")
 @app.get("/api/states")

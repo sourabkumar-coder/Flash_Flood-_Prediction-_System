@@ -196,3 +196,20 @@ def get_sensor_status():
         "ageSeconds": latest["ageSeconds"],
         "staleAfterSeconds": SENSOR_STALE_SECONDS,
     }
+
+
+def append_sensor_reading(temperature, humidity, moisture, millis=0, buzzer=0, timestamp=None):
+    """Append a validated sensor reading to sensor_log.csv."""
+    if timestamp is None:
+        timestamp = datetime.now(timezone.utc).isoformat(timespec="seconds")
+
+    write_header = not SENSOR_LOG_PATH.exists() or SENSOR_LOG_PATH.stat().st_size == 0
+    with SENSOR_LOG_PATH.open("a", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        if write_header:
+            writer.writerow(["timestamp", "millis", "temperature_C", "humidity_pct", "soil_moisture_pct", "buzzer_state"])
+        writer.writerow([timestamp, int(millis or 0), float(temperature), float(humidity), float(moisture), int(buzzer or 0)])
+        f.flush()
+
+    return calculate_sensor_risk(moisture, humidity, temperature)
+

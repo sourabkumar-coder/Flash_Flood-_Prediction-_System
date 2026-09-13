@@ -196,6 +196,16 @@ class RegionalAlertRequest(BaseModel):
     severity: Optional[str] = "CRITICAL"
 
 
+class SensorIngestRequest(BaseModel):
+    temperature_C: float
+    humidity_pct: float
+    soil_moisture_pct: float
+    millis: Optional[int] = 0
+    buzzer_state: Optional[int] = 0
+    timestamp: Optional[str] = None
+
+
+
 # ==============================================================================
 # Multilingual Chatbot Models
 # ==============================================================================
