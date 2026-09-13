@@ -562,7 +562,21 @@ async def simulate_overview(request: Request):
         REGIONAL_CACHE["simulationScenario"] = None
         REGIONAL_CACHE["criticalAlert"] = None
         REGIONAL_CACHE["valleys"] = []
+        REGIONAL_CACHE["summary"] = {
+            "totalMonitored": 0,
+            "criticalCount": 0,
+            "highCount": 0,
+            "moderateCount": 0,
+            "lowCount": 0,
+            "minLeadTimeHours": 12.0,
+            "status": "NORMAL_BASELINE"
+        }
         get_threat_overview_data()
+        REGIONAL_CACHE["summary"]["criticalCount"] = 0
+        REGIONAL_CACHE["summary"]["highCount"] = 0
+        REGIONAL_CACHE["summary"]["moderateCount"] = 0
+        REGIONAL_CACHE["summary"]["lowCount"] = REGIONAL_CACHE["summary"]["totalMonitored"]
+        REGIONAL_CACHE["summary"]["status"] = "NORMAL_BASELINE"
         return {"message": "Simulation reset. Restored baseline monitoring.", "threatCache": REGIONAL_CACHE}
     
     REGIONAL_CACHE["isSimulated"] = True

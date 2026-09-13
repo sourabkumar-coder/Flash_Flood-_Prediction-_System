@@ -97,6 +97,36 @@ let threatCache = {
   }
 };
 
+function resetThreatCacheToBaseline() {
+  const valleys = (regionalData.monitored_valleys || []).map(v => ({
+    ...v,
+    risk_score: v.base_risk,
+    risk_level: 'LOW',
+    lead_time_hours: null,
+    current_rainfall_mm: 0.0,
+    rainfall_24h_mm: 0.0,
+    current_river_stage_m: 2.2,
+    is_above_danger: false
+  }));
+
+  threatCache = {
+    lastSync: new Date().toISOString(),
+    isSimulated: false,
+    simulationScenario: null,
+    criticalAlert: null,
+    valleys,
+    summary: {
+      totalMonitored: valleys.length,
+      criticalCount: 0,
+      highCount: 0,
+      moderateCount: 0,
+      lowCount: valleys.length,
+      minLeadTimeHours: 12.0,
+      status: 'NORMAL_BASELINE'
+    }
+  };
+}
+
 // API Caches for Weather and News
 const apiCache = {
   weather: new Map(), // key: lat_lon, value: { data, timestamp }
@@ -294,9 +324,9 @@ app.post('/api/overview/simulate', async (req, res) => {
   }
 
   if (scenario === 'RESET') {
-    threatCache.isSimulated = false;
-    threatCache.simulationScenario = null;
+    resetThreatCacheToBaseline();
     await syncRegionalThreats();
+    broadcastUpdates();
     return res.json({ message: 'Simulation reset. Restored live synoptic streams.', threatCache });
   }
 
@@ -374,8 +404,9 @@ app.post('/api/overview/simulate', async (req, res) => {
 });
 
 app.post('/api/overview/sync', async (req, res) => {
-  threatCache.isSimulated = false;
+  resetThreatCacheToBaseline();
   await syncRegionalThreats();
+  broadcastUpdates();
   res.json({ message: 'Live synoptic streams resynced.', threatCache });
 });
 
