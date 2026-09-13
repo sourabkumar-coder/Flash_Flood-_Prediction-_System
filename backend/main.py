@@ -18,6 +18,11 @@ from services.district_service import (
 )
 from services.feature_service import build_features
 from services.prediction_service import predict_flood_risk
+from services.sensor_risk_service import (
+    get_latest_sensor_reading,
+    get_sensor_history,
+    get_sensor_status,
+)
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -62,6 +67,24 @@ def root_status():
 @app.get("/api/health")
 def health_check():
     return {"status": "ok"}
+
+
+@app.get("/sensors/latest")
+@app.get("/api/sensors/latest")
+def latest_sensor_reading():
+    return get_latest_sensor_reading()
+
+
+@app.get("/sensors/history")
+@app.get("/api/sensors/history")
+def sensor_history(hours: float = 24):
+    return get_sensor_history(hours)
+
+
+@app.get("/sensors/status")
+@app.get("/api/sensors/status")
+def sensor_status():
+    return get_sensor_status()
 
 @app.get("/states")
 @app.get("/api/states")

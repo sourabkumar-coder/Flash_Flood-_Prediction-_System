@@ -8,6 +8,7 @@ import Villages from './pages/Villages';
 import Forecast from './pages/Forecast';
 import Evacuation from './pages/Evacuation';
 import Settings from './pages/Settings';
+import Sensors from './pages/Sensors';
 import Login from './pages/Login';
 import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
@@ -27,6 +28,7 @@ function App() {
               <Route path="/forecast" element={<Forecast />} />
               <Route path="/evacuation" element={<Evacuation />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/sensors" element={<Sensors />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Login />} />
               <Route path="*" element={<Navigate to="/" replace />} />

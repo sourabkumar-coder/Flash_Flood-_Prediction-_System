@@ -39,6 +39,12 @@ export const weatherApi = {
   getCurrentWeather: (lat, lon) => client.get('/api/weather', { params: { lat, lon } }),
 };
 
+export const sensorApi = {
+  getLatest: () => client.get('/api/sensors/latest'),
+  getHistory: (hours = 24) => client.get('/api/sensors/history', { params: { hours } }),
+  getStatus: () => client.get('/api/sensors/status'),
+};
+
 export const newsApi = {
   getNews: (params) => client.get('/api/news', { params }),
 };

@@ -92,7 +92,7 @@ def main():
                     continue
 
                 if looks_like_data_row(fields):
-                    timestamp = datetime.now().isoformat(timespec="seconds")
+                    timestamp = datetime.now().astimezone().isoformat(timespec="seconds")
                     writer.writerow([timestamp] + fields)
                     csv_file.flush()
 

@@ -29,6 +29,18 @@
 .section-heading h2 { display: flex; align-items: center; gap: 0.45rem; font-size: 1.15rem; margin-top: 0.35rem; }
 .dashboard-refresh, .icon-button { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--primary); border: 1px solid var(--border-color); border-radius: 7px; padding: 0.55rem 0.75rem; background: var(--bg-panel); }
 .dashboard-refresh:hover, .icon-button:hover { border-color: var(--primary); background: var(--primary-light); }
+
+.dashboard-sensor-summary { padding: 1rem 1.15rem; }
+.sensor-summary-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+.sensor-summary-heading h2 { margin: 0.2rem 0 0; font-size: 1.05rem; color: var(--text-main); }
+.sensor-summary-status { display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-muted); font-size: 0.7rem; font-weight: 800; }
+.sensor-summary-status span { width: 7px; height: 7px; border-radius: 50%; background: #94a3b8; }
+.sensor-summary-status.online { color: #059669; }.sensor-summary-status.online span { background: #10b981; }.sensor-summary-status.stale { color: #b45309; }.sensor-summary-status.stale span { background: #f59e0b; }
+.sensor-summary-values { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.7rem; margin-top: 0.9rem; }
+.sensor-summary-values > div { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 0.15rem 0.45rem; padding: 0.6rem; border: 1px solid var(--border-color); border-radius: 7px; }
+.sensor-summary-values svg { grid-row: 1 / 3; color: var(--primary); }.sensor-summary-values span { color: var(--text-muted); font-size: 0.7rem; }.sensor-summary-values strong { color: var(--text-main); font-size: 0.95rem; }.sensor-summary-risk strong { color: #b45309; }
+.sensor-details-link { display: inline-block; margin-top: 0.75rem; color: var(--primary); font-size: 0.75rem; font-weight: 700; text-decoration: none; }.sensor-details-link:hover { text-decoration: underline; }
+@media (max-width: 700px) { .sensor-summary-values { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .icon-button { padding: 0.5rem; }
 
 .kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }

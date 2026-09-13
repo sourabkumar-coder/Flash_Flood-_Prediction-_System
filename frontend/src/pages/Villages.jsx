@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { riskApi, villageApi, evacuationApi } from '../api/client';
+import { riskApi, sensorApi, villageApi, evacuationApi } from '../api/client';
 import MapComponent from '../components/MapComponent';
 import GloFASChart from '../components/GloFASChart';
 import { 
@@ -46,12 +46,25 @@ export default function Villages() {
   const [tableSearch, setTableSearch] = useState('');
   const [sortField, setSortField] = useState('name');
   const [sortOrder, setSortOrder] = useState('asc');
+  const [sensor, setSensor] = useState(null);
 
   useEffect(() => {
     fetchStates();
     fetchAllDistricts();
     fetchValleyTable();
+    fetchSensor();
+    const interval = window.setInterval(fetchSensor, 5000);
+    return () => window.clearInterval(interval);
   }, []);
+
+  const fetchSensor = async () => {
+    try {
+      const response = await sensorApi.getLatest();
+      setSensor(response.data);
+    } catch {
+      setSensor({ status: 'OFFLINE' });
+    }
+  };
 
   // Filter or populate districts whenever selectedState or allDistricts changes
   useEffect(() => {
@@ -677,13 +690,14 @@ export default function Villages() {
                 <th onClick={() => handleSort('district')}>{t('villages_page.th_district')} / State <ArrowUpDown size={14} /></th>
                 <th onClick={() => handleSort('river_basin')}>River Basin <ArrowUpDown size={14} /></th>
                 <th onClick={() => handleSort('elevation_m')}>Elevation <ArrowUpDown size={14} /></th>
+                <th>Sensor</th>
                 <th>{t('villages_page.th_actions')}</th>
               </tr>
             </thead>
             <tbody>
               {filteredAndSortedVillages.length === 0 ? (
                 <tr>
-                  <td colSpan="5" className="text-center">{t('villages_page.no_match')}</td>
+                  <td colSpan="6" className="text-center">{t('villages_page.no_match')}</td>
                 </tr>
               ) : (
                 filteredAndSortedVillages.map((v, i) => (
@@ -705,6 +719,13 @@ export default function Villages() {
                     </td>
                     <td><span className="badge neutral">{v.river_basin || 'Mountain Catchment'}</span></td>
                     <td><strong>{v.elevation_m ? `${v.elevation_m} m` : '—'}</strong></td>
+                    <td>
+                      <div className={`table-sensor-cell ${(sensor?.status || 'OFFLINE').toLowerCase()} ${(sensor?.riskLevel || '').toLowerCase()}`}>
+                        <span className="table-sensor-dot" />
+                        <strong>{sensor?.sensorRiskScore != null ? `${sensor.riskLevel} ${sensor.sensorRiskScore}` : '—'}</strong>
+                        <small>{sensor?.status || 'OFFLINE'}</small>
+                      </div>
+                    </td>
                     <td>
                       <button
                         type="button"

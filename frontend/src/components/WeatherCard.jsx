@@ -10,7 +10,6 @@ import {
   Droplets,
   RefreshCw,
   Sun,
-  Umbrella,
   Wind,
 } from 'lucide-react';
 
@@ -44,9 +43,6 @@ export default function WeatherCard({ location, weather, loading, error, onRefre
   const current = weather?.current;
   const hourly = weather?.hourly || [];
   const nextHours = hourly.slice(0, 5);
-  const rainProbability = nextHours.length
-    ? Math.max(...nextHours.map(hour => Number(hour.precipitationProbability) || 0))
-    : null;
 
   return (
     <section className="weather-panel panel">
@@ -82,10 +78,6 @@ export default function WeatherCard({ location, weather, loading, error, onRefre
             <span><Droplets size={15} /> Humidity <b>{valueOrUnavailable(current.humidity, '%')}</b></span>
             <span><Wind size={15} /> Wind <b>{valueOrUnavailable(current.windSpeed, ' km/h')}</b></span>
           </div>
-          <div className="rainfall-callout">
-            <div><Umbrella size={18} /><span>Rain probability</span><strong>{rainProbability === null ? 'Unavailable' : `${rainProbability}%`}</strong></div>
-            <small>Expected precipitation today: {valueOrUnavailable(weather?.daily?.[0]?.precipitationSum, ' mm')}</small>
-          </div>
           <div className="forecast-strip">
             <h3>Next forecast periods</h3>
             <div className="forecast-hours">
@@ -95,7 +87,6 @@ export default function WeatherCard({ location, weather, loading, error, onRefre
                     <span>{new Date(hour.time).toLocaleTimeString([], { hour: 'numeric' })}</span>
                     <WeatherIcon condition={conditionForCode(hour.conditionCode)} size={20} />
                     <b>{valueOrUnavailable(hour.temperature, '°')}</b>
-                    <small>{hour.precipitationProbability ?? '--'}%</small>
                   </div>
                 );
               })}

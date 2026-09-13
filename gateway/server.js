@@ -280,6 +280,25 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', service: 'Flash Flood Express Gateway', fastapi: FASTAPI_URL });
 });
 
+async function proxySensorRequest(path, req, res) {
+  try {
+    const response = await axios.get(`${FASTAPI_URL}${path}`, {
+      params: req.query,
+      timeout: 5000
+    });
+    res.json(response.data);
+  } catch (err) {
+    res.status(err.response?.status || 502).json({
+      status: 'OFFLINE',
+      message: err.response?.data?.detail || 'Sensor service unavailable'
+    });
+  }
+}
+
+app.get('/api/sensors/latest', (req, res) => proxySensorRequest('/api/sensors/latest', req, res));
+app.get('/api/sensors/history', (req, res) => proxySensorRequest('/api/sensors/history', req, res));
+app.get('/api/sensors/status', (req, res) => proxySensorRequest('/api/sensors/status', req, res));
+
 app.get('/api/overview/threats', (req, res) => {
   res.json(threatCache);
 });
@@ -599,7 +618,16 @@ app.get('/api/weather', async (req, res) => {
     res.json(formattedData);
   } catch (err) {
     console.error('[Gateway] Weather API failed:', err.message);
-    res.status(500).json({ error: 'Weather data unavailable' });
+    try {
+      const fallback = await axios.get(`${FASTAPI_URL}/api/weather`, {
+        params: { lat, lon },
+        timeout: 10000
+      });
+      return res.json(fallback.data);
+    } catch (fallbackError) {
+      console.error('[Gateway] FastAPI weather fallback failed:', fallbackError.message);
+      return res.status(502).json({ error: 'Weather data unavailable' });
+    }
   }
 });
 

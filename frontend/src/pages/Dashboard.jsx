@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Activity, AlertTriangle, Clock, MapPin, RefreshCw } from 'lucide-react';
+import { Activity, AlertTriangle, Clock, Droplets, MapPin, RefreshCw, ShieldAlert, Thermometer } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { riskApi, weatherApi, newsApi } from '../api/client';
+import { riskApi, sensorApi, weatherApi, newsApi } from '../api/client';
 import LiveRiskMap from './LiveRiskMap';
 import WeatherCard from '../components/WeatherCard';
 import NewsPanel from '../components/NewsPanel';
 import './Dashboard.css';
 
 const EMPTY_SUMMARY = { criticalCount: 0, highCount: 0, totalMonitored: 0, minLeadTimeHours: '--' };
+const DASHBOARD_CACHE_MAX_AGE = 5 * 60 * 1000;
+const dashboardCache = {
+  fetchedAt: 0,
+  summary: null,
+  location: null,
+  locationError: false,
+  weather: null,
+  news: { articles: [], lastUpdated: null },
+};
 
 export default function Dashboard() {
   const { t } = useTranslation();
@@ -21,12 +30,15 @@ export default function Dashboard() {
   const [news, setNews] = useState({ articles: [], lastUpdated: null });
   const [newsLoading, setNewsLoading] = useState(false);
   const [newsError, setNewsError] = useState(false);
+  const [sensor, setSensor] = useState(null);
 
   const fetchSummary = async () => {
     try {
       setSummaryLoading(true);
       const response = await riskApi.getThreats();
       setSummary(response.data.summary);
+      dashboardCache.summary = response.data.summary;
+      dashboardCache.fetchedAt = Date.now();
     } catch (error) {
       console.error('Failed to fetch summary:', error);
     } finally {
@@ -41,6 +53,8 @@ export default function Dashboard() {
       const response = await weatherApi.getCurrentWeather(coords.latitude, coords.longitude);
       console.log('[Dashboard] Weather response:', response.data);
       setWeather(response.data);
+      dashboardCache.weather = response.data;
+      dashboardCache.fetchedAt = Date.now();
     } catch (error) {
       console.error('Failed to fetch GPS weather:', error);
       setWeatherError(true);
@@ -56,6 +70,8 @@ export default function Dashboard() {
       const response = await newsApi.getNews({ city: place.city, district: place.district, state: place.state });
       console.log('[Dashboard] News response:', response.data);
       setNews(response.data);
+      dashboardCache.news = response.data;
+      dashboardCache.fetchedAt = Date.now();
     } catch (error) {
       console.error('Failed to fetch disaster news:', error);
       setNewsError(true);
@@ -64,9 +80,19 @@ export default function Dashboard() {
     }
   };
 
+  const fetchSensor = async () => {
+    try {
+      const response = await sensorApi.getLatest();
+      setSensor(response.data);
+    } catch {
+      setSensor({ status: 'OFFLINE' });
+    }
+  };
+
   const locateAndLoad = () => {
     if (!navigator.geolocation) {
       setLocationError(true);
+      dashboardCache.locationError = true;
       fetchNews();
       return;
     }
@@ -76,6 +102,7 @@ export default function Dashboard() {
       const gpsLocation = { latitude: coords.latitude, longitude: coords.longitude };
       console.log('[Dashboard] GPS coordinates:', gpsLocation);
       setLocation(gpsLocation);
+      dashboardCache.location = gpsLocation;
       fetchWeather(gpsLocation);
 
       try {
@@ -84,6 +111,8 @@ export default function Dashboard() {
         const place = response.data || {};
         const resolvedLocation = { ...gpsLocation, ...place, city: place.village || place.city || place.district };
         setLocation(resolvedLocation);
+        dashboardCache.location = resolvedLocation;
+        dashboardCache.locationError = false;
         fetchNews(resolvedLocation);
       } catch (error) {
         console.error('Failed to reverse geocode GPS location:', error);
@@ -92,13 +121,26 @@ export default function Dashboard() {
     }, () => {
       setLocationError(true);
       setWeatherError(true);
+      dashboardCache.locationError = true;
       fetchNews();
     }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
   };
 
   useEffect(() => {
-    fetchSummary();
-    locateAndLoad();
+    const cacheIsFresh = dashboardCache.fetchedAt && Date.now() - dashboardCache.fetchedAt < DASHBOARD_CACHE_MAX_AGE;
+    if (cacheIsFresh) {
+      setSummary(dashboardCache.summary);
+      setLocation(dashboardCache.location);
+      setLocationError(dashboardCache.locationError);
+      setWeather(dashboardCache.weather);
+      setNews(dashboardCache.news);
+    } else {
+      fetchSummary();
+      locateAndLoad();
+    }
+    fetchSensor();
+    const interval = window.setInterval(fetchSensor, 5000);
+    return () => window.clearInterval(interval);
   }, []);
 
   const currentSummary = summary || EMPTY_SUMMARY;
@@ -122,6 +164,17 @@ export default function Dashboard() {
         <div className="kpi-card info"><div className="kpi-icon"><MapPin size={24} /></div><div className="kpi-content"><span className="kpi-label">{t('dashboard.monitored_valleys')}</span><span className="kpi-value">{summaryLoading ? '...' : currentSummary.totalMonitored || 0}</span></div></div>
         <div className="kpi-card neutral"><div className="kpi-icon"><Clock size={24} /></div><div className="kpi-content"><span className="kpi-label">{t('dashboard.min_lead_time')}</span><span className="kpi-value">{summaryLoading ? '...' : currentSummary.minLeadTimeHours === '--' ? '--' : `${currentSummary.minLeadTimeHours} ${t('dashboard.hrs')}`}</span></div></div>
       </div>
+
+      <section className="dashboard-sensor-summary panel">
+        <div className="sensor-summary-heading"><div><span className="eyebrow">IOT SENSOR</span><h2>Physical Conditions</h2></div><span className={`sensor-summary-status ${(sensor?.status || 'OFFLINE').toLowerCase()}`}><span />{sensor?.status || 'OFFLINE'}</span></div>
+        <div className="sensor-summary-values">
+          <div><Droplets size={17} /><span>Moisture</span><strong>{sensor?.moisture ?? '--'}{sensor?.moisture != null ? '%' : ''}</strong></div>
+          <div><Thermometer size={17} /><span>Temperature</span><strong>{sensor?.temperature ?? '--'}{sensor?.temperature != null ? '°C' : ''}</strong></div>
+          <div><Activity size={17} /><span>Humidity</span><strong>{sensor?.humidity ?? '--'}{sensor?.humidity != null ? '%' : ''}</strong></div>
+          <div className="sensor-summary-risk"><ShieldAlert size={17} /><span>Sensor Risk</span><strong>{sensor?.sensorRiskScore != null ? `${sensor.riskLevel} · ${sensor.sensorRiskScore}` : '--'}</strong></div>
+        </div>
+        <a className="sensor-details-link" href="/sensors">View sensor details →</a>
+      </section>
 
       <section className="dashboard-map-section">
         <div className="section-heading"><div><span className="eyebrow">PRIMARY OPERATING VIEW</span><h2>Live Risk Map</h2></div><span className="live-pill">LIVE DATA</span></div>

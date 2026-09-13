@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Map, Bell, Home, CloudRain, ShieldAlert, Settings } from 'lucide-react';
+import { Activity, LayoutDashboard, Map, Bell, Home, CloudRain, ShieldAlert, Settings } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import logoAsset from '../../assets/ChatGPT Image Sep 12, 2026, 12_33_54 AM.ico';
 import './Layout.css';
@@ -14,6 +14,7 @@ export default function Sidebar({ isOpen, onClose }) {
     { path: '/alerts', label: t('nav.alerts'), icon: Bell },
     { path: '/villages', label: t('nav.villages'), icon: Home },
     { path: '/forecast', label: t('nav.forecast'), icon: CloudRain },
+    { path: '/sensors', label: 'Sensors', icon: Activity },
     { path: '/evacuation', label: t('nav.evacuation'), icon: ShieldAlert },
   ];
 

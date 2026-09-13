@@ -111,6 +111,13 @@
   border-color: var(--primary);
 }
 
+.table-sensor-cell { display: flex; align-items: center; gap: 0.35rem; min-width: 82px; }
+.table-sensor-cell strong { color: var(--text-main); font-size: 0.75rem; }
+.table-sensor-cell small { color: var(--text-muted); font-size: 0.6rem; }
+.table-sensor-dot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: #94a3b8; }
+.table-sensor-cell.online .table-sensor-dot { background: #10b981; }.table-sensor-cell.stale .table-sensor-dot { background: #f59e0b; }.table-sensor-cell.offline .table-sensor-dot { background: #94a3b8; }
+.table-sensor-cell.high strong { color: #dc2626; }.table-sensor-cell.moderate strong { color: #d97706; }.table-sensor-cell.low strong { color: #059669; }
+
 .analyze-btn {
   display: flex;
   align-items: center;
