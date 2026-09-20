@@ -40,7 +40,7 @@ const WeatherIcon = ({ condition, ...props }) => {
   }
 };
 
-export default function WeatherCard({ location, weather, loading, error, onRefresh }) {
+export default function WeatherCard({ location, weather, loading, error, onRefresh, onOpenLocationModal }) {
   const { t } = useTranslation();
   const current = weather?.current;
   const hourly = weather?.hourly || [];
@@ -62,6 +62,14 @@ export default function WeatherCard({ location, weather, loading, error, onRefre
     return directTranslation !== `weather_card.conditions.${normalized}` ? directTranslation : conditionText;
   };
 
+  const handleRefreshClick = () => {
+    if (!location && onOpenLocationModal) {
+      onOpenLocationModal();
+    } else if (onRefresh) {
+      onRefresh();
+    }
+  };
+
   return (
     <section className="weather-panel panel">
       <div className="section-heading weather-heading">
@@ -69,14 +77,42 @@ export default function WeatherCard({ location, weather, loading, error, onRefre
           <span className="eyebrow">{t('weather_card.eyebrow')}</span>
           <h2>{t('weather_card.title')}</h2>
         </div>
-        <button type="button" className="icon-button" onClick={onRefresh} title={t('weather_card.refresh_title')} disabled={loading}>
+        <button type="button" className="icon-button" onClick={handleRefreshClick} title={t('weather_card.refresh_title')} disabled={loading}>
           <RefreshCw size={17} className={loading ? 'spinning' : ''} />
         </button>
       </div>
 
       {loading && <div className="panel-state">{t('weather_card.loading')}</div>}
-      {!loading && error && <div className="panel-state error-state">{t('weather_card.error')}</div>}
-      {!loading && !error && !current && <div className="panel-state">{t('weather_card.enable_location')}</div>}
+      {!loading && error && (
+        <div className="panel-state error-state" style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start' }}>
+          <span>{t('weather_card.error')}</span>
+          {onOpenLocationModal && (
+            <button 
+              type="button" 
+              className="btn-sim"
+              style={{ fontSize: '0.8rem', padding: '5px 10px', marginTop: '4px' }}
+              onClick={onOpenLocationModal}
+            >
+              📍 Enable Location / Pick Region
+            </button>
+          )}
+        </div>
+      )}
+      {!loading && !error && !current && (
+        <div className="panel-state" style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start' }}>
+          <span>{t('weather_card.enable_location')}</span>
+          {onOpenLocationModal && (
+            <button 
+              type="button" 
+              className="btn-sim"
+              style={{ fontSize: '0.8rem', padding: '5px 10px', marginTop: '4px' }}
+              onClick={onOpenLocationModal}
+            >
+              📍 Enable Location
+            </button>
+          )}
+        </div>
+      )}
 
       {!loading && !error && current && (
         <>

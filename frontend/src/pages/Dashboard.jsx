@@ -5,6 +5,7 @@ import { riskApi, sensorApi, weatherApi, newsApi } from '../api/client';
 import LiveRiskMap from './LiveRiskMap';
 import WeatherCard from '../components/WeatherCard';
 import NewsPanel from '../components/NewsPanel';
+import LocationModal from '../components/LocationModal';
 import './Dashboard.css';
 
 const EMPTY_SUMMARY = { criticalCount: 0, highCount: 0, totalMonitored: 0, minLeadTimeHours: '--' };
@@ -31,6 +32,7 @@ export default function Dashboard() {
   const [newsLoading, setNewsLoading] = useState(false);
   const [newsError, setNewsError] = useState(false);
   const [sensor, setSensor] = useState(null);
+  const [showLocationModal, setShowLocationModal] = useState(false);
 
   const fetchSummary = async () => {
     try {
@@ -46,34 +48,36 @@ export default function Dashboard() {
     }
   };
 
-  const fetchWeather = async (coords) => {
-    setWeatherLoading(true);
-    setWeatherError(false);
+  const fetchWeather = async (gpsLocation) => {
+    if (!gpsLocation) return;
     try {
-      const response = await weatherApi.getCurrentWeather(coords.latitude, coords.longitude);
-      console.log('[Dashboard] Weather response:', response.data);
+      setWeatherLoading(true);
+      setWeatherError(false);
+      const response = await weatherApi.getCurrentWeather(gpsLocation.latitude, gpsLocation.longitude);
       setWeather(response.data);
       dashboardCache.weather = response.data;
-      dashboardCache.fetchedAt = Date.now();
     } catch (error) {
-      console.error('Failed to fetch GPS weather:', error);
+      console.error('Failed to fetch weather:', error);
       setWeatherError(true);
     } finally {
       setWeatherLoading(false);
     }
   };
 
-  const fetchNews = async (place = {}) => {
-    setNewsLoading(true);
-    setNewsError(false);
+  const fetchNews = async (locationContext = {}) => {
     try {
-      const response = await newsApi.getNews({ city: place.city, district: place.district, state: place.state });
-      console.log('[Dashboard] News response:', response.data);
+      setNewsLoading(true);
+      setNewsError(false);
+      const params = {
+        city: locationContext.city || locationContext.village || undefined,
+        district: locationContext.district || undefined,
+        state: locationContext.state || undefined,
+      };
+      const response = await newsApi.getNews(params);
       setNews(response.data);
       dashboardCache.news = response.data;
-      dashboardCache.fetchedAt = Date.now();
     } catch (error) {
-      console.error('Failed to fetch disaster news:', error);
+      console.error('Failed to fetch news:', error);
       setNewsError(true);
     } finally {
       setNewsLoading(false);
@@ -89,11 +93,14 @@ export default function Dashboard() {
     }
   };
 
-  const locateAndLoad = () => {
+  const locateAndLoad = (userInitiated = false) => {
     if (!navigator.geolocation) {
       setLocationError(true);
       dashboardCache.locationError = true;
       fetchNews();
+      if (userInitiated) {
+        setShowLocationModal(true);
+      }
       return;
     }
 
@@ -103,6 +110,9 @@ export default function Dashboard() {
       console.log('[Dashboard] GPS coordinates:', gpsLocation);
       setLocation(gpsLocation);
       dashboardCache.location = gpsLocation;
+      dashboardCache.locationError = false;
+      setLocationError(false);
+      setShowLocationModal(false);
       fetchWeather(gpsLocation);
 
       try {
@@ -118,12 +128,26 @@ export default function Dashboard() {
         console.error('Failed to reverse geocode GPS location:', error);
         fetchNews();
       }
-    }, () => {
+    }, (err) => {
+      console.warn('[Dashboard] Geolocation denied or unavailable:', err?.message);
       setLocationError(true);
       setWeatherError(true);
       dashboardCache.locationError = true;
       fetchNews();
+      if (userInitiated) {
+        setShowLocationModal(true);
+      }
     }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
+  };
+
+  const handleSelectManualLocation = (manualLoc) => {
+    setLocation(manualLoc);
+    dashboardCache.location = manualLoc;
+    dashboardCache.locationError = false;
+    setLocationError(false);
+    setWeatherError(false);
+    fetchWeather(manualLoc);
+    fetchNews(manualLoc);
   };
 
   useEffect(() => {
@@ -182,16 +206,85 @@ export default function Dashboard() {
       </section>
 
       <div className="dashboard-intel-grid">
-        <section className="location-panel panel">
-          <div className="section-heading"><div><span className="eyebrow">{t('dashboard_extra.gps_eyebrow')}</span><h2>{t('dashboard_extra.current_location')}</h2></div><MapPin size={20} className="icon-blue" /></div>
-          <div className="location-main"><MapPin size={28} /><div><strong>{locationLabel}</strong><span>{location?.state || t('dashboard_extra.waiting_loc')}</span></div></div>
-          {location ? <div className="coordinates">{t('dashboard_extra.lat')}: {Number(location.latitude).toFixed(4)}<br />{t('dashboard_extra.lon')}: {Number(location.longitude).toFixed(4)}</div> : <p className="location-note">{locationError ? t('dashboard_extra.enable_loc_note') : t('dashboard_extra.requesting_loc')}</p>}
+        <section 
+          className="location-panel panel"
+          style={!location || locationError ? { cursor: 'pointer' } : {}}
+          onClick={() => {
+            if (!location || locationError) {
+              setShowLocationModal(true);
+            }
+          }}
+        >
+          <div className="section-heading">
+            <div>
+              <span className="eyebrow">{t('dashboard_extra.gps_eyebrow')}</span>
+              <h2>{t('dashboard_extra.current_location')}</h2>
+            </div>
+            <button
+              type="button"
+              className="icon-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                locateAndLoad(true);
+              }}
+              title="Detect Location"
+            >
+              <MapPin size={18} className="icon-blue" />
+            </button>
+          </div>
+
+          <div className="location-main">
+            <MapPin size={28} />
+            <div>
+              <strong>{locationLabel}</strong>
+              <span>{location?.state || t('dashboard_extra.waiting_loc')}</span>
+            </div>
+          </div>
+
+          {location ? (
+            <div className="coordinates">
+              {t('dashboard_extra.lat')}: {Number(location.latitude).toFixed(4)}<br />
+              {t('dashboard_extra.lon')}: {Number(location.longitude).toFixed(4)}
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '4px' }}>
+              <p className="location-note">
+                {locationError ? t('dashboard_extra.enable_loc_note') : t('dashboard_extra.requesting_loc')}
+              </p>
+              <button
+                type="button"
+                className="btn-sim"
+                style={{ fontSize: '0.82rem', padding: '6px 12px', alignSelf: 'flex-start' }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowLocationModal(true);
+                }}
+              >
+                📍 Enable Location / Pick Region
+              </button>
+            </div>
+          )}
           <small className="privacy-note">{t('dashboard_extra.privacy_note')}</small>
         </section>
-        <WeatherCard location={location} weather={weather} loading={weatherLoading} error={weatherError} onRefresh={locateAndLoad} />
+
+        <WeatherCard 
+          location={location} 
+          weather={weather} 
+          loading={weatherLoading} 
+          error={weatherError} 
+          onRefresh={() => locateAndLoad(true)}
+          onOpenLocationModal={() => setShowLocationModal(true)}
+        />
       </div>
 
       <NewsPanel articles={news.articles} lastUpdated={news.lastUpdated} loading={newsLoading} error={newsError} onRefresh={() => fetchNews(location || {})} />
+
+      <LocationModal 
+        isOpen={showLocationModal}
+        onClose={() => setShowLocationModal(false)}
+        onRetry={() => locateAndLoad(false)}
+        onSelectManualLocation={handleSelectManualLocation}
+      />
     </div>
   );
 }

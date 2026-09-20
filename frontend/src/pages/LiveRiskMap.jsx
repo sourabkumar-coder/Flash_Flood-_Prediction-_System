@@ -9,13 +9,24 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './LiveRiskMap.css';
 
-function MapController({ center, zoom }) {
+function MapController({ center, zoom, isSimulating, isAlertCollapsed, activeBasemap }) {
   const map = useMap();
   useEffect(() => {
     if (center && center[0] && center[1]) {
       map.flyTo(center, zoom || map.getZoom(), { duration: 1.2 });
     }
   }, [center, zoom, map]);
+
+  useEffect(() => {
+    map.invalidateSize();
+    const t1 = setTimeout(() => map.invalidateSize(), 150);
+    const t2 = setTimeout(() => map.invalidateSize(), 500);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [isSimulating, isAlertCollapsed, activeBasemap, map]);
+
   return null;
 }
 
@@ -143,6 +154,7 @@ export default function LiveRiskMap() {
   const [activeBasemap, setActiveBasemap] = useState('osm');
   const [selectedBasin, setSelectedBasin] = useState('ALL');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isAlertCollapsed, setIsAlertCollapsed] = useState(false);
 
   useEffect(() => {
     fetchData();
@@ -321,22 +333,52 @@ export default function LiveRiskMap() {
 
       {/* Critical Alert Bar if simulation or live risk is critical */}
       {threatData?.criticalAlert && (
-        <div className="map-critical-banner">
-          <div className="mcb-icon"><AlertTriangle size={18} /></div>
-          <div className="mcb-text">
-            <strong>{threatData.criticalAlert.title}</strong> — {threatData.criticalAlert.action}
+        <div className={`map-critical-banner ${isAlertCollapsed ? 'collapsed' : ''}`}>
+          <div className="mcb-main">
+            <div className="mcb-header-row">
+              <div className="mcb-badge">
+                <span className="mcb-pulse-dot"></span>
+                <AlertTriangle size={15} />
+                <span>CRITICAL FLOOD ALERT</span>
+              </div>
+              <button 
+                type="button" 
+                className="mcb-toggle-btn"
+                onClick={() => setIsAlertCollapsed(!isAlertCollapsed)}
+                title={isAlertCollapsed ? "Expand alert" : "Collapse alert"}
+              >
+                {isAlertCollapsed ? "Show Details ▾" : "Collapse ▴"}
+              </button>
+            </div>
+
+            {!isAlertCollapsed ? (
+              <div className="mcb-body">
+                <div className="mcb-text">
+                  <strong>{threatData.criticalAlert.title}</strong>
+                  {threatData.criticalAlert.action && (
+                    <p className="mcb-action">{threatData.criticalAlert.action}</p>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  className="mcb-btn"
+                  onClick={() => {
+                    const val = threatData.valleys?.[0];
+                    if (val) {
+                      navigate(`/evacuation?lat=${val.lat}&lon=${val.lon}&name=${encodeURIComponent(val.name)}&state=${encodeURIComponent(val.state || '')}&district=${encodeURIComponent(val.district || '')}&risk=${val.risk_level}`);
+                    }
+                  }}
+                >
+                  <span>{t('villages_page.view_escape')}</span>
+                  <ArrowRight size={15} />
+                </button>
+              </div>
+            ) : (
+              <div className="mcb-collapsed-preview" onClick={() => setIsAlertCollapsed(false)}>
+                <span>{threatData.criticalAlert.title}</span>
+              </div>
+            )}
           </div>
-          <button
-            className="mcb-btn"
-            onClick={() => {
-              const val = threatData.valleys?.[0];
-              if (val) {
-                navigate(`/evacuation?lat=${val.lat}&lon=${val.lon}&name=${encodeURIComponent(val.name)}&state=${encodeURIComponent(val.state || '')}&district=${encodeURIComponent(val.district || '')}&risk=${val.risk_level}`);
-              }
-            }}
-          >
-            {t('villages_page.view_escape')} &rarr;
-          </button>
         </div>
       )}
 
@@ -349,9 +391,10 @@ export default function LiveRiskMap() {
             className="leaflet-map"
             zoomControl={false}
           >
-            <MapController center={mapCenter} zoom={mapZoom} />
+            <MapController center={mapCenter} zoom={mapZoom} isSimulating={isSimulating} isAlertCollapsed={isAlertCollapsed} activeBasemap={activeBasemap} />
 
             <TileLayer
+              key={activeBasemap}
               url={BASEMAP_TILES[activeBasemap]?.url || BASEMAP_TILES.voyager?.url || BASEMAP_TILES.osm.url}
               attribution={BASEMAP_TILES[activeBasemap]?.attribution || BASEMAP_TILES.osm.attribution}
             />
