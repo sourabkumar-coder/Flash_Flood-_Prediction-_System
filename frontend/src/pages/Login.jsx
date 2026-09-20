@@ -4,6 +4,7 @@ import {
   ShieldAlert, User, Mail, Phone, Lock, MapPin, 
   BellRing, CheckCircle, AlertTriangle, ArrowRight 
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { riskApi } from '../api/client';
 import './Login.css';
@@ -22,6 +23,7 @@ const DEFAULT_STATES = [
 ];
 
 export default function Login() {
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const initialMode = searchParams.get('mode') === 'register' ? 'register' : 'login';
   const [isRegister, setIsRegister] = useState(initialMode === 'register');
@@ -86,21 +88,21 @@ export default function Login() {
     try {
       if (isRegister) {
         if (!formData.name || !formData.email || !formData.phone || !formData.password) {
-          throw new Error('Please fill in all required fields.');
+          throw new Error(t('auth.fill_all_fields'));
         }
         await register(formData);
-        setSuccess('Registration successful! You are now subscribed to regional flood alerts.');
+        setSuccess(t('auth.reg_success'));
         setTimeout(() => navigate('/'), 1200);
       } else {
         if (!formData.email || !formData.password) {
-          throw new Error('Please provide email and password.');
+          throw new Error(t('auth.provide_email_pass'));
         }
         await login(formData.email, formData.password);
-        setSuccess('Welcome back! Logged in successfully.');
+        setSuccess(t('auth.login_success'));
         setTimeout(() => navigate('/'), 800);
       }
     } catch (err) {
-      setError(err.message || 'An error occurred. Please try again.');
+      setError(err.message || t('auth.error_occurred'));
     } finally {
       setSubmitting(false);
     }
@@ -114,12 +116,12 @@ export default function Login() {
             <ShieldAlert size={32} />
           </div>
           <h1 className="auth-title">
-            {isRegister ? 'Citizen Alert Registration' : 'Citizen / Operator Sign In'}
+            {isRegister ? t('auth.reg_title') : t('auth.login_title')}
           </h1>
           <p className="auth-subtitle">
             {isRegister 
-              ? 'Register your region & phone to receive instant Fast2SMS flood warnings.' 
-              : 'Sign in to manage your regional flood alert preferences.'}
+              ? t('auth.reg_subtitle') 
+              : t('auth.login_subtitle')}
           </p>
         </div>
 
@@ -129,14 +131,14 @@ export default function Login() {
             className={`auth-tab ${!isRegister ? 'active' : ''}`}
             onClick={() => { setIsRegister(false); setError(''); }}
           >
-            Sign In
+            {t('auth.tab_signin')}
           </button>
           <button 
             type="button" 
             className={`auth-tab ${isRegister ? 'active' : ''}`}
             onClick={() => { setIsRegister(true); setError(''); }}
           >
-            Register for Alerts
+            {t('auth.tab_register')}
           </button>
         </div>
 
@@ -147,20 +149,20 @@ export default function Login() {
           {isRegister && (
             <div className="auth-alert-banner">
               <BellRing size={18} />
-              <span>Registered citizens automatically receive direct SMS alerts when high flood risk is detected in their district.</span>
+              <span>{t('auth.why_reg_1')}</span>
             </div>
           )}
 
           {isRegister && (
             <div className="auth-field">
-              <label><User size={14} /> Full Name</label>
+              <label><User size={14} /> {t('auth.full_name')}</label>
               <div className="auth-input-wrap">
                 <User size={16} className="auth-input-icon" />
                 <input 
                   type="text" 
                   name="name" 
                   className="auth-input" 
-                  placeholder="e.g. Animesh Kumar"
+                  placeholder={t('auth.full_name_placeholder')}
                   value={formData.name}
                   onChange={handleChange}
                   required={isRegister}
@@ -170,14 +172,14 @@ export default function Login() {
           )}
 
           <div className="auth-field">
-            <label><Mail size={14} /> Email Address</label>
+            <label><Mail size={14} /> {t('auth.email_address')}</label>
             <div className="auth-input-wrap">
               <Mail size={16} className="auth-input-icon" />
               <input 
                 type="email" 
                 name="email" 
                 className="auth-input" 
-                placeholder="name@example.com"
+                placeholder={t('auth.email_placeholder')}
                 value={formData.email}
                 onChange={handleChange}
                 required
@@ -187,14 +189,14 @@ export default function Login() {
 
           {isRegister && (
             <div className="auth-field">
-              <label><Phone size={14} /> Mobile Number (for Fast2SMS Alerts)</label>
+              <label><Phone size={14} /> {t('auth.mobile_number')}</label>
               <div className="auth-input-wrap">
                 <Phone size={16} className="auth-input-icon" />
                 <input 
                   type="tel" 
                   name="phone" 
                   className="auth-input" 
-                  placeholder="10-digit mobile number (e.g. 8002808966)"
+                  placeholder={t('auth.mobile_placeholder')}
                   value={formData.phone}
                   onChange={handleChange}
                   required={isRegister}
@@ -206,7 +208,7 @@ export default function Login() {
           {isRegister && (
             <div className="auth-row">
               <div className="auth-field">
-                <label><MapPin size={14} /> State</label>
+                <label><MapPin size={14} /> {t('villages_page.state')}</label>
                 <select 
                   name="state" 
                   className="auth-select"
@@ -218,7 +220,7 @@ export default function Login() {
               </div>
 
               <div className="auth-field">
-                <label><MapPin size={14} /> District</label>
+                <label><MapPin size={14} /> {t('villages_page.district')}</label>
                 <select 
                   name="district" 
                   className="auth-select"
@@ -232,14 +234,14 @@ export default function Login() {
           )}
 
           <div className="auth-field">
-            <label><Lock size={14} /> Password</label>
+            <label><Lock size={14} /> {t('auth.password')}</label>
             <div className="auth-input-wrap">
               <Lock size={16} className="auth-input-icon" />
               <input 
                 type="password" 
                 name="password" 
                 className="auth-input" 
-                placeholder="Enter password"
+                placeholder={isRegister ? t('auth.password_placeholder') : t('auth.password_login_placeholder')}
                 value={formData.password}
                 onChange={handleChange}
                 required
@@ -252,9 +254,9 @@ export default function Login() {
             className="auth-btn-submit" 
             disabled={submitting}
           >
-            {submitting ? 'Please wait...' : (
+            {submitting ? t('auth.submitting') : (
               <>
-                {isRegister ? 'Register & Enable Alerts' : 'Sign In'}
+                {isRegister ? t('auth.btn_register') : t('auth.btn_login')}
                 <ArrowRight size={16} />
               </>
             )}
@@ -263,9 +265,9 @@ export default function Login() {
 
         <div className="auth-footer">
           {isRegister ? (
-            <span>Already registered? <a href="#signin" onClick={(e) => { e.preventDefault(); setIsRegister(false); }}>Sign In here</a></span>
+            <span>{t('auth.switch_to_login_prompt')} <a href="#signin" onClick={(e) => { e.preventDefault(); setIsRegister(false); }}>{t('auth.switch_to_login_link')}</a></span>
           ) : (
-            <span>New resident? <a href="#register" onClick={(e) => { e.preventDefault(); setIsRegister(true); }}>Register for SMS alerts</a></span>
+            <span>{t('auth.switch_to_reg_prompt')} <a href="#register" onClick={(e) => { e.preventDefault(); setIsRegister(true); }}>{t('auth.switch_to_reg_link')}</a></span>
           )}
         </div>
       </div>

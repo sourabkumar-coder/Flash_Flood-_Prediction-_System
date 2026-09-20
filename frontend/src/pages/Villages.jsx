@@ -504,7 +504,7 @@ export default function Villages() {
             {/* 1. Map & Route Visualizer */}
             <div className="telemetry-card panel map-card">
               <div className="card-header">
-                <h3><MapPin size={18} className="icon-blue" /> Geospatial & Escape Map</h3>
+                <h3><MapPin size={18} className="icon-blue" /> {t('villages_extra.geospatial_escape_map')}</h3>
                 {prediction.prediction.risk_level !== 'LOW' && evacuationPlan?.shelter && (
                   <span className="badge-shelter">
                     🛡️ {t('evacuation_page.target_shelter')}: {evacuationPlan.shelter.name?.split(' ')[0]} ({evacuationPlan.safe_route?.distance_km}km)
@@ -537,7 +537,7 @@ export default function Villages() {
               </div>
 
               <div className="rainfall-bars-box">
-                <span className="chart-label">Precipitation Accumulation (1h / 3h / 6h / 24h)</span>
+                <span className="chart-label">{t('villages_extra.precip_accum_title')}</span>
                 <div className="bar-chart-flex">
                   {rainfallChartData.map((item) => (
                     <div key={item.label} className="bar-col">
@@ -563,13 +563,13 @@ export default function Villages() {
               </div>
               <div className="stats-row-grid">
                 <div><span>{t('metrics.elevation')}</span><strong>{prediction.terrain.elevation_m ?? 0} m</strong></div>
-                <div><span>Relative Relief</span><strong>{prediction.terrain.relief_m ?? 0} m</strong></div>
+                <div><span>{t('villages_extra.relative_relief')}</span><strong>{prediction.terrain.relief_m ?? 0} m</strong></div>
                 <div><span>{t('metrics.slope')}</span><strong>{prediction.terrain.slope_percent ?? 0}%</strong></div>
-                <div><span>Max Slope</span><strong>{prediction.terrain.max_slope_percent ?? 0}%</strong></div>
+                <div><span>{t('villages_extra.max_slope')}</span><strong>{prediction.terrain.max_slope_percent ?? 0}%</strong></div>
               </div>
               <div className="insight-snippet">
                 <p>
-                  High steep slope gradients accelerate surface runoff velocity into valley floors, causing rapid cresting during high-intensity cloudbursts.
+                  {t('villages_extra.terrain_insight')}
                 </p>
               </div>
             </div>
@@ -582,12 +582,12 @@ export default function Villages() {
               </div>
               <div className="stats-row-grid">
                 <div><span>{t('metrics.discharge')}</span><strong>{prediction.hydrology.river_discharge ?? 0} m³/s</strong></div>
-                <div><span>Ensemble Mean</span><strong>{prediction.hydrology.discharge_mean ?? prediction.hydrology.river_discharge ?? 0} m³/s</strong></div>
-                <div><span>75th Percentile</span><strong>{prediction.hydrology.discharge_p75 ?? 0} m³/s</strong></div>
+                <div><span>{t('villages_extra.ensemble_mean')}</span><strong>{prediction.hydrology.discharge_mean ?? prediction.hydrology.river_discharge ?? 0} m³/s</strong></div>
+                <div><span>{t('villages_extra.p75_discharge')}</span><strong>{prediction.hydrology.discharge_p75 ?? 0} m³/s</strong></div>
                 <div><span>{t('metrics.water_stage')}</span><strong>{prediction.hydrology.water_level ?? 0} m</strong></div>
               </div>
               <div className="insight-snippet">
-                <strong>Model Reasoning:</strong>
+                <strong>{t('villages_extra.model_reasoning')}</strong>
                 <p>{prediction.hydrology.reason || 'Telemetry integrated from live hydrological gauge stations.'}</p>
               </div>
             </div>
@@ -596,8 +596,8 @@ export default function Villages() {
             {prediction.hydrology?.time_series && (
               <div className="telemetry-card panel full-width-card">
                 <div className="card-header">
-                  <h3><Droplets size={18} className="icon-blue" /> GloFAS 30-Day Ensemble Forecast</h3>
-                  <span className="live-tag">Station: {prediction.hydrology.station || 'Regional Station'}</span>
+                  <h3><Droplets size={18} className="icon-blue" /> {t('villages_extra.glofas_ensemble_forecast')}</h3>
+                  <span className="live-tag">{t('villages_extra.station')} {prediction.hydrology.station || 'Regional Station'}</span>
                 </div>
                 <GloFASChart
                   timeSeries={prediction.hydrology.time_series}
@@ -614,9 +614,9 @@ export default function Villages() {
                 <span className="live-tag">ISRIC SoilGrids</span>
               </div>
               <div className="stats-row-grid">
-                <div><span>Clay Content</span><strong>{prediction.soil.clay_percent ?? 0}%</strong></div>
-                <div><span>Sand Content</span><strong>{prediction.soil.sand_percent ?? 0}%</strong></div>
-                <div><span>Silt Content</span><strong>{prediction.soil.silt_percent ?? 0}%</strong></div>
+                <div><span>{t('villages_extra.clay_content')}</span><strong>{prediction.soil.clay_percent ?? 0}%</strong></div>
+                <div><span>{t('villages_extra.sand_content')}</span><strong>{prediction.soil.sand_percent ?? 0}%</strong></div>
+                <div><span>{t('villages_extra.silt_content')}</span><strong>{prediction.soil.silt_percent ?? 0}%</strong></div>
               </div>
             </div>
 
@@ -627,10 +627,10 @@ export default function Villages() {
                 <span className="live-tag">Disaster Catalog</span>
               </div>
               <div className="stats-row-grid">
-                <div><span>Past Flood Events</span><strong>{prediction.historical.flood_events ?? 0}</strong></div>
-                <div><span>Fatalities</span><strong>{prediction.historical.fatalities ?? 0}</strong></div>
-                <div><span>Displaced</span><strong>{prediction.historical.displaced ?? 0}</strong></div>
-                <div><span>Max Severity</span><strong>{prediction.historical.max_severity ?? 0}</strong></div>
+                <div><span>{t('villages_extra.past_flood_events')}</span><strong>{prediction.historical.flood_events ?? 0}</strong></div>
+                <div><span>{t('villages_extra.fatalities')}</span><strong>{prediction.historical.fatalities ?? 0}</strong></div>
+                <div><span>{t('villages_extra.displaced')}</span><strong>{prediction.historical.displaced ?? 0}</strong></div>
+                <div><span>{t('villages_extra.max_severity')}</span><strong>{prediction.historical.max_severity ?? 0}</strong></div>
               </div>
             </div>
 
@@ -638,7 +638,7 @@ export default function Villages() {
             <div className="telemetry-card panel full-width-card ndrf-telemetry-card">
               <div className="card-header">
                 <h3><ShieldAlert size={18} color="#ef4444" /> {t('villages_page.ndrf_header')}</h3>
-                <span className="badge critical">16 Battalions Active</span>
+                <span className="badge critical">{t('villages_extra.battalions_active')}</span>
               </div>
               <p className="ndrf-text">
                 {t('ndrf.desc')}
@@ -674,12 +674,12 @@ export default function Villages() {
             <Search size={18} color="var(--text-muted)" />
             <input
               type="text"
-              placeholder="Search village, district, state or river basin..."
+              placeholder={t('villages_extra.search_villages_placeholder')}
               value={tableSearch}
               onChange={(e) => setTableSearch(e.target.value)}
             />
           </div>
-          <span className="count-tag">{filteredAndSortedVillages.length} Monitored Settlements &amp; Valleys</span>
+          <span className="count-tag">{filteredAndSortedVillages.length} {t('villages_extra.monitored_settlements_count')}</span>
         </div>
 
         <div className="table-container panel">
@@ -687,10 +687,10 @@ export default function Villages() {
             <thead>
               <tr>
                 <th onClick={() => handleSort('name')}>{t('villages_page.th_valley')} <ArrowUpDown size={14} /></th>
-                <th onClick={() => handleSort('district')}>{t('villages_page.th_district')} / State <ArrowUpDown size={14} /></th>
-                <th onClick={() => handleSort('river_basin')}>River Basin <ArrowUpDown size={14} /></th>
-                <th onClick={() => handleSort('elevation_m')}>Elevation <ArrowUpDown size={14} /></th>
-                <th>Sensor</th>
+                <th onClick={() => handleSort('district')}>{t('villages_page.th_district')} / {t('villages_page.state')} <ArrowUpDown size={14} /></th>
+                <th onClick={() => handleSort('river_basin')}>{t('villages_extra.th_river_basin')} <ArrowUpDown size={14} /></th>
+                <th onClick={() => handleSort('elevation_m')}>{t('villages_extra.th_elevation')} <ArrowUpDown size={14} /></th>
+                <th>{t('villages_extra.th_sensor')}</th>
                 <th>{t('villages_page.th_actions')}</th>
               </tr>
             </thead>
@@ -717,13 +717,13 @@ export default function Villages() {
                       <div><strong>{v.district}</strong></div>
                       <small className="text-muted">{v.state}</small>
                     </td>
-                    <td><span className="badge neutral">{v.river_basin || 'Mountain Catchment'}</span></td>
+                    <td><span className="badge neutral">{v.river_basin || t('villages_extra.mountain_catchment')}</span></td>
                     <td><strong>{v.elevation_m ? `${v.elevation_m} m` : '—'}</strong></td>
                     <td>
                       <div className={`table-sensor-cell ${(sensor?.status || 'OFFLINE').toLowerCase()} ${(sensor?.riskLevel || '').toLowerCase()}`}>
                         <span className="table-sensor-dot" />
-                        <strong>{sensor?.sensorRiskScore != null ? `${sensor.riskLevel} ${sensor.sensorRiskScore}` : '—'}</strong>
-                        <small>{sensor?.status || 'OFFLINE'}</small>
+                        <strong>{sensor?.sensorRiskScore != null ? `${t(`status.${sensor.riskLevel.toLowerCase()}`) || sensor.riskLevel} ${sensor.sensorRiskScore}` : '—'}</strong>
+                        <small>{t(`status.${(sensor?.status || 'offline').toLowerCase()}`) || sensor?.status || 'OFFLINE'}</small>
                       </div>
                     </td>
                     <td>

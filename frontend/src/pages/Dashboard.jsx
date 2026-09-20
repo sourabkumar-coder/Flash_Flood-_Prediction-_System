@@ -144,7 +144,7 @@ export default function Dashboard() {
   }, []);
 
   const currentSummary = summary || EMPTY_SUMMARY;
-  const locationLabel = location?.city || location?.district || (locationError ? 'Location unavailable' : 'Detecting current location');
+  const locationLabel = location?.city || location?.district || (locationError ? t('dashboard_extra.loc_unavailable') : t('dashboard_extra.detecting_loc'));
 
   return (
     <div className="dashboard-container">
@@ -153,8 +153,8 @@ export default function Dashboard() {
           <h1>{t('dashboard.title')}</h1>
           <p>{t('dashboard.subtitle')}</p>
         </div>
-        <button type="button" className="dashboard-refresh" onClick={() => { fetchSummary(); locateAndLoad(); }} title="Refresh dashboard">
-          <RefreshCw size={16} /> Refresh feeds
+        <button type="button" className="dashboard-refresh" onClick={() => { fetchSummary(); locateAndLoad(); }} title={t('dashboard_extra.refresh_title')}>
+          <RefreshCw size={16} /> {t('dashboard_extra.refresh_feeds')}
         </button>
       </div>
 
@@ -166,27 +166,27 @@ export default function Dashboard() {
       </div>
 
       <section className="dashboard-sensor-summary panel">
-        <div className="sensor-summary-heading"><div><span className="eyebrow">IOT SENSOR</span><h2>Physical Conditions</h2></div><span className={`sensor-summary-status ${(sensor?.status || 'OFFLINE').toLowerCase()}`}><span />{sensor?.status || 'OFFLINE'}</span></div>
+        <div className="sensor-summary-heading"><div><span className="eyebrow">{t('dashboard_extra.iot_eyebrow')}</span><h2>{t('dashboard_extra.physical_conditions')}</h2></div><span className={`sensor-summary-status ${(sensor?.status || 'OFFLINE').toLowerCase()}`}><span />{t(`status.${(sensor?.status || 'offline').toLowerCase()}`) || sensor?.status || 'OFFLINE'}</span></div>
         <div className="sensor-summary-values">
-          <div><Droplets size={17} /><span>Moisture</span><strong>{sensor?.moisture ?? '--'}{sensor?.moisture != null ? '%' : ''}</strong></div>
-          <div><Thermometer size={17} /><span>Temperature</span><strong>{sensor?.temperature ?? '--'}{sensor?.temperature != null ? '°C' : ''}</strong></div>
-          <div><Activity size={17} /><span>Humidity</span><strong>{sensor?.humidity ?? '--'}{sensor?.humidity != null ? '%' : ''}</strong></div>
-          <div className="sensor-summary-risk"><ShieldAlert size={17} /><span>Sensor Risk</span><strong>{sensor?.sensorRiskScore != null ? `${sensor.riskLevel} · ${sensor.sensorRiskScore}` : '--'}</strong></div>
+          <div><Droplets size={17} /><span>{t('dashboard_extra.moisture')}</span><strong>{sensor?.moisture ?? '--'}{sensor?.moisture != null ? '%' : ''}</strong></div>
+          <div><Thermometer size={17} /><span>{t('dashboard_extra.temperature')}</span><strong>{sensor?.temperature ?? '--'}{sensor?.temperature != null ? '°C' : ''}</strong></div>
+          <div><Activity size={17} /><span>{t('dashboard_extra.humidity')}</span><strong>{sensor?.humidity ?? '--'}{sensor?.humidity != null ? '%' : ''}</strong></div>
+          <div className="sensor-summary-risk"><ShieldAlert size={17} /><span>{t('dashboard_extra.sensor_risk')}</span><strong>{sensor?.sensorRiskScore != null ? `${t(`status.${sensor.riskLevel.toLowerCase()}`) || sensor.riskLevel} · ${sensor.sensorRiskScore}` : '--'}</strong></div>
         </div>
-        <a className="sensor-details-link" href="/sensors">View sensor details →</a>
+        <a className="sensor-details-link" href="/sensors">{t('dashboard_extra.view_sensor_details')}</a>
       </section>
 
       <section className="dashboard-map-section">
-        <div className="section-heading"><div><span className="eyebrow">PRIMARY OPERATING VIEW</span><h2>Live Risk Map</h2></div><span className="live-pill">LIVE DATA</span></div>
+        <div className="section-heading"><div><span className="eyebrow">{t('dashboard_extra.primary_operating_view')}</span><h2>{t('dashboard.live_risk_map')}</h2></div><span className="live-pill">{t('dashboard_extra.live_data_pill')}</span></div>
         <LiveRiskMap />
       </section>
 
       <div className="dashboard-intel-grid">
         <section className="location-panel panel">
-          <div className="section-heading"><div><span className="eyebrow">GPS STATUS</span><h2>Current Location</h2></div><MapPin size={20} className="icon-blue" /></div>
-          <div className="location-main"><MapPin size={28} /><div><strong>{locationLabel}</strong><span>{location?.state || 'Waiting for browser location access'}</span></div></div>
-          {location ? <div className="coordinates">Lat: {Number(location.latitude).toFixed(4)}<br />Lon: {Number(location.longitude).toFixed(4)}</div> : <p className="location-note">{locationError ? 'Enable location access to see weather for your current location.' : 'Requesting your current browser location...'}</p>}
-          <small className="privacy-note">Used for weather and local intelligence during this session.</small>
+          <div className="section-heading"><div><span className="eyebrow">{t('dashboard_extra.gps_eyebrow')}</span><h2>{t('dashboard_extra.current_location')}</h2></div><MapPin size={20} className="icon-blue" /></div>
+          <div className="location-main"><MapPin size={28} /><div><strong>{locationLabel}</strong><span>{location?.state || t('dashboard_extra.waiting_loc')}</span></div></div>
+          {location ? <div className="coordinates">{t('dashboard_extra.lat')}: {Number(location.latitude).toFixed(4)}<br />{t('dashboard_extra.lon')}: {Number(location.longitude).toFixed(4)}</div> : <p className="location-note">{locationError ? t('dashboard_extra.enable_loc_note') : t('dashboard_extra.requesting_loc')}</p>}
+          <small className="privacy-note">{t('dashboard_extra.privacy_note')}</small>
         </section>
         <WeatherCard location={location} weather={weather} loading={weatherLoading} error={weatherError} onRefresh={locateAndLoad} />
       </div>

@@ -386,11 +386,11 @@ export default function LiveRiskMap() {
 
           {/* Map Overlays */}
           <div className="map-legend">
-            <h4>Risk Legend</h4>
-            <div className="legend-item"><span className="dot" style={{ background: '#ef4444' }} /> Critical (Score &ge; 75)</div>
-            <div className="legend-item"><span className="dot" style={{ background: '#f97316' }} /> High (Score 55-74)</div>
-            <div className="legend-item"><span className="dot" style={{ background: '#eab308' }} /> Moderate (Score 30-54)</div>
-            <div className="legend-item"><span className="dot" style={{ background: '#10b981' }} /> Low (Score &lt; 30)</div>
+            <h4>{t('map_legend.title')}</h4>
+            <div className="legend-item"><span className="dot" style={{ background: '#ef4444' }} /> {t('map_legend.critical')}</div>
+            <div className="legend-item"><span className="dot" style={{ background: '#f97316' }} /> {t('map_legend.high')}</div>
+            <div className="legend-item"><span className="dot" style={{ background: '#eab308' }} /> {t('map_legend.moderate')}</div>
+            <div className="legend-item"><span className="dot" style={{ background: '#10b981' }} /> {t('map_legend.low')}</div>
           </div>
         </div>
 
@@ -401,7 +401,7 @@ export default function LiveRiskMap() {
               <button className="close-drawer-btn" onClick={closeDrawer}><X size={20} /></button>
               <div className="drawer-header">
                 <span className={`badge ${selectedNode.risk_level.toLowerCase()}`}>
-                  {selectedNode.risk_level} RISK
+                  {t(`status.${selectedNode.risk_level.toLowerCase()}`) || selectedNode.risk_level} {t('villages_page.risk_suffix')}
                 </span>
                 <h2>{selectedNode.name}</h2>
                 <p className="subtitle-text">{selectedNode.district}, {selectedNode.state}</p>
@@ -409,34 +409,34 @@ export default function LiveRiskMap() {
 
               <div className="drawer-stats">
                 <div className="stat-card">
-                  <span>Risk Score</span>
+                  <span>{t('metrics.risk_score')}</span>
                   <strong style={{ color: getThreatColor(selectedNode.risk_level) }}>{selectedNode.risk_score} / 100</strong>
                 </div>
                 {selectedNode.lead_time_hours != null && (
                   <div className="stat-card">
-                    <span>Lead Time</span>
-                    <strong>{selectedNode.lead_time_hours} hrs</strong>
+                    <span>{t('metrics.lead_time')}</span>
+                    <strong>{selectedNode.lead_time_hours} {t('dashboard.hrs')}</strong>
                   </div>
                 )}
               </div>
 
               <div className="drawer-section">
-                <h3><CloudRain size={16} /> Precipitation & Soil</h3>
+                <h3><CloudRain size={16} /> {t('map_legend.precipitation_soil')}</h3>
                 <div className="grid-2">
-                  <div><span>Current Rain</span> <strong>{selectedNode.current_rainfall_mm} mm</strong></div>
-                  <div><span>24h Accumulation</span> <strong>{selectedNode.rainfall_24h_mm} mm</strong></div>
-                  <div><span>Valley Slope</span> <strong>{selectedNode.slope_deg || 28}°</strong></div>
-                  <div><span>Elevation</span> <strong>{selectedNode.elevation_m || 1420} m</strong></div>
+                  <div><span>{t('metrics.current_rain')}</span> <strong>{selectedNode.current_rainfall_mm} mm</strong></div>
+                  <div><span>{t('metrics.rain_24h')}</span> <strong>{selectedNode.rainfall_24h_mm} mm</strong></div>
+                  <div><span>{t('map_legend.valley_slope')}</span> <strong>{selectedNode.slope_deg || 28}°</strong></div>
+                  <div><span>{t('metrics.elevation')}</span> <strong>{selectedNode.elevation_m || 1420} m</strong></div>
                 </div>
               </div>
 
               <div className="drawer-section">
-                <h3><Droplets size={16} /> Hydrology & River Stage</h3>
+                <h3><Droplets size={16} /> {t('map_legend.hydrology_river')}</h3>
                 <div className="grid-2">
-                  <div><span>Current River Stage</span> <strong>{selectedNode.current_river_stage_m} m</strong></div>
-                  <div><span>Danger Level</span> <strong>{selectedNode.danger_stage_m} m</strong></div>
-                  <div><span>Status</span> <strong style={{ color: selectedNode.is_above_danger ? '#ef4444' : '#10b981' }}>{selectedNode.is_above_danger ? 'ABOVE DANGER' : 'Safe Headroom'}</strong></div>
-                  <div><span>Basin Node</span> <strong>{selectedNode.basin || 'Beas Upper'}</strong></div>
+                  <div><span>{t('map_legend.current_stage')}</span> <strong>{selectedNode.current_river_stage_m} m</strong></div>
+                  <div><span>{t('map_legend.danger_level')}</span> <strong>{selectedNode.danger_stage_m} m</strong></div>
+                  <div><span>{t('villages_page.th_status')}</span> <strong style={{ color: selectedNode.is_above_danger ? '#ef4444' : '#10b981' }}>{selectedNode.is_above_danger ? t('map_legend.danger_badge') : t('map_legend.safe_headroom')}</strong></div>
+                  <div><span>{t('map_legend.basin_node')}</span> <strong>{selectedNode.basin || 'Beas Upper'}</strong></div>
                 </div>
               </div>
 
@@ -445,20 +445,20 @@ export default function LiveRiskMap() {
                   className="btn-primary"
                   onClick={() => navigate(`/villages?state=${encodeURIComponent(selectedNode.state || '')}&district=${encodeURIComponent(selectedNode.district || '')}&village=${encodeURIComponent(selectedNode.name || '')}`)}
                 >
-                  Deep ML Risk Analysis &rarr;
+                  {t('map_legend.deep_ml_analysis')} &rarr;
                 </button>
                 <button
                   className="btn-outline"
                   onClick={() => navigate(`/forecast?state=${encodeURIComponent(selectedNode.state || '')}&district=${encodeURIComponent(selectedNode.district || '')}&village=${encodeURIComponent(selectedNode.name || '')}&lat=${selectedNode.lat}&lon=${selectedNode.lon}`)}
                 >
-                  GloFAS 30-Day Forecast &rarr;
+                  {t('map_legend.glofas_forecast')} &rarr;
                 </button>
                 {selectedNode.risk_level !== 'LOW' && (
                   <button
                     className="btn-outline evac-btn"
                     onClick={() => navigate(`/evacuation?lat=${selectedNode.lat}&lon=${selectedNode.lon}&name=${encodeURIComponent(selectedNode.name)}&state=${encodeURIComponent(selectedNode.state || '')}&district=${encodeURIComponent(selectedNode.district || '')}&risk=${selectedNode.risk_level}`)}
                   >
-                    🚨 Safest Evacuation Route &rarr;
+                    🚨 {t('map_legend.safest_evac_route')} &rarr;
                   </button>
                 )}
               </div>
