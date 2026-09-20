@@ -174,7 +174,7 @@ export default function Evacuation() {
           <div className="evac-map-panel panel">
           <div className="map-panel-header">
             <div>
-              <h3><MapPin size={18} className="icon-blue" /> {evacuationRequired ? t('evacuation_page.safe_route') : 'Evacuation Status'}</h3>
+              <h3><MapPin size={18} className="icon-blue" /> {evacuationRequired ? t('evacuation_page.safe_route') : t('evacuation_extra.evac_status')}</h3>
               <p className="subtitle-text">
                 {locationName} {evacuationPlan?.shelter ? `→ ${evacuationPlan.shelter.name}` : ''}
               </p>
@@ -192,8 +192,8 @@ export default function Evacuation() {
             <div className="hazard-warning-box" style={{ backgroundColor: '#f0fdf4', borderLeftColor: '#10b981', color: '#065f46' }}>
               <ShieldAlert size={20} color="#10b981" />
               <div>
-                <strong style={{ color: '#10b981' }}>Evacuation Not Required</strong>
-                <p>{riskLevel ? <>The current risk level for {locationName} is <strong>{riskLevel}</strong>. No evacuation route is necessary at this time.</> : 'Select a high-risk location to view an evacuation route.'}</p>
+                <strong style={{ color: '#10b981' }}>{t('evacuation_extra.not_required_title')}</strong>
+                <p>{riskLevel ? t('evacuation_extra.not_required_desc', { name: locationName, risk: t(`status.${riskLevel.toLowerCase()}`) || riskLevel }) : t('evacuation_extra.not_required_select')}</p>
               </div>
             </div>
           )}
@@ -213,8 +213,8 @@ export default function Evacuation() {
             <div className="hazard-warning-box" style={{ backgroundColor: '#eff6ff', borderLeftColor: '#0284c7', color: '#0c4a6e' }}>
               <Compass size={20} color="#0284c7" />
               <div>
-                <strong style={{ color: '#0284c7' }}>No evacuation route selected</strong>
-                <p>Open this page from a high-risk location or use GPS to verify a specific area.</p>
+                <strong style={{ color: '#0284c7' }}>{t('evacuation_extra.no_route_selected_title')}</strong>
+                <p>{t('evacuation_extra.no_route_selected_desc')}</p>
               </div>
             </div>
           ) : null}
@@ -224,9 +224,9 @@ export default function Evacuation() {
             <div className="hazard-warning-box">
               <AlertTriangle size={20} color="#ef4444" />
               <div>
-                <strong>Road Hazard Detected on Primary Riverbank Route:</strong>
-                <p>{evacuationPlan.disrupted_route.hazard_reason || 'Low-lying road section at risk of high-velocity inundation.'}</p>
-                <span className="avoidance-tag">✓ Rerouted via Elevated Hillside Corridor</span>
+                <strong>{t('evacuation_extra.road_hazard_title')}</strong>
+                <p>{evacuationPlan.disrupted_route.hazard_reason || t('evacuation_extra.default_hazard_reason')}</p>
+                <span className="avoidance-tag">{t('evacuation_extra.rerouted_tag')}</span>
               </div>
             </div>
           )}
@@ -242,11 +242,11 @@ export default function Evacuation() {
                 <span className="shelter-dist">{evacuationPlan.shelter.distance_km} km</span>
               </div>
               <h3>{evacuationPlan.shelter.name}</h3>
-              <p className="psc-type">{evacuationPlan.shelter.type} · High Ground Sanctuary</p>
+              <p className="psc-type">{evacuationPlan.shelter.type} · {t('evacuation_extra.high_ground_sanctuary')}</p>
               <div className="psc-stats">
                 <div><span>{t('metrics.elevation')}</span><strong>+{evacuationPlan.elevation_gain_m}m</strong></div>
                 <div><span>{t('evacuation_page.duration')}</span><strong>~{evacuationPlan.safe_route?.duration_min} mins</strong></div>
-                <div><span>Status</span><strong style={{ color: '#10b981' }}>{evacuationPlan.safe_route?.hazard_level || 'Safe Corridor'}</strong></div>
+                <div><span>{t('villages_page.th_status')}</span><strong style={{ color: '#10b981' }}>{evacuationPlan.safe_route?.hazard_level || t('evacuation_extra.safe_corridor')}</strong></div>
               </div>
             </div>
           )}
@@ -267,7 +267,7 @@ export default function Evacuation() {
                       <span>{alt.type} · {alt.distance_km} km</span>
                     </div>
                     <button type="button" className="asi-btn">
-                      {selectedShelterIdx === idx ? 'Selected' : 'Route Here'}
+                      {selectedShelterIdx === idx ? t('evacuation_extra.selected') : t('evacuation_extra.route_here')}
                     </button>
                   </div>
                 ))}

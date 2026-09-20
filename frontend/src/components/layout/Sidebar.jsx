@@ -14,7 +14,7 @@ export default function Sidebar({ isOpen, onClose }) {
     { path: '/alerts', label: t('nav.alerts'), icon: Bell },
     { path: '/villages', label: t('nav.villages'), icon: Home },
     { path: '/forecast', label: t('nav.forecast'), icon: CloudRain },
-    { path: '/sensors', label: 'Sensors', icon: Activity },
+    { path: '/sensors', label: t('nav.sensors'), icon: Activity },
     { path: '/evacuation', label: t('nav.evacuation'), icon: ShieldAlert },
   ];
 

@@ -25,14 +25,14 @@ export default function Header({ onMenuClick }) {
         <button
           className="menu-toggle"
           onClick={onMenuClick}
-          aria-label="Open navigation menu"
-          title="Open navigation menu"
+          aria-label={t('header.open_nav_menu')}
+          title={t('header.open_nav_menu')}
         >
           <Menu size={21} />
         </button>
         <div className="header-left">
           {user ? (
-            <div className="user-badge-wrap" title={`Registered for alerts in ${user.district}, ${user.state}`}>
+            <div className="user-badge-wrap" title={`${t('header.registered_for_alerts')} ${user.district}, ${user.state}`}>
               <div className="user-avatar-pill">
                 {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
@@ -44,16 +44,16 @@ export default function Header({ onMenuClick }) {
                 type="button"
                 className="btn-logout-icon"
                 onClick={logout}
-                title="Sign Out"
-                aria-label="Sign Out"
+                title={t('header.sign_out')}
+                aria-label={t('header.sign_out')}
               >
                 <LogOut size={14} />
               </button>
             </div>
           ) : (
-            <Link to="/login" className="header-auth-btn" title="Register your region for SMS alerts">
+            <Link to="/login" className="header-auth-btn" title={t('header.sign_in_alerts')}>
               <User size={15} />
-              <span>Sign In / Alerts</span>
+              <span>{t('header.sign_in_alerts')}</span>
             </Link>
           )}
         </div>
@@ -67,7 +67,7 @@ export default function Header({ onMenuClick }) {
               className="lang-select" 
               value={i18n.language ? i18n.language.substring(0, 2) : 'en'} 
               onChange={handleLanguageChange}
-              aria-label="Select Language"
+              aria-label={t('header.select_language')}
             >
               {LANGUAGES.map((lang) => (
                 <option key={lang.code} value={lang.code}>
@@ -81,8 +81,8 @@ export default function Header({ onMenuClick }) {
             type="button"
             className="theme-toggle"
             onClick={toggleTheme}
-            aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            aria-label={theme === 'light' ? t('header.switch_to_dark') : t('header.switch_to_light')}
+            title={theme === 'light' ? t('header.switch_to_dark') : t('header.switch_to_light')}
           >
             {theme === 'light' ? <Moon size={17} /> : <Sun size={17} />}
           </button>
@@ -93,16 +93,16 @@ export default function Header({ onMenuClick }) {
         type="button"
         className="ndrf-marquee-banner"
         onClick={() => setIsNdrfModalOpen(true)}
-        title="Click to view all NDRF emergency numbers"
+        title={t('header.view_all_numbers')}
       >
-        <span className="ndrf-marquee-label"><PhoneCall size={15} /> NDRF EMERGENCY CONTACTS</span>
+        <span className="ndrf-marquee-label"><PhoneCall size={15} /> {t('header.ndrf_contacts')}</span>
         <span className="ndrf-marquee-viewport" aria-hidden="true">
           <span className="ndrf-marquee-track">
             <span>1078 / 112</span><span>+91-9711077372</span><span>011-23438091</span><span>011-23438136</span><span>1070</span><span>011-24363260</span>
             <span>1078 / 112</span><span>+91-9711077372</span><span>011-23438091</span><span>011-23438136</span><span>1070</span><span>011-24363260</span>
           </span>
         </span>
-        <span className="ndrf-marquee-action">View all numbers</span>
+        <span className="ndrf-marquee-action">{t('header.view_all_numbers')}</span>
       </button>
 
 

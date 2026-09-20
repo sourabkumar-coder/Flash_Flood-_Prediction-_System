@@ -552,6 +552,40 @@ app.post('/chat', async (req, res) => {
   }
 });
 
+// Authentication proxies
+app.post(['/api/auth/register', '/auth/register'], async (req, res) => {
+  try {
+    const response = await axios.post(`${FASTAPI_URL}/api/auth/register`, req.body, { timeout: 15000 });
+    res.json(response.data);
+  } catch (err) {
+    const status = err.response?.status || 500;
+    const detail = err.response?.data?.detail || err.message;
+    res.status(status).json({ detail });
+  }
+});
+
+app.post(['/api/auth/login', '/auth/login'], async (req, res) => {
+  try {
+    const response = await axios.post(`${FASTAPI_URL}/api/auth/login`, req.body, { timeout: 15000 });
+    res.json(response.data);
+  } catch (err) {
+    const status = err.response?.status || 500;
+    const detail = err.response?.data?.detail || err.message;
+    res.status(status).json({ detail });
+  }
+});
+
+app.get(['/api/auth/users', '/auth/users'], async (req, res) => {
+  try {
+    const response = await axios.get(`${FASTAPI_URL}/api/auth/users`, { timeout: 10000 });
+    res.json(response.data);
+  } catch (err) {
+    const status = err.response?.status || 500;
+    const detail = err.response?.data?.detail || err.message;
+    res.status(status).json({ detail });
+  }
+});
+
 
 // ==============================================================================
 // WEATHER AND NEWS ENDPOINTS (GPS-Driven)

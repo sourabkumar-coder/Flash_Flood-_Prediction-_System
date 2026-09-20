@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-const AuthContext = createContext(null);
+import { authApi } from '../api/client';
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://127.0.0.1:8000';
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -22,37 +22,29 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
-    const res = await fetch(`${BACKEND_URL}/api/auth/login`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
-
-    const data = await res.json();
-    if (!res.ok) {
-      throw new Error(data.detail || 'Login failed');
+    try {
+      const res = await authApi.login(email, password);
+      const data = res.data;
+      setUser(data.user);
+      localStorage.setItem('flood_app_user', JSON.stringify(data.user));
+      return data.user;
+    } catch (err) {
+      const detail = err.response?.data?.detail || err.message || 'Login failed';
+      throw new Error(detail);
     }
-
-    setUser(data.user);
-    localStorage.setItem('flood_app_user', JSON.stringify(data.user));
-    return data.user;
   };
 
   const register = async (formData) => {
-    const res = await fetch(`${BACKEND_URL}/api/auth/register`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(formData)
-    });
-
-    const data = await res.json();
-    if (!res.ok) {
-      throw new Error(data.detail || 'Registration failed');
+    try {
+      const res = await authApi.register(formData);
+      const data = res.data;
+      setUser(data.user);
+      localStorage.setItem('flood_app_user', JSON.stringify(data.user));
+      return data.user;
+    } catch (err) {
+      const detail = err.response?.data?.detail || err.message || 'Registration failed';
+      throw new Error(detail);
     }
-
-    setUser(data.user);
-    localStorage.setItem('flood_app_user', JSON.stringify(data.user));
-    return data.user;
   };
 
   const logout = () => {

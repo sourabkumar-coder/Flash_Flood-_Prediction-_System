@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../context/AuthContext';
 import { chatApi } from '../api/client';
 import ChatMarkdown from './ChatMarkdown';
@@ -96,20 +97,30 @@ function chunkTextForTTS(rawText, maxLen = 160) {
 }
 
 export default function ChatbotWidget() {
+  const { t, i18n } = useTranslation();
   const { user } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
   const [windowDimensions, setWindowDimensions] = useState({ width: 400, height: 580 });
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState(i18n.language ? i18n.language.substring(0, 2) : 'en');
   const [availableVoices, setAvailableVoices] = useState([]);
   const [messages, setMessages] = useState([
     {
       id: 'welcome-1',
       role: 'bot',
-      content: '### 🌊 Namaste! I am JalDrishti AI (जलदृष्टि)\nYour 24x7 intelligent flood safety & disaster advisor for India.\n\n*Ask me about live flood precautions, rain warnings, relief centers, evacuation routes, and emergency helplines.*',
+      content: t('chatbot.welcome_msg'),
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ]);
+
+  useEffect(() => {
+    if (i18n.language) {
+      const code = i18n.language.substring(0, 2);
+      if (LANGUAGES.some(l => l.code === code)) {
+        setLanguage(code);
+      }
+    }
+  }, [i18n.language]);
   const [inputMessage, setInputMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
@@ -378,7 +389,7 @@ export default function ChatbotWidget() {
       const botMsg = {
         id: `b-${Date.now()}`,
         role: 'bot',
-        content: data.reply || 'Stay safe and monitor local emergency advisories.',
+        content: data.reply || t('chatbot.default_reply'),
         provider: data.provider,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
@@ -389,7 +400,7 @@ export default function ChatbotWidget() {
       const errorMsg = {
         id: `err-${Date.now()}`,
         role: 'bot',
-        content: '⚠️ **Unable to connect to AI server.**\n\nFor immediate emergency assistance:\n• **NDRF:** 1078\n• **National Helpline:** 112\n• **Medical Ambulance:** 108',
+        content: t('chatbot.server_error'),
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       };
       setMessages((prev) => [...prev, errorMsg]);
@@ -407,8 +418,8 @@ export default function ChatbotWidget() {
         type="button"
         className="jaldrishti-chat-toggle-btn"
         onClick={() => setIsOpen(!isOpen)}
-        title="JalDrishti AI Emergency Assistant"
-        aria-label="Toggle JalDrishti AI Assistant"
+        title={t('chatbot.assistant_title')}
+        aria-label={t('chatbot.assistant_title')}
       >
         <span className="pulse-ring"></span>
         {isOpen ? (
@@ -440,7 +451,7 @@ export default function ChatbotWidget() {
             <div
               className="jaldrishti-resize-handle"
               onMouseDown={handleResizeMouseDown}
-              title="Drag to resize window width & height"
+              title={t('chatbot.resize_title')}
             />
           )}
 
@@ -455,9 +466,9 @@ export default function ChatbotWidget() {
                 />
               </div>
               <div>
-                <div className="jaldrishti-chat-title">JalDrishti AI (जलदृष्टि)</div>
+                <div className="jaldrishti-chat-title">{t('chatbot.title')}</div>
                 <div className="jaldrishti-chat-subtitle">
-                  <span className="online-dot"></span> Groq LPU Disaster Advisor
+                  <span className="online-dot"></span> {t('chatbot.subtitle')}
                 </div>
               </div>
             </div>
@@ -467,7 +478,7 @@ export default function ChatbotWidget() {
                 className="jaldrishti-lang-select"
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                title="Select Conversation Language"
+                title={t('chatbot.select_lang_title')}
               >
                 {LANGUAGES.map((l) => (
                   <option key={l.code} value={l.code}>
@@ -481,7 +492,7 @@ export default function ChatbotWidget() {
                 type="button"
                 className="jaldrishti-hdr-icon-btn"
                 onClick={() => setIsMaximized(!isMaximized)}
-                title={isMaximized ? 'Restore window size' : 'Expand / Maximize window'}
+                title={isMaximized ? t('chatbot.restore_size') : t('chatbot.maximize_size')}
               >
                 {isMaximized ? '🗗' : '⛶'}
               </button>
@@ -491,7 +502,7 @@ export default function ChatbotWidget() {
                 type="button"
                 className="jaldrishti-hdr-icon-btn"
                 onClick={() => setIsOpen(false)}
-                title="Close chat"
+                title={t('chatbot.close_chat')}
               >
                 ✕
               </button>
@@ -520,14 +531,14 @@ export default function ChatbotWidget() {
                 <span className="waveform-bar"></span>
                 <span className="waveform-bar"></span>
                 <span className="waveform-bar"></span>
-                <span>Listening... Speak your emergency question</span>
+                <span>{t('chatbot.listening')}</span>
               </div>
               <button
                 type="button"
                 style={{ background: 'transparent', border: 'none', color: '#fff', cursor: 'pointer', fontWeight: 'bold' }}
                 onClick={toggleVoiceRecording}
               >
-                Stop ⏹️
+                {t('chatbot.stop_recording')} ⏹️
               </button>
             </div>
           )}
@@ -552,17 +563,17 @@ export default function ChatbotWidget() {
                         type="button"
                         className={`jaldrishti-tts-btn ${speakingId === msg.id ? 'active' : ''}`}
                         onClick={() => handleSpeakText(msg.id, msg.content)}
-                        title="Read aloud in selected language"
+                        title={t('chatbot.read_aloud')}
                       >
-                        {speakingId === msg.id ? '⏹️ Stop' : '🔈 Read Aloud'}
+                        {speakingId === msg.id ? t('chatbot.stop_speech') : t('chatbot.read_aloud')}
                       </button>
                       <button
                         type="button"
                         className="jaldrishti-copy-btn"
                         onClick={() => navigator.clipboard.writeText(msg.content)}
-                        title="Copy text"
+                        title={t('chatbot.copy')}
                       >
-                        📋 Copy
+                        {t('chatbot.copy')}
                       </button>
                     </>
                   )}
@@ -594,14 +605,14 @@ export default function ChatbotWidget() {
               type="button"
               className={`jaldrishti-voice-mic-btn ${isRecording ? 'recording' : ''}`}
               onClick={toggleVoiceRecording}
-              title={isRecording ? 'Stop Recording' : 'Voice Input (Speak)'}
+              title={isRecording ? t('chatbot.stop_recording') : t('chatbot.voice_input')}
             >
               🎤
             </button>
             <input
               type="text"
               className="jaldrishti-chat-input"
-              placeholder={`Ask flood or weather safety in ${LANGUAGES.find((l) => l.code === language)?.name || 'your language'}...`}
+              placeholder={t('chatbot.input_placeholder', { language: LANGUAGES.find((l) => l.code === language)?.name || 'your language' })}
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
             />
@@ -609,7 +620,7 @@ export default function ChatbotWidget() {
               type="submit"
               className="jaldrishti-chat-send-btn"
               disabled={isLoading || !inputMessage.trim()}
-              title="Send Message"
+              title={t('chatbot.send_msg')}
             >
               ➤
             </button>
