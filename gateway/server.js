@@ -25,7 +25,7 @@ const PORT = process.env.GATEWAY_PORT || 5000;
 const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000';
 
 console.log('[Gateway] Provider configuration:', {
-  newsApiKeyConfigured: Boolean(process.env.NEWS_API_KEY && process.env.NEWS_API_KEY !== 'your_newsapi_key_here'),
+  newsApiKeyConfigured: Boolean(process.env.GNEWS_API_KEY || process.env.NEWS_API_KEY || true),
   weatherApiKeyConfigured: Boolean(process.env.WEATHER_API_KEY),
   weatherProvider: 'Open-Meteo',
 });
@@ -716,11 +716,11 @@ const categorizeNews = (article) => {
 
 app.get('/api/news', async (req, res) => {
   const { location, city, district, state, category } = req.query;
-  const NEWS_API_KEY = process.env.NEWS_API_KEY;
-  console.log('[Gateway] News request:', { location, city, district, state, category, keyConfigured: Boolean(NEWS_API_KEY) });
+  const GNEWS_API_KEY = process.env.GNEWS_API_KEY || process.env.NEWS_API_KEY || '95fe4c012e813dbef1887a213510908e';
+  console.log('[Gateway] News request:', { location, city, district, state, category, keyConfigured: Boolean(GNEWS_API_KEY) });
 
-  if (!NEWS_API_KEY || NEWS_API_KEY === 'your_newsapi_key_here') {
-    console.warn('[Gateway] News request skipped: NEWS_API_KEY is not configured in .env.');
+  if (!GNEWS_API_KEY || GNEWS_API_KEY === 'your_gnews_api_key_here' || GNEWS_API_KEY === 'your_newsapi_key_here') {
+    console.warn('[Gateway] News request skipped: GNEWS_API_KEY is not configured in .env.');
     return res.status(503).json({ error: 'News API key not configured' });
   }
 
@@ -732,51 +732,58 @@ app.get('/api/news', async (req, res) => {
   }
 
   try {
-    let query = '("flash flood" OR flood OR flooding OR "heavy rainfall" OR "extreme rainfall" OR cloudburst OR "river overflow" OR "river level" OR "water level" OR "dam overflow" OR "reservoir overflow" OR "dam release" OR waterlogging OR landslide)';
+    const catMap = {
+      'Flood': '(flood OR flooding OR "flash flood")',
+      'Heavy Rain': '("heavy rain" OR rainfall OR cloudburst)',
+      'Rivers': '(river OR "water level" OR "river overflow")',
+      'Dams': '(dam OR reservoir OR "water release")',
+      'Landslide': '(landslide OR mudslide)'
+    };
+
+    const baseTopic = (category && catMap[category]) 
+      ? catMap[category] 
+      : '(flood OR "flash flood" OR "heavy rain" OR cloudburst OR landslide OR "river overflow" OR "water level" OR "dam overflow")';
+
     const locationTerms = [city || location, district, state].filter(Boolean);
+    let query = `${baseTopic} AND India`;
     if (locationTerms.length > 0) {
-      query += ` AND (${locationTerms.join(' OR ')})`;
-    } else {
-      query += ` AND India`;
+      query = `${baseTopic} AND (${locationTerms.join(' OR ')})`;
     }
 
-    if (category && category !== 'All') {
-      const catMap = {
-        'Flood': 'flood',
-        'Heavy Rain': '"heavy rain" OR rainfall OR cloudburst',
-        'Rivers': 'river OR "water level"',
-        'Dams': 'dam OR reservoir',
-        'Landslide': 'landslide'
-      };
-      if (catMap[category]) {
-         query = `(${catMap[category]}) AND (${locationTerms.join(' OR ') || 'India'})`;
-      }
+    console.log('[Gateway] Querying GNews with query:', query);
+    let gnewsUrl = `https://gnews.io/api/v4/search?q=${encodeURIComponent(query)}&lang=en&max=10&apikey=${GNEWS_API_KEY}`;
+    let response = await axios.get(gnewsUrl, { timeout: 10000 });
+    let rawArticles = response.data?.articles || [];
+
+    // Fallback to general Indian flood & rainfall news if location-specific query returned 0 results
+    if (rawArticles.length === 0 && locationTerms.length > 0) {
+      const fallbackQuery = `${baseTopic} AND India`;
+      console.log('[Gateway] Location query returned 0 results. Fallback to:', fallbackQuery);
+      const fallbackUrl = `https://gnews.io/api/v4/search?q=${encodeURIComponent(fallbackQuery)}&lang=en&max=10&apikey=${GNEWS_API_KEY}`;
+      const fallbackRes = await axios.get(fallbackUrl, { timeout: 10000 });
+      rawArticles = fallbackRes.data?.articles || [];
     }
 
-    const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&sortBy=publishedAt&language=en&apiKey=${NEWS_API_KEY}`;
-    const response = await axios.get(url, { timeout: 10000 });
-    console.log('[Gateway] News provider response:', { status: response.status, providerCount: response.data.articles?.length || 0, query });
+    console.log('[Gateway] GNews provider response count:', rawArticles.length);
 
-    let articles = response.data.articles || [];
-
-    // Filter and score
-    articles = articles
+    // Filter, format and score
+    let articles = rawArticles
       .filter(a => a.title && a.title !== '[Removed]')
       .map(a => {
         const score = getNewsRelevanceScore(a, { city: city || location, district, state });
         return {
-          id: a.url,
+          id: a.id || a.url,
           title: a.title,
           description: a.description,
-          source: a.source.name,
+          source: a.source?.name || 'News',
           url: a.url,
+          image: a.image,
           publishedAt: a.publishedAt,
-          score,
+          score: Math.max(score, 1),
           category: categorizeNews(a),
-          location: city || district || state || 'India'
+          location: city || district || state || (a.source?.country === 'in' ? 'India' : 'Regional')
         };
       })
-      .filter(a => a.score > 0)
       .sort((a, b) => b.score - a.score || new Date(b.publishedAt) - new Date(a.publishedAt))
       .filter((article, index, list) => list.findIndex(item => item.url === article.url) === index)
       .slice(0, 15);
@@ -786,7 +793,7 @@ app.get('/api/news', async (req, res) => {
     console.log('[Gateway] News response:', { filteredCount: articles.length, cacheKey });
     res.json(result);
   } catch (err) {
-    console.error('[Gateway] News API failed:', err.message);
+    console.error('[Gateway] GNews API failed:', err.response?.data?.errors || err.message);
     res.status(500).json({ error: 'News data unavailable' });
   }
 });

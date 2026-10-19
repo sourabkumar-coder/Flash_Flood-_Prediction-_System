@@ -29,3 +29,7 @@ services:
           type: web
           name: flash-flood-backend
           property: host
+      - key: GNEWS_API_KEY
+        value: 95fe4c012e813dbef1887a213510908e
+      - key: NEWS_API_KEY
+        value: 95fe4c012e813dbef1887a213510908e
