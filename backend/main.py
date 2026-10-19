@@ -300,56 +300,62 @@ def get_news_endpoint(
     import requests
     from datetime import datetime, timezone
 
-    news_api_key = os.getenv("NEWS_API_KEY")
+    gnews_api_key = os.getenv("GNEWS_API_KEY") or os.getenv("NEWS_API_KEY") or "95fe4c012e813dbef1887a213510908e"
     loc_label = city or district or location or (state if state else "India")
     now_iso = datetime.now(timezone.utc).isoformat()
 
-    if news_api_key and news_api_key != "your_newsapi_key_here":
+    if gnews_api_key and gnews_api_key not in ["your_newsapi_key_here", "your_gnews_api_key_here"]:
         try:
-            query = '("flash flood" OR flood OR flooding OR "heavy rainfall" OR "extreme rainfall" OR cloudburst OR "river overflow" OR "water level" OR landslide)'
+            base_topic = '(flood OR "flash flood" OR "heavy rain" OR cloudburst OR landslide OR "river overflow" OR "water level" OR "dam overflow")'
             loc_terms = [t for t in [city or location, district, state] if t]
-            if loc_terms:
-                query += f" AND ({' OR '.join(loc_terms)})"
-            else:
-                query += " AND India"
+            query = f"{base_topic} AND ({' OR '.join(loc_terms)})" if loc_terms else f"{base_topic} AND India"
 
-            url = f"https://newsapi.org/v2/everything?q={requests.utils.quote(query)}&sortBy=publishedAt&language=en&apiKey={news_api_key}"
+            url = f"https://gnews.io/api/v4/search?q={requests.utils.quote(query)}&lang=en&max=10&apikey={gnews_api_key}"
             res = requests.get(url, timeout=8)
+            articles = []
             if res.status_code == 200:
-                data = res.json()
-                articles = data.get("articles", [])
-                formatted = []
-                for a in articles:
-                    title = a.get("title") or ""
-                    if not title or title == "[Removed]":
-                        continue
-                    text = f"{title} {a.get('description') or ''}".lower()
-                    cat = "FLOOD"
-                    if "landslide" in text:
-                        cat = "LANDSLIDE"
-                    elif "dam" in text or "reservoir" in text:
-                        cat = "DAM / RESERVOIR"
-                    elif "river" in text:
-                        cat = "RIVER / WATER LEVEL"
-                    elif "rain" in text or "cloudburst" in text:
-                        cat = "HEAVY RAINFALL"
+                articles = res.json().get("articles", [])
 
-                    formatted.append({
-                        "id": a.get("url"),
-                        "title": title,
-                        "description": a.get("description"),
-                        "source": (a.get("source") or {}).get("name") or "News Bureau",
-                        "url": a.get("url") or "https://mausam.imd.gov.in/",
-                        "publishedAt": a.get("publishedAt") or now_iso,
-                        "score": 1.0,
-                        "category": cat,
-                        "location": loc_label
-                    })
+            if not articles and loc_terms:
+                fallback_query = f"{base_topic} AND India"
+                fb_url = f"https://gnews.io/api/v4/search?q={requests.utils.quote(fallback_query)}&lang=en&max=10&apikey={gnews_api_key}"
+                fb_res = requests.get(fb_url, timeout=8)
+                if fb_res.status_code == 200:
+                    articles = fb_res.json().get("articles", [])
 
-                if formatted:
-                    return {"articles": formatted, "lastUpdated": now_iso}
+            formatted = []
+            for a in articles:
+                title = a.get("title") or ""
+                if not title or title == "[Removed]":
+                    continue
+                text = f"{title} {a.get('description') or ''}".lower()
+                cat = "FLOOD"
+                if "landslide" in text:
+                    cat = "LANDSLIDE"
+                elif "dam" in text or "reservoir" in text:
+                    cat = "DAM / RESERVOIR"
+                elif "river" in text:
+                    cat = "RIVER / WATER LEVEL"
+                elif "rain" in text or "cloudburst" in text:
+                    cat = "HEAVY RAINFALL"
+
+                formatted.append({
+                    "id": a.get("id") or a.get("url"),
+                    "title": title,
+                    "description": a.get("description"),
+                    "source": (a.get("source") or {}).get("name") or "News Bureau",
+                    "url": a.get("url") or "https://mausam.imd.gov.in/",
+                    "image": a.get("image"),
+                    "publishedAt": a.get("publishedAt") or now_iso,
+                    "score": 1.0,
+                    "category": cat,
+                    "location": loc_label
+                })
+
+            if formatted:
+                return {"articles": formatted, "lastUpdated": now_iso}
         except Exception as e:
-            logger.warning(f"NewsAPI fetch fallback triggered: {str(e)}")
+            logger.warning(f"GNews API fetch fallback triggered: {str(e)}")
 
     fallback_articles = [
         {
