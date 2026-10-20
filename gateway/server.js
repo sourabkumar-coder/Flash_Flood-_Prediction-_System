@@ -276,7 +276,7 @@ cron.schedule('*/15 * * * *', () => {
 // REST ENDPOINTS
 // ==============================================================================
 
-app.get('/health', (req, res) => {
+app.get(['/', '/health', '/api/health'], (req, res) => {
   res.json({ status: 'ok' });
 });
 
