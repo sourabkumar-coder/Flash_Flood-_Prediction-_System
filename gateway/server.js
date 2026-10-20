@@ -276,8 +276,8 @@ cron.schedule('*/15 * * * *', () => {
 // REST ENDPOINTS
 // ==============================================================================
 
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', service: 'Flash Flood Express Gateway', fastapi: FASTAPI_URL });
+app.get(['/', '/health', '/api/health'], (req, res) => {
+  res.json({ status: 'ok' });
 });
 
 async function proxySensorRequest(path, req, res) {
