@@ -66,6 +66,9 @@ def root_status():
 
 @app.get("/health")
 @app.get("/api/health")
+@app.head("/health")
+@app.head("/api/health")
+@app.head("/")
 def health_check():
     return {"status": "ok"}
 

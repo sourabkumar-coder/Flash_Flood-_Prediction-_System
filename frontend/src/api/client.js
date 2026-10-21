@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://flash-flood-gateway.onrender.com';
+export const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || 'https://flash-flood-prediction-system-gateway.onrender.com').replace(/\/+$/, '');
 
 const client = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 20000,
+  timeout: 60000,
 });
 
 export const riskApi = {
@@ -12,7 +12,7 @@ export const riskApi = {
   getRivers: () => client.get('/api/overview/rivers'),
   simulate: (scenario, payload = {}) => client.post('/api/overview/simulate', { scenario, ...payload }),
   sync: () => client.post('/api/overview/sync'),
-  predict: (payload) => client.post('/api/predict', payload),
+  predict: (payload) => client.post('/api/predict', payload, { timeout: 60000 }),
   getStates: () => client.get('/api/states'),
   getDistricts: (state) => (state ? client.get(`/api/districts/${encodeURIComponent(state)}`) : client.get('/api/districts')),
   getVillages: (district, state) => client.get(`/api/villages/${encodeURIComponent(district)}`, { params: { state } }),
@@ -31,7 +31,7 @@ export const villageApi = {
 
 export const evacuationApi = {
   getShelters: () => client.get('/api/shelters'),
-  getRoute: (payload) => client.post('/api/evacuation/route', payload),
+  getRoute: (payload) => client.post('/api/evacuation/route', payload, { timeout: 60000 }),
   getEvacuationStatus: (villageId) => client.get(`/api/evacuation/${villageId}`),
 };
 
