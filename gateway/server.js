@@ -22,7 +22,7 @@ const io = new Server(httpServer, {
 });
 
 const PORT = process.env.GATEWAY_PORT || 5000;
-const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000';
+const FASTAPI_URL = (process.env.FASTAPI_URL || 'http://localhost:8000').replace(/\/+$/, '');
 
 console.log('[Gateway] Provider configuration:', {
   newsApiKeyConfigured: Boolean(process.env.GNEWS_API_KEY || process.env.NEWS_API_KEY || true),
@@ -442,7 +442,7 @@ app.post('/api/overview/sync', async (req, res) => {
 
 app.post('/api/predict', async (req, res) => {
   try {
-    const response = await axios.post(`${FASTAPI_URL}/predict`, req.body, { timeout: 30000 });
+    const response = await axios.post(`${FASTAPI_URL}/predict`, req.body, { timeout: 60000 });
     res.json(response.data);
   } catch (err) {
     const status = err.response?.status || 500;
@@ -480,7 +480,7 @@ app.get('/api/districts/:state', async (req, res) => {
 
 app.post('/api/evacuation/route', async (req, res) => {
   try {
-    const response = await axios.post(`${FASTAPI_URL}/api/evacuation/route`, req.body, { timeout: 30000 });
+    const response = await axios.post(`${FASTAPI_URL}/api/evacuation/route`, req.body, { timeout: 60000 });
     res.json(response.data);
   } catch (err) {
     const status = err.response?.status || 500;
